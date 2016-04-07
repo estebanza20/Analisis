@@ -1,0 +1,114 @@
+
+\documentclass {article}
+\usepackage{listings}
+\usepackage[spanish]{babel}
+\usepackage [T1]{fontenc}
+\usepackage [utf8]{inputenc}
+\usepackage {graphicx}
+
+\begin {document}
+
+\title{Laboratorio 1 MATLAB}
+\author{Daniel García Vaglio}
+\maketitle
+
+\section{Ejercicio 3}
+
+Para la primera parte de este ejercicio se pide implementar una función  que encuentre el valor de de la derivada de los estados si se tiene un tiempo y los estados en ese tiempo dado. Esto se implementa en la función derivadasEstados, esta acepta el tiempo y el vector de estados en ese instante, y con esta información calcula la derivada de los estados en ese instante utilizando las ecuaciones (\ref{eq:diferencial1}) y (\ref{eq:diferencial2}). 
+
+\begin{equation}
+\frac{dP(t)}{dt}=0,01kP(t)-0,00001aP(t)D(t)
+\label{eq:diferencial1}
+\end{equation}
+\begin{equation}
+\frac{dD(t)}{dt}=0,01mD(t)-0,0001bD(t)P(t)
+\label{eq:diferencial2}
+\end{equation}
+
+En el caso particular de este grupo el número de carné seleccionado es B47769, de manera que $m=9$ $k=7$ $a=4$ y $b=6$. Para resolver la ecuación diferencial se utiliza el siguiente código. Lo que se hace es primero asignar las constantes, luego se itera sobre el tiempo y en cada instante se aplica lo descrito por el método de Runge-Kutta. Al final del ciclo, se tiene una matris z con los valores qeu toma cada estado en cada instante descrito por el vector t. 
+
+\begin{lstlisting}
+%Primero se definen las constantes propuestas
+h=1/30;
+t=0:h:800;
+tamano=size(t);
+m=9;
+k=7;
+a=4;
+b=6;
+%Comentario de uso: 'Se descomenta el caso que se quiere analizar'
+p0=70*(m/b);
+d0=50*(k/a);
+%p0=10*(m/b);
+%d0=70*(k/a);
+%Se define la matriz inicial de estados, Note que se llena de valores, pero
+%esto no afecta pues son sustituidos luego.
+z=[1:tamano(2) ; 1:tamano(2)];
+z(:, 1)=[p0 d0];
+for i=1:tamano(2)-1
+    %Se calculan los k del metodo numerico propuesto
+    k1=derivadasEstados(t(i), z(:,i));
+    k2=derivadasEstados(t(i), z(:,i)+(h/2)*k1);
+    k3=derivadasEstados(t(i), z(:,i)+(h/2)*k2);
+    k4=derivadasEstados(t(i), z(:,i)+h*k3);
+    %se agrega este el nuevo valor a la matriz de estados
+    z(:,i+1)=z(:,i)+(h/6)*(k1+2*k2+2*k3+k4);
+end
+\end{lstlisting} 
+
+\begin{lstlisting}
+function [ derivadas ] = derivadasEstados( t, z )
+%Esta es la funcion que toma un tiempo t y el vector de estados z y calcula
+%   la derivada de los estados. Devuelve un vector con estas derivadas.
+%   Note que el tiempo no se utiliza, sin embargo en las instrucciones se
+%   pide qeu se acepte como entrada de la funcion.
+m=9;
+k=7;
+a=4;
+b=6;
+derivadas=[0.01*k*z(1)-0.00001*a*z(1)*z(2) ; -0.01*m*z(2)+0.0001*b*z(1)*z(2)];
+end
+\end{lstlisting}
+
+
+De la gráfica del resultado se obtiene la información de la tabla \ref{table:ejercicio31}
+
+Depredadores
+valor minimo |81.05
+valor maximo |8150
+primer maximo|39.6
+primer minimo|110.9
+periodo      |105.5
+Presas
+valor minimo |11.46
+valor maximo |606.8
+primer maximo|29.93
+primer minimo|61.7
+periodo      |105.47
+
+
+Depredadores
+valor minimo |19.02
+valor maximo |1.118e+04
+primer maximo|69.7
+primer minimo|157.5
+periodo      |123.3
+Presas
+valor minimo |3.623
+valor maximo |816.2
+primer maximo|60.87
+primer minimo|93.1
+periodo      |124.03
+
+
+Note que la solución para los primeros valores iniciales propuestos las funciones tienen una oscilación menor; es decir, las poblaciones se mantienen más estables. Esta condición de estabilidad representa una mejor convivencia de las especies. Además en el segundo caso se tienen incrementos muy elevados de depredadores lo que indica una distribución no equitativa de las poblaciones. En conclusión el primer caso representa una mejor convivencia equitativa entre las especies.
+
+En general, la población de presas tiende a ser menor. También se puede notar que conforme desciende la cantidad inicial de presas mayor amplitud tiene el comportamiento de las poblaciones. Entonces se toma un caso extremo. Con 1000000 depredadores iniciales y 1 presa inicial. Cuando se simula el sistema, es evidente el descenso de ambas poblaciones. En particular se debe notar que la población de presas desciende a menos de 0,5. Como la cantidad de presas es entera, la condición descrita se refiere a 0 presas, lo que implica la extinción. 
+
+\section{Ejercicio 6}
+
+Se deben encontrar todas las soluciones reales, sin embargo no se puede analizar toda la recta numérica, y se debe tomar únicamente una porción. Para esto se calcularn los límites de la función en $-\infty$ y $\infty$
+
+Para encontrar la solución de la ecuación, se procede a utilizar el método de la falsa posición. Sin embargo este método solamente sirve para encontrar una solución, entonces se hace una ligera adaptación, para poder encontrar todas las soluciones. 
+
+\end{document}
