@@ -8,13 +8,13 @@ k=7;
 a=4;
 b=6;
 %Comentario de uso: 'Se descomenta el caso que se quiere analizar'
-p0=70*(m/b);
-d0=50*(k/a);
+%p0=70*(m/b);
+%d0=50*(k/a);
 %p0=10*(m/b);
 %d0=70*(k/a);
 %para la extincion se toma 
-%p0=1;
-%d0=1000000;
+p0=1;
+d0=1000000;
 %Se define la matriz inicial de estados, Note que se llena de valores, pero
 %esto no afecta pues son sustituidos luego.
 z=[1:tamano(2) ; 1:tamano(2)];

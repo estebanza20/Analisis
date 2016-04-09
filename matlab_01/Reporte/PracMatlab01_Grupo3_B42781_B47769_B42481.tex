@@ -1,0 +1,175 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[activeacute,spanish]{babel}
+\usepackage[left=18mm,right=18mm,top=21mm,bottom=21mm,letterpaper]{geometry}%
+\usepackage{helvet}
+\usepackage{amsmath,amsfonts,amssymb,commath}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{tabls}
+\usepackage[space]{grffile}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{circuitikz}
+\usepackage{siunitx}
+
+\usepackage{textcomp}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=black,citecolor=black]{hyperref} 
+\usepackage{pdfpages}   %incluir paginas de pdf externo, para los anexos
+\usepackage{caption}
+\usepackage{subcaption}  
+\usepackage{rotating}
+\usepackage[section]{placeins}
+\usepackage{tikz}
+
+\begin {document}
+
+\title{Laboratorio 1 MATLAB}
+\author{Daniel García Vaglio (B42781), Esteban Zamora (B47769), Ariel Fallas (B42481)}
+\maketitle
+
+\section{Ejercicio 3}
+
+Para la primera parte de este ejercicio se pide implementar una función  que encuentre el valor de de la derivada de los estados si se tiene un tiempo y los estados en ese tiempo dado. Esto se implementa en la función derivadasEstados, esta acepta el tiempo y el vector de estados en ese instante, y con esta información calcula la derivada de los estados en ese instante utilizando las ecuaciones (\ref{eq:diferencial1}) y (\ref{eq:diferencial2}). 
+
+\begin{equation}
+\frac{dP(t)}{dt}=0,01kP(t)-0,00001aP(t)D(t)
+\label{eq:diferencial1}
+\end{equation}
+
+\begin{equation}
+\frac{dD(t)}{dt}=0,01mD(t)-0,0001bD(t)P(t)
+\label{eq:diferencial2}
+\end{equation}
+
+En el caso particular de este grupo el número de carné seleccionado es B47769, de manera que $m=9$ $k=7$ $a=4$ y $b=6$. Para resolver la ecuación diferencial se utiliza el código presentado en la subsección de código. Lo que se hace es primero asignar las constantes, luego se itera sobre el tiempo y en cada instante se aplica lo descrito por el método de Runge-Kutta. Al final del ciclo, se tiene una matriz z con los valores que toma cada estado en cada instante descrito por el vector t. 
+
+Se grafica el resultado (ver figura \ref{fig:ejercicio_3_caso_1}), y se obtiene la información de la tabla \ref{table:ejercicio31}. Luego se cambian las condiciones iniciales y se vuelve a simular el sistema (ver figura \ref{fig:ejercicio_3_caso_2}), y se obtiene la información de la tabla \ref{table:ejercicio32}.
+
+
+\begin{table}
+\caption{Datos primer caso de valores iniciales}
+\label{table:ejercicio31}
+\centering
+\begin{tabular}{| l | c |}
+  \hline
+ \multicolumn{2}{|c|}{Depredadores} \\
+ \hline
+ Valor mínimo &81.05 \\
+ Valor máximo &8150\\
+ Primer máximo&39.6\\
+ Primer mínimo&110.9\\
+ Periodo      &105.5\\
+ \hline
+ \multicolumn{2}{|c|}{Presas} \\
+ \hline
+ Valor mínimo &11.46\\
+ Valor máximo &606.8\\
+ Primer máximo&29.93\\
+ Primer mínimo&61.7\\
+ Periodo      &105.47\\
+ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}
+\caption{Datos segundo caso de valores iniciales}
+\label{table:ejercicio32}
+\centering
+\begin{tabular}{| l| c| }
+\hline
+  \multicolumn{2}{|c|}{Depredadores} \\
+\hline
+  Depredadores & \\
+  Valor mínimo &19.02\\
+  Valor máximo &1.118e+04\\
+  Primer máximo&69.7\\
+  Primer mínimo&157.5\\
+  Periodo      &123.3\\
+\hline
+  \multicolumn{2}{|c|}{Presas} \\
+\hline
+  Valor mínimo &3.623\\
+  Valor máximo &816.2\\
+  Primer máximo&60.87\\
+  Primer mínimo&93.1\\
+  Periodo      &124.03\\
+\hline 
+\end{tabular}
+\end{table}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.36\textwidth}
+		\includegraphics[width=\textwidth]{pictures/ejercicio_3_caso_1}
+		\caption{Resultado para primer caso de entradas}
+		\label{fig:ejercicio_3_caso_1}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.36\textwidth}
+		\includegraphics[width=\textwidth]{pictures/ejercicio_3_caso_2}
+		\caption{Resultado para segundo caso de entradas}
+		\label{fig:ejercicio_3_caso_2}
+	\end{subfigure}
+        \vfill
+        \begin{subfigure}[b]{0.36\textwidth}
+		\includegraphics[width=\textwidth]{pictures/ejercicio_3_extincion}
+		\caption{Resultado para extinción}
+		\label{fig:ejercicio_3_extincion}
+	\end{subfigure}
+	\caption{Gráficas Ejercicio 3}
+	\label{fig:graf_ejercicio_3}
+\end{figure}
+
+
+Note que la solución para los primeros valores iniciales propuestos las funciones tienen una oscilación menor; es decir, las poblaciones se mantienen más estables. Esta condición de estabilidad representa una mejor convivencia de las especies. Además en el segundo caso se tienen incrementos muy elevados de depredadores lo que indica una distribución no equitativa de las poblaciones. En conclusión el primer caso representa una mejor convivencia equitativa entre las especies.
+
+En general, la población de presas tiende a ser menor. También se puede notar que conforme desciende la cantidad inicial de presas mayor amplitud tiene el comportamiento de las poblaciones. Entonces se toma un caso extremo. Con 1000000 depredadores iniciales y 1 presa inicial. Cuando se simula el sistema (ver figura \ref{fig:ejercicio_3_extincion}), es evidente el descenso de ambas poblaciones. En particular se debe notar que la población de presas desciende a menos de 0,5. Como la cantidad de presas es entera, la condición descrita se refiere a 0 presas, lo que implica la extinción. 
+
+\subsection{Código del ejercicio 3}
+Script principal:
+\lstinputlisting[language=Matlab]{Ejercicio3.m}
+Función derivadaEstados
+\lstinputlisting[language=Matlab]{derivadasEstados.m}
+
+
+\section{Ejercicio 6}
+
+Se deben encontrar todas las soluciones reales de la función \ref{eq:ecuacion_ejercicio_6}, sin embargo no se puede analizar toda la recta numérica, se debe tomar únicamente una porción. Para esto se calculan los límites de la función en $-\infty$ y $\infty$. 
+
+\begin{equation}
+y(x)=x^3+x^2+6x+55cos(x)-10xe^{0.2x}-x^2e^{-0.3x}
+\label{eq:ecuacion_ejercicio_6}
+\end{equation}
+
+Entonces:
+$\lim_{x\to\infty} y(x)=-\infty
+\lim_{x\to -\infty} y(x)=-\infty $
+
+Entonces se toma $x$ en el intervalo $[-5000, 5000]$. De la gráfica de la función (ver figura \ref{fig:ejercicio_6_grafica}), se nota que en este intervalo están todas las soluciones.
+
+Para encontrar la solución de la ecuación, se procede a utilizar el método de la falsa posición. Sin embargo este método solamente sirve para encontrar una solución, entonces se hace una ligera adaptación, para poder encontrar todas las soluciones. Se crea un vector x que toma valores desde $-5000$ hasta $5000$ en intervalos de $0.01$. Luego se calcula el vector y asociado, utilizando el criterio en (\ref{eq:ecuacion_ejercicio_6}). Se itera sobre cada entrada de y y se determina si entre esta entrada y la anterior hay un cambio de signo. Si no hay cambio de signo se pasa a la siguiente entrada, pero si sí lo hay, entonces se sabe que entre estos dos puntos existe una solución, entonces se utiliza el método de falsa posición entre estos dos puntos para econtrar las soluciones. 
+
+El método de la falsa posición es recursivo, entonces para esto se define una función recursiva que es llamada en el script principal. En esta función (solucionParticular) se implementa el método de falsa posición descrito en el folleto de análisis. Se reciben los puntos iniciales $(x_l, y_l)$ y $(x_u, y_u)$, si la multiplicación de ambos está lo suficientemente cerca de $0$ (menor a $0.0000001$), entonces se considera que es una solución. Si la multiplicación de ambos no es tan pequeña entonces se calcula el nuevo punto $(x_r, y_r)$, y se calcula solucionParticular entre $x_r$ y $x_l$ si entre ellos hay cambio de signo, o entre $x_r$ y $x_u$ si el cambio está entre estos. 
+
+En el script general, cada vez que se encuentra una solución, se agrega al final de un vector. Cada vez que se agrega una solución el vector crece, esto es porque a priori no se sabe la cantidad de soluciones, entonces se utiliza un vector de tamaño variable. Al final de iterar en cada entrada se obtienen las siguientes soluciones: -1.5206, 1.4455, 4.3645, 17.4701.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{pictures/ejercicio_6_grafica}
+	\caption{Gráfica de la función en (\ref{eq:ecuacion_ejercicio_6})}
+	\label{fig:ejercicio_6_grafica}
+\end{figure} 
+
+\subsection{Código ejercicio 6}
+Script principal:
+\lstinputlisting[language=Matlab]{Ejercicio6.m}
+Función derivadaEstados
+\lstinputlisting[language=Matlab]{solucionParticular.m}
+
+
+\end{document}
