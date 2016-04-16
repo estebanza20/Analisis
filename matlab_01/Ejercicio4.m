@@ -11,7 +11,6 @@ title('Variable de estado C_a(t)')
 xlabel('Tiempo (s)')
 ylabel('C_a(t)')
 
-
 %Cb(t)
 figure
 plot(tout, Cb(:,2))
@@ -19,7 +18,6 @@ grid on
 title('Variable de estado C_b(t)')
 xlabel('Tiempo (s)')
 ylabel('C_b(t)')
-
 
 %Cx(t)
 figure
@@ -37,6 +35,7 @@ grid on
 title('Variable de estado C_y(t)')
 xlabel('Tiempo (s)')
 ylabel('C_y(t)')
+
 
 %Cz(t)
 figure
