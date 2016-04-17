@@ -38,7 +38,7 @@
 
 
 Para esta parte se generó un script el cual ejecuta los comandos en el orden solicitado, se pide graficar ciertas funciones ya dadas, todas dentro de una misma gráfica, esto es muy sencillo ya que lo único que se hace es definir las funciones y1 , y2 , .... , y12 . Los cuales dependen de las entradas definidas x1 , x2 , ...., x12 respectivamente. Y finalmente mediante la función ''plot()'' podemos generar la gráfica de ''y'' contra ''x'' .El único incoveniente que se tenía fue con la función y10 ya que estabagraficando únicamente un punto, ya que únicamente estaba recibiendo un valor, de esta forma matlab no detectaba que era un vector y por ello a la hora de graficarlo se denotó.  esto en código se ve así.
-Para lograr el color solicitado únicamente se debía especificar ''r (red)'' o ''y de (yellow)'' dentro de la función de plot como venía en la documentación de la función.
+Para lograr el color solicitado únicamente se debía especificar ''r (red)'' o ''y de (yellow)'' dentro de la función de plot como venía en la documentación de la función. La gráfica obtenida se muestra en la figura \ref{fig:batman}
 
 \subsubsection{Código de ejercicio 1}
 
@@ -47,11 +47,31 @@ Script principal:
 \lstinputlisting[style=Matlab-editor, basicstyle=\mlttfamily]{Ejercicio1.m}
 
 
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{pictures/Ejercicio1/batman_function.fig}
+	\caption{Gráfica de las funciones generadas en una misma hoja}
+	\label{fig:batman}
+\end{figure} 
+
 
 \section{Ejercicio 2}
 En esta sección se comenzó a explorar un poco más las funciones de matrices, ya que todos los objetos son formados a partir de matrices. Para esto se buscó la documentacion de algunas funciones necesarias como lo fue ''randi()'' el cual es un generador de números aleatorios enteros donde puedo especificar el tamaño de la matriz donde quiero que los genere y tambien el rango de valores entre los cuales deseo que vairíen los números generados.\\
-A continuación se calcularon los valores y vectores propios para la matriz A. Para obtener los valores propios aplicamos la función ''eig()'', esto genera una columna de valores propios. Sin embargo si lo colocamos en una matriz como para el caso de Vecprop, obtenemos un vector propio por cada columna de la matriz.\\
+A continuación se calcularon los valores y vectores propios para la matriz A. Para obtener los valores propios aplicamos la función ''eig()'', esto genera una columna de valores propios (Valprop). Sin embargo si lo colocamos en una matriz como para el caso de (Vecprop), obtenemos un vector propio por cada columna de la matriz.\\
 Al igual que en el primer punto la matriz B se generó apartir de la función ''randi()''.
+Luego a partir de la multiplicación de la matriz A y B generamos la matriz C. Y luego utilizamos la función size, para conocer las dimensiones de la matriz, aunado a esto utilizamos las funciónes ''max()'' y ''min()'', la cual muestra el valor máximo y mínimo respetivamente de una columna  de valores. Para esto tuvimos que convertir la matriz a una sola columna de valores mediante el operador '':'' . 
+Luego se estableció la variable ''x'', la cual es la multiplicación del valor en la fila 5 columna 2 de la matriz A, fila 9 columna 3 de la matriz B y fila 5 columna 3 de la matriz C.
+Para el punto f se extrajeron las filas 3 de A y la fila 6 de B mediante el operador ":"  y a partir de la función cat, en la cual se especifica la dimensión y los vectores se concatenaron ambas filas.
+Para el punto g se obtuvo una matriz inversa a partir de la diagonal de la matriz A, para esto la función ''diag()'' nos ayuda tanto a extraer la diagonal de A mediante ''diag(A)'' generando una columna con los valores de la diagonal de A y además nos ayuda a formar una matriz diagonal con los valores que se desean tener en esa diagonal. Para calcular la inversa, únicamente debemos utilizar la función ''inv()'' la cual devuelve la matriz inversa. Sabemos que esta matriz siempre existirá si y solo si el número de filas es igual al de columnas y no existen filas repetidas ni de ceros en la matriz, en otras palabras debe ser una matriz cuadrada con su determinante distinto de cero. \\
+Finalmente en parte h, se estableció una matriz mágica, la cual se define como una matriz cuadrada de números enteros cuya suma de los números tanto en una fila,como en una columna y en su diagonal siempre suman lo mismo. De esta manera matlab ofrece la función \'' magic()'' la cual genera la matriz por si sola. Para comprobar su resultado se utilizó la función ''sum()'' que nos da la suma de los números en las columnas de la matriz, y nuevamente mediante la función ''diag()'' extrajimos los valores de la diagonal de la matriz mágica \'' M'' y compramos la suma mediante \'' sum()'' . Luego mediante las especificaciones de la función \'' plot()'' nuevamente, logramos graficar cada columna en función del número de fila.El gŕafico generado se presenta en la figura \ref{fig:magical}
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{pictures/Ejercicio2/magic_matrix.fig}
+	\caption{Gráfica de la matriz mágica M de el número de fila vs columna}
+	\label{fig:magical}
+\end{figure} 
+
 
 
 \section{Ejercicio 3}
