@@ -261,8 +261,8 @@ estas matrices:
 
 Luego, se definió la variable G mediante la función \texttt{ss}, la cual genera un objeto que
 contiene la representación en el espacio de estados del sistema, a partir de las matrices A, B, C y
-D. También, mediante la variable G se pueden obtener los polos y ceros correspondientes al
-sistema. En el siguiente código se muestra la generación del mapa de polos y ceros del sistema de la
+D. También, mediante la variable G se obtuvieron los polos y ceros correspondientes al
+sistema. En el siguiente código se muestra la generación del mapa de polos y ceros de la 
 figura \ref{fig:diag_polos_ceros}.
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
@@ -277,6 +277,9 @@ figura \ref{fig:diag_polos_ceros}.
 
 \end{lstlisting}
 
+En este caso, se pudo observar que los comandos \texttt{pole} y \texttt{zero} generan vectores
+correspondientes a los polos y ceros del sistema, respectivamente; mientras que el comando
+\texttt{pzplot} muestra la gráfica de estos polos y ceros en el plano complejo.
 
 \begin{figure}[ht!]
 	\centering
@@ -287,11 +290,9 @@ figura \ref{fig:diag_polos_ceros}.
 
 
 
-
-
-
-\ref{fig:respuesta_estado_x}
-
+En el siguiente segmento de código se muestra la obtención de la respuesta del sistema propuesto al
+estado x indicado. En la gráfica de la figura \ref{fig:respuesta_estado_x}, se muestra esta respuesta
+del sistema.
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
   % Respuesta natural al estado x
   x = [-1; -0.5; 2; -1; 1; 3];
@@ -299,6 +300,9 @@ figura \ref{fig:diag_polos_ceros}.
   figure
   plot(T,Y1)
 \end{lstlisting}
+
+Es importante destacar que el comando \texttt{initial} genera la función correspondiente a la
+respuesta del sistema ante un estado inicial, pero tomando la entrada de dicho sistema como nula. 
 
 \begin{figure}[ht!]
 	\centering
@@ -310,9 +314,9 @@ figura \ref{fig:diag_polos_ceros}.
 
 
 
-
-
-\ref{fig:respuesta_impulso}
+A continuación  se muestra la sección del script de MATLAB correspondiente a la obtención de la 
+respuesta del sistema ante una entrada impulso. En la gráfica de la figura \ref{fig:respuesta_impulso} 
+se muestra dicha respuesta del sistema.
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
   % Respuesta al impulso 
@@ -320,6 +324,9 @@ figura \ref{fig:diag_polos_ceros}.
   figure
   plot(T,Y2)
 \end{lstlisting}
+
+En este caso, la función \texttt{impulse} genera la respuesta del sistema ante esta entrada tomando
+como estado inicial al estado cero. 
 
 \begin{figure}[ht!]
 	\centering
@@ -331,7 +338,9 @@ figura \ref{fig:diag_polos_ceros}.
 
 
 
-\ref{fig:respuesta_escalon}
+En el siguiente segmento de código se presenta la generación de la gráfica que muestra la respuesta
+del sistema ante una entrada escalón. En la figura \ref{fig:respuesta_escalon} se puede observar
+dicha gráfica.
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
   % Respuesta a una entrada escalon
@@ -339,6 +348,9 @@ figura \ref{fig:diag_polos_ceros}.
   figure
   plot(T,Y3)
 \end{lstlisting}
+
+En este caso, al igual que con el comando \texttt{impulse}, la función \texttt{step} calcula la respuesta del
+sistema tomando como estado inicial al estado cero.
 
 \begin{figure}[ht!]
 	\centering
@@ -348,9 +360,12 @@ figura \ref{fig:diag_polos_ceros}.
 \end{figure} 
 
 
+Para el siguiente punto de la práctica, en donde se solicitaba obtener la gráfica de la respuesta
+del sistema ante cierta onda cuadrada, se procedió en primer lugar a generar esta señal cuadrada según
+las características indicadas, tales como el período de la misma.
 
-
-\ref{fig:onda_cuadrada}
+En las siguientes líneas de código se muestra como se obtuvo dicha onda por medio del comando
+\texttt{gensig}. En la figura \ref{fig:onda_cuadrada}, se muestra dicha señal.
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
   % Onda cuadrada
@@ -367,8 +382,8 @@ figura \ref{fig:diag_polos_ceros}.
 \end{figure} 
 
 
-
-\ref{fig:respuesta_onda_cuadrada}
+Una vez generada la señal cuadrada, se procedió a obtener la respuesta del sistema ante dicha señal
+como entrada, tal como se muestra en la siguiente sección de código.
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
   % Respuesta a la onda cuadrada
@@ -377,6 +392,10 @@ figura \ref{fig:diag_polos_ceros}.
   plot(T,Y4)
 \end{lstlisting}
 
+En la figura \ref{fig:respuesta_onda_cuadrada}, se muestra la gráfica de esta respuesta calculada a
+partir de la función \texttt{lsim}, la cual permite simular la respuesta del sistema ante cierta
+entrada indicada como parámetro, en este caso \texttt{sig}. 
+
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=0.6\textwidth]{pictures/Ejercicio5/respuesta_onda_cuadrada}
@@ -384,8 +403,32 @@ figura \ref{fig:diag_polos_ceros}.
 	\label{fig:respuesta_onda_cuadrada}
 \end{figure} 
 
+Finalmente, se obtuvo una expresión para la función de transferencia asociada al sistema. Para esto,
+en primer lugar se utilizó la función \texttt{ss2tf}, la cual calcula los vectores de los
+coeficientes polinomiales tanto del denominador como del numerador de la función de transferencia, 
+a partir de cierta representación en el espacio de estados. 
 
+Luego, se empleó la función \texttt{tf} para obtener propiamente la función de transferencia, a partir estos 
+vectores de coeficientes del numerador ($G_{num}$) y denominador ($G_{den}$). La función
+\texttt{minreal}, toma esta función de transferencia obtenida y realiza todas las simplificaciones
+posibles correspondientes a la cancelación de los polos y ceros en la misma.
 
+En el siguiente segmento de código, se muestran los pasos descritos previamente, para el cálculo de
+la función de transferencia mostrada en la figura \ref{fig:func_transferencia_H}, que corresponde al resultado obtenido en la
+ventana de comandos de MATLAB.
+
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
+  % Funcion de transferencia
+  [Gnum, Gden] = ss2tf(A,B,C,D,1);
+  H = minreal(tf(Gnum, Gden))
+\end{lstlisting}
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{pictures/Ejercicio5/func_transferencia}
+	\caption{Función de transferencia H asociada al sistema representado por G}
+	\label{fig:func_transferencia_H}
+\end{figure} 
 
 
 \section{Ejercicio 6}
