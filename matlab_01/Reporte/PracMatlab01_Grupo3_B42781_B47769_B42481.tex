@@ -159,6 +159,298 @@ Función derivadaEstados
 \lstinputlisting[style=Matlab-editor, basicstyle=\mlttfamily]{derivadasEstados.m}
 
 
+
+
+\section{Ejercicio 4}
+
+
+
+En la figura \ref{fig:diag_bloques}, se muestra el diagrama de bloques que representa 
+el modelo en variables de estado propuesto sobre un reactor químico. Tal como se puede 
+observar en dicho diagrama, las salidas de los estados $C_a$, $C_b$, $C_x$, $C_y$ y $C_z$ se
+encuentran indicadas en las salidas de los bloques integradores. 
+
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=1\textwidth]{pictures/Ejercicio4/diagrama_bloques_2}
+	\caption{Diagrama de bloques del MVE del reactor químico}
+	\label{fig:diag_bloques}
+\end{figure} 
+
+
+
+Para generar este diagrama, se partió de las ecuaciones que modelan este sistema. A partir
+de esto se observa que para obtener las variables de estado, es necesario integrar una vez cada 
+una de estas ecuaciones diferenciales de primer orden, por lo que se colocaron en Simulink los
+bloques integradores correspondientes a cada variable.
+
+Luego, se observó que la entrada de cada uno de estos integradores correspondía a la suma y resta de varios 
+términos. Para cada ecuación, uno de estos términos dependía de la entrada constante del 
+sistema $C_{a0}$, $C_{b0}$, $C_{x0}$, $C_{y0}$ o $C_{z0}$, y de la propia variable de estado, de las
+cuales se obtenía su diferencia y esta se multiplicaba por una ganancia $\frac{F_0}{V}$. 
+De esta manera, se utilizó el bloque de entrada constante, el bloque de ganancia, un punto de resta
+y la retroalimentación de la salida del integrador para generar este término de cada ecuación.
+
+
+También, de las ecuaciones diferenciales se puede observar que los otros términos en cada ecuación
+dependen de una combinación lineal de ciertos productos de los estados en pares, los cuales son
+$C_{a}C_{b}$, $C_{b}C_{x}$ y $C_{b}C_{y}$. De esta forma, se utilizó el bloque de multiplicación de
+señales para generar estos términos, los cuales se multiplicaron por las ganancias $k_1$, $k_2$ y
+$k_3$ respectivamente. 
+
+Finalmente, para completar el diagrama se retroalimentaron los términos descritos previamente a 
+los puntos de suma y resta que se encuentran en la entrada de cada uno de los integradores, 
+según los términos observados en las ecuaciones del modelo.
+
+
+
+Para observar la respuesta de cada una de las variables de estado, se utilizaron los bloques de
+\textit{Scope}, de los cuales se obtuvieron las gráficas correspondientes a dichas variables, las
+cuales se muestran en la figura \ref{fig:result_mve_reactor}.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+	\includegraphics[width=\textwidth]{pictures/Ejercicio4/var_estado_Ca}
+	\caption{Gráfica: Variable de estado $C_a$}
+	\label{fig:var_estado_Ca}
+  \end{subfigure} 
+
+  \begin{subfigure}[b]{0.45\textwidth}
+    	\includegraphics[width=\textwidth]{pictures/Ejercicio4/var_estado_Cb}
+	\caption{Gráfica: Variable de estado $C_b$}
+	\label{fig:var_estado_Cb}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+	\includegraphics[width=\textwidth]{pictures/Ejercicio4/var_estado_Cx}
+	\caption{Gráfica: Variable de estado $C_x$}
+	\label{fig:var_estado_Cx}
+  \end{subfigure}
+  \vfill
+  \begin{subfigure}[b]{0.45\textwidth}
+	\includegraphics[width=\textwidth]{pictures/Ejercicio4/var_estado_Cy}
+	\caption{Gráfica: Variable de estado $C_y$}
+	\label{fig:var_estado_Cy}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+	\includegraphics[width=\textwidth]{pictures/Ejercicio4/var_estado_Cz}
+	\caption{Gráfica: Variable de estado $C_z$}
+	\label{fig:var_estado_Cz}
+  \end{subfigure}
+
+  \caption{Resultados de la simulación de las variables de estado del reactor químico}
+  \label{fig:result_mve_reactor}
+\end{figure}
+
+Para generar estas gráficas, se importaron los datos de estos resultados desde Simulink a MATLAB,
+donde luego se generaron las figuras correspondientes según el siguiente código, en donde se muestra
+como ejemplo la generación de la gráfica del estado $C_a$:
+
+
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
+  figure
+  plot(tout, Ca(:,2))
+  grid on
+  title('Variable de estado C_a(t)')
+  xlabel('Tiempo (s)')
+  ylabel('C_a(t)')
+\end{lstlisting}
+
+Es importante mencionar, que el sistema modelado de este reactor químico no corresponde a un sistema
+lineal, por lo que no es posible modelarlo según las ecuaciones matriciales que se utilizan
+normalmente al construir los modelos en variables de estado. De esta forma, se muestra que la
+utilización de los diagramas de bloques de Simulink constituye una buena herramienta para simular la
+respuesta de estos sistemas no lineales.
+
+\section{Ejercicio 5}
+
+Para este ejercicio se procedió a definir en MATLAB las matrices correspondientes a A, B, C y D,
+según el modelo propuesto en la guía de esta práctica. El siguiente código muestra la definición de
+estas matrices:
+
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
+  % Matrices del MVE del sistema
+  A = [-4, -1, 0, 3, -2, 0;  -1, -2, 1, 0, 4, 3;     3, 0, -3, 2, -1, 2; 
+      -3, 0, -4, -2, 1, -1;   1, -5, 0, -2, -1, -2; -1, -3, -3, 0, 1, -1];
+  B = [-2; -1; -3; 0; 8; 3];
+  C = [-1, -1, 1, -1, 0, 1];
+  D = -1;
+\end{lstlisting}
+
+
+Luego, se definió la variable G mediante la función \texttt{ss}, la cual genera un objeto que
+contiene la representación en el espacio de estados del sistema, a partir de las matrices A, B, C y
+D. También, mediante la variable G se obtuvieron los polos y ceros correspondientes al
+sistema. En el siguiente código se muestra la generación del mapa de polos y ceros de la 
+figura \ref{fig:diag_polos_ceros}.
+
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
+  % Representacion en el espacio de estados del sistema
+  G = ss(A,B,C,D);
+  % Polos del sistema
+  P = pole(G);
+  % Ceros del sistema
+  Z = zero(G);
+  % Diagrama de polos y ceros
+  h = pzplot(G); 
+
+\end{lstlisting}
+
+En este caso, se pudo observar que los comandos \texttt{pole} y \texttt{zero} generan vectores
+correspondientes a los polos y ceros del sistema, respectivamente; mientras que el comando
+\texttt{pzplot} muestra la gráfica de estos polos y ceros en el plano complejo.
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{pictures/Ejercicio5/diag_polos_ceros}
+	\caption{Gráfica del mapa de polos y ceros del sistema G}
+	\label{fig:diag_polos_ceros}
+\end{figure} 
+
+
+
+En el siguiente segmento de código se muestra la obtención de la respuesta del sistema propuesto al
+estado x indicado. En la gráfica de la figura \ref{fig:respuesta_estado_x}, se muestra esta respuesta
+del sistema.
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
+  % Respuesta natural al estado x
+  x = [-1; -0.5; 2; -1; 1; 3];
+  [Y1,T] = initial(G,x);
+  figure
+  plot(T,Y1)
+\end{lstlisting}
+
+Es importante destacar que el comando \texttt{initial} genera la función correspondiente a la
+respuesta del sistema ante un estado inicial, pero tomando la entrada de dicho sistema como nula. 
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{pictures/Ejercicio5/respuesta_estado_x}
+	\caption{Gráfica de la respuesta del sistema G al estado x}
+	\label{fig:respuesta_estado_x}
+\end{figure} 
+
+
+
+
+A continuación  se muestra la sección del script de MATLAB correspondiente a la obtención de la 
+respuesta del sistema ante una entrada impulso. En la gráfica de la figura \ref{fig:respuesta_impulso} 
+se muestra dicha respuesta del sistema.
+
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
+  % Respuesta al impulso 
+  [Y2,T] = impulse(G);
+  figure
+  plot(T,Y2)
+\end{lstlisting}
+
+En este caso, la función \texttt{impulse} genera la respuesta del sistema ante esta entrada tomando
+como estado inicial al estado cero. 
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{pictures/Ejercicio5/respuesta_impulso}
+	\caption{Gráfica de la respuesta del sistema G a una entrada impulso}
+	\label{fig:respuesta_impulso}
+\end{figure} 
+
+
+
+
+En el siguiente segmento de código se presenta la generación de la gráfica que muestra la respuesta
+del sistema ante una entrada escalón. En la figura \ref{fig:respuesta_escalon} se puede observar
+dicha gráfica.
+
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
+  % Respuesta a una entrada escalon
+  [Y3,T] = step(G);
+  figure
+  plot(T,Y3)
+\end{lstlisting}
+
+En este caso, al igual que con el comando \texttt{impulse}, la función \texttt{step} calcula la respuesta del
+sistema tomando como estado inicial al estado cero.
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{pictures/Ejercicio5/respuesta_escalon}
+	\caption{Gráfica de la respuesta del sistema G a una entrada escalón}
+	\label{fig:respuesta_escalon}
+\end{figure} 
+
+
+Para el siguiente punto de la práctica, en donde se solicitaba obtener la gráfica de la respuesta
+del sistema ante cierta onda cuadrada, se procedió en primer lugar a generar esta señal cuadrada según
+las características indicadas, tales como el período de la misma.
+
+En las siguientes líneas de código se muestra como se obtuvo dicha onda por medio del comando
+\texttt{gensig}. En la figura \ref{fig:onda_cuadrada}, se muestra dicha señal.
+
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
+  % Onda cuadrada
+  [sig, T] = gensig('square', 15, 60, 0.01);
+  figure
+  plot(T, sig)
+\end{lstlisting}
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{pictures/Ejercicio5/onda_cuadrada}
+	\caption{Señal cuadrada de entrada al sistema G}
+	\label{fig:onda_cuadrada}
+\end{figure} 
+
+
+Una vez generada la señal cuadrada, se procedió a obtener la respuesta del sistema ante dicha señal
+como entrada, tal como se muestra en la siguiente sección de código.
+
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
+  % Respuesta a la onda cuadrada
+  Y4 = lsim(G, sig, t);
+  figure
+  plot(T,Y4)
+\end{lstlisting}
+
+En la figura \ref{fig:respuesta_onda_cuadrada}, se muestra la gráfica de esta respuesta calculada a
+partir de la función \texttt{lsim}, la cual permite simular la respuesta del sistema ante cierta
+entrada indicada como parámetro, en este caso \texttt{sig}. 
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{pictures/Ejercicio5/respuesta_onda_cuadrada}
+	\caption{Gráfica de la respuesta del sistema G a la señal cuadrada}
+	\label{fig:respuesta_onda_cuadrada}
+\end{figure} 
+
+Finalmente, se obtuvo una expresión para la función de transferencia asociada al sistema. Para esto,
+en primer lugar se utilizó la función \texttt{ss2tf}, la cual calcula los vectores de los
+coeficientes polinomiales tanto del denominador como del numerador de la función de transferencia, 
+a partir de cierta representación en el espacio de estados. 
+
+Luego, se empleó la función \texttt{tf} para obtener propiamente la función de transferencia, a partir estos 
+vectores de coeficientes del numerador ($G_{num}$) y denominador ($G_{den}$). La función
+\texttt{minreal}, toma esta función de transferencia obtenida y realiza todas las simplificaciones
+posibles correspondientes a la cancelación de los polos y ceros en la misma.
+
+En el siguiente segmento de código, se muestran los pasos descritos previamente, para el cálculo de
+la función de transferencia mostrada en la figura \ref{fig:func_transferencia_H}, que corresponde al resultado obtenido en la
+ventana de comandos de MATLAB.
+
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
+  % Funcion de transferencia
+  [Gnum, Gden] = ss2tf(A,B,C,D,1);
+  H = minreal(tf(Gnum, Gden))
+\end{lstlisting}
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.6\textwidth]{pictures/Ejercicio5/func_transferencia}
+	\caption{Función de transferencia H asociada al sistema representado por G}
+	\label{fig:func_transferencia_H}
+\end{figure} 
+
+
 \section{Ejercicio 6}
 
 Se deben encontrar todas las soluciones reales de la función \ref{eq:ecuacion_ejercicio_6}, sin embargo no se puede analizar toda la recta numérica, se debe tomar únicamente una porción. Para esto se calculan los límites de la función en $-\infty$ y $\infty$. 
