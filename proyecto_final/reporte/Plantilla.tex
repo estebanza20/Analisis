@@ -1,0 +1,232 @@
+%Archivo de muestra de un Informe de práctica o laboratorio
+% utilizando la clase eieinforme.cls (V.M. Alfaro)
+%---------------------------------------------------------------------
+
+%preámbulo - uso de la clase eieinforme
+\documentclass{eieinforme}
+%
+%--------- <Agregue aquí algún paquete extra que sea necesario---------
+
+%--------- Agregue aquí algún paquete extra que sea necesario>---------
+%
+\begin{document}
+\pagenumbering{roman}
+
+%------------ Desde aquí datos de la portada ------------------%
+
+%título de la práctica (* Por el usuario *)
+\title{Avance del proyecto final}
+
+%nombre del curso (* Por el usuario *)
+\curso{IE-0409 Análisis de Sistemas}
+
+%nombre completo de los autores (* Por el usuario *)
+\autorA{Ariel Fallas Pizarro, B4 ...}
+\autorB{Daniel García Vaglio, B42781}
+\autorC{Esteban Zamora Alvarado, B4 ...}
+
+%fecha de presentación (* si se deja en blanco indicará la fecha de la compilación)
+%\date{Mes de año}
+
+%---------------hasta aquí datos de la portada-------------------------
+%
+%--------------------------------------------------------------------------------
+%portada
+\eietitlepage
+\newpage
+%--------------------------------------------------------------------------------
+%
+%---------------------------------------------------------------------------------
+%------------- A partir de aquí se escribe el informe ----------------------------
+%---------------------------------------------------------------------------------
+%las siguientes son las secciones iniciales del informe
+
+%resumen
+\section*{Resumen}
+Este trabajo trata sobre el modelado de un robot de dos ruedas. Este es un sistema robótico que funciona como un péndulo inverso. Se utilizan las leyes de dinámica ya existentes para obtener un modelo matemático que describa al sistema, y posteriormente se simula en MATLAB, para verificar que el modelo describa correctamente al sistema.    
+
+%-------------------
+%tablas de contenido (* si alguna no se ocupa se puede ``comentar'' (%) para que no aparezca)
+\newpage
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+\listoftables
+\newpage
+
+%-------------------------------------------------------------------
+%lista de la nomenclatura utilizada en el texto
+
+\section*{Nomenclatura}
+
+\begin{description}[labelindent=1cm,labelwidth=2.25cm,align=left]
+%ponerlo en orden alfabetico
+	\item[$J$] Inercia rotacional del robot.
+	\item[$M$] Masa del robot.
+	\item[$g$] Constante de la aceleración de la gravedad.
+	\item[$\theta(t)$] Ángulo del eje del robot respecto a la normal con el suelo.
+	\item[$\omega(t)$] Velocidad angular.
+        \item[$v$] Velocidad del centro de masa del robot.
+        \item[$v_b$] Velocidad de la base del robot.
+        \item[$\omega_r$] velocidad rotacional de las ruedas.
+        \item[$$]
+\end{description}
+
+%--------------------
+\newpage
+\pagenumbering{arabic}
+\pagestyle{fancy}
+\setlength\headheight{14.5pt}
+\lhead{\nouppercase{\leftmark}}
+\rhead{\thepage}
+\fancyfoot{}
+
+%------------------------------------------------------------------
+%Secciones del informe (puede ser un solo archivo o separarse los secciones en archivos independientes e incluirse con \include('nobre_archivo') si se quiere una nueva página antes de la parte que se está anexando o \input{'nombre de archivo'} si se quiere agregar directamente en la posición donde se llama a \input{}
+
+\section[Introducción]{Introducción}
+
+El sistema qeu se estudia en el presente trabajo es un robot de dos ruedas, esto significa que toda la estructura robótica se sostiene únicamente sobre dos ruedas. El robot únicamente tiene dos puntos de contacto con el suelo (uede ser una línea, depende del tipo de ruedas), lo que hace que se comporte como un péndulo inverso. Es naturalmente inestable. En la figura %ref a la figura
+se muestra un robot ejemplo. 
+
+Lo que intereza del sistema es mantenerlo erguido, por tanto el modelo se hará tomando en cuenta este fin. Además el análisis del sistma se toman en cuenta las siguientes suposiciones:
+
+
+\begin{itemize}[labelindent=1cm,labelwidth=2.25cm,align=left]
+%ponerlo en orden alfabetico
+	\item El robot se encuentra sobre una superficie plana y estática.
+        \item No hay deslizamiento de las ruedas. Siempre hay fricción estática.
+        \item Los motores puede aplicar torque infinito.
+        \item Ambas ruedas se mueven con la misma velocidad.
+        \item La única fuerza externa es la fuerza de la gravedad.
+        \item Las medidas de los sensores se consideran ideales, sin ruido, o ya filtradas.
+        \item 
+
+\end{itemize}
+\subsection{Alcances}
+
+
+
+\subsection{Objetivos}
+
+Se establecieron los siguientes objetivos para el desarrollo del trabajo:
+
+%ejemplo de una lista con viñetas
+\begin{itemize}
+	\item Estudiar la dinámica de un robot de dos ruedas.
+	
+	\item Analizar el sistema y obtener un modelo matemático que lo describa
+	
+	\item Simular el sistema.
+
+\end{itemize}
+
+\subsection{Metodología}
+
+El desarrollo del trabajo incluyó los siguientes pasos y procedimientos:
+
+%ejmeplo de una lista numerada
+\begin{enumerate}
+	\item Revisión de ....
+	
+	\item Utilización de ...
+	
+	\item Análisis por simulación de ....
+	
+\end{enumerate}
+
+Las instrucciones de la Guía de la práctica no deben copiarse, solo indicar si se realizaron cambios a la misma y las razones para esto.
+
+%------------------
+\section{Marco teórico}
+
+En esta sección se debe introducir toda la información que se crea conveniente para poner el trabajo en contexto. Por ejemplo, si se va a hablar de modelado de aerogeneradores, entonces se debe poner la historia, la construcción de los aerogeneradores, funcionamiento, etc.
+
+
+\subsection{Título de la sub sección}
+
+Considérese la Fig.~\ref{fig:01} en donde el proceso controlado está dado por la función de transferencia
+
+%ejemplo de la inclusión de ecuaciones
+\begin{equation}
+	P(s) = \frac{K e^{-Ls}}{Ts+1} \label{ec:01}
+\end{equation}
+
+cuyos parámetros $K_p$, $T$ y $L$ se pueden obtener aplicando el método \emph{123c} \citep{alfaro2006b}. Si para la compilación del documento de \LaTeX se utiliza el comando \textit{latex}, entonces las figuras deben ser en formato \textbf{eps}. Sin embargo, si se utiliza el comando \textit{pdflatex} para obtener el documento en PDF directamente, es recomendable que las figuras estén en formato \textbf{pdf} también.
+
+%ejemplo de la inclusión de una figura (debe estar en formato .eps o .pdf)
+
+%
+% Utilización de las citas:
+% \citep : Sirve para escribir las citas entre paréntesis en el estilo (Alfaro, 2006)
+% \citet o \cite: Sirven para escribir las citas sin paréntesis en el estilo Aström y Hägglund (2006)
+
+En \citet{ayh2006} se presenta un estudio detallado de ...
+
+En el caso de los controladores ....
+
+\subsubsection{Procedimiento de ...}
+
+En el Cuadro~\ref{tab:01} se muestran los parámetros de los modelos de ...
+
+%ejemplo de la inclusión de un cuadro de datos
+\begin{table}[htb!] %h:here (aquí) t:top (en la parte superior de alguna página) b:bottom (en la parte inferior de alguna página !: Aunque no sea el lugar óptimo
+\caption{Parámetros de los modelos} \label{tab:01}
+\begin{center}
+    \begin{tabular}{cccc} \\
+    \toprule
+    $K$ & $T_1$ & $T_2$ & $L$ \\
+    \midrule
+     1.01 & 1.50 & 0.75 & 0.12 \\
+		 1.15 & 2.37 & 0.15 & 0.28 \\
+		 2.25 & 5.89 & 2.15 & 1.60 \\
+    \bottomrule
+    \end{tabular}
+\end{center}
+\end{table}
+
+
+\subsubsection{Ecuaciones de ...}
+
+Si se sustituye \eqref{ec:01} en ... se obtiene que ...
+
+ 
+%------------------------------
+\section{Modelado y simulación}
+
+En esta parte se debe presentar el modelo y la implementación de este en MATLAB/Simulink, Scilab u OpenModelica, así como los resultados de las simulaciones más interesantes.
+
+%------------------------------
+\section{Análisis}
+
+En esta parte se debe presentar el análisis del sistema. Se debe mostrar todos los aspectos interesantes del modelo que valgan la pena resaltar.
+
+%-----------------------------
+\section{Conclusiones y recomendaciones}
+
+\subsection{Conclusiones}
+
+\subsection{Recomendaciones}
+
+Se recomienda ..
+ 
+%-------------------
+%bibliografía
+\addcontentsline{toc}{section}{Bibliografía}
+\bibliographystyle{EIEBib}
+%nombre del archivo .bib que contiene la bibliografía
+\bibliography{informe_ref}
+
+%-------------------
+%archivo de apéndice si fuera necesario (* si no hay apéndice comentar las siguientes dos líneas *)
+
+\addcontentsline{toc}{section}{Apéndices}
+\section*{Apéndice A}
+
+Datos o información complementaria.
+
+%------------------
+%final del documento
+\end{document}
+% Lo que se escriba a partir de aquí será ignorado por el compilador
