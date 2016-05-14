@@ -1,0 +1,113 @@
+%Archivo de muestra de un Informe de práctica o laboratorio
+% utilizando la clase eieinforme.cls (V.M. Alfaro)
+%---------------------------------------------------------------------
+
+%preámbulo - uso de la clase eieinforme
+\documentclass{eieinforme}
+%
+%--------- <Agregue aquí algún paquete extra que sea necesario---------
+
+%--------- Agregue aquí algún paquete extra que sea necesario>---------
+%
+\begin{document}
+\pagenumbering{roman}
+
+%------------ Desde aquí datos de la portada ------------------%
+
+%título de la práctica (* Por el usuario *)
+\title{Avance del proyecto final}
+
+%nombre del curso (* Por el usuario *)
+\curso{IE-0409 Análisis de Sistemas}
+
+%nombre completo de los autores (* Por el usuario *)
+\autorA{Ariel Fallas Pizarro, B4 ...}
+\autorB{Daniel García Vaglio, B42781}
+\autorC{Esteban Zamora Alvarado, B47769}
+
+%fecha de presentación (* si se deja en blanco indicará la fecha de la compilación)
+%\date{Mes de año}
+
+%---------------hasta aquí datos de la portada-------------------------
+%
+%--------------------------------------------------------------------------------
+%portada
+\eietitlepage
+\newpage
+%--------------------------------------------------------------------------------
+%
+%---------------------------------------------------------------------------------
+%------------- A partir de aquí se escribe el informe ----------------------------
+%---------------------------------------------------------------------------------
+%las siguientes son las secciones iniciales del informe
+
+%resumen
+
+%-------------------
+%tablas de contenido (* si alguna no se ocupa se puede ``comentar'' (%) para que no aparezca)
+\newpage
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+\listoftables
+\newpage
+
+%-------------------------------------------------------------------
+%lista de la nomenclatura utilizada en el texto
+
+\section*{Nomenclatura}
+
+\begin{description}[labelindent=1cm,labelwidth=2.25cm,align=left]
+%ponerlo en orden alfabetico
+	\item[$J$] Inercia rotacional del robot.
+	\item[$M$] Masa del robot.
+	\item[$g$] Constante de la aceleración de la gravedad.
+	\item[$\theta(t)$] Ángulo del eje del robot respecto a la normal con el suelo.
+	\item[$\omega(t)$] Velocidad angular.
+        \item[$v$] Velocidad del centro de masa del robot.
+        \item[$v_b$] Velocidad de la base del robot.
+        \item[$\omega_r$] velocidad rotacional de las ruedas.
+        \item[$$]
+\end{description}
+
+%--------------------
+\newpage
+\pagenumbering{arabic}
+\pagestyle{fancy}
+\setlength\headheight{14.5pt}
+\lhead{\nouppercase{\leftmark}}
+\rhead{\thepage}
+\fancyfoot{}
+
+%------------------------------------------------------------------
+%Secciones del informe (puede ser un solo archivo o separarse los secciones en archivos independientes e incluirse con \include('nombre_archivo') si se quiere una nueva página antes de la parte que se está anexando o \input{'nombre de archivo'} si se quiere agregar directamente en la posición donde se llama a \input{}
+
+
+%------------------
+\section{Marco teórico}
+
+En esta sección se debe introducir toda la información que se crea conveniente para poner el trabajo en contexto. Por ejemplo, si se va a hablar de modelado de aerogeneradores, entonces se debe poner la historia, la construcción de los aerogeneradores, funcionamiento, etc.
+
+\citep{alfaro2006b}
+
+
+%-------------------
+%bibliografía
+\addcontentsline{toc}{section}{Bibliografía}
+\bibliographystyle{EIEBib}
+%nombre del archivo .bib que contiene la bibliografía
+\bibliography{informe_ref}
+
+%-------------------
+%archivo de apéndice si fuera necesario (* si no hay apéndice comentar las siguientes dos líneas *)
+
+\addcontentsline{toc}{section}{Apéndices}
+\section*{Apéndice A}
+
+Datos o información complementaria.
+
+%------------------
+%final del documento
+\end{document}
+% Lo que se escriba a partir de aquí será ignorado por el compilador

@@ -73,7 +73,7 @@ xlabel('Tiempo (s)')
 ylabel('Señal cuadrada')
 
 %Respuesta a la señal cuadrada
-Y4 = lsim(G, sig, t);
+Y4 = lsim(G, sig, T);
 figure
 plot(T,Y4)
 title('Respuesta del sistema a una señal cuadrada')
