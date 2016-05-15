@@ -87,7 +87,22 @@
 %------------------
 \section{Marco teórico}
 
-En esta sección se debe introducir toda la información que se crea conveniente para poner el trabajo en contexto. Por ejemplo, si se va a hablar de modelado de aerogeneradores, entonces se debe poner la historia, la construcción de los aerogeneradores, funcionamiento, etc.
+El sistema que se estudia son Robots de dos ruedas. Estos son robots que tienen 2 ruedas coaxiales, normalmente a cada lado del cuerpo, con el centro de masa sobre el eje de las ruedas. Debido a que el centro de masa se encuentra sobre el eje de las ruedas estos robots también son conocidos como péndulos invertidos móbiles, ya que su comportamiento es el mismo que un péndulo invertido. %cita Design and implementation of balance of two wheeled Robots
+Con la particularidad que su base no está fija en el espacio, sino que puede moverse sobre una superficie debido a la acción de las ruedas.
+
+Estos robots tienen 3 grados de libertad. Estos son: traslación hacia adelante o atras, giro sobre su propio eje (yaw), y giro sobre el eje de las ruedas (pitch). Sin embargo el robot únicamente tiene dos actuadores (las dos ruedas). Por tanto se considera un sistema subactuado. %cita Design and implementation of integral sliding-Mode Control on an Underactuated Two-Wheeled Mobile Robot
+Entonces no se puede lograr el control del movimiento del robot en los tres grados de libertad de forma independiente, si se controla uno de ellos el otro se ve afectado. En el caso particular de este trabajo solo se toma en cuenta tilt para el modelo, por lo que esta característica no afecta tanto al modelo.
+%Figura 2 de modelling and control of two wheeled robots
+
+Se debe notar que para que el sistema sea estable , se necesitan al menos tres puntos de apollo %cita Review of modelling and control of two wheeled robots
+La mayor propiedad de este sistema es que se considera dinámicamente estable %cita Design
+o estáticamente inestable %cita Review of mode
+, esto porque el sistema es inestable entonces se debe tener un controlador activo para mantenerlo cerca de un punto de operación, y evitar que se caiga.
+
+Estos sistemas son no lineales %cita Design and Real-time implementation of a fuzzy logic Control System for a two Wheeled robot  
+Entonces en el modelo se toma en cuenta un punto de operación específico, donde el sistema puede considerarse como lineal. 
+
+El objetivo de estos sistemas es evitar que caigan, entonces la salida se toma como el ángulo respecto a la normal con el suelo. Es decir, la salida es el ángulo pitch. Por otra parte, la entrada son los torques que actúan sobre el cuerpo. El torque que provoca la gravedad puede no ser conciderado como una entrada, pero el torqeu de las ruedas y el torque de perturbaciones externas (como empujar al robot), sí son entradas.  
 
 \citep{alfaro2006b}
 
