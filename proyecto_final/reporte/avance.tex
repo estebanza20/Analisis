@@ -16,13 +16,14 @@
 %------------ Desde aquí datos de la portada ------------------%
 
 %título de la práctica (* Por el usuario *)
-\title{Avance del proyecto final}
+\title{Avance del proyecto final:\\ Modelado del comportamiento de péndulo invertido de los robots
+  de dos ruedas}
 
 %nombre del curso (* Por el usuario *)
 \curso{IE-0409 Análisis de Sistemas}
 
 %nombre completo de los autores (* Por el usuario *)
-\autorA{Ariel Fallas Pizarro, B4 ...}
+\autorA{Ariel Fallas Pizarro, B42481}
 \autorB{Daniel García Vaglio, B42781}
 \autorC{Esteban Zamora Alvarado, B47769}
 
@@ -96,24 +97,46 @@
 %------------------
 \section{Marco teórico}
 
-\subsection{Descripción de los Robots de dos Ruedas}
+\subsection{Importancia y aplicación de los robots de dos ruedas}
 
-El sistema que se estudia son los robots de dos ruedas coaxiales, normalmente una a cada lado del
-cuerpo, con el centro de masa sobre el eje de las ruedas. Debido a que el centro de masa se
-encuentra sobre el eje de las ruedas, estos robots también son conocidos como péndulos invertidos
-móbiles, ya que su comportamiento es el mismo que el de un péndulo invertido \citep{Yan-Hou}, con la
-particularidad que su base no está fija en el espacio, sino que puede desplazarse sobre una
-superficie debido a la acción de las ruedas (ver figura \ref{fig:segway_robot}).
+El desarrollo de robots móviles, responde a la necesidad de extender el campo de aplicación de la
+Robótica en la actualidad. En este campo, se trata de incrementar la autonomía del robot, limitando
+en todo lo posible la necesidad de intervención humana \citep{Collazo}.
+
+El presente trabajo, se centra alrededor de la descripción del movimiento de péndulo invertido que
+ocurre en los robots móviles de dos ruedas. Las aplicaciones del modelado de sistemas de tipo
+péndulo invertido, se pueden ver también en campos como el aeroespacial, en el cual se requiere el
+control activo de un cohete para mantenerlo en la posición vertical invertida durante su
+despegue. En Biomecánica, el péndulo invertido es frecuentemente utilizado para modelar bípedos
+caminantes, en los cuales la pierna de apoyo en contacto con el suelo a menudo se modela como un
+péndulo invertido \citep{Cruz}.
+
+Los robots de dos ruedas, tienen la ventaja de que son altamente maniobrables, al poder girar sobre
+su propio eje. También, pueden construirse altos sin requerir de una base muy grande, lo que los
+hace muy útiles en interiores, en donde pueden pasar por lugares estrechos y dar curvas muy cerradas
+\citep{KarlStol}.  Algunas de sus aplicaciones, pueden ser como guías de excursiones dentro de
+museos, bases de equipo médico dentro de hospitales, para vigilancia (segway) y de limpieza en el
+hogar \citep{Coelho}.
+
+
+\subsection{Descripción general de los robots de dos ruedas}
+
+El sistema que se estudia son los robots de dos ruedas coaxiales, encontrándose normalmente una a
+cada lado del cuerpo, con el centro de masa sobre el eje de las ruedas. Debido a que el centro de
+masa se encuentra sobre el eje de las ruedas, estos robots también son conocidos como péndulos
+invertidos móbiles \citep{Yan-Hou}, ya que su base no está fija en el espacio, sino que puede
+desplazarse sobre una superficie debido a la acción de las ruedas (ver figura
+\ref{fig:segway_robot}).
 
 Estos robots tienen 3 grados de libertad, los cuales son: traslación hacia adelante o atrás, giro
 sobre su propio eje (yaw), y giro sobre el eje de las ruedas (pitch) (ver figura
 \ref{fig:axis}). Sin embargo, el robot únicamente tiene dos actuadores (las dos ruedas). Por lo
 tanto, se considera un sistema subactuado \citep{Xu}. De esta manera, no se puede lograr el control
 del movimiento del robot en los tres grados de libertad de forma independiente, ya que si se
-controla uno de ellos, los otros también se ven afectados. En el caso particular de este trabajo, el
-análisis se centrará en la descripción del péndulo invertido, por lo que el ángulo de yaw no se
-tomará en cuenta dentro del modelo.
+controla uno de ellos, los otros también se ven afectados. 
 
+En el caso particular de este trabajo, el análisis se centrará en la descripción del péndulo
+invertido, por lo que el ángulo de yaw no se tomará en cuenta dentro del modelo.
 
 \begin{figure}
 	\centering
@@ -121,6 +144,12 @@ tomará en cuenta dentro del modelo.
 	\caption{Ejemplo de robot de dos ruedas}
 	\label{fig:segway_robot}
 \end{figure}
+
+Se debe notar que para que el sistema sea estable, se necesitan al menos tres puntos de apoyo
+\citep{KarlStol}. La mayor propiedad de este sistema, es que se considera dinámicamente estable
+\citep{Yan-Hou} o estáticamente inestable \citep{KarlStol}, esto porque se debe tener un controlador
+activo para mantener al sistema cerca de un punto de operación, y así evitar que se caiga.
+
 %Figura 2 de modelling and control of two wheeled robots
 
 \begin{figure}
@@ -130,21 +159,6 @@ tomará en cuenta dentro del modelo.
 	\label{fig:axis}
 \end{figure}
 
-Se debe notar que para que el sistema sea estable, se necesitan al menos tres puntos de apoyo
-\citep{KarlStol}. La mayor propiedad de este sistema, es que se considera dinámicamente estable
-\citep{Yan-Hou} o estáticamente inestable \citep{KarlStol}, esto porque se debe tener un controlador
-activo para mantener al sistema cerca de un punto de operación, y así evitar que se caiga.
-
-\subsection{Importancia}
-
-El desarrollo de robots móviles responde a la necesidad de extender el campo de aplicación de la Robótica. Se trata también de incrementar la autonomía misma del robot limitando todo lo posible la intervención humana. \citep{Collazo}\\
-En particular los robots de dos ruedas tienen la ventaja de que son altamente maniobrables al poder girar sobre su propio eje y pueden llegar a ser muy altos sin necesidad de una base muy grande, lo que los hace muy útiles en interiores ya que pueden pasar por lugares estrechos y dar curvas muy cerradas.\citep{KarlStol}. Algunas de estas aplicaciones pueden ser como guías de excursiones dentro de museos,bases de equipo médico dentro de hospitales, para vigilancia (segway) y de limpieza en el hogar \citep{Coelho} \\
-
-Las aplicaciones de los péndulos invertidos se pueden ver en campos como por ejemplo aeroespacial, el cual requiere el control activo de un cohete para mantenerlo en la posición vertical invertida durante su despegue.  Aquí, el ángulo de inclinación del cohete es controlado por medio de la variación del ángulo de la aplicación de la fuerza de empuje, colocada en la base de dicho cohete. En Biomecánica  el péndulo invertido es frecuentemente utilizado para modelar bípedos caminantes.  En los robots bípedos la pierna de apoyo en contacto con el suelo a menudo se modela como un péndulo invertido, mientras que la pierna en movimiento se comporta como un péndulo que oscila libremente, suspendido de la cadera del humanoide. \citep{Cruz}
-
-
-
-
 %\subsection{Consideraciones Iniciales}
 %El objetivo de estos sistemas es evitar que se caigan, entonces es conveniente tomar la salida como
 %el ángulo respecto a la normal con el suelo, es decir el ángulo pitch, denotado como $\phi$. Por
@@ -152,12 +166,12 @@ Las aplicaciones de los péndulos invertidos se pueden ver en campos como por eje
 %puede no ser considerado como una entrada, pero el torque de las ruedas y el torque de
 %perturbaciones externas (como empujar al robot), sí corresponden a entradas.
 
-\subsection{Linealización}
-Estos sistemas son intrínsicamente no lineales \citep{Sayidmarie}. De esta manera, para facilitar el
-análisis se puede considerar el sistema alrededor de un punto de operación específico, en donde el
-el mismo puede considerarse como lineal. En el caso específico del sistema a analizar, si se denomina
-$\phi$ cómo el ángulo de pitch, ya que el interés es mantener al robot en posición vertical, se
-puede tomar como punto de operación la condición de $\phi=0$
+\subsection{Método de linealización}
+Los sistemas en estudio son intrínsicamente no lineales \citep{Sayidmarie}. De esta manera, para
+facilitar el análisis se puede considerar el sistema alrededor de un punto de operación específico,
+en donde el el mismo puede considerarse como lineal. En el caso específico del sistema a analizar,
+si se denomina $\phi$ cómo el ángulo de pitch, ya que el interés es mantener al robot en posición
+vertical, se puede tomar como punto de operación la condición de $\phi=0$
 
 En general, se tiene que el modelo en variables de estado de un sistema no lineal viene dada por la
 ecuación \ref{eq:estados_no_lineal}:
@@ -167,35 +181,36 @@ ecuación \ref{eq:estados_no_lineal}:
 \label{eq:estados_no_lineal}
 \end{equation}
 
-Ahora, por el teorema del valor medio, se sabe que existe $t_0<\delta<t$ tal que (ecuación \ref{eq:mean_theorem}):
+Ahora, por el teorema del valor medio, se sabe que existe $t_0<\delta<t$ tal que (ecuación
+\ref{eq:mean_theorem}):
 
 \begin{equation}
 J_f(\mathbf{x},\mathbf{u})(\mathbf{x}(t_0+\delta)+\mathbf{u}(t_0+\delta))=\frac{f(\mathbf{x}(t),\mathbf{u}(t))-f(\mathbf{x}(t_0),\mathbf{u}(t_0))}{t-t_0}
 \label{eq:mean_theorem}
 \end{equation}
  
-Donde $J_f$ es el jacobiano de $f$. Para el caso particular del punto de operación, se tiene que
-$t_0=0$. Como se supone que $t$ es muy cercano a $0$, entonces se aproxima $\delta=0$. Por otro lado,
-$J_{f_x}$ y $J_{f_u}$ son las porciones del jacobiano de $f$ que dependen únicamente de $\mathbf{x}$ y
-$\mathbf{u}$, respectivamente. 
+En donde $J_f$ es el jacobiano de $f$. Para el caso particular del punto de operación, se tiene que
+$t_0=0$. Como se supone que $t$ es muy cercano a $0$, entonces se aproxima que $\delta=0$. Por otro
+lado, $J_{f_x}$ y $J_{f_u}$ son las porciones del jacobiano de $f$ que dependen únicamente de
+$\mathbf{x}$ y $\mathbf{u}$, respectivamente.
 
 Se define $\mathbf{x'}(t)=\mathbf{x}(t)-\mathbf{x}(0)$ y
 $\mathbf{u'}(t)=\mathbf{u}(t)-\mathbf{u}(0)$. Despejando $f$ de la ecuación \ref{eq:mean_theorem}, y
-sustituyendo \ref{eq:estados_no_lineal}, se obtiene que:
+sustituyendo \ref{eq:estados_no_lineal}, se obtiene la ecuación \ref{eq:meantheo}:
 
 \begin{equation}
 \frac{dx'(t)}{dt}=J_{f_x}\mathbf{x'}(t)+J_{f_u}\mathbf{u'}(t)
 \label{eq:meantheo}
 \end{equation}
 
-Por lo que se tiene un modelo en variables de estado lineal. De esta manera, se obtiene un modelo
-lineal cuando el ángulo de pitch es cercano a cero \citep{Buck}.
+De esta manera, se obtiene un modelo en variables de estado lineal cuando el ángulo de pitch es
+cercano a cero \citep{Buck}.
 
 \subsection{Análisis de sistemas mecánicos: Enfoque de energías}
 Para modelar sistemas mécanicos como el que se estudiará en el presente trabajo, resulta conveniente
 utilizar el enfoque de energías, el cual facilita obtener las ecuaciones del movimiento de sistemas
-mecánicos con múltiples grados de libertad y que utilicen coordenadas generalizadas (no
-restringidas a ser cartesianas).
+mecánicos con múltiples grados de libertad y que utilicen coordenadas generalizadas (no restringidas
+a ser cartesianas).
 
 Las coordenadas generalizadas de un sistema mecánico, se definen como la mínima cantidad de
 parámetros que pueden definir de manera completa la configuración del sistema, siendo variables
@@ -212,9 +227,10 @@ donde $n$ es la cantidad de grados de libertad del sistema.
   \label{eq:lagrangian}
 \end{equation}
 
-La ecuación de Euler-Lagrange (\ref{eq:euler-lagrange}), permite obtener una ecuación de movimiento
-para cada coordenada generalizada ($q_j$) \citep{vandiver2011}, lo que genera un sistema de $n$
-ecuaciones diferenciales de las cuales se puede construir el modelo en variables de estado.
+La ecuación \ref{eq:euler-lagrange} se conoce como la ecuación de Euler-Lagrange, y permite obtener
+una ecuación de movimiento para cada coordenada generalizada ($q_j$) \citep{vandiver2011}, lo que
+genera un sistema de $n$ ecuaciones diferenciales de las cuales se puede construir el modelo en
+variables de estado.
 
 \begin{equation}
   \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q_j}}\right)-\frac{\partial
@@ -235,7 +251,6 @@ el tipo de movimiento, la posición de los cuerpos y la constitución física de lo
 (elasticidad). En el cuadro \ref{tab:energias}, se muestran algunos de los principales tipos de
 dichas energías para sistemas mecánicos.
 
-
 \begin{table}[]
 \centering
 \caption{Principales tipos de energías cinéticas y potenciales para un sistema mecánico}
@@ -251,8 +266,7 @@ Elástica (Resorte) & $\frac{1}{2}k{x}^2$ \\ \bottomrule
 \end{tabular}
 \end{table}
 
-
-
+\newpage
 %-------------------
 %bibliografía
 \addcontentsline{toc}{section}{Bibliografía}
