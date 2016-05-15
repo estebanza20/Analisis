@@ -60,14 +60,12 @@
 
 \begin{description}[labelindent=1cm,labelwidth=2.25cm,align=left]
 %ponerlo en orden alfabetico
-	\item[$J$] Inercia rotacional del robot.
-	\item[$M$] Masa del robot.
-	\item[$g$] Constante de la aceleración de la gravedad.
-	\item[$\theta(t)$] Ángulo del eje del robot respecto a la normal con el suelo.
-	\item[$\omega(t)$] Velocidad angular.
-        \item[$v$] Velocidad del centro de masa del robot.
-        \item[$v_b$] Velocidad de la base del robot.
-        \item[$\omega_r$] velocidad rotacional de las ruedas.
+        \item[$L$] Lagrangiano de un sistema
+        \item[$T$] Energía cinética de un sistema
+        \item[$V$] Energía potencial de un sistema
+        \item[$q_j$] Coordenada generalizada
+        \item[$Q_j$] Fuerza generalizada
+        \item[$n$] Cantidad de grados de libertad de un sistema
         \item[$$]
 \end{description}
 
@@ -80,16 +78,60 @@
 \rhead{\thepage}
 \fancyfoot{}
 
-%------------------------------------------------------------------
-%Secciones del informe (puede ser un solo archivo o separarse los secciones en archivos independientes e incluirse con \include('nombre_archivo') si se quiere una nueva página antes de la parte que se está anexando o \input{'nombre de archivo'} si se quiere agregar directamente en la posición donde se llama a \input{}
+% ------------------------------------------------------------------ Secciones del informe (puede
+% ser un solo archivo o separarse los secciones en archivos independientes e incluirse
+% con \include('nombre_archivo') si se quiere una nueva página antes de la parte que se está
+% anexando o \input{'nombre de archivo'} si se quiere agregar directamente en la posición donde se
+% llama a \input{}
 
 
 %------------------
 \section{Marco teórico}
 
-En esta sección se debe introducir toda la información que se crea conveniente para poner el trabajo en contexto. Por ejemplo, si se va a hablar de modelado de aerogeneradores, entonces se debe poner la historia, la construcción de los aerogeneradores, funcionamiento, etc.
+En esta sección se debe introducir toda la información que se crea conveniente para poner el trabajo
+en contexto. Por ejemplo, si se va a hablar de modelado de aerogeneradores, entonces se debe poner
+la historia, la construcción de los aerogeneradores, funcionamiento, etc.
 
 \citep{alfaro2006b}
+
+
+\subsection{Enfoque de energías: Análisis de sistemas mecánicos}
+Para modelar sistemas mécanicos como el que se estudiará en el presente trabajo, resulta conveniente
+utilizar el enfoque de energías, el cual facilita obtener las ecuaciones del movimiento de sistemas
+mecánicos con múltiples grados de libertad y que utilicen coordenadas generalizadas (no
+restringidas a ser cartesianas).
+
+Las coordenadas generalizadas de un sistema mecánico, se definen como la mínima cantidad de
+parámetros que pueden definir de manera completa la configuración del sistema (*****), siendo
+variables independientes entre sí. Por otro lado, los grados de libertad son la cantidad de
+coordenadas que pueden ser modificadas de manera independiente para determinar la configuración de
+los cuerpos en el sistema (*****).
+
+El Lagrangiano, definido como $L=T-V$, es función de las coordenadas generalizadas y de sus
+respectivas derivadas, tal como se muestra en la ecuación \ref{eq:lagrangian}, en donde $n$ es la
+cantidad de grados de libertad del sistema.
+
+\begin{equation}
+  L=L(q_{1},...q_{j}...q_{n}, \dot{q_{1}},...\dot{q_{j}}...\dot{q_{n}})
+  \label{eq:lagrangian}
+\end{equation}
+
+La ecuación de Euler-Lagrange (\ref{eq:euler-lagrange}), permite obtener una ecuación de
+movimiento para cada coordenada generalizada ($q_j$) (*****), lo que genera un sistema de $n$ ecuaciones
+diferenciales, de las cuales se puede construir el modelo en variables de estado.
+
+\begin{equation}
+  \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q_j}}\right)-\frac{\partial
+    L}{\partial q_j} = Q_j
+\label{eq:euler-lagrange}
+\end{equation}
+
+El término $Q_j$ de la ecuación \ref{eq:euler-lagrange}, consiste en el componente de la fuerza neta
+no conservativa del sistema que realiza trabajo en la dirección de $q_j$ (****).
+
+Para poder utilizar las ecuaciones de Euler-Lagrange, es necesario que el sistema sea holonómico (*****), lo
+que significa que la cantidad de coordenadas generalizadas a utilizar es igual a la cantidad de
+grados de libertad del sistema.
 
 
 %-------------------
@@ -99,8 +141,8 @@ En esta sección se debe introducir toda la información que se crea conveniente p
 %nombre del archivo .bib que contiene la bibliografía
 \bibliography{informe_ref}
 
-%-------------------
-%archivo de apéndice si fuera necesario (* si no hay apéndice comentar las siguientes dos líneas *)
+% ------------------- archivo de apéndice si fuera necesario (* si no hay apéndice comentar las
+% siguientes dos líneas *)
 
 \addcontentsline{toc}{section}{Apéndices}
 \section*{Apéndice A}
