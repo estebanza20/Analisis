@@ -6,6 +6,7 @@
 \documentclass{eieinforme}
 %
 %--------- <Agregue aquí algún paquete extra que sea necesario---------
+\usepackage{booktabs}
 
 %--------- Agregue aquí algún paquete extra que sea necesario>---------
 %
@@ -60,15 +61,20 @@
 
 \begin{description}[labelindent=1cm,labelwidth=2.25cm,align=left]
 %ponerlo en orden alfabetico
-	\item[$J$] Inercia rotacional del robot.
-	\item[$M$] Masa del robot.
-	\item[$g$] Constante de la aceleración de la gravedad.
-	\item[$\theta(t)$] Ángulo del eje del robot respecto a la normal con el suelo.
-	\item[$\omega(t)$] Velocidad angular.
-        \item[$v$] Velocidad del centro de masa del robot.
-        \item[$v_b$] Velocidad de la base del robot.
-        \item[$\omega_r$] velocidad rotacional de las ruedas.
-        \item[$$]
+        \item[$L$] Lagrangiano de un sistema
+        \item[$T$] Energía cinética de un sistema
+        \item[$V$] Energía potencial de un sistema
+        \item[$q_j$] Coordenada generalizada
+        \item[$Q_j$] Fuerza generalizada
+        \item[$n$] Cantidad de grados de libertad de un sistema
+        \item[$J$] Momento de inercia de un cuerpo
+        \item[$m$] Masa de un cuerpo
+        \item[$\vec{v}$] Velocidad del centro de masa de un cuerpo
+        \item[$\omega$] Velocidad angular
+        \item[$k$] Constante de un resorte traslacional
+        \item[$x$] Elongación de un resorte traslacional
+        \item[$h$] Altura del centro de masa de un cuerpo con respecto a la referencia
+        \item[$g$] Constante de la gravedad terrestre
 \end{description}
 
 %--------------------
@@ -80,12 +86,16 @@
 \rhead{\thepage}
 \fancyfoot{}
 
-%------------------------------------------------------------------
-%Secciones del informe (puede ser un solo archivo o separarse los secciones en archivos independientes e incluirse con \include('nombre_archivo') si se quiere una nueva página antes de la parte que se está anexando o \input{'nombre de archivo'} si se quiere agregar directamente en la posición donde se llama a \input{}
+% ------------------------------------------------------------------ Secciones del informe (puede
+% ser un solo archivo o separarse los secciones en archivos independientes e incluirse
+% con \include('nombre_archivo') si se quiere una nueva página antes de la parte que se está
+% anexando o \input{'nombre de archivo'} si se quiere agregar directamente en la posición donde se
+% llama a \input{}
 
 
 %------------------
 \section{Marco teórico}
+
 
 El sistema que se estudia son Robots de dos ruedas. Estos son robots que tienen 2 ruedas coaxiales, normalmente a cada lado del cuerpo, con el centro de masa sobre el eje de las ruedas. Debido a que el centro de masa se encuentra sobre el eje de las ruedas estos robots también son conocidos como péndulos invertidos móbiles, ya que su comportamiento es el mismo que un péndulo invertido. %cita Design and implementation of balance of two wheeled Robots
 Con la particularidad que su base no está fija en el espacio, sino que puede moverse sobre una superficie debido a la acción de las ruedas.
@@ -106,6 +116,67 @@ El objetivo de estos sistemas es evitar que caigan, entonces la salida se toma c
 
 \citep{alfaro2006b}
 
+\subsection{Enfoque de energías: Análisis de sistemas mecánicos}
+Para modelar sistemas mécanicos como el que se estudiará en el presente trabajo, resulta conveniente
+utilizar el enfoque de energías, el cual facilita obtener las ecuaciones del movimiento de sistemas
+mecánicos con múltiples grados de libertad y que utilicen coordenadas generalizadas (no
+restringidas a ser cartesianas).
+
+Las coordenadas generalizadas de un sistema mecánico, se definen como la mínima cantidad de
+parámetros que pueden definir de manera completa la configuración del sistema, siendo variables
+independientes entre sí \citep{fitzpatrick2011}. Por otro lado, los grados de libertad son la
+cantidad de coordenadas que pueden ser modificadas de manera independiente para determinar la
+configuración de los cuerpos en el sistema \citep{vandiver2011}.
+
+El Lagrangiano, definido como $L=T-V$, es función de las coordenadas generalizadas y de sus
+respectivas derivadas \citep{gavin2014}, tal como se muestra en la ecuación \ref{eq:lagrangian}, en
+donde $n$ es la cantidad de grados de libertad del sistema.
+
+\begin{equation}
+  L=L(q_{1},...q_{j}...q_{n}, \dot{q_{1}},...\dot{q_{j}}...\dot{q_{n}})
+  \label{eq:lagrangian}
+\end{equation}
+
+La ecuación de Euler-Lagrange (\ref{eq:euler-lagrange}), permite obtener una ecuación de movimiento
+para cada coordenada generalizada ($q_j$) \citep{vandiver2011}, lo que genera un sistema de $n$
+ecuaciones diferenciales de las cuales se puede construir el modelo en variables de estado.
+
+\begin{equation}
+  \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q_j}}\right)-\frac{\partial
+    L}{\partial q_j} = Q_j
+\label{eq:euler-lagrange}
+\end{equation}
+
+El término $Q_j$ de la ecuación \ref{eq:euler-lagrange}, denominado fuerza generalizada
+\citep{gavin2014}, consiste en el componente de la fuerza neta no conservativa del sistema que
+realiza trabajo en la dirección de $q_j$, lo cual involucra las fuerzas externas y las disipativas.
+
+Para poder utilizar las ecuaciones de Euler-Lagrange, es necesario que el sistema sea holonómico
+\citep{vandiver2011}, lo que significa que la cantidad de coordenadas generalizadas a utilizar es
+igual a la cantidad de grados de libertad del sistema.
+
+La energía potencial y cinética que componen el Lagrangiano del sistema, dependen de factores como
+el tipo de movimiento, la posición de los cuerpos y la constitución física de los mismos
+(elasticidad). En el cuadro \ref{tab:energias}, se muestran algunos de los principales tipos de
+dichas energías para sistemas mecánicos.
+
+
+\begin{table}[]
+\centering
+\caption{Principales tipos de energías cinéticas y potenciales para un sistema mecánico}
+\label{tab:energias}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\multicolumn{2}{l}{\textbf{Energía cinética (T)}} \\ \midrule
+Traslacional & $\frac{1}{2} m {\left\lVert \vec{v} \right\rVert}^2  $   \\ \midrule
+Rotacional & $\frac{1}{2} J {\omega}^2$ \\ \midrule
+\multicolumn{2}{l}{\textbf{Energía potencial (V)}} \\ \midrule
+Gravitacional & $mgh$ \\ \midrule
+Elástica (Resorte) & $\frac{1}{2}k{x}^2$ \\ \bottomrule
+\end{tabular}
+\end{table}
+
+
 
 %-------------------
 %bibliografía
@@ -114,8 +185,8 @@ El objetivo de estos sistemas es evitar que caigan, entonces la salida se toma c
 %nombre del archivo .bib que contiene la bibliografía
 \bibliography{informe_ref}
 
-%-------------------
-%archivo de apéndice si fuera necesario (* si no hay apéndice comentar las siguientes dos líneas *)
+% ------------------- archivo de apéndice si fuera necesario (* si no hay apéndice comentar las
+% siguientes dos líneas *)
 
 \addcontentsline{toc}{section}{Apéndices}
 \section*{Apéndice A}
