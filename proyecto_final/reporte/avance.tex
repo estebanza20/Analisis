@@ -6,6 +6,7 @@
 \documentclass{eieinforme}
 %
 %--------- <Agregue aquí algún paquete extra que sea necesario---------
+\usepackage{booktabs}
 
 %--------- Agregue aquí algún paquete extra que sea necesario>---------
 %
@@ -66,7 +67,14 @@
         \item[$q_j$] Coordenada generalizada
         \item[$Q_j$] Fuerza generalizada
         \item[$n$] Cantidad de grados de libertad de un sistema
-        \item[$$]
+        \item[$J$] Momento de inercia de un cuerpo
+        \item[$m$] Masa de un cuerpo
+        \item[$\vec{v}$] Velocidad del centro de masa de un cuerpo
+        \item[$\omega$] Velocidad angular
+        \item[$k$] Constante de un resorte traslacional
+        \item[$x$] Elongación de un resorte traslacional
+        \item[$h$] Altura del centro de masa de un cuerpo con respecto a la referencia
+        \item[$g$] Constante de la gravedad terrestre
 \end{description}
 
 %--------------------
@@ -88,13 +96,6 @@
 %------------------
 \section{Marco teórico}
 
-En esta sección se debe introducir toda la información que se crea conveniente para poner el trabajo
-en contexto. Por ejemplo, si se va a hablar de modelado de aerogeneradores, entonces se debe poner
-la historia, la construcción de los aerogeneradores, funcionamiento, etc.
-
-\citep{alfaro2006b}
-
-
 \subsection{Enfoque de energías: Análisis de sistemas mecánicos}
 Para modelar sistemas mécanicos como el que se estudiará en el presente trabajo, resulta conveniente
 utilizar el enfoque de energías, el cual facilita obtener las ecuaciones del movimiento de sistemas
@@ -102,23 +103,23 @@ mecánicos con múltiples grados de libertad y que utilicen coordenadas generaliza
 restringidas a ser cartesianas).
 
 Las coordenadas generalizadas de un sistema mecánico, se definen como la mínima cantidad de
-parámetros que pueden definir de manera completa la configuración del sistema (*****), siendo
-variables independientes entre sí. Por otro lado, los grados de libertad son la cantidad de
-coordenadas que pueden ser modificadas de manera independiente para determinar la configuración de
-los cuerpos en el sistema (*****).
+parámetros que pueden definir de manera completa la configuración del sistema, siendo variables
+independientes entre sí \citep{fitzpatrick2011}. Por otro lado, los grados de libertad son la
+cantidad de coordenadas que pueden ser modificadas de manera independiente para determinar la
+configuración de los cuerpos en el sistema \citep{vandiver2011}.
 
 El Lagrangiano, definido como $L=T-V$, es función de las coordenadas generalizadas y de sus
-respectivas derivadas, tal como se muestra en la ecuación \ref{eq:lagrangian}, en donde $n$ es la
-cantidad de grados de libertad del sistema.
+respectivas derivadas \citep{gavin2014}, tal como se muestra en la ecuación \ref{eq:lagrangian}, en
+donde $n$ es la cantidad de grados de libertad del sistema.
 
 \begin{equation}
   L=L(q_{1},...q_{j}...q_{n}, \dot{q_{1}},...\dot{q_{j}}...\dot{q_{n}})
   \label{eq:lagrangian}
 \end{equation}
 
-La ecuación de Euler-Lagrange (\ref{eq:euler-lagrange}), permite obtener una ecuación de
-movimiento para cada coordenada generalizada ($q_j$) (*****), lo que genera un sistema de $n$ ecuaciones
-diferenciales, de las cuales se puede construir el modelo en variables de estado.
+La ecuación de Euler-Lagrange (\ref{eq:euler-lagrange}), permite obtener una ecuación de movimiento
+para cada coordenada generalizada ($q_j$) \citep{vandiver2011}, lo que genera un sistema de $n$
+ecuaciones diferenciales de las cuales se puede construir el modelo en variables de estado.
 
 \begin{equation}
   \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q_j}}\right)-\frac{\partial
@@ -126,12 +127,34 @@ diferenciales, de las cuales se puede construir el modelo en variables de estado
 \label{eq:euler-lagrange}
 \end{equation}
 
-El término $Q_j$ de la ecuación \ref{eq:euler-lagrange}, consiste en el componente de la fuerza neta
-no conservativa del sistema que realiza trabajo en la dirección de $q_j$ (****).
+El término $Q_j$ de la ecuación \ref{eq:euler-lagrange}, denominado fuerza generalizada
+\citep{gavin2014}, consiste en el componente de la fuerza neta no conservativa del sistema que
+realiza trabajo en la dirección de $q_j$, lo cual involucra las fuerzas externas y las disipativas.
 
-Para poder utilizar las ecuaciones de Euler-Lagrange, es necesario que el sistema sea holonómico (*****), lo
-que significa que la cantidad de coordenadas generalizadas a utilizar es igual a la cantidad de
-grados de libertad del sistema.
+Para poder utilizar las ecuaciones de Euler-Lagrange, es necesario que el sistema sea holonómico
+\citep{vandiver2011}, lo que significa que la cantidad de coordenadas generalizadas a utilizar es
+igual a la cantidad de grados de libertad del sistema.
+
+La energía potencial y cinética que componen el Lagrangiano del sistema, dependen de factores como
+el tipo de movimiento, la posición de los cuerpos y la constitución física de los mismos
+(elasticidad). En el cuadro \ref{tab:energias}, se muestran algunos de los principales tipos de
+dichas energías para sistemas mecánicos.
+
+
+\begin{table}[]
+\centering
+\caption{Principales tipos de energías cinéticas y potenciales para un sistema mecánico}
+\label{tab:energias}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\multicolumn{2}{l}{\textbf{Energía cinética (T)}} \\ \midrule
+Traslacional & $\frac{1}{2} m {\left\lVert \vec{v} \right\rVert}^2  $   \\ \midrule
+Rotacional & $\frac{1}{2} J {\omega}^2$ \\ \midrule
+\multicolumn{2}{l}{\textbf{Energía potencial (V)}} \\ \midrule
+Gravitacional & $mgh$ \\ \midrule
+Elástica (Resorte) & $\frac{1}{2}k{x}^2$ \\ \bottomrule
+\end{tabular}
+\end{table}
 
 
 %-------------------
