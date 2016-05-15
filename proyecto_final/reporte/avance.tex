@@ -96,25 +96,60 @@
 %------------------
 \section{Marco teórico}
 
+\subsection{Descripción de los Robots de dos Ruedas}
 
-El sistema que se estudia son Robots de dos ruedas. Estos son robots que tienen 2 ruedas coaxiales, normalmente a cada lado del cuerpo, con el centro de masa sobre el eje de las ruedas. Debido a que el centro de masa se encuentra sobre el eje de las ruedas estos robots también son conocidos como péndulos invertidos móbiles, ya que su comportamiento es el mismo que un péndulo invertido. %cita Design and implementation of balance of two wheeled Robots
-Con la particularidad que su base no está fija en el espacio, sino que puede moverse sobre una superficie debido a la acción de las ruedas.
+El sistema que se estudia son Robots de dos ruedas. Estos son robots que tienen 2 ruedas coaxiales, normalmente a cada lado del cuerpo, con el centro de masa sobre el eje de las ruedas. Debido a que el centro de masa se encuentra sobre el eje de las ruedas estos robots también son conocidos como péndulos invertidos móbiles, ya que su comportamiento es el mismo que un péndulo invertido. \citep{Yan-Hou}. Con la particularidad que su base no está fija en el espacio, sino que puede moverse sobre una superficie debido a la acción de las ruedas (ver figura \ref{fig:segway_robot}).
 
-Estos robots tienen 3 grados de libertad. Estos son: traslación hacia adelante o atras, giro sobre su propio eje (yaw), y giro sobre el eje de las ruedas (pitch). Sin embargo el robot únicamente tiene dos actuadores (las dos ruedas). Por tanto se considera un sistema subactuado. %cita Design and implementation of integral sliding-Mode Control on an Underactuated Two-Wheeled Mobile Robot
-Entonces no se puede lograr el control del movimiento del robot en los tres grados de libertad de forma independiente, si se controla uno de ellos el otro se ve afectado. En el caso particular de este trabajo solo se toma en cuenta tilt para el modelo, por lo que esta característica no afecta tanto al modelo.
+Estos robots tienen 3 grados de libertad. Estos son: traslación hacia adelante o atras, giro sobre su propio eje (yaw), y giro sobre el eje de las ruedas (pitch) (ver figura \ref{fig:axis}). Sin embargo el robot únicamente tiene dos actuadores (las dos ruedas). Por tanto se considera un sistema subactuado \citep{Xu}. Entonces no se puede lograr el control del movimiento del robot en los tres grados de libertad de forma independiente, si se controla uno de ellos el otro se ve afectado. En el caso particular de este trabajo solo se toma en cuenta tilt para el modelo, por lo que esta característica no afecta tanto al modelo.
+
+
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\textwidth]{../pictures/robot-segway.png}	
+	\caption{Ejemplo de robot de dos ruedas}
+	\label{fig:segway_robot}
+\end{figure}
 %Figura 2 de modelling and control of two wheeled robots
 
-Se debe notar que para que el sistema sea estable , se necesitan al menos tres puntos de apollo %cita Review of modelling and control of two wheeled robots
-La mayor propiedad de este sistema es que se considera dinámicamente estable %cita Design
-o estáticamente inestable %cita Review of mode
-, esto porque el sistema es inestable entonces se debe tener un controlador activo para mantenerlo cerca de un punto de operación, y evitar que se caiga.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{../pictures/Axis.pdf}	
+	\caption{Grados de libertad de un robot de dos ruedas}
+	\label{fig:axis}
+\end{figure}
 
-Estos sistemas son no lineales %cita Design and Real-time implementation of a fuzzy logic Control System for a two Wheeled robot  
-Entonces en el modelo se toma en cuenta un punto de operación específico, donde el sistema puede considerarse como lineal. 
+Se debe notar que para que el sistema sea estable , se necesitan al menos tres puntos de apollo \citep{KarlStol}. La mayor propiedad de este sistema es que se considera dinámicamente estable \citep{Yan-Hou} o estáticamente inestable \citep{KarlStol}, esto porque el sistema es inestable entonces se debe tener un controlador activo para mantenerlo cerca de un punto de operación, y evitar que se caiga.
 
-El objetivo de estos sistemas es evitar que caigan, entonces la salida se toma como el ángulo respecto a la normal con el suelo. Es decir, la salida es el ángulo pitch. Por otra parte, la entrada son los torques que actúan sobre el cuerpo. El torque que provoca la gravedad puede no ser conciderado como una entrada, pero el torqeu de las ruedas y el torque de perturbaciones externas (como empujar al robot), sí son entradas.  
 
-\citep{alfaro2006b}
+\subsection{Consideraciones Iniciales}
+El objetivo de estos sistemas es evitar que caigan, entonces la salida se toma como el ángulo respecto a la normal con el suelo. Es decir, la salida es el ángulo pitch. Por otra parte, la entrada son los torques que actúan sobre el cuerpo. El torque que provoca la gravedad puede no ser conciderado como una entrada, pero el torqeu de las ruedas y el torque de perturbaciones externas (como empujar al robot), sí son entradas. 
+
+\subsection{Linealización}
+Estos sistemas son no lineales \citep{Sayidmarie} 
+Entonces en el modelo se toma en cuenta un punto de operación específico, donde el sistema puede considerarse como lineal. Se denomina $\phi$ cómo el ángulo de pitch.A priori se tiene que para controlar $\phi$ el robot se debe mover en la misma dirección. Por ejemplo si el robot se comienza a inclinar hacia adelante, entonces se mueve hacia adelante para contrarestar el efecto. Entonces se toma como punto de operación alrededor $\phi=0$. Esto para que en el punto de operación el robot se mantenga lo más quedito posible. Ahora se sabe que la ecuación de estados del sistema viene dada por:
+
+\begin{equation}
+\frac{d\mathbf{x}(t)}{dt}=f(\mathbf{x}(t),\mathbf{u}(t))
+\label{eq:estados_no_lineal}
+\end{equation}
+
+Ahora por el teorema del valor medio, se sabe que existe $t_0<\delta<t$ talque:
+
+\begin{equation}
+J_f(\mathbf{x},\mathbf{u})(\mathbf{x}(t_0+\delta)+\mathbf{u}(t_0+\delta))=\frac{f(\mathbf{x}(t),\mathbf{u}(t))-f(\mathbf{x}(t_0),\mathbf{u}(t_0))}{t-t_0}
+\label{eq:mean_theorem}
+\end{equation}
+ 
+Donde $J_f$ es el jacobino de $f$. Para el caso particular del punto de operación se tiene que $t_0=0$. Como se supone que $t$ es muy cercano a $0$. Entonces se aproxima $\delta =0$. Sea $J_{f_x}$ y $J_{f_u}$ las porciones del jacobiano de f que dependen únicamente de $\mathbf{x}$ y $\mathbf{u}$ respectivamente. Y se define $\mathbf{x'}(t)=\mathbf{x}(t)-\mathbf{x}(0)$ y $\mathbf{u'}(t)=\mathbf{u}(t)-\mathbf{u}(0)$. Se despeja $f$ de la ecuación \ref{eq:mean_theorem} y sustituyendo \ref{eq:estados_no_lineal} se obtiene que:
+
+\begin{equation}
+\frac{dx'(t)}{dt}=J_{f_x}\mathbf{x'}(t)+J_{f_u}\mathbf{u'}(t)
+\label{eq:meantheo}
+\end{equation}
+
+Por lo que se tiene una ecuación de estados lineal. Entonces de esta manera se obtiene un modelo lineal cuando el ángulo de pitch es cercano a cero.\citep{Buck}
 
 \subsection{Enfoque de energías: Análisis de sistemas mecánicos}
 Para modelar sistemas mécanicos como el que se estudiará en el presente trabajo, resulta conveniente
