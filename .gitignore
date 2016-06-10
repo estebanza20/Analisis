@@ -2,7 +2,7 @@ Compiled source #
 ###################
 *.com
 *.class
-*.d l l
+*.dll
 *.exe
 ∗.o
 *.so
@@ -28,7 +28,7 @@ Compiled source #
 #autosaved files
 *~
 
-#pdfs an binary files
+#pdfs and binary files
 *.pdf
 
 
