@@ -260,8 +260,15 @@ Este código es parte del script principal. Pero como no es parte de lo que se p
 \section{Ejercicio 3}
 
 \subsection{S-Function para el modelo del cohete}
+Para la creación de la S-Function del modelo del cohete, en primer lugar se procedió a configurar la
+función \texttt{setup} indicando la información sobre la cantidad y tipo de entradas, salidas,
+parámetros y estados.
 
-%Condiciones iniciales
+Una vez hecho esto, se establecieron las condiciones iniciales para los estados en la función
+\texttt{InitConditions}. De esta manera, se configuró que tanto la altura como la velocidad inicial
+del cohete fueran 0 y que la masa inicial fuera la indicada por uno de los parámetros del bloque en
+Simulink, tal como se muestra en el siguiente segmento del código.
+
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
   function InitConditions(block) %Se inicializan los estados
     % Altura inicial
@@ -271,6 +278,12 @@ Este código es parte del script principal. Pero como no es parte de lo que se p
     % Masa inicial
     block.ContStates.Data(3) = block.DialogPrm(7).Data;
 \end{lstlisting}
+
+Posteriormente, se programó la función \texttt{Outputs} para calcular las salidas del sistema, las
+cuales corresponden a la altura y la velocidad del cohete. De esta forma, se crearon variables
+intermedias para almacenar los valores de los estados de altura y velocidad, y también se estableció la
+condición de que si se detecta que la altura deja de ser positiva o nula, se fuerce tanto la altura
+como la velocidad a 0, tal como se muestra en el siguiente código.
 
 %Salidas
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
@@ -287,6 +300,16 @@ Este código es parte del script principal. Pero como no es parte de lo que se p
       block.OutputPort(2).Data = v;
     end
 \end{lstlisting}
+
+Por otro lado, se configuró la función \texttt{Derivatives}, la cual se encarga de establecer los
+valores de las derivadas de los estados del modelo en cada instante de la simulación. De esta
+manera, se crearon las variables intermedias para almacenar los estados y los parámetros
+del sistema. Luego, se programó la condición de que si la masa del combustible se agota entonces que
+la misma se mantenga en un valor de 0, forzando también la tasa de consumo de combustible a 0 en
+dicha situación.
+
+Finalmente, se estableció el vector de derivadas, el cual almacena en cada una de sus entradas el
+valor correspondiente a la ecuación respectiva del modelo en variables de estado del cohete.
 
 %Derivadas
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
@@ -322,16 +345,28 @@ Este código es parte del script principal. Pero como no es parte de lo que se p
 \end{lstlisting}
 
 
-
 \subsection{Simulación del movimiento del cohete}
-
+Para el segundo apartado de este ejercicio, se utilizó la S-Function creada dentro de un diagrama de
+bloques del programa Simulink, con el cual se simuló la respuesta del modelo del cohete ante una
+entrada escalón de 5 segundos que indica la tasa de consumo de combustible del cohete. En la figura
+\ref{fig:diag_simulink}, se muestra el diagrama de Simulink utilizado, en el cual se observa que el
+bloque de la S-Function efectivamente presenta una entrada y dos salidas, tal como se estableció en
+la programación de la función. Los datos de la altura y la velocidad del cohete se capturaron con el
+bloque \texttt{Scope}.
 
 \begin{figure}[ht!]
   \centering
   \includegraphics[width=0.5\linewidth]{pictures/Ejercicio3/simulink_cohete.eps}
   \caption{Diagrama de bloques en Simulink}
+  \label{fig:diag_simulink}
 \end{figure}
 
+En la figura \ref{fig:alt_cohete}, se muestra la gráfica de la altura resultante de la simulación
+hasta el instante que el cohete regresa a la altura $h=0$. De esta forma, la altura empieza
+incrementado rápidamente, pero luego del instante $t=5$ la concavidad de la curva cambia debido a
+que la velocidad del cohete empieza a disminuir ya que se agota el combustible. Posteriormente, la
+altura llega a un valor máximo para luego disminuir debido a que la velocidad se vuelve negativa por
+el efecto de la aceleración de la gravedad.
 
 
 \begin{figure}[ht!]
@@ -341,12 +376,22 @@ Este código es parte del script principal. Pero como no es parte de lo que se p
   \label{fig:alt_cohete}
 \end{figure}
 
-
+En la figura \ref{fig:vel_cohete}, se observa la curva de la velocidad del cohete, además de la
+entrada escalón del sistema. Se puede ver como la velocidad llega a un valor máximo que coincide con
+el instante en donde se deja de aplicar la entrada del sistema, por lo que el combustible deja de
+impulsar el cohete hacia arriba y la aceleración de la gravedad provoca entonces que la velocidad
+empiece a disminuir. Posteriormente, la velocidad pasa a ser negativa llegando a un valor casi
+constante debido a que la resistencia del aire modelada con el término
+$-\frac{1}{2}\rho v(t)|v(t)| A C_D$ en la ecuación de la derivada de la velocidad del MVE provoca
+que se llegue a una velocidad terminal. Finalmente, cuando la altura del cohete regresa a $h=0$, se
+observa como la condición programada causa que la velocidad cambie súbitamente a $v=0$ debido al
+choque con la tierra.
 
 \begin{figure}[ht!]
   \centering
   \includegraphics[width=0.5\linewidth]{pictures/Ejercicio3/velocidad_cohete_vs_tiempo.eps}
   \caption{Gráfica de la velocidad del cohete con respecto al tiempo}
+  \label{fig:vel_cohete}
 \end{figure}
 
 
