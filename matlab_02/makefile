@@ -11,5 +11,5 @@ reporte.pdf :
 trabajo.zip:
 	zip -r Grupo_3.zip *.pdf *.m *.slx
 clean:
-	rm -f *.log *.aux *.pdf *.gz *~ *.zip *.out pictures/*converted-to.pdf
+	rm -f *.log *.aux *.pdf *.gz *~ *.zip *.out pictures/*converted-to.pdf pictures/Ejercicio3/*converted-to.pdf
 
