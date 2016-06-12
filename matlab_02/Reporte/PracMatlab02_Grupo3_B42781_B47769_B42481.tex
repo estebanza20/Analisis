@@ -34,36 +34,63 @@
 \author{Daniel García Vaglio (B42781), Esteban Zamora (B47769), Ariel Fallas (B42481)}
 \maketitle
 
-\section{Ejercico 1}
-Se hizo primero la simulación con las condiciones iniciales descritas. Para poder resolver el sistema de ecuaciones diferenciales se utilizó el comando ode45. Este comando integra las ecuaciones diferenciales desde un tiempo inicial hasta un tiempo final, para obtener la respuesta respecto al tiempo de las funciones en cuestión. Este es un método de orden intermedio. 
+\section{Ejercicio 1}
+Se hizo primero la simulación con las condiciones iniciales descritas. Para poder resolver el
+sistema de ecuaciones diferenciales se utilizó el comando ode45. Este comando integra las ecuaciones
+diferenciales desde un tiempo inicial hasta un tiempo final, para obtener la respuesta respecto al
+tiempo de las funciones en cuestión. Este es un método de orden intermedio.
 
-Para resolver el sistema de ecuaciones diferenciales se creó una función en matlab que describe el comportamiento diferencial del sistema, se le llamó odefun. Esta recibe como parámetros un vector de estados, un vector de tiempo, y los parámetros a, b y c. Se utilizó en ode45 para describir las ecuaciones y que este comando se encargue de hacer las integraciones necesarias para encontrar la solución. Se le indica  a ode45 que las variables que debe utilizar son el tiempo y los estados, y que tome los otros parámetros de odefun como constantes. Se presenta el comando (donde t\_sim\_1 es el vector de tiempo, x\_sim\_1 los vectores de estados, tspan es el intervalo de tiempo, y x0 el estado inicial):
+Para resolver el sistema de ecuaciones diferenciales se creó una función en Matlab que describe el
+comportamiento diferencial del sistema, a la cual se le llamó \texttt{odefun}. Esta recibe como
+parámetros un vector de estados, un vector de tiempo, y los parámetros a, b y c. Se utilizó en ode45
+para describir las ecuaciones y que este comando se encargue de hacer las integraciones necesarias
+para encontrar la solución. Se le indica a ode45 que las variables que debe utilizar son el tiempo y
+los estados, y que tome los otros parámetros de \texttt{odefun} como constantes. Se presenta el comando
+(donde t\_sim\_1 es el vector de tiempo, x\_sim\_1 los vectores de estados, tspan es el intervalo de
+tiempo, y x0 el estado inicial):
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
     [t_sim_1,x_sim_1] = ode45(@(t_sim_1,x_sim_1) odefun(t_sim_1,x_sim_1,a,b,c), tspan, x0);
 \end{lstlisting}
 
-La salida de ode45 son 4 vectores. Uno para el tiempo, y los otros para los estados (los vectores de estados se obtuvieron en forma de matriz, pero se trabajaron por separado, como si fueran vectores). Para encontrar el valor final se revisó la última entrada del vector de estados de la siguiente manera:
+La salida de ode45 son 4 vectores. Uno para el tiempo, y los otros para los estados (los vectores de
+estados se obtuvieron en forma de matriz, pero se trabajaron por separado, como si fueran
+vectores). Para encontrar el valor final se revisó la última entrada del vector de estados de la
+siguiente manera:
 
-%esto es codigo de matla. hay que ponerlo en formato
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
     valor_final_primera_simulacion=x_sim_1(end,:)
 \end{lstlisting}
 
-El resultado obtenido es: $(x_f, y_f, z_f)=$(-1.3972, 0.3190, 5.7522).
-Las gráficas solicitadas se presentan en la figura \ref{fig:simulacion1_total}. Para poder graficarlas como se pide en el enunciado, se utilizó el siguiente comando:
+El resultado obtenido es: $(x_f, y_f, z_f)=$(-1.3972, 0.3190, 5.7522).  Las gráficas solicitadas se
+presentan en la figura \ref{fig:simulacion1_total}. Para poder graficarlas como se pide en el
+enunciado, se utilizó el siguiente comando:
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
     surface([x_sim_1(:,1), x_sim_1(:,1)], [x_sim_1(:,2), x_sim_1(:,2)], [x_sim_1(:,3), x_sim_1(:,3)], [t_sim_1, t_sim_1], 'EdgeColor', 'flat');
 \end{lstlisting}
 
-Se hicieron otras 4 simulaciones, la segunda y tercera simulación, son cambiando el parámetro b; la cuarta y quinta son cambiando las condiciones iniciales. En la tabla \ref{table:finales_ejercicio_1}, se presentan los resultados de los valores finales en cada simulación. Las gráficas de la segunda, tercera, cuarta y quinta simulación se presentan en las figuras \ref{fig:simulacion2_total}, \ref{fig:simulacion3_total}, \ref{fig:simulacion4_total}, \ref{fig:simulacion5_total} respectivamente. 
+Se hicieron otras 4 simulaciones, la segunda y tercera simulación, se llevaron a cabo cambiando el
+parámetro b; la cuarta y quinta se realizaron cambiando las condiciones iniciales. En la tabla
+\ref{table:finales_ejercicio_1}, se presentan los resultados de los valores finales en cada
+simulación. Las gráficas de la segunda, tercera, cuarta y quinta simulación se presentan en las
+figuras \ref{fig:simulacion2_total}, \ref{fig:simulacion3_total}, \ref{fig:simulacion4_total} y
+\ref{fig:simulacion5_total}, respectivamente.
 
-A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los cambios en los parámetros. Note de la tabla \ref{table:finales_ejercicio_1}, que hay grandes cambios en el estado final, con pequeños cambios en los parámetros. Para poder analizar este fenómeno con mayor propiedad, se diseñó un pequeño experimento de simulación. Cómo en las simulaciones propuestas, únicamente varía el parámetro b, entonces se decide hacer un barrido por los valores de b desde 4.85 hasta 8.6 en pasos de 0.05. Estos valores inicial y final son el mínimo valor y máximo de b con los que se hicieron las simulaciones pasadas. El resto de parámetros y el estado inicial, es el mismo que en la primera simulación. Entonces, para cada valor de b se grafica el valor final de los tres estados. El resultado se presenta en la gráfica \ref{fig:sensibilidad}. Es evidente que el estado final varía mucho, con cambios pequeños en la entrada. Entonces se concluye que el sistema es muy sensible.
+A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los cambios en los
+parámetros. Note de la tabla \ref{table:finales_ejercicio_1}, que hay grandes cambios en el estado
+final, con pequeños cambios en los parámetros. Para poder analizar este fenómeno con mayor
+propiedad, se diseñó un pequeño experimento de simulación. Cómo en las simulaciones propuestas,
+únicamente varía el parámetro b, entonces se decide hacer un barrido por los valores de b desde 4.85
+hasta 8.6 en pasos de 0.05. Estos valores inicial y final son el mínimo valor y máximo de b con los
+que se hicieron las simulaciones pasadas. El resto de parámetros y el estado inicial, es el mismo
+que en la primera simulación. Entonces, para cada valor de b se graficó el valor final de los tres
+estados. El resultado se presenta en la gráfica \ref{fig:sensibilidad}. Es evidente que el estado
+final varía mucho, con cambios pequeños en la entrada. Entonces se concluye que el sistema es muy
+sensible.
 
  
-
 
 
 
@@ -91,7 +118,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 	\centering
 	\begin{subfigure}[t]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/primera_simulacion}
-		\caption{Resultado para primer caso de condiciones ininciales}
+		\caption{Resultado para primer caso de condiciones iniciales}
 		\label{fig:simulacion1}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.36\textwidth}
@@ -110,7 +137,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 		\caption{Vista YZ de la primera simulación}
 		\label{fig:simulacion1yz}
 	\end{subfigure}
-	\caption{Primera simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
+	\caption{Primera simulación gráfica de los estados. En los ejes se tienen \\los estados y el tiempo se denota con el cambio de color}
 	\label{fig:simulacion1_total}
 \end{figure}
 
@@ -119,7 +146,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 	\centering
 	\begin{subfigure}[t]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/segunda_simulacion}
-		\caption{Resultado para primer caso de condiciones ininciales}
+		\caption{Resultado para primer caso de condiciones iniciales}
 		\label{fig:simulacion2}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.36\textwidth}
@@ -138,7 +165,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 		\caption{Vista YZ de la segunda simulación}
 		\label{fig:simulacion2yz}
 	\end{subfigure}
-	\caption{Segunda simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
+	\caption{Segunda simulación gráfica de los estados. En los ejes se tienen \\los estados y el tiempo se denota con el cambio de color}
 	\label{fig:simulacion2_total}
 \end{figure}
 
@@ -148,7 +175,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 	\centering
 	\begin{subfigure}[t]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/tercera_simulacion}
-		\caption{Resultado para primer caso de condiciones ininciales}
+		\caption{Resultado para primer caso de condiciones iniciales}
 		\label{fig:simulacion3}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.36\textwidth}
@@ -167,7 +194,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 		\caption{Vista YZ de la tercera simulación}
 		\label{fig:simulacion3yz}
 	\end{subfigure}
-	\caption{Tercera simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
+	\caption{Tercera simulación gráfica de los estados. En los ejes se tienen \\los estados y el tiempo se denota con el cambio de color}
 	\label{fig:simulacion3_total}
 \end{figure}
 
@@ -177,7 +204,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 	\centering
 	\begin{subfigure}[t]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/cuarta_simulacion}
-		\caption{Resultado para primer caso de condiciones ininciales}
+		\caption{Resultado para primer caso de condiciones iniciales}
 		\label{fig:simulacion4}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.36\textwidth}
@@ -196,7 +223,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 		\caption{Vista YZ de la cuarta simulación}
 		\label{fig:simulacion4yz}
 	\end{subfigure}
-	\caption{Cuarta simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
+	\caption{Cuarta simulación gráfica de los estados. En los ejes se tienen \\los estados y el tiempo se denota con el cambio de color}
 	\label{fig:simulacion4_total}
 \end{figure}
 
@@ -205,7 +232,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 	\centering
 	\begin{subfigure}[t]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/quinta_simulacion}
-		\caption{Resultado para primer caso de condiciones ininciales}
+		\caption{Resultado para primer caso de condiciones iniciales}
 		\label{fig:simulacion5}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.36\textwidth}
@@ -224,7 +251,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 		\caption{Vista YZ de la quinta simulación}
 		\label{fig:simulacion5yz}
 	\end{subfigure}
-	\caption{Quinta simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
+	\caption{Quinta simulación gráfica de los estados. En los ejes se tienen \\los estados y el tiempo se denota con el cambio de color}
 	\label{fig:simulacion5_total}
 \end{figure}
 %Comparacion de los estados de las distintas simulaciones respecto al tiempo.···················································································
@@ -232,7 +259,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{pictures/comparacion}
-	\caption{Comparación de los estados de las distintas simulaciones respecto al tiempo. Se presentan en rojo, verde, azul, magenta, y cían respectivamente cada simulación.}
+	\caption{Comparación de los estados de las distintas simulaciones respecto al tiempo. \\Se presentan en rojo, verde, azul, magenta, y cian respectivamente cada simulación.}
 	\label{fig:comparacion}
 \end{figure}
 
@@ -246,7 +273,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 \end{figure}
 
 \subsection{Código del script principal}
-Del script principal, solo se agrega la parte inicial. Ya que el resto del código es una repetición de lo primero, pero para las otras simulaciones.
+Del script principal, solo se agrega la parte inicial. Ya que el resto del código es análogo al primero, pero para las otras simulaciones.
 \lstinputlisting[style=Matlab-editor, basicstyle=\mlttfamily, firstline=6, lastline=45]{Ejercicio1.m}
 
 Se agrega también el código para hacer la gráfica comparativa de todos los estados en 10 segundos.
@@ -255,7 +282,7 @@ Se agrega también el código para hacer la gráfica comparativa de todos los es
 \subsection{Código de odefun()}
 \lstinputlisting[style=Matlab-editor, basicstyle=\mlttfamily, firstline=5]{odefun.m}
 \subsection{Código de sensibilidad}
-Este código es parte del script principal. Pero como no es parte de lo que se pide explícitamente, entonces se agrega por aparte en este documento.
+Este segmento de código es parte del script principal.
  
 \lstinputlisting[style=Matlab-editor, basicstyle=\mlttfamily, firstline=201]{Ejercicio1.m}
 
@@ -403,11 +430,5 @@ choque con la tierra.
   \caption{Gráfica de la velocidad del cohete con respecto al tiempo}
   \label{fig:vel_cohete}
 \end{figure}
-
-
-
-
-
-
 
 \end{document}
