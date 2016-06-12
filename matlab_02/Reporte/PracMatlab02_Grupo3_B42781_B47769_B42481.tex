@@ -78,20 +78,17 @@ simulación. Las gráficas de la segunda, tercera, cuarta y quinta simulación s
 figuras \ref{fig:simulacion2_total}, \ref{fig:simulacion3_total}, \ref{fig:simulacion4_total} y
 \ref{fig:simulacion5_total}, respectivamente.
 
-A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los cambios en los
-parámetros. Note de la tabla \ref{table:finales_ejercicio_1}, que hay grandes cambios en el estado
-final, con pequeños cambios en los parámetros. Para poder analizar este fenómeno con mayor
-propiedad, se diseñó un pequeño experimento de simulación. Cómo en las simulaciones propuestas,
-únicamente varía el parámetro b, entonces se decide hacer un barrido por los valores de b desde 4.85
-hasta 8.6 en pasos de 0.05. Estos valores inicial y final son el mínimo valor y máximo de b con los
-que se hicieron las simulaciones pasadas. El resto de parámetros y el estado inicial, es el mismo
-que en la primera simulación. Entonces, para cada valor de b se graficó el valor final de los tres
-estados. El resultado se presenta en la gráfica \ref{fig:sensibilidad}. Es evidente que el estado
-final varía mucho, con cambios pequeños en la entrada. Entonces se concluye que el sistema es muy
-sensible.
-
- 
-
+A partir de las simulaciones realizadas, se puede afirmar que este sistema presenta una alta
+sensibilidad a los cambios en los parámetros. Note de la tabla \ref{table:finales_ejercicio_1}, que
+hay grandes cambios en el estado final, con pequeños cambios en los parámetros. Para poder analizar
+este fenómeno con mayor propiedad, se diseñó un pequeño experimento de simulación. Cómo en las
+simulaciones propuestas, únicamente varía el parámetro b, entonces se decide hacer un barrido por
+los valores de b desde 4.85 hasta 8.6 en pasos de 0.05. Estos valores inicial y final son el mínimo
+valor y máximo de b con los que se hicieron las simulaciones pasadas. El resto de parámetros y el
+estado inicial, es el mismo que en la primera simulación. Entonces, para cada valor de b se graficó
+el valor final de los tres estados. El resultado se presenta en la gráfica
+\ref{fig:sensibilidad}. Es evidente que el estado final varía mucho, con cambios pequeños en la
+entrada. Entonces se concluye que el sistema es muy sensible.
 
 
 \begin{table}
@@ -116,12 +113,12 @@ sensible.
 %Primera simulacion ···········································································································································
 \begin{figure}
 	\centering
-	\begin{subfigure}[t]{0.36\textwidth}
+	\begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/primera_simulacion}
 		\caption{Resultado para primer caso de condiciones iniciales}
 		\label{fig:simulacion1}
 	\end{subfigure}
-	\begin{subfigure}[t]{0.36\textwidth}
+	\begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/primera_simulacion_xy}
 		\caption{Vista XY de la primera simulación}
 		\label{fig:simulacion1xy}
@@ -132,24 +129,25 @@ sensible.
 		\caption{Vista XZ de la primera simulación}
 		\label{fig:simulacion1xz}
 	\end{subfigure}
+
         \begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/primera_simulacion_yz}
 		\caption{Vista YZ de la primera simulación}
 		\label{fig:simulacion1yz}
 	\end{subfigure}
-	\caption{Primera simulación gráfica de los estados. En los ejes se tienen \\los estados y el tiempo se denota con el cambio de color}
+	\caption{Primera simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
 	\label{fig:simulacion1_total}
 \end{figure}
 
 %segunda simulacion ···········································································································································
 \begin{figure}
 	\centering
-	\begin{subfigure}[t]{0.36\textwidth}
+	\begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/segunda_simulacion}
 		\caption{Resultado para primer caso de condiciones iniciales}
 		\label{fig:simulacion2}
 	\end{subfigure}
-	\begin{subfigure}[t]{0.36\textwidth}
+	\begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/segunda_simulacion_xy}
 		\caption{Vista XY de la segunda simulación}
 		\label{fig:simulacion2xy}
@@ -160,12 +158,13 @@ sensible.
 		\caption{Vista XZ de la segunda simulación}
 		\label{fig:simulacion2xz}
 	\end{subfigure}
+
         \begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/segunda_simulacion_yz}
 		\caption{Vista YZ de la segunda simulación}
 		\label{fig:simulacion2yz}
 	\end{subfigure}
-	\caption{Segunda simulación gráfica de los estados. En los ejes se tienen \\los estados y el tiempo se denota con el cambio de color}
+	\caption{Segunda simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
 	\label{fig:simulacion2_total}
 \end{figure}
 
@@ -173,12 +172,12 @@ sensible.
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[t]{0.36\textwidth}
+	\begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/tercera_simulacion}
 		\caption{Resultado para primer caso de condiciones iniciales}
 		\label{fig:simulacion3}
 	\end{subfigure}
-	\begin{subfigure}[t]{0.36\textwidth}
+	\begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/tercera_simulacion_xy}
 		\caption{Vista XY de la tercera simulación}
 		\label{fig:simulacion3xy}
@@ -189,14 +188,16 @@ sensible.
 		\caption{Vista XZ de la tercera simulación}
 		\label{fig:simulacion3xz}
 	\end{subfigure}
+
         \begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/tercera_simulacion_yz}
 		\caption{Vista YZ de la tercera simulación}
 		\label{fig:simulacion3yz}
 	\end{subfigure}
-	\caption{Tercera simulación gráfica de los estados. En los ejes se tienen \\los estados y el tiempo se denota con el cambio de color}
+	\caption{Tercera simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
 	\label{fig:simulacion3_total}
 \end{figure}
+
 
 %cuarta simulacion·····································································
 
@@ -223,7 +224,7 @@ sensible.
 		\caption{Vista YZ de la cuarta simulación}
 		\label{fig:simulacion4yz}
 	\end{subfigure}
-	\caption{Cuarta simulación gráfica de los estados. En los ejes se tienen \\los estados y el tiempo se denota con el cambio de color}
+	\caption{Cuarta simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
 	\label{fig:simulacion4_total}
 \end{figure}
 
@@ -251,19 +252,18 @@ sensible.
 		\caption{Vista YZ de la quinta simulación}
 		\label{fig:simulacion5yz}
 	\end{subfigure}
-	\caption{Quinta simulación gráfica de los estados. En los ejes se tienen \\los estados y el tiempo se denota con el cambio de color}
+	\caption{Quinta simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
 	\label{fig:simulacion5_total}
 \end{figure}
+
 %Comparacion de los estados de las distintas simulaciones respecto al tiempo.···················································································
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{pictures/comparacion}
-	\caption{Comparación de los estados de las distintas simulaciones respecto al tiempo. \\Se presentan en rojo, verde, azul, magenta, y cian respectivamente cada simulación.}
+	\caption{Comparación de los estados de las distintas simulaciones respecto al tiempo. Se presentan en rojo, verde, azul, magenta, y cian respectivamente cada simulación.}
 	\label{fig:comparacion}
 \end{figure}
-
-%Sensibilidad respecto a los parámetros···················································································
 
 \begin{figure}
 	\centering
@@ -275,21 +275,26 @@ sensible.
 \subsection{Código del script principal}
 Del script principal, solo se agrega la parte inicial. Ya que el resto del código es análogo al primero, pero para las otras simulaciones.
 \lstinputlisting[style=Matlab-editor, basicstyle=\mlttfamily, firstline=6, lastline=45]{Ejercicio1.m}
-
-Se agrega también el código para hacer la gráfica comparativa de todos los estados en 10 segundos.
-
 \lstinputlisting[style=Matlab-editor, basicstyle=\mlttfamily, firstline=161, lastline=197]{Ejercicio1.m}
+
 \subsection{Código de odefun()}
 \lstinputlisting[style=Matlab-editor, basicstyle=\mlttfamily, firstline=5]{odefun.m}
+
 \subsection{Código de sensibilidad}
 Este segmento de código es parte del script principal.
- 
 \lstinputlisting[style=Matlab-editor, basicstyle=\mlttfamily, firstline=201]{Ejercicio1.m}
 
-
-
-
 \section{Ejercicio 2}
+A partir del circuito y la ecuación de corriente en el diodo \ref{eq:Id_diodo}
+
+\begin{equation}
+\label{eq:Id_diodo}
+I_d=I_s(e^{\frac{V_d}{n*V_t}}-1)
+\end{equation}
+
+Obtenemos el siguiente desarrollo mediante ley de corrientes de kirkchoff
+
+
 
 
 \subsection{Código de ejercicio 2}

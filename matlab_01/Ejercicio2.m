@@ -16,7 +16,7 @@ Min_C = min(C(:));
 
 %Punto e
 
-x = A(5,2)*B(9,3)*C(5,3);
+x = A(5,2)*B(9,3)*C(5,3)
 
 %Punto f
 
