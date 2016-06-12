@@ -269,6 +269,100 @@ Este código es parte del script principal. Pero como no es parte de lo que se p
 
 \section{Ejercicio 3}
 
-\subsection{Código de ejercicio 3}
+\subsection{S-Function para el modelo del cohete}
+
+%Condiciones iniciales
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
+  function InitConditions(block) %Se inicializan los estados
+    % Altura inicial
+    block.ContStates.Data(1) = 0;
+    % Velocidad inicial
+    block.ContStates.Data(2) = 0;
+    % Masa inicial
+    block.ContStates.Data(3) = block.DialogPrm(7).Data;
+\end{lstlisting}
+
+%Salidas
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
+  function Outputs(block) % Se calculan las salidas
+    h = block.ContStates.Data(1);
+    v = block.ContStates.Data(2);
+
+    % Altura mayor o igual a 0
+    if (h < 0)
+      block.OutputPort(1).Data = 0;
+      block.OutputPort(2).Data = 0;
+    else
+      block.OutputPort(1).Data = h;
+      block.OutputPort(2).Data = v;
+    end
+\end{lstlisting}
+
+%Derivadas
+\begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
+  function Derivatives(block) % Se calculan las derivadas
+    % Estados
+    h = block.ContStates.Data(1);
+    v = block.ContStates.Data(2);
+    mp = block.ContStates.Data(3);
+
+    % Parametros
+    ms = block.DialogPrm(1).Data;
+    g = block.DialogPrm(2).Data;
+    rho = block.DialogPrm(3).Data;
+    A = pi*(block.DialogPrm(4).Data)^2;
+    ve = block.DialogPrm(5).Data;
+    Cd = block.DialogPrm(6).Data;
+
+    % Masa del combustible mayor a 0
+    if mp > 0
+      up = block.InputPort(1).Data;
+    else
+      up = 0;
+      block.ContStates.Data(3) = 0;
+      mp = block.ContStates.Data(3);
+    end
+
+    % Derivada h
+    block.Derivatives.Data(1) = v;
+    % Derivada v
+    block.Derivatives.Data(2) = (-(ms+mp)*g + up*ve -(1/2)*rho*v*abs(v)*A*Cd)/(ms+mp);
+    % Derivada mp
+    block.Derivatives.Data(3) = -up;     
+\end{lstlisting}
+
+
+
+\subsection{Simulación del movimiento del cohete}
+
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio3/simulink_cohete.eps}
+  \caption{Diagrama de bloques en Simulink}
+\end{figure}
+
+
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio3/altura_cohete_vs_tiempo.eps}
+  \caption{Gráfica de la altura del cohete con respecto al tiempo}
+  \label{fig:alt_cohete}
+\end{figure}
+
+
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio3/velocidad_cohete_vs_tiempo.eps}
+  \caption{Gráfica de la velocidad del cohete con respecto al tiempo}
+\end{figure}
+
+
+
+
+
+
 
 \end{document}
