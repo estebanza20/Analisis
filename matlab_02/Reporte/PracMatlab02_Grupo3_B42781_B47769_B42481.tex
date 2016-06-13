@@ -38,7 +38,7 @@
 
 Se hizo primero la simulación con las condiciones iniciales descritas. Para poder resolver el sistema de ecuaciones diferenciales se utilizó el comando ode45. Este comando integra las ecuaciones diferenciales desde un tiempo inicial hasta un tiempo final, para obtener la respuesta respecto al tiempo de las funciones en cuestión. Este es un método de orden intermedio. 
 
-Para resolver el sistema de ecuaciones diferenciales se creó una función en matlab que describe el comportamiento diferencial del sistema, se le llamó odefun. Esta recibe como parámetros un vector de estados, un vector de tiempo, y los parámetros a, b y c. Se utilizó en ode45 para describir las ecuaciones y que este comando se encargue de hacer las integraciones necesarias para encontrar la solución. Se le indica  a ode45 que las variables que debe utilizar son el tiempo y los estados, y que tome los otros parámetros de odefun como constantes. Se presenta el comando (donde t\_sim\_1 es el vector de tiempo, x\_sim\_1 los vectores de estados, tspan es el intervalo de tiempo, y x0 el estado inicial):
+Para resolver el sistema de ecuaciones diferenciales se creó una función en matlab que describe el comportamiento diferencial del sistema, a la cual se le llamó odefun. Esta recibe como parámetros un vector de estados, un vector de tiempo, y los parámetros a, b y c. Se utilizó en ode45 para describir las ecuaciones y que este comando se encargue de hacer las integraciones necesarias para encontrar la solución. Se le indica  a ode45 que las variables que debe utilizar son el tiempo y los estados, y que tome los otros parámetros de odefun como constantes. Se presenta el comando (donde t\_sim\_1 es el vector de tiempo, x\_sim\_1 los vectores de estados, tspan es el intervalo de tiempo, y x0 el estado inicial):
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
     [t_sim_1,x_sim_1] = ode45(@(t_sim_1,x_sim_1) odefun(t_sim_1,x_sim_1,a,b,c), tspan, x0);
@@ -59,13 +59,9 @@ Las gráficas solicitadas se presentan en la figura \ref{fig:simulacion1_total}.
     surface([x_sim_1(:,1), x_sim_1(:,1)], [x_sim_1(:,2), x_sim_1(:,2)], [x_sim_1(:,3), x_sim_1(:,3)], [t_sim_1, t_sim_1], 'EdgeColor', 'flat');
 \end{lstlisting}
 
-Se hicieron otras 4 simulaciones, la segunda y tercera simulación, son cambiando el parámetro b; la cuarta y quinta son cambiando las condiciones iniciales. En la tabla \ref{table:finales_ejercicio_1}, se presentan los resultados de los valores finales en cada simulación. Las gráficas de la segunda, tercera, cuarta y quinta simulación se presentan en las figuras \ref{fig:simulacion2_total}, \ref{fig:simulacion3_total}, \ref{fig:simulacion4_total}, \ref{fig:simulacion5_total} respectivamente. 
+Se hicieron otras 4 simulaciones, la segunda y tercera simulación, se realizaron cambiando el parámetro b; la cuarta y quinta se llevaron a cabo cambiando las condiciones iniciales. En la tabla \ref{table:finales_ejercicio_1}, se presentan los resultados de los valores finales en cada simulación. Las gráficas de la segunda, tercera, cuarta y quinta simulación se presentan en las figuras \ref{fig:simulacion2_total}, \ref{fig:simulacion3_total}, \ref{fig:simulacion4_total}, \ref{fig:simulacion5_total} respectivamente. 
 
 A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los cambios en los parámetros. Note de la tabla \ref{table:finales_ejercicio_1}, que hay grandes cambios en el estado final, con pequeños cambios en los parámetros. Para poder analizar este fenómeno con mayor propiedad, se diseñó un pequeño experimento de simulación. Cómo en las simulaciones propuestas, únicamente varía el parámetro b, entonces se decide hacer un barrido por los valores de b desde 4.85 hasta 8.6 en pasos de 0.05. Estos valores inicial y final son el mínimo valor y máximo de b con los que se hicieron las simulaciones pasadas. El resto de parámetros y el estado inicial, es el mismo que en la primera simulación. Entonces, para cada valor de b se grafica el valor final de los tres estados. El resultado se presenta en la gráfica \ref{fig:sensibilidad}. Es evidente que el estado final varía mucho, con cambios pequeños en la entrada. Entonces se concluye que el sistema es muy sensible.
-
- 
-
-
 
 
 \begin{table}
@@ -93,7 +89,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 	\centering
 	\begin{subfigure}[t]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/primera_simulacion}
-		\caption{Resultado para primer caso de condiciones ininciales}
+		\caption{Primera Simulación}
 		\label{fig:simulacion1}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.36\textwidth}
@@ -121,7 +117,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 	\centering
 	\begin{subfigure}[t]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/segunda_simulacion}
-		\caption{Resultado para primer caso de condiciones ininciales}
+		\caption{Segunda simulación}
 		\label{fig:simulacion2}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.36\textwidth}
@@ -150,7 +146,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 	\centering
 	\begin{subfigure}[t]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/tercera_simulacion}
-		\caption{Resultado para primer caso de condiciones ininciales}
+		\caption{Tercera Simulación}
 		\label{fig:simulacion3}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.36\textwidth}
@@ -179,7 +175,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 	\centering
 	\begin{subfigure}[t]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/cuarta_simulacion}
-		\caption{Resultado para primer caso de condiciones ininciales}
+		\caption{Cuarta Simulación}
 		\label{fig:simulacion4}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.36\textwidth}
@@ -208,7 +204,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 	\centering
 	\begin{subfigure}[t]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/quinta_simulacion}
-		\caption{Resultado para primer caso de condiciones ininciales}
+		\caption{Quinta Simulación}
 		\label{fig:simulacion4}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.36\textwidth}
