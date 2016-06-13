@@ -34,7 +34,7 @@
 \author{Daniel García Vaglio (B42781), Esteban Zamora (B47769), Ariel Fallas (B42481)}
 \maketitle
 
-\section{Ejercico 1} 
+\section{Ejercico 1}
 
 Se hizo primero la simulación con las condiciones iniciales descritas. Para poder resolver el sistema de ecuaciones diferenciales se utilizó el comando ode45. Este comando integra las ecuaciones diferenciales desde un tiempo inicial hasta un tiempo final, para obtener la respuesta respecto al tiempo de las funciones en cuestión. Este es un método de orden intermedio. 
 
@@ -108,7 +108,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 		\caption{Vista YZ de la primera simulación}
 		\label{fig:simulacion1yz}
 	\end{subfigure}
-	\caption[justification=centering]{Primera simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
+	\caption{Primera simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
 	\label{fig:simulacion1_total}
 \end{figure}
 
@@ -136,7 +136,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 		\caption{Vista YZ de la segunda simulación}
 		\label{fig:simulacion2yz}
 	\end{subfigure}
-	\caption[justification=centering]{Segunda simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
+	\caption{Segunda simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
 	\label{fig:simulacion2_total}
 \end{figure}
 
@@ -165,7 +165,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 		\caption{Vista YZ de la tercera simulación}
 		\label{fig:simulacion3yz}
 	\end{subfigure}
-	\caption[justification=centering]{Tercera simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
+	\caption{Tercera simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
 	\label{fig:simulacion3_total}
 \end{figure}
 
@@ -194,7 +194,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 		\caption{Vista YZ de la cuarta simulación}
 		\label{fig:simulacion4yz}
 	\end{subfigure}
-	\caption[justification=centering]{Cuarta simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
+	\caption{Cuarta simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
 	\label{fig:simulacion4_total}
 \end{figure}
 
@@ -223,7 +223,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 		\caption{Vista YZ de la quinta simulación}
 		\label{fig:simulacion5yz}
 	\end{subfigure}
-	\caption[justification=centering]{Quinta simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
+	\caption{Quinta simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
 	\label{fig:simulacion5_total}
 \end{figure}
 
@@ -232,7 +232,7 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{pictures/comparacion}
-	\caption[justification=centering]{Comparación de los estados de las distintas simulaciones respecto al tiempo. Se presentan en rojo, verde, azul, magenta, y cían respectivamente cada simulación.}
+	\caption{Comparación de los estados de las distintas simulaciones respecto al tiempo. Se presentan en rojo, verde, azul, magenta, y cían respectivamente cada simulación}
 
 	\label{fig:comparacion}
 \end{figure}
@@ -263,9 +263,10 @@ A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los
 
 
 
+
 \section{Ejercicio 2}
 
-De las ecuaciones de corriente en el diodo \eqref{eq:Id_diodo} y voltaje en el diodo  \eqref{eq:Vd_diodo}
+De las ecuaciones de corriente en el diodo \eqref{eq:Id_diodo} y voltaje en el diodo  \eqref{eq:Vd_diodo}.
 
 \begin{equation}
 \label{eq:Id_diodo}
@@ -276,13 +277,12 @@ I_d=I_s(e^{\frac{V_d}{nV_t}}-1)
 
 \begin{equation}\label{eq:Vd_diodo}
 V_d= V_{in}-V_o
-label{eq:Id_diodo}
 \end{equation}
 
-Se obtiene el siguiente desarrollo mediante ley de corrientes de kirkchoff 
+Se obtiene el siguiente desarrollo mediante ley de corrientes de kirkchoff. 
 
 \begin{equation}
-SCV_o + \frac{V_o}{R} = I_d
+sCV_o + \frac{V_o}{R} = I_d
 \end{equation}
 
 \begin{equation}
@@ -293,7 +293,7 @@ C \frac{dV_o}{dt} + \frac{V_o}{R} = I_s\left(e^{\frac{V_d}{nV_t}}-1\right)
 C \frac{dV_o}{dt} + \frac{V_o}{R} = I_s\left(e^{\frac{V_{in}-V_{o}}{nV_t}}-1\right)
 \end{equation}
 
-A partir de las ecuaciones anteriores se obtuvo el diagrama de bloques presente en la figura \ref{fig:diag_bloques_2}
+A partir de las ecuaciones anteriores se obtuvo el diagrama de bloques presente en la figura \ref{fig:diag_bloques_2}.
 
 
 \begin{figure}[ht!]
@@ -303,7 +303,7 @@ A partir de las ecuaciones anteriores se obtuvo el diagrama de bloques presente 
   \label{fig:diag_bloques_2}
 \end{figure}
 
-A continuación simulamos las condiciones dadas para cada punto (a, b y c) haciendo leves variaciones en la estructura y parametros de los bloques.
+Se simularon las condiciones dadas para cada punto (a, b y c). Haciendo leves variaciones en la estructura y parametros de los bloques.
 
 \subsection{Parte A}
 A continuación se presentan las gráficas obtenidas en la simulación para este punto. 
@@ -315,7 +315,9 @@ A continuación se presentan las gráficas obtenidas en la simulación para este
   \label{fig:2_a_Vin_Vout}
 \end{figure}
 
-En la figura \ref{fig:2_a_Vin_Vout} se puede observar que la gráfica cumple de acuerdo a lo descrito en la teoría, ya que la onda de salida solo posee fase positiva, esto se debe al diodo que se colocó, pues únicamente deja pasar la fase positiva de la onda, si lo relacionamos con el diagrama de bloques obtenido, al ser negativo la parte exponencial de la ecuación obtenida  se hace tan pequeña que podemos considerarla nula por lo que a la entrada de nuestro sumador solo está el "-1" y al multiplicarlo por la corriente de saturación inversa del diodo ($I_s$) tenemos un valor tan pequeño que es considerable cero. Además de esto el capacitor es el encargado de mantener un voltaje de rizado en la onda y que no caiga por completo, pues representa una ganancia considerable a la entrada del bloque sumador de Vout que viene de la corriente, aunque también representa una ganancia para la retroalimentación negativa, sin embargo este ultimo efecto es atenuado por la resistencia de carga.
+En la figura \ref{fig:2_a_Vin_Vout} se puede observar que la gráfica cumple de acuerdo a lo descrito en la teoría, ya que la onda de salida solo posee fase positiva, esto se debe al diodo que se colocó, pues únicamente deja pasar la fase positiva de la onda.
+Si se relaciona con el diagrama de bloques obtenido, al ser negativo la parte exponencial de la ecuación obtenida  se hace tan pequeña que podemos considerarla nula por lo que a la entrada del último sumador solo está el \"-1\" y al multiplicarlo por la corriente de saturación inversa del diodo ($I_s$) tenemos un valor tan pequeño que es considerable cero. 
+Además de esto, el capacitor es el encargado de que la onda no caiga por completo, pues representa una ganancia considerable a la entrada del último bloque sumador de $V_{out}$ que viene de la corriente, aunque también representa una ganancia para la retroalimentación negativa del ultimo sumador, sin embargo este último efecto es atenuado por la resistencia de carga.
 
 \begin{figure}[ht!]
   \centering
@@ -324,7 +326,7 @@ En la figura \ref{fig:2_a_Vin_Vout} se puede observar que la gráfica cumple de 
   \label{fig:2_a_Id}
 \end{figure}
 
-Ahora se muestra en la figura \ref{fig:2_a_Id} la corriente que pasa por el diodo, como era de esperarse los picos de corriente máxima que se alcanzan coinciden o al menos están bastante cerca de la tensión máxima en la entrada por lo ya explicado anteriormente. Por otro lado, la corriente es cero en la fase negativa de la onda como se esperaba. Podemos decir que la gráfica refleja la ecuación de la corriente, ya que crece de manera exponencial y por eso es que vemos un pico.
+Ahora se muestra en la figura \ref{fig:2_a_Id} la corriente que pasa por el diodo, como era de esperarse los picos de corriente máxima que se alcanzan coinciden o al menos están bastante cerca de la tensión máxima en la entrada por lo ya explicado anteriormente. Por otro lado, la corriente es cero en la fase negativa de la onda como se esperaba. Se puede decir que la gráfica refleja la ecuación de la corriente, ya que crece de manera exponencial y por eso es que se puede ver pico.
 
 \begin{figure}[ht!]
   \centering
@@ -333,7 +335,7 @@ Ahora se muestra en la figura \ref{fig:2_a_Id} la corriente que pasa por el diod
   \label{fig:2_a_Vd}
 \end{figure}
 
-Al ser $V_d = V_{in}-V_{out}$ corresponderá a casi el doble pero de manera negativa, ya que de la figura \ref{fig:2_a_Vin_Vout} se obtuvo que el voltaje, cuando la fase es negativa, es suministrado por el capacitor. Así que como $V_{in} < 0$ y $V_{out} > 0$ se obtuvo la gráfica de la figura \ref{fig:2_a_Vd}
+Al ser $V_d = V_{in}-V_{out}$ corresponderá a casi el doble pero de manera negativa, ya que de la figura \ref{fig:2_a_Vin_Vout} se obtuvo que el voltaje, cuando la fase es negativa, es suministrado por el capacitor. Así que como $V_{in} < 0$ y $V_{out} > 0$ se obtuvo la gráfica de la figura \ref{fig:2_a_Vd}.
 
 \begin{figure}[ht!]
   \centering
@@ -354,7 +356,7 @@ A continuación se presentan las gráficas obtenidas en la simulación para este
   \label{fig:2_b_Vin_Vout}
 \end{figure}
 
-Al variar la carga de manera instantánea, esto refleja un aumento en la retroalimentación negativa de $V_{out}$ ya que la resistencia atenuaba la ganancia del capacitor en la retroalimentación negativa, por eso es que $V_{out}$ decae un poco más, es decir el rizado aumentó. Viendolo desde el punto de vista más físico lo que está ocurriendo es que al disminuir la resistencia el capacitor entrega mayor corriente por lo que se descarga más rapido. Esto corresponde con la gráfica de la figura \ref{fig:2_b_Vin_Vout}
+Al variar la carga de manera instantánea, esto refleja un aumento en la retroalimentación negativa de $V_{out}$ ya que la resistencia atenuaba la ganancia del capacitor en la retroalimentación negativa, por eso es que $V_{out}$ decae un poco más, es decir el rizado aumentó. Viéndolo desde el punto de vista más físico lo que está ocurriendo es que al disminuir la resistencia el capacitor entrega mayor corriente por lo que se descarga más rápido. Esto corresponde con la gráfica de la figura \ref{fig:2_b_Vin_Vout}.
 
 \begin{figure}[ht!]
   \centering
@@ -363,7 +365,7 @@ Al variar la carga de manera instantánea, esto refleja un aumento en la retroal
   \label{fig:2_b_Id}
 \end{figure}
 
-En este caso, como disminuye la resistencia aumenta la corriente en el diodo, ya que al disminuir $V_{out}$ el capacitor se descarga más rapido, la corriente aumenta según la ecuación \eqref{eq:Id_diodo} de esta forma se muestra la gráfica en la figura \ref{fig:2_b_Id}
+En este caso, como disminuye la resistencia aumenta la corriente en el diodo, ya que al disminuir $V_{out}$ el capacitor se descarga más rapido, la corriente aumenta según la ecuación \eqref{eq:Id_diodo}. De esta forma se muestra la gráfica en la figura \ref{fig:2_b_Id}.
 
 \begin{figure}[ht!]
   \centering
@@ -381,7 +383,7 @@ En este como el voltaje de salida disminuye, el voltaje en el diodo también de 
   \label{fig:2_b_carga}
 \end{figure}
 
-Como la carga disminuyó es razonable pensar que el capacitor está obligado a entregar más corriente para lograr mantener el voltaje máximo, por lo que a esto se debe el aumento de corriente que caracteriza esta curva, y siempre mantiene la forma de $V_{out}$, obteniendo así la gráfica de la figura \ref{fig:2_b_carga}
+Como la carga disminuyó es razonable pensar que el capacitor está obligado a entregar más corriente para lograr mantener el voltaje máximo, por lo que a esto se debe el aumento de corriente que caracteriza esta curva, y siempre mantiene la forma de $V_{out}$, obteniendo así la gráfica de la figura \ref{fig:2_b_carga}.
 
 
 \subsection{Parte C}
@@ -404,7 +406,7 @@ Se observa en la gráfica el efecto de la temperatura en el diodo, a partir de l
   \label{fig:2_c_Id}
 \end{figure}
 
-Para el caso de la corriente en el diodo se tiene la gráfica de la figura \ref{fig:2_c_Id} donde se puede apreciar que existe un punto donde la temperatura deja de tener efecto sobre la corriente ya que el valor de esta parece estabilizarse. Aunque al inicio su efecto es bastante importante ya que el siguiente pico decayó bastante
+Para el caso de la corriente en el diodo se tiene la gráfica de la figura \ref{fig:2_c_Id} donde se puede apreciar que existe un punto donde la temperatura deja de tener efecto sobre la corriente ya que el valor de esta parece estabilizarse. Aunque al inicio su efecto es bastante importante ya que el siguiente pico decayó bastante.
 
 \begin{figure}[ht!]
   \centering
@@ -413,7 +415,7 @@ Para el caso de la corriente en el diodo se tiene la gráfica de la figura \ref{
   \label{fig:2_c_Vd}
 \end{figure}
 
-Sobre la tensión del diodo tampoco parece tener un efecto muy significativo el cambio de temperatura sin embargo parece tener una leve disminución en la amplitud al final de la gráfica presente en la figura \ref{fig:2_c_Vd}
+Sobre la tensión del diodo tampoco parece tener un efecto muy significativo el cambio de temperatura sin embargo parece tener una leve disminución en la amplitud al final de la gráfica presente en la figura \ref{fig:2_c_Vd}.
 
 \begin{figure}[ht!]
   \centering
@@ -422,7 +424,7 @@ Sobre la tensión del diodo tampoco parece tener un efecto muy significativo el 
   \label{fig:2_c_carga}
 \end{figure}
 
-A partir de la gráfica de la figura \ref{fig:2_c_carga} se puede decir que la corriente en la carga varía al igual que el voltaje de salida, de modo que tampoco parece ser muy significativo, si se piensa en la temperatura a la que tuvo que llegar la temperatura para hacer un poco más apreciable su efecto se puede dar cuenta de que probablemente el circuito estaría derretido pues (1200 K-$926 ^o C$) es una temperatura bastante elevada.
+A partir de la gráfica de la figura \ref{fig:2_c_carga} se puede decir que la corriente en la carga varía al igual que el voltaje de salida, de modo que tampoco parece ser muy significativo, si se piensa en la temperatura a la que tuvo que llegar hacer un poco más apreciable su efecto se puede dar cuenta de que probablemente el circuito estaría derretido pues (1200 K-$926 ^o C$) es una temperatura bastante elevada.
 
 
 \section{Ejercicio 3}
