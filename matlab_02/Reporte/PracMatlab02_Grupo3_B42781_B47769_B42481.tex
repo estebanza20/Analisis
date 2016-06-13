@@ -34,61 +34,40 @@
 \author{Daniel García Vaglio (B42781), Esteban Zamora (B47769), Ariel Fallas (B42481)}
 \maketitle
 
-\section{Ejercicio 1}
-Se hizo primero la simulación con las condiciones iniciales descritas. Para poder resolver el
-sistema de ecuaciones diferenciales se utilizó el comando ode45. Este comando integra las ecuaciones
-diferenciales desde un tiempo inicial hasta un tiempo final, para obtener la respuesta respecto al
-tiempo de las funciones en cuestión. Este es un método de orden intermedio.
+\section{Ejercico 1}
+<<<<<<< HEAD
+En el primer ejercicio se hace primero la simulación con las condiciones iniciales descritas. 
+=======
+Se hizo primero la simulación con las condiciones iniciales descritas. Para poder resolver el sistema de ecuaciones diferenciales se utilizó el comando ode45. Este comando integra las ecuaciones diferenciales desde un tiempo inicial hasta un tiempo final, para obtener la respuesta respecto al tiempo de las funciones en cuestión. Este es un método de orden intermedio. 
 
-Para resolver el sistema de ecuaciones diferenciales se creó una función en Matlab que describe el
-comportamiento diferencial del sistema, a la cual se le llamó \texttt{odefun}. Esta recibe como
-parámetros un vector de estados, un vector de tiempo, y los parámetros a, b y c. Se utilizó en ode45
-para describir las ecuaciones y que este comando se encargue de hacer las integraciones necesarias
-para encontrar la solución. Se le indica a ode45 que las variables que debe utilizar son el tiempo y
-los estados, y que tome los otros parámetros de \texttt{odefun} como constantes. Se presenta el comando
-(donde t\_sim\_1 es el vector de tiempo, x\_sim\_1 los vectores de estados, tspan es el intervalo de
-tiempo, y x0 el estado inicial):
+Para resolver el sistema de ecuaciones diferenciales se creó una función en matlab que describe el comportamiento diferencial del sistema, se le llamó odefun. Esta recibe como parámetros un vector de estados, un vector de tiempo, y los parámetros a, b y c. Se utilizó en ode45 para describir las ecuaciones y que este comando se encargue de hacer las integraciones necesarias para encontrar la solución. Se le indica  a ode45 que las variables que debe utilizar son el tiempo y los estados, y que tome los otros parámetros de odefun como constantes. Se presenta el comando (donde t\_sim\_1 es el vector de tiempo, x\_sim\_1 los vectores de estados, tspan es el intervalo de tiempo, y x0 el estado inicial):
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
     [t_sim_1,x_sim_1] = ode45(@(t_sim_1,x_sim_1) odefun(t_sim_1,x_sim_1,a,b,c), tspan, x0);
 \end{lstlisting}
 
-La salida de ode45 son 4 vectores. Uno para el tiempo, y los otros para los estados (los vectores de
-estados se obtuvieron en forma de matriz, pero se trabajaron por separado, como si fueran
-vectores). Para encontrar el valor final se revisó la última entrada del vector de estados de la
-siguiente manera:
+La salida de ode45 son 4 vectores. Uno para el tiempo, y los otros para los estados (los vectores de estados se obtuvieron en forma de matriz, pero se trabajaron por separado, como si fueran vectores). Para encontrar el valor final se revisó la última entrada del vector de estados de la siguiente manera:
 
+%esto es codigo de matla. hay que ponerlo en formato
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
     valor_final_primera_simulacion=x_sim_1(end,:)
 \end{lstlisting}
 
-El resultado obtenido es: $(x_f, y_f, z_f)=$(-1.3972, 0.3190, 5.7522).  Las gráficas solicitadas se
-presentan en la figura \ref{fig:simulacion1_total}. Para poder graficarlas como se pide en el
-enunciado, se utilizó el siguiente comando:
+El resultado obtenido es: $(x_f, y_f, z_f)=$(-1.3972, 0.3190, 5.7522).
+Las gráficas solicitadas se presentan en la figura \ref{fig:simulacion1_total}. Para poder graficarlas como se pide en el enunciado, se utilizó el siguiente comando:
 
 \begin{lstlisting}[style=Matlab-editor, basicstyle=\mlttfamily]
     surface([x_sim_1(:,1), x_sim_1(:,1)], [x_sim_1(:,2), x_sim_1(:,2)], [x_sim_1(:,3), x_sim_1(:,3)], [t_sim_1, t_sim_1], 'EdgeColor', 'flat');
 \end{lstlisting}
 
-Se hicieron otras 4 simulaciones, la segunda y tercera simulación, se llevaron a cabo cambiando el
-parámetro b; la cuarta y quinta se realizaron cambiando las condiciones iniciales. En la tabla
-\ref{table:finales_ejercicio_1}, se presentan los resultados de los valores finales en cada
-simulación. Las gráficas de la segunda, tercera, cuarta y quinta simulación se presentan en las
-figuras \ref{fig:simulacion2_total}, \ref{fig:simulacion3_total}, \ref{fig:simulacion4_total} y
-\ref{fig:simulacion5_total}, respectivamente.
+Se hicieron otras 4 simulaciones, la segunda y tercera simulación, son cambiando el parámetro b; la cuarta y quinta son cambiando las condiciones iniciales. En la tabla \ref{table:finales_ejercicio_1}, se presentan los resultados de los valores finales en cada simulación. Las gráficas de la segunda, tercera, cuarta y quinta simulación se presentan en las figuras \ref{fig:simulacion2_total}, \ref{fig:simulacion3_total}, \ref{fig:simulacion4_total}, \ref{fig:simulacion5_total} respectivamente. 
 
-A partir de las simulaciones realizadas, se puede afirmar que este sistema presenta una alta
-sensibilidad a los cambios en los parámetros. Note de la tabla \ref{table:finales_ejercicio_1}, que
-hay grandes cambios en el estado final, con pequeños cambios en los parámetros. Para poder analizar
-este fenómeno con mayor propiedad, se diseñó un pequeño experimento de simulación. Cómo en las
-simulaciones propuestas, únicamente varía el parámetro b, entonces se decide hacer un barrido por
-los valores de b desde 4.85 hasta 8.6 en pasos de 0.05. Estos valores inicial y final son el mínimo
-valor y máximo de b con los que se hicieron las simulaciones pasadas. El resto de parámetros y el
-estado inicial, es el mismo que en la primera simulación. Entonces, para cada valor de b se graficó
-el valor final de los tres estados. El resultado se presenta en la gráfica
-\ref{fig:sensibilidad}. Es evidente que el estado final varía mucho, con cambios pequeños en la
-entrada. Entonces se concluye que el sistema es muy sensible.
+A priori, se puede afirmar que este sistema presenta una alta sensibilidad a los cambios en los parámetros. Note de la tabla \ref{table:finales_ejercicio_1}, que hay grandes cambios en el estado final, con pequeños cambios en los parámetros. Para poder analizar este fenómeno con mayor propiedad, se diseñó un pequeño experimento de simulación. Cómo en las simulaciones propuestas, únicamente varía el parámetro b, entonces se decide hacer un barrido por los valores de b desde 4.85 hasta 8.6 en pasos de 0.05. Estos valores inicial y final son el mínimo valor y máximo de b con los que se hicieron las simulaciones pasadas. El resto de parámetros y el estado inicial, es el mismo que en la primera simulación. Entonces, para cada valor de b se grafica el valor final de los tres estados. El resultado se presenta en la gráfica \ref{fig:sensibilidad}. Es evidente que el estado final varía mucho, con cambios pequeños en la entrada. Entonces se concluye que el sistema es muy sensible.
+
+ 
+
+
 
 
 \begin{table}
@@ -108,17 +87,18 @@ entrada. Entonces se concluye que el sistema es muy sensible.
 
 \end{tabular}
 \end{table}
+>>>>>>> fdddc507e876d60fbe1cb246d378bef78c689287
 
 
 %Primera simulacion ···········································································································································
 \begin{figure}
 	\centering
-	\begin{subfigure}[t]{0.36\textwidth}
+	\begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/primera_simulacion}
-		\caption{Resultado para primer caso de condiciones iniciales}
+		\caption{Resultado para primer caso de condiciones ininciales}
 		\label{fig:simulacion1}
 	\end{subfigure}
-	\begin{subfigure}[t]{0.36\textwidth}
+	\begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/primera_simulacion_xy}
 		\caption{Vista XY de la primera simulación}
 		\label{fig:simulacion1xy}
@@ -129,6 +109,7 @@ entrada. Entonces se concluye que el sistema es muy sensible.
 		\caption{Vista XZ de la primera simulación}
 		\label{fig:simulacion1xz}
 	\end{subfigure}
+
         \begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/primera_simulacion_yz}
 		\caption{Vista YZ de la primera simulación}
@@ -141,12 +122,12 @@ entrada. Entonces se concluye que el sistema es muy sensible.
 %segunda simulacion ···········································································································································
 \begin{figure}
 	\centering
-	\begin{subfigure}[t]{0.36\textwidth}
+	\begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/segunda_simulacion}
-		\caption{Resultado para primer caso de condiciones iniciales}
+		\caption{Resultado para primer caso de condiciones ininciales}
 		\label{fig:simulacion2}
 	\end{subfigure}
-	\begin{subfigure}[t]{0.36\textwidth}
+	\begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/segunda_simulacion_xy}
 		\caption{Vista XY de la segunda simulación}
 		\label{fig:simulacion2xy}
@@ -157,6 +138,7 @@ entrada. Entonces se concluye que el sistema es muy sensible.
 		\caption{Vista XZ de la segunda simulación}
 		\label{fig:simulacion2xz}
 	\end{subfigure}
+
         \begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/segunda_simulacion_yz}
 		\caption{Vista YZ de la segunda simulación}
@@ -170,9 +152,9 @@ entrada. Entonces se concluye que el sistema es muy sensible.
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[t]{0.36\textwidth}
+	\begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/tercera_simulacion}
-		\caption{Resultado para primer caso de condiciones iniciales}
+		\caption{Resultado para primer caso de condiciones ininciales}
 		\label{fig:simulacion3}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.36\textwidth}
@@ -181,11 +163,12 @@ entrada. Entonces se concluye que el sistema es muy sensible.
 		\label{fig:simulacion3xy}
 	\end{subfigure}
         \vfill
-        \begin{subfigure}[t]{0.36\textwidth}
+        \begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/tercera_simulacion_xz}
 		\caption{Vista XZ de la tercera simulación}
 		\label{fig:simulacion3xz}
 	\end{subfigure}
+
         \begin{subfigure}[b]{0.36\textwidth}
 		\includegraphics[width=\textwidth]{pictures/tercera_simulacion_yz}
 		\caption{Vista YZ de la tercera simulación}
@@ -195,106 +178,150 @@ entrada. Entonces se concluye que el sistema es muy sensible.
 	\label{fig:simulacion3_total}
 \end{figure}
 
-
-%cuarta simulacion·····································································
-
-\begin{figure}
-	\centering
-	\begin{subfigure}[t]{0.36\textwidth}
-		\includegraphics[width=\textwidth]{pictures/cuarta_simulacion}
-		\caption{Resultado para primer caso de condiciones iniciales}
-		\label{fig:simulacion4}
-	\end{subfigure}
-	\begin{subfigure}[t]{0.36\textwidth}
-		\includegraphics[width=\textwidth]{pictures/cuarta_simulacion_xy}
-		\caption{Vista XY de la cuarta simulación}
-		\label{fig:simulacion4xy}
-	\end{subfigure}
-        \vfill
-        \begin{subfigure}[b]{0.36\textwidth}
-		\includegraphics[width=\textwidth]{pictures/cuarta_simulacion_xz}
-		\caption{Vista XZ de la cuarta simulación}
-		\label{fig:simulacion4xz}
-	\end{subfigure}
-        \begin{subfigure}[b]{0.36\textwidth}
-		\includegraphics[width=\textwidth]{pictures/cuarta_simulacion_yz}
-		\caption{Vista YZ de la cuarta simulación}
-		\label{fig:simulacion4yz}
-	\end{subfigure}
-	\caption{Cuarta simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
-	\label{fig:simulacion4_total}
-\end{figure}
-
-%quinta simulacion························································
-\begin{figure}
-	\centering
-	\begin{subfigure}[t]{0.36\textwidth}
-		\includegraphics[width=\textwidth]{pictures/quinta_simulacion}
-		\caption{Resultado para primer caso de condiciones iniciales}
-		\label{fig:simulacion5}
-	\end{subfigure}
-	\begin{subfigure}[t]{0.36\textwidth}
-		\includegraphics[width=\textwidth]{pictures/quinta_simulacion_xy}
-		\caption{Vista XY de la quinta simulación}
-		\label{fig:simulacion5xy}
-	\end{subfigure}
-        \vfill
-        \begin{subfigure}[b]{0.36\textwidth}
-		\includegraphics[width=\textwidth]{pictures/quinta_simulacion_xz}
-		\caption{Vista XZ de la quinta simulación}
-		\label{fig:simulacion5xz}
-	\end{subfigure}
-        \begin{subfigure}[b]{0.36\textwidth}
-		\includegraphics[width=\textwidth]{pictures/quinta_simulacion_yz}
-		\caption{Vista YZ de la quinta simulación}
-		\label{fig:simulacion5yz}
-	\end{subfigure}
-	\caption{Quinta simulación gráfica de los estados. En los ejes se tienen los estados y el tiempo se denota con el cambio de color}
-	\label{fig:simulacion5_total}
-\end{figure}
-
 %Comparacion de los estados de las distintas simulaciones respecto al tiempo.···················································································
 
 \begin{figure}
 	\centering
+<<<<<<< HEAD
+	\includegraphics[width=\textwidth]{pictures/comparacion}
+	\caption{Comparación de los estados de las distintas simulaciones respecto al tiempo}
+=======
 	\includegraphics[width=0.8\textwidth]{pictures/comparacion}
-	\caption{Comparación de los estados de las distintas simulaciones respecto al tiempo. Se presentan en rojo, verde, azul, magenta, y cian respectivamente cada simulación.}
+	\caption{Comparación de los estados de las distintas simulaciones respecto al tiempo. Se presentan en rojo, verde, azul, magenta, y cían respectivamente cada simulación.}
+>>>>>>> fdddc507e876d60fbe1cb246d378bef78c689287
 	\label{fig:comparacion}
 \end{figure}
 
+
+<<<<<<< HEAD
+=======
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{pictures/sensibilidad}
 	\caption{Valor final de cada estado, dependiendo del valor de b}
 	\label{fig:sensibilidad}
 \end{figure}
+>>>>>>> fdddc507e876d60fbe1cb246d378bef78c689287
 
-\subsection{Código del script principal}
-Del script principal, solo se agrega la parte inicial. Ya que el resto del código es análogo al primero, pero para las otras simulaciones.
-\lstinputlisting[style=Matlab-editor, basicstyle=\mlttfamily, firstline=6, lastline=45]{Ejercicio1.m}
+\subsubsection{Código de ejercicio 1}
 
-Esta parte del cógigo se encarga de generar el gráfico comparativo de los estados respecto al tiempo. 
-\lstinputlisting[style=Matlab-editor, basicstyle=\mlttfamily, firstline=161, lastline=197]{Ejercicio1.m}
 
-\subsection{Código de odefun()}
-\lstinputlisting[style=Matlab-editor, basicstyle=\mlttfamily, firstline=5]{odefun.m}
-
-\subsection{Código de sensibilidad}
-Este segmento de código es parte del script principal. Pero se agrega a parte porque no es parte de lo que se pide originalmente.
-\lstinputlisting[style=Matlab-editor, basicstyle=\mlttfamily, firstline=201]{Ejercicio1.m}
 
 \section{Ejercicio 2}
-A partir del circuito y la ecuación de corriente en el diodo \ref{eq:Id_diodo}
+
+De las ecuaciones de corriente en el diodo \eqref{eq:Id_diodo} y voltaje en el diodo  \eqref{eq:Vd_diodo}
 
 \begin{equation}
 \label{eq:Id_diodo}
-I_d=I_s(e^{\frac{V_d}{n*V_t}}-1)
+I_d=I_s(e^{\frac{V_d}{nV_t}}-1)
 \end{equation}
 
-Obtenemos el siguiente desarrollo mediante ley de corrientes de kirkchoff
+
+
+\begin{equation}\label{eq:Vd_diodo}
+V_d= V_{in}-V_o
+label{eq:Id_diodo}
+\end{equation}
+
+Obtenemos el siguiente desarrollo mediante ley de corrientes de kirkchoff 
+
+\begin{equation}
+SCV_o + \frac{V_o}{R} = I_d
+\end{equation}
+
+\begin{equation}
+C \frac{dV_o}{dt} + \frac{V_o}{R} = I_s\left(e^{\frac{V_d}{nV_t}}-1\right)
+\end{equation}
+
+\begin{equation}
+C \frac{dV_o}{dt} + \frac{V_o}{R} = I_s\left(e^{\frac{V_{in}-V_{o}}{nV_t}}-1\right)
+\end{equation}
+
+A partir de las ecuaciones anteriores montamos el diagrama de bloques presente en la figura \ref{fig:diag_bloques_2}
+
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_Diagrama_Bloques.eps}
+  \caption{Diagrama de bloques en Simulink}
+  \label{fig:diag_bloques_2}
+\end{figure}
+
+A continuación simulamos las condiciones dadas para cada punto (a, b y c) haciendo leves variaciones en la estructura y parametros de los bloques.
+
+\subsection{Parte A}
+A continuación se presentan las gráficas obtenidas en la simulación para este punto. 
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_a_Vin_Vout.eps}
+  \caption{Tension }
+  \label{fig:2_a_Vin_Vout}
+\end{figure}
+
+En la figura \ref{fig:2_a_Vin_Vout} observamos que la gráfica cumple de acuerdo a lo descrito en la teoría, ya que la onda de salida solo posee fase positiva, esto se debe al diodo que se colocó, pues únicamente deja pasar la fase positiva dela onda,si lo relacionamos con el diagrama de bloques obtenido, al ser negativo la parte exponencial de la ecuación obtenida  se hace tan pequeña que podemos considerarla nula por lo que a la entrada de nuestro sumador solo está el "-1" Y al multiplicarlo por la corriente de saturación inversa del diodo ($I_s$) tenemos un valor tan pequeño que es considerable cero. Además de esto el capacitor es el encargado de mantener un voltaje de rizado en la onda y que no caiga por completo, pues representa una ganancia relativamente a la entrada del bloque sumador de Vout, Aunque también representa una ganancia para el bloque sumador donde se resta (Vout), pero es atenuado por la resistencia de carga.
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_a_corriente_diodo.eps}
+  \caption{Corriente en el diodo}
+  \label{fig:2_a_Id}
+\end{figure}
+
+Ahora se muestra en la figura \ref{fig:2_a_Id} la corriente que pasa por el diodo como era de esperarse los picos de corriente máxima que se alcanzan coinciden o al menos está bastante cerca de la tensión máxima en la entrada por lo ya explicado anteriormente. Por otro lado, la corriente es cero en la fase negativa de la onda como se esperaba. Podemos decir que la gráfica es refleja el comportamiendo de la corriente, ya que crece de manera exponencial y por eso es que vemos un pico.
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_a_Vd.eps}
+  \caption{Voltaje en el diodo}
+  \label{fig:2_a_Vd}
+\end{figure}
+
+Al ser $V_d = V_{in}-V_{out}$ Corresponderá a casi el doble pero de manera negativa, ya que de la figura \ref{fig:2_a_Vin_Vout} se había obtenido que el voltaje cuando la fase era negatica era suministrado por el capacitor. Así que como $V_{in} < 0$ y $V_{out} > 0$ se obtiene la gráfica de la figura \ref{fig:2_a_Vd}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_a_carga.eps}
+  \caption{Diagrama de bloques en Simulink}
+  \label{fig:2_a_carga}
+\end{figure}
+Para la carga por ley de ohm, si el voltaje de salida varía la corriente de carga lo hace de igual manera, obteniendo así la misma forma de salida que en la figura \ref{fig:2_a_Vin_Vout}. Por 
+
+\subsection{Parte B}
+
+A continuación se presentan las gráficas obtenidas en la simulación para este punto.
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_a_Vin_Vout.eps}
+  \caption{Tension }
+  \label{fig:2_a_Vin_Vout}
+\end{figure}
+
+Al variar la carga de manera instantánea esto refleja un aumento en la retroalimentación negativa de $V_{out}$ ya que atenuaba la ganancia del capacitor en la retroalimentación negativa por eso es que $V_{out}$ decae un poco más, es decir el rizado aumentó. Viendolo desde el punto de vista más físico lo que está ocurriendo es que al disminuir la resistencia el capacitor entrega mayor corriente por lo que se descarga más rapido.
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_a_corriente_diodo.eps}
+  \caption{Corriente en el diodo}
+  \label{fig:2_a_Id}
+\end{figure}
 
 
 
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_a_Vd.eps}
+  \caption{Voltaje en el diodo}
+  \label{fig:2_a_Vd}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_a_carga.eps}
+  \caption{Diagrama de bloques en Simulink}
+  \label{fig:2_a_carga}
+\end{figure}
 
 \subsection{Código de ejercicio 2}
 
@@ -434,5 +461,11 @@ choque con la tierra.
   \caption{Gráfica de la velocidad del cohete con respecto al tiempo}
   \label{fig:vel_cohete}
 \end{figure}
+
+
+
+
+
+
 
 \end{document}
