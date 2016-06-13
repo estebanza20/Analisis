@@ -279,7 +279,7 @@ V_d= V_{in}-V_o
 label{eq:Id_diodo}
 \end{equation}
 
-Obtenemos el siguiente desarrollo mediante ley de corrientes de kirkchoff 
+Se obtiene el siguiente desarrollo mediante ley de corrientes de kirkchoff 
 
 \begin{equation}
 SCV_o + \frac{V_o}{R} = I_d
@@ -293,12 +293,12 @@ C \frac{dV_o}{dt} + \frac{V_o}{R} = I_s\left(e^{\frac{V_d}{nV_t}}-1\right)
 C \frac{dV_o}{dt} + \frac{V_o}{R} = I_s\left(e^{\frac{V_{in}-V_{o}}{nV_t}}-1\right)
 \end{equation}
 
-A partir de las ecuaciones anteriores montamos el diagrama de bloques presente en la figura \ref{fig:diag_bloques_2}
+A partir de las ecuaciones anteriores se obtuvo el diagrama de bloques presente en la figura \ref{fig:diag_bloques_2}
 
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_Diagrama_Bloques.eps}
+  \includegraphics[width=0.8\linewidth]{pictures/Ejercicio2_Diagrama_Bloques.eps}
   \caption{Diagrama de bloques en Simulink}
   \label{fig:diag_bloques_2}
 \end{figure}
@@ -310,38 +310,38 @@ A continuación se presentan las gráficas obtenidas en la simulación para este
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_a_Vin_Vout.eps}
-  \caption{Tension }
+  \includegraphics[width=0.8\linewidth]{pictures/Ejercicio2_a_Vin_Vout.eps}
+  \caption{Tension de entrada y salida}
   \label{fig:2_a_Vin_Vout}
 \end{figure}
 
-En la figura \ref{fig:2_a_Vin_Vout} observamos que la gráfica cumple de acuerdo a lo descrito en la teoría, ya que la onda de salida solo posee fase positiva, esto se debe al diodo que se colocó, pues únicamente deja pasar la fase positiva dela onda,si lo relacionamos con el diagrama de bloques obtenido, al ser negativo la parte exponencial de la ecuación obtenida  se hace tan pequeña que podemos considerarla nula por lo que a la entrada de nuestro sumador solo está el "-1" Y al multiplicarlo por la corriente de saturación inversa del diodo ($I_s$) tenemos un valor tan pequeño que es considerable cero. Además de esto el capacitor es el encargado de mantener un voltaje de rizado en la onda y que no caiga por completo, pues representa una ganancia relativamente a la entrada del bloque sumador de Vout, Aunque también representa una ganancia para el bloque sumador donde se resta (Vout), pero es atenuado por la resistencia de carga.
+En la figura \ref{fig:2_a_Vin_Vout} se puede observar que la gráfica cumple de acuerdo a lo descrito en la teoría, ya que la onda de salida solo posee fase positiva, esto se debe al diodo que se colocó, pues únicamente deja pasar la fase positiva de la onda, si lo relacionamos con el diagrama de bloques obtenido, al ser negativo la parte exponencial de la ecuación obtenida  se hace tan pequeña que podemos considerarla nula por lo que a la entrada de nuestro sumador solo está el "-1" y al multiplicarlo por la corriente de saturación inversa del diodo ($I_s$) tenemos un valor tan pequeño que es considerable cero. Además de esto el capacitor es el encargado de mantener un voltaje de rizado en la onda y que no caiga por completo, pues representa una ganancia considerable a la entrada del bloque sumador de Vout que viene de la corriente, aunque también representa una ganancia para la retroalimentación negativa, sin embargo este ultimo efecto es atenuado por la resistencia de carga.
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_a_corriente_diodo.eps}
+  \includegraphics[width=0.8\linewidth]{pictures/Ejercicio2_a_corriente_diodo.eps}
   \caption{Corriente en el diodo}
   \label{fig:2_a_Id}
 \end{figure}
 
-Ahora se muestra en la figura \ref{fig:2_a_Id} la corriente que pasa por el diodo como era de esperarse los picos de corriente máxima que se alcanzan coinciden o al menos está bastante cerca de la tensión máxima en la entrada por lo ya explicado anteriormente. Por otro lado, la corriente es cero en la fase negativa de la onda como se esperaba. Podemos decir que la gráfica es refleja el comportamiendo de la corriente, ya que crece de manera exponencial y por eso es que vemos un pico.
+Ahora se muestra en la figura \ref{fig:2_a_Id} la corriente que pasa por el diodo, como era de esperarse los picos de corriente máxima que se alcanzan coinciden o al menos están bastante cerca de la tensión máxima en la entrada por lo ya explicado anteriormente. Por otro lado, la corriente es cero en la fase negativa de la onda como se esperaba. Podemos decir que la gráfica refleja la ecuación de la corriente, ya que crece de manera exponencial y por eso es que vemos un pico.
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_a_Vd.eps}
+  \includegraphics[width=0.8\linewidth]{pictures/Ejercicio2_a_Vd.eps}
   \caption{Voltaje en el diodo}
   \label{fig:2_a_Vd}
 \end{figure}
 
-Al ser $V_d = V_{in}-V_{out}$ Corresponderá a casi el doble pero de manera negativa, ya que de la figura \ref{fig:2_a_Vin_Vout} se había obtenido que el voltaje cuando la fase era negatica era suministrado por el capacitor. Así que como $V_{in} < 0$ y $V_{out} > 0$ se obtiene la gráfica de la figura \ref{fig:2_a_Vd}
+Al ser $V_d = V_{in}-V_{out}$ corresponderá a casi el doble pero de manera negativa, ya que de la figura \ref{fig:2_a_Vin_Vout} se obtuvo que el voltaje, cuando la fase es negativa, es suministrado por el capacitor. Así que como $V_{in} < 0$ y $V_{out} > 0$ se obtuvo la gráfica de la figura \ref{fig:2_a_Vd}
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_a_carga.eps}
-  \caption{Diagrama de bloques en Simulink}
+  \includegraphics[width=0.8\linewidth]{pictures/Ejercicio2_a_carga.eps}
+  \caption{Corriente de Carga}
   \label{fig:2_a_carga}
 \end{figure}
-Para la carga por ley de ohm, si el voltaje de salida varía la corriente de carga lo hace de igual manera, obteniendo así la misma forma de salida que en la figura \ref{fig:2_a_Vin_Vout}. Por 
+Para la carga ,por ley de ohm, si el voltaje de salida varía la corriente de carga lo hace de igual manera, obteniendo así la misma forma que la gráfica de salida del voltaje que en la figura \ref{fig:2_a_Vin_Vout}. 
 
 \subsection{Parte B}
 
@@ -349,37 +349,81 @@ A continuación se presentan las gráficas obtenidas en la simulación para este
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_a_Vin_Vout.eps}
-  \caption{Tension }
-  \label{fig:2_a_Vin_Vout}
+  \includegraphics[width=0.8\linewidth]{pictures/Ejercicio2_b_Vin_Vout.eps}
+  \caption{Tension de salida y entrada }
+  \label{fig:2_b_Vin_Vout}
 \end{figure}
 
-Al variar la carga de manera instantánea esto refleja un aumento en la retroalimentación negativa de $V_{out}$ ya que atenuaba la ganancia del capacitor en la retroalimentación negativa por eso es que $V_{out}$ decae un poco más, es decir el rizado aumentó. Viendolo desde el punto de vista más físico lo que está ocurriendo es que al disminuir la resistencia el capacitor entrega mayor corriente por lo que se descarga más rapido.
+Al variar la carga de manera instantánea, esto refleja un aumento en la retroalimentación negativa de $V_{out}$ ya que la resistencia atenuaba la ganancia del capacitor en la retroalimentación negativa, por eso es que $V_{out}$ decae un poco más, es decir el rizado aumentó. Viendolo desde el punto de vista más físico lo que está ocurriendo es que al disminuir la resistencia el capacitor entrega mayor corriente por lo que se descarga más rapido. Esto corresponde con la gráfica de la figura \ref{fig:2_b_Vin_Vout}
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_a_corriente_diodo.eps}
+  \includegraphics[width=0.8\linewidth]{pictures/Ejercicio2_b_corriente_diodo.eps}
   \caption{Corriente en el diodo}
-  \label{fig:2_a_Id}
+  \label{fig:2_b_Id}
 \end{figure}
 
-En este caso
+En este caso, como disminuye la resistencia aumenta la corriente en el diodo, ya que al disminuir $V_{out}$ el capacitor se descarga más rapido, la corriente aumenta según la ecuación \eqref{eq:Id_diodo} de esta forma se muestra la gráfica en la figura \ref{fig:2_b_Id}
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_a_Vd.eps}
+  \includegraphics[width=0.8\linewidth]{pictures/Ejercicio2_b_Vd.eps}
   \caption{Voltaje en el diodo}
-  \label{fig:2_a_Vd}
+  \label{fig:2_b_Vd}
 \end{figure}
+
+En este como el voltaje de salida disminuye, el voltaje en el diodo también de acuerdo a la ecuación \eqref{eq:Vd_diodo} pues al decaer más el voltaje de salida en la fase negativa de la entrada hace que se reduzca su amplitud, sin embargo en la fase positiva permanece igual.
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=0.5\linewidth]{pictures/Ejercicio2_a_carga.eps}
-  \caption{Diagrama de bloques en Simulink}
-  \label{fig:2_a_carga}
+  \includegraphics[width=0.8\linewidth]{pictures/Ejercicio2_b_carga.eps}
+  \caption{Corriente de carga}
+  \label{fig:2_b_carga}
 \end{figure}
 
-\subsection{Código de ejercicio 2}
+Como la carga disminuyó es razonable pensar que el capacitor está obligado a entregar más corriente para lograr mantener el voltaje máximo, por lo que a esto se debe el aumento de corriente que caracteriza esta curva, y siempre mantiene la forma de $V_{out}$, obteniendo así la gráfica de la figura \ref{fig:2_b_carga}
+
+
+\subsection{Parte C}
+
+Se presenta ahora las gráficas para esta sección, en este caso la temperatura en el diodo variaba de manera lineal.
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.8\linewidth]{pictures/Ejercicio2_c_Vin_Vout.eps}
+  \caption{Tension de salida y entrada }
+  \label{fig:2_c_Vin_Vout}
+\end{figure}
+
+Se observa en la gráfica el efecto de la temperatura en el diodo, a partir de la gráfica se puede decir que el efecto de la temperatura en el diodo no es tan determinante como el de las otras variables del cual depende el voltaje de salida. Esto debido a que debería llegar a un temperatura considerablemente alta (1200 k) para lograr obtener un efecto más apreciable.
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.8\linewidth]{pictures/Ejercicio2_c_corriente_diodo.eps}
+  \caption{Corriente en el diodo}
+  \label{fig:2_c_Id}
+\end{figure}
+
+Para el caso de la corriente en el diodo se tiene la gráfica de la figura \ref{fig:2_c_Id} donde se puede apreciar que existe un punto donde la temperatura deja de tener efecto sobre la corriente ya que el valor de esta parece estabilizarse. Aunque al inicio su efecto es bastante importante ya que el siguiente pico decayó bastante
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.8\linewidth]{pictures/Ejercicio2_c_Vd.eps}
+  \caption{Voltaje en el diodo}
+  \label{fig:2_c_Vd}
+\end{figure}
+
+Sobre la tensión del diodo tampoco parece tener un efecto muy significativo el cambio de temperatura sin embargo parece tener una leve disminución en la amplitud al final de la gráfica presente en la figura \ref{fig:2_c_Vd}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.8\linewidth]{pictures/Ejercicio2_c_carga.eps}
+  \caption{Corriente de carga}
+  \label{fig:2_c_carga}
+\end{figure}
+
+A partir de la gráfica de la figura \ref{fig:2_c_carga} se puede decir que la corriente en la carga varía al igual que el voltaje de salida, de modo que tampoco parece ser muy significativo, si se piensa en la temperatura a la que tuvo que llegar la temperatura para hacer un poco más apreciable su efecto se puede dar cuenta de que probablemente el circuito estaría derretido pues (1200 K-$926 ^o C$) es una temperatura bastante elevada.
+
 
 \section{Ejercicio 3}
 
@@ -485,12 +529,12 @@ bloque \texttt{Scope}.
   \label{fig:diag_simulink}
 \end{figure}
 
-En la figura \ref{fig:alt_cohete}, se muestra la gráfica de la altura resultante de la
-simulación. De esta forma, la altura empieza incrementado rápidamente, pero luego del instante $t=5$
-la concavidad de la curva cambia debido a que la velocidad del cohete empieza a disminuir ya que se
-agota el combustible. Posteriormente, la altura llega a un valor máximo para luego disminuir debido
-a que la velocidad se vuelve negativa por el efecto de la aceleración de la gravedad. Finalmente, la
-altura llega a $h=0$ y se mantiene en ese valor, lo cual indica que el cohete colisionó con el suelo.
+En la figura \ref{fig:alt_cohete}, se muestra la gráfica de la altura resultante de la simulación
+hasta el instante que el cohete regresa a la altura $h=0$. De esta forma, la altura empieza
+incrementado rápidamente, pero luego del instante $t=5$ la concavidad de la curva cambia debido a
+que la velocidad del cohete empieza a disminuir ya que se agota el combustible. Posteriormente, la
+altura llega a un valor máximo para luego disminuir debido a que la velocidad se vuelve negativa por
+el efecto de la aceleración de la gravedad.
 
 
 \begin{figure}[ht!]
