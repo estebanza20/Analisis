@@ -17,8 +17,7 @@
 %------------ Desde aquí datos de la portada ------------------%
 
 %título de la práctica (* Por el usuario *)
-\title{Avance del proyecto final:\\ Modelado del comportamiento de péndulo invertido de los robots
-  de dos ruedas}
+\title{Proyecto final:\\ Modelado del comportamiento de los robots de dos ruedas}
 
 %nombre del curso (* Por el usuario *)
 \curso{IE-0409 Análisis de Sistemas}
@@ -44,7 +43,10 @@
 %---------------------------------------------------------------------------------
 %las siguientes son las secciones iniciales del informe
 
-%resumen
+%Esto hay que revisarlo!
+
+Los robots móviles son muy importantes porque permiten sistemas más flexibles. Además abren toda un área de la robótica que es el problema de localización%referencias.
+En este documento se analiza el caso específico de un robot diferencial, este es un sistema que se moviliza en el plano xy debido a la acción de dos ruedas que funcionan de manera independiente. El principal objetivo es la obtención de un modelo cinemático directo, un modelo cinemático inverso, y un modelo dinámico que describa el sistema real. Se realizaron simulaciones, para verificar que la respuesta del modelo sea la esperada. 
 
 %-------------------
 %tablas de contenido (* si alguna no se ocupa se puede ``comentar'' (%) para que no aparezca)
@@ -96,6 +98,9 @@
 
 
 %------------------
+\section{Introducción}
+%ESto hay que hacerlo, supongo que con la primera parte del marco teorico está bien...
+
 \section{Marco teórico}
 
 \subsection{Importancia y aplicación de los robots de dos ruedas}
@@ -208,7 +213,7 @@ De esta manera, se obtiene un modelo en variables de estado lineal cuando el áng
 cercano a cero \citep{Buck}.
 
 \subsection{Análisis de sistemas mecánicos: Enfoque de energías}
-Para modelar sistemas mécanicos como el que se estudiará en el presente trabajo, resulta conveniente
+Para modelar sistemas mecánicos como el que se estudiará en el presente trabajo, resulta conveniente
 utilizar el enfoque de energías, el cual facilita obtener las ecuaciones del movimiento de sistemas
 mecánicos con múltiples grados de libertad y que utilicen coordenadas generalizadas (no restringidas
 a ser cartesianas).
@@ -266,6 +271,12 @@ Gravitacional & $mgh$ \\ \midrule
 Elástica (Resorte) & $\frac{1}{2}k{x}^2$ \\ \bottomrule
 \end{tabular}
 \end{table}
+
+\section{Resultados}
+
+\section{Conclusiones y Recomendaciones}
+
+Se logró exitosamente simular el sistema descrito. En las simulaciones se obtienen los resultados observados en el sistema real.
 
 \newpage
 %-------------------
