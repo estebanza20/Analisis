@@ -1,12 +1,12 @@
 
 
-all:  avance.pdf 
+all:  reporte.pdf 
 
-avance.pdf : avance.tex
-	pdflatex avance.tex
-	bibtex avance.aux
-	pdflatex avance.tex
-	pdflatex avance.tex
+reporte.pdf : reporte.tex
+	pdflatex reporte.tex
+	bibtex reporte.aux
+	pdflatex reporte.tex
+	pdflatex reporte.tex
 
 clean:
 	rm -f *.log *.aux *.bbl *.lof *.lot *.toc *.blg *.pdf *.gz *~ *.zip *.out
