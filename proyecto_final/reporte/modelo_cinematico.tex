@@ -1,0 +1,18 @@
+
+
+Para efectos de la obtención de este modelo se considera el centro del robot como el punto medio en el eje de las ruedas. La posición de este punto de describe por el vector $P_0$. Se toma que cuando el robot está orientado hacia el eje x positivo, entonces su ángulo de orientación es 0. Luego se define el ángulo de orientación $\theta$ como el medido a partir del eje x positivo. Como se muestra en la figura %ref
+
+La posición de cada motor se decribe por los vectores $P_L$ y $P_R$ para el motor izquierdo y derecho respectivamente. Note que, utilizando álgebra de vectores, se puede deducir que:
+
+$P_L=P_0+[-\frac{b}{2}cos(90-\theta)  \frac{b}{2}sen(90-\theta)]^t$
+$P_R=P_0+[\frac{b}{2}cos(90-\theta)  -\frac{b}{2}sen(90-\theta)]^t$
+
+Luego, por identidades trigonometricas, se obtiene que:
+
+$P_R=P_0+[\frac{b}{2}sen(\theta)  -\frac{b}{2}cos(\theta)]^t$
+$P_L=P_0+[-\frac{b}{2}sen(\theta)  \frac{b}{2}cos(\theta)]^t$
+ 
+Derivando la expresión anterior:
+
+$\frac{dP_R}{dt}=v_R=v_0+[\frac{b}{2}cos(\theta)\theta dot   \frac{b}{2}sen(\theta)\theta dot]^t$
+$\frac{dP_L}{dt}$
