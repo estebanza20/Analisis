@@ -3,10 +3,10 @@
 b=2;
 
 %se define el vector de tiempo
-t=0:0.0001:10;
+t=0:0.01:10;
 samples=size(t)
 %se defifnen las funciones que describen el comportamiento de los motores.
-vr=2*t;
+vr=sin(t);
 vl=t;
 
 %se calcula la velocidad angular
