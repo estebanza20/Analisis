@@ -421,7 +421,7 @@ El modelo cinemático inverso viene dado por:
 
 En algunos casos es más conveniente tomar un punto desplazado del centro del robot. Este normalmente se toma hacia el frente. Se calculan las velocidades de las ruedas para controlar la velocidad traslacional del punto desplazado. En este caso no se toma en cuenta la orientación, ya que este modelo se utiliza para un robot que usualmente se va a utilizar para seguir trayectorias. De esta manera se hace que el punto desplazado siga la trayectoria, y el robot de manera natural va a seguir la trayectoria con la orientación adecuada. %citar esto que acabod e decir
 
-Entonces considere el punto desplazado, cuyo vector de posición es $\mathbf{p_e}(t)$. Se define que la distancia entre $\mathbf{p_e}(t)$ y $\mathbf{p_0}(t)$ es $d$.Note que $\mathbf{p_e}(t)$ est'a fijo en el marco de referencia del robot, entocnes $d$ es constante. Se cumple lo descrito en (\ref{eq:punto_desplazado}).
+Entonces considere el punto desplazado, cuyo vector de posición es $\mathbf{p_e}(t)$. Se define que la distancia entre $\mathbf{p_e}(t)$ y $\mathbf{p_0}(t)$ es $d$.Note que $\mathbf{p_e}(t)$ está fijo en el marco de referencia del robot, entonces $d$ es constante. Se cumple lo descrito en (\ref{eq:punto_desplazado}).
 
 \begin{equation}
 \mathbf{p_e}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} d\cos(\theta(t))&  d\sin(\theta(t))\end{array} \right]^t
@@ -478,24 +478,6 @@ A^{-1}(t)=
 
 \section{Resultados}
 
-pseudo inversa
-
-\[
-\left(
-\begin{array}{ccc}
- \frac{\cos (a) \left(-b^2 \cos ^2(a)-b^2 \sin ^2(a)+4\right)}{8 \left(\cos ^2(a)+\sin ^2(a)\right)}+\frac{\cos (a) \left(b^2 \cos
-   ^2(a)+b^2 \sin ^2(a)+4\right)}{8 \left(\cos ^2(a)+\sin ^2(a)\right)} & \frac{\sin (a) \left(-b^2 \cos ^2(a)-b^2 \sin
-   ^2(a)+4\right)}{8 \left(\cos ^2(a)+\sin ^2(a)\right)}+\frac{\sin (a) \left(b^2 \cos ^2(a)+b^2 \sin ^2(a)+4\right)}{8 \left(\cos
-   ^2(a)+\sin ^2(a)\right)} & \frac{b^2 \cos ^2(a)+b^2 \sin ^2(a)+4}{4 b \left(\cos ^2(a)+\sin ^2(a)\right)}-\frac{-b^2 \cos
-   ^2(a)-b^2 \sin ^2(a)+4}{4 b \left(\cos ^2(a)+\sin ^2(a)\right)} \\
- \frac{\cos (a) \left(-b^2 \cos ^2(a)-b^2 \sin ^2(a)+4\right)}{8 \left(\cos ^2(a)+\sin ^2(a)\right)}+\frac{\cos (a) \left(b^2 \cos
-   ^2(a)+b^2 \sin ^2(a)+4\right)}{8 \left(\cos ^2(a)+\sin ^2(a)\right)} & \frac{\sin (a) \left(-b^2 \cos ^2(a)-b^2 \sin
-   ^2(a)+4\right)}{8 \left(\cos ^2(a)+\sin ^2(a)\right)}+\frac{\sin (a) \left(b^2 \cos ^2(a)+b^2 \sin ^2(a)+4\right)}{8 \left(\cos
-   ^2(a)+\sin ^2(a)\right)} & \frac{-b^2 \cos ^2(a)-b^2 \sin ^2(a)+4}{4 b \left(\cos ^2(a)+\sin ^2(a)\right)}-\frac{b^2 \cos
-   ^2(a)+b^2 \sin ^2(a)+4}{4 b \left(\cos ^2(a)+\sin ^2(a)\right)} \\
-\end{array}
-\right)
-\]
 
 
 
