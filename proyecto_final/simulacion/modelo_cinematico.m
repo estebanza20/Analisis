@@ -3,11 +3,11 @@
 b=2;
 
 %se define el vector de tiempo
-t=0:0.0001:10;
+t=0:0.01:10;
 samples=size(t)
 %se defifnen las funciones que describen el comportamiento de los motores.
-vr=2*t;
-vl=t;
+vr=2*sin(t);
+vl=zeros(1,samples(2));
 
 %se calcula la velocidad angular
 omega=vr/b-vl/b;
