@@ -283,19 +283,19 @@ La posición de cada motor se decribe por los vectores $p_L$ y $p_R$ para el moto
 
 \begin{equation}
 \begin{cases}
-\mathbf{p_R}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c}\frac{b}{2}cos(90^\circ-\theta(t))&  -\frac{b}{2}sen(90^\circ-\theta(t))\end{array}\right]^t\\
-\mathbf{p_L}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c}-\frac{b}{2}cos(90^\circ-\theta(t))&  \frac{b}{2}sen(90^\circ-\theta(t))\end{array}\right]^t
+\mathbf{p_R}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c}\frac{b}{2}\cos(90^\circ-\theta(t))&  -\frac{b}{2}\sin(90^\circ-\theta(t))\end{array}\right]^t\\
+\mathbf{p_L}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c}-\frac{b}{2}\cos(90^\circ-\theta(t))&  \frac{b}{2}\sin(90^\circ-\theta(t))\end{array}\right]^t
 \end{cases}
 \label{eq:global_position_prev_simplification}
 \end{equation}
 
 
-Note que $cos(90^\circ-\theta(t))=sen(\theta(t))$ y que $sen(90^\circ-\theta(t))=cos(\theta(t))$. Entonces, sustituyendo en (\ref{eq:global_position_prev_simplification}), se obtiene (\ref{eq:global_position}). 
+Note que $\cos(90^\circ-\theta(t))=\sin(\theta(t))$ y que $\sin(90^\circ-\theta(t))=\cos(\theta(t))$. Entonces, sustituyendo en (\ref{eq:global_position_prev_simplification}), se obtiene (\ref{eq:global_position}). 
 
 \begin{equation}
 \begin{cases}
-\mathbf{p_R}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} \frac{b}{2}sen(\theta(t))&  -\frac{b}{2}cos(\theta(t))\end{array} \right]^t\\
-\mathbf{p_L}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} -\frac{b}{2}sen(\theta(t))&  \frac{b}{2}cos(\theta(t))\end{array}\right]^t
+\mathbf{p_R}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} \frac{b}{2}\sin(\theta(t))&  -\frac{b}{2}\cos(\theta(t))\end{array} \right]^t\\
+\mathbf{p_L}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} -\frac{b}{2}\sin(\theta(t))&  \frac{b}{2}\cos(\theta(t))\end{array}\right]^t
 \end{cases}
 \label{eq:global_position}
 \end{equation}
@@ -306,27 +306,27 @@ Derivando (\ref{eq:global_position})se obtiene:
 
 \begin{equation}
 \begin{cases}
-\dot{\mathbf{p_R}}(t)=\mathbf{v_R}(t)=\mathbf{v_0}(t)+\left[  \begin{array}{c c} \frac{b}{2}cos(\theta(t)) \dot{\theta}(t) &  \frac{b}{2}sen(\theta(t)) \dot{\theta}(t) \end{array}\right]^t \\
-\dot{\mathbf{p_L}}(t)=\mathbf{v_L}(t)=\mathbf{v_0}(t)+\left[  \begin{array}{c c}-\frac{b}{2}cos(\theta(t)) \dot{\theta}(t) & -\frac{b}{2}sen(\theta(t)) \dot{\theta}(t) \end{array}\right]^t
+\dot{\mathbf{p_R}}(t)=\mathbf{v_R}(t)=\mathbf{v_0}(t)+\left[  \begin{array}{c c} \frac{b}{2}\cos(\theta(t)) \dot{\theta}(t) &  \frac{b}{2}\sin(\theta(t)) \dot{\theta}(t) \end{array}\right]^t \\
+\dot{\mathbf{p_L}}(t)=\mathbf{v_L}(t)=\mathbf{v_0}(t)+\left[  \begin{array}{c c}-\frac{b}{2}\cos(\theta(t)) \dot{\theta}(t) & -\frac{b}{2}\sin(\theta(t)) \dot{\theta}(t) \end{array}\right]^t
 \end{cases}
 \label{eq:global_velocities}
 \end{equation}
 
-Reescribiendo (\ref{eq:global_velocities}), pero sustituyendo que $\mathbf{v_n}=\left[ \begin{array}{c c} v_ncos(\theta(t)) & v_nsen(\theta(t)) \end{array} \right]^t$  en  (\ref{eq:velocities_system}) donde $|\mathbf{v_n}|=v_n$.
+Reescribiendo (\ref{eq:global_velocities}), pero sustituyendo que $\mathbf{v_n}=\left[ \begin{array}{c c} v_n\cos(\theta(t)) & v_n\sin(\theta(t)) \end{array} \right]^t$  en  (\ref{eq:velocities_system}) donde $|\mathbf{v_n}|=v_n$.
 
 \begin{equation}
 \begin{cases}
 \begin{array}{c c c c c}
-v_Rcos(\theta(t)) &=&v_0cos(\theta(t))&+&\frac{b}{2}cos(\theta(t))\dot{\theta}(t)\\
-v_Rsen(\theta(t)) &=&v_0sen(\theta(t))&+&\frac{b}{2}sen(\theta(t))\dot{\theta}(t)\\
-v_Lcos(\theta(t)) &=&v_0cos(\theta(t))&+&\frac{b}{2}cos(\theta(t))\dot{\theta}(t)\\
-v_Lsen(\theta(t)) &=&v_0sen(\theta(t))&+&\frac{b}{2}sen(\theta(t))\dot{\theta}(t)
+v_R\cos(\theta(t)) &=&v_0\cos(\theta(t))&+&\frac{b}{2}\cos(\theta(t))\dot{\theta}(t)\\
+v_R\sin(\theta(t)) &=&v_0\sin(\theta(t))&+&\frac{b}{2}\sin(\theta(t))\dot{\theta}(t)\\
+v_L\cos(\theta(t)) &=&v_0\cos(\theta(t))&+&\frac{b}{2}\cos(\theta(t))\dot{\theta}(t)\\
+v_L\sin(\theta(t)) &=&v_0\sin(\theta(t))&+&\frac{b}{2}\sin(\theta(t))\dot{\theta}(t)
 \end{array}
 \end{cases}
 \label{eq:velocities_system}
 \end{equation}
 
-De (\ref{eq:velocities_system}) suponga que $cos(\theta(t))\neq 0$, entonces se concluye (\ref{eq:local_vel_wheels}) multiplicando por $1/cos(\theta(t))$ a ambos lados de las ecauciones. Si $cos(\theta(t))= 0$, se sabe que $sen(\theta(t))\neq 0$, y por tanto también se puede concluir (\ref{eq:local_vel_wheels}).
+De (\ref{eq:velocities_system}) suponga que $\cos(\theta(t))\neq 0$, entonces se concluye (\ref{eq:local_vel_wheels}) multiplicando por $1/\cos(\theta(t))$ a ambos lados de las ecauciones. Si $\cos(\theta(t))= 0$, se sabe que $\sin(\theta(t))\neq 0$, y por tanto también se puede concluir (\ref{eq:local_vel_wheels}).
 
 \begin{equation}
 \begin{cases}
@@ -350,11 +350,11 @@ v_0(t)         =\frac{r}{2}(\omega_R(t)+\omega_L(t))
 
 También es sabido que:
 \begin{equation}
-\mathbf{v_0(t)}(t)=\left[ \begin{array}{c} \dot{x}(t) \\ \dot{y}(t) \end{array} \right]=\left[\begin{array}{c} v_0(t)cos(\theta(t)) \\ v_0(t)sen(\theta(t)) \end{array} \right]
+\mathbf{v_0(t)}(t)=\left[ \begin{array}{c} \dot{x}(t) \\ \dot{y}(t) \end{array} \right]=\left[\begin{array}{c} v_0(t)\cos(\theta(t)) \\ v_0(t)\sin(\theta(t)) \end{array} \right]
 \label{eq:global_vel}
 \end{equation} 
 
-Entonces, sustituyendo (\ref{eq:local_vel}) en (\ref{eq:global_vel}), y tomadno en consideración (\ref{eq:local_dir}), se obtiene la ecuación descrita en (\ref{eq:kinematic_model}).
+Entonces, sustituyendo (\ref{eq:local_vel}) en (\ref{eq:global_vel}), y tomadno en consideración (\ref{eq:local_dir}), se obtiene la ecuación descrita en (\ref{eq:kinematic_model_matrix}).
 
 \begin{equation}
 \left[
@@ -365,8 +365,8 @@ Entonces, sustituyendo (\ref{eq:local_vel}) en (\ref{eq:global_vel}), y tomadno 
 =
 \left[
 \begin{array}{c c}
-\frac{r}{2}cos(\theta(t))&\frac{r}{2}cos(\theta(t))\\
-\frac{r}{2}sen(\theta(t))&\frac{r}{2}sen(\theta(t))\\
+\frac{r}{2}\cos(\theta(t))&\frac{r}{2}\cos(\theta(t))\\
+\frac{r}{2}\sin(\theta(t))&\frac{r}{2}\sin(\theta(t))\\
 \frac{r}{b}&\frac{-r}{b}
 \end{array}
 \right]
@@ -394,8 +394,8 @@ Para encontrar la cinemática inversa, es necesario encontrar las velocidades de 
 \begin{equation}
 \Lambda^{-1}=\left[
 \begin{array}{c c c}
-\frac{cos(\theta(t))}{r} & \frac{cos(\theta(t))}{r} & \frac{b}{2r}\\
-\frac{sen(\theta(t))}{r} & \frac{sen(\theta(t))}{r} & \frac{-b}{2r}\\
+\frac{\cos(\theta(t))}{r} & \frac{\cos(\theta(t))}{r} & \frac{b}{2r}\\
+\frac{\sin(\theta(t))}{r} & \frac{\sin(\theta(t))}{r} & \frac{-b}{2r}\\
 \end{array}
  \right]
 \label{eq:pseudoinverse}
@@ -412,27 +412,27 @@ El modelo cinemático inverso viene dado por:
 
 %Hacer la justificaciond e contrabilidad.
 
-En algunos casos en más conveniente tomar un punto desplazado del centro del robot. Este normalmente se toma hacia el frente. Se calculan las velocidades de las ruedas para controlar la velocidad traslacional del punto desplazado. En este caso no se toma en cuenta la orientación, ya que este modelo se utiliza para un robot que usualmente se va a utilizar para seguir trayectorias. De esta manera se hace que el punto desplazado siga la trayectoria, y el robot de manera natural va a seguir la trayectoria con la orientación adecuada. %citar esto que acabod e decir
+En algunos casos es más conveniente tomar un punto desplazado del centro del robot. Este normalmente se toma hacia el frente. Se calculan las velocidades de las ruedas para controlar la velocidad traslacional del punto desplazado. En este caso no se toma en cuenta la orientación, ya que este modelo se utiliza para un robot que usualmente se va a utilizar para seguir trayectorias. De esta manera se hace que el punto desplazado siga la trayectoria, y el robot de manera natural va a seguir la trayectoria con la orientación adecuada. %citar esto que acabod e decir
 
-Entonces considere el punto desplazado, cuyo vector de posición es $\mathbf{p_e}$. Se define que la distancia entre $\mathbf{p_e}$ y $\mathbf{p_0}$ es $d$. Entonces se cumple lo descrito en (\ref{eq:punto_desplazado}).
+Entonces considere el punto desplazado, cuyo vector de posición es $\mathbf{p_e}(t)$. Se define que la distancia entre $\mathbf{p_e}(t)$ y $\mathbf{p_0}(t)$ es $d$.Note que $\mathbf{p_e}(t)$ est'a fijo en el marco de referencia del robot, entocnes $d$ es constante. Se cumple lo descrito en (\ref{eq:punto_desplazado}).
 
 \begin{equation}
-\mathbf{p_e}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} dcos(\theta(t))&  dsen(\theta(t))\end{array} \right]^t
+\mathbf{p_e}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} d\cos(\theta(t))&  d\sin(\theta(t))\end{array} \right]^t
 \label{eq:punto_desplazado}
 \end{equation}
 
-Luego, derivando (\ref{eq:punto_desplazado}), se obtiene la expresión en (\ref{eq:vel_desplazada}).
+Luego, derivando (\ref{eq:punto_desplazado}), se obtiene la expresión en (\ref{eq:vel_desplazado}).
 
 \begin{equation}
-\dot{\mathbf{p_e}}(t)=\dot{\mathbf{p_0}}(t)+\left[\begin{array}{c c} -dsen(\theta(t))\dot{\theta}(t)&  dcos(\theta(t))\dot{\hteta}(t)\end{array} \right]^t
+\dot{\mathbf{p_e}}(t)=\dot{\mathbf{p_0}}(t)+\left[\begin{array}{c c} -d\sin(\theta(t))\dot{\theta}(t)&  d\cos(\theta(t))\dot{\theta}(t)\end{array} \right]^t
 \label{eq:vel_desplazado}
 \end{equation} 
 
 Para expresar la velocidad en el punto desplazado se define $M(t)$ en (\ref{eq:matriz_m}), la matriz de trasformación del punto central al punto desplazado.
 
 \begin{equation}
-\dot{\mathbf{p_e}}(t)=\left[ \begin{array}{c c c} 1&  0& -dsen(\theta(t))\\
-                                                 0&  1&  dcos(\theta(t))\end{array}  \right] \mathbf{\nu}(t)
+\dot{\mathbf{p_e}}(t)=\left[ \begin{array}{c c c} 1&  0& -d\sin(\theta(t))\\
+                                                 0&  1&  d\cos(\theta(t))\end{array}  \right] \mathbf{\nu}(t)
 =M(t) \mathbf{\nu}(t)
 \label{eq:matriz_m}
 \end{equation} 
@@ -441,23 +441,30 @@ Para expresar la velocidad en el punto desplazado se define $M(t)$ en (\ref{eq:m
 Ahora, se define $A(t)=M(t)\Lambda(t)$, para obtener la relación entre $\dot{\mathbf{p_e}}(t)$, y $\mathbf{\omega}(t)$. En (\ref{eq:modelo_desplazado}) se presenta el modelo cinemático directo del punto desplazado.
 
 \begin{equation}
-\dot{\mathbf{p_e}}(t)= \left[ \begin{array}{c c} 0.5rcos(\theta(t))-\frac{drsen(\theta(t))}{b}& 0.5cos(\theta(t))+\frac{ersen(\theta(t))}{b}  \\
-                                                 -0.5rsen(\theta(t))-\frac{drcos(\theta(t))}{b}& 0.5sen(\theta(t))-\frac{drcos(\theta(t))}{b}  \end{array}  \right] \mathbf{\omega}(t)=A(t)\mathbf{\omega}(t)
+\dot{\mathbf{p_e}}(t)= \left[ \begin{array}{c c} 0.5r\cos(\theta(t))-\frac{dr\sin(\theta(t))}{b}& 0.5\cos(\theta(t))+\frac{er\sin(\theta(t))}{b}  \\
+                                                 -0.5r\sin(\theta(t))-\frac{dr\cos(\theta(t))}{b}& 0.5\sin(\theta(t))-\frac{dr\cos(\theta(t))}{b}  \end{array}  \right] \mathbf{\omega}(t)=A(t)\mathbf{\omega}(t)
 \label{eq:modelo_desplazado}
 \end{equation}
 
 
 Para poder controlar al robot, se necesita el modelo inverso. Primero se debe determinar si es posible encontrar el modelo, entonces se computa el determinante de la matriz $A(t)$. Se tiene que $det(A)=-\frac{dr^2}{b}$, de manera que el determinante es no nulo para todo valor de $t$. Entonces siempre es posible encontrar la matriz inversa de $A(t)$, esta se denota por $A^{-1}(t)$. Finalmente, en las ecuaciones (\ref{eq:a_inverso}) y (\ref{eq:desplazado_inverso}) se describe el modelo cinemático inverso para el punto desplazado.
-\begin{equation}
 
+\begin{equation}
+A^{-1}(t)=
 \left[
 \begin{array}{cc}
- \frac{1. d \cos (\theta (t))-0.5 b \sin (\theta (t))}{d r} & \frac{0.5 b \cos
-   (\theta (t))+1. d \sin (\theta (t))}{d r} \\
- \frac{1. d \cos (\theta (t))+0.5 b \sin (\theta (t))}{d r} & \frac{1. d \sin
+ \frac{ d \cos (\theta (t))-0.5 b \sin (\theta (t))}{d r} & \frac{0.5 b \cos
+   (\theta (t))+ d \sin (\theta (t))}{d r} \\
+ \frac{ d \cos (\theta (t))+0.5 b \sin (\theta (t))}{d r} & \frac{ d \sin
    (\theta (t))-0.5 b \cos (\theta (t))}{d r} \\
 \end{array}
 \right]
+\label{eq:a_inverso}
+\end{equation}
+
+\begin{equation}
+\mathbf{\omega}(t)=A^{-1}(t)\dot{\mathbf{p_e}}(t)
+\label{eq:desplazado_inverso}
 \end{equation}
 
 
