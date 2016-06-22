@@ -6,8 +6,10 @@ b=2;
 t=0:0.01:10;
 samples=size(t)
 %se defifnen las funciones que describen el comportamiento de los motores.
+
 vr=2*sin(t);
-vl=zeros(1,samples(2));
+vl=t;
+
 
 %se calcula la velocidad angular
 omega=vr/b-vl/b;
@@ -34,4 +36,6 @@ for i=2:samples(2)
 end
 figure
 plot (x,y)
+
+
 
