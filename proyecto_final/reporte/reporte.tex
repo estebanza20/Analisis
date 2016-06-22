@@ -381,11 +381,11 @@ Entonces, sustituyendo (\ref{eq:local_vel}) en (\ref{eq:global_vel}), y tomadno 
 Se definen los siguientes vectores, para simplificar la notación de esta sección: $\nu(t)=\left[\begin{array}{c c c}\dot{x}(t)&\dot{y}(t)&\dot{\theta}(t)\end{array}\right]^t$ y $\omega(t)=\left[\begin{array}{c c} \omega_R(t)& \omega_L(t) \end{array} \right]^t$. Se define $\Lambda(t)$, como la matriz en (\ref{eq:kinematic_model_matrix}). De esta menra de reescribe la ecuación como:
 
 \begin{equation}
-\nu(t)=\Lambda(t)\omega(t)
+\mathbf{\nu}(t)=\Lambda(t) \mathbf{\omega}(t)
 \label{eq:kinematic_model}
 \end{equation}
 
-La ecuación (\ref{eq:kinematic_model}) representa el modelo cinemático directo del sistema. Ya que relaciona la entrada ($\omega(t)$), con la salida ($\nu(t)$). 
+La ecuación (\ref{eq:kinematic_model}) representa el modelo cinemático directo del sistema. Ya que relaciona la entrada ($\mathbf{\omega}(t)$), con la salida ($\mathbf{\nu}(t)$). 
 
 \subsubsection{Modelo inverso}
 
@@ -404,11 +404,61 @@ Para encontrar la cinemática inversa, es necesario encontrar las velocidades de 
 El modelo cinemático inverso viene dado por:
 
 \begin{equation}
-\omega(t)=\Lambda^{-1}\nu(t)
+\mathbf{\omega}(t)=\Lambda^{-1}\mathbf{\nu}(t)
 \label{eq:inverse_kinematic_model}
 \end{equation}
 
+\subsubsection{Modelo del punto desplazado}
 
+%Hacer la justificaciond e contrabilidad.
+
+En algunos casos en más conveniente tomar un punto desplazado del centro del robot. Este normalmente se toma hacia el frente. Se calculan las velocidades de las ruedas para controlar la velocidad traslacional del punto desplazado. En este caso no se toma en cuenta la orientación, ya que este modelo se utiliza para un robot que usualmente se va a utilizar para seguir trayectorias. De esta manera se hace que el punto desplazado siga la trayectoria, y el robot de manera natural va a seguir la trayectoria con la orientación adecuada. %citar esto que acabod e decir
+
+Entonces considere el punto desplazado, cuyo vector de posición es $\mathbf{p_e}$. Se define que la distancia entre $\mathbf{p_e}$ y $\mathbf{p_0}$ es $d$. Entonces se cumple lo descrito en (\ref{eq:punto_desplazado}).
+
+\begin{equation}
+\mathbf{p_e}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} dcos(\theta(t))&  dsen(\theta(t))\end{array} \right]^t
+\label{eq:punto_desplazado}
+\end{equation}
+
+Luego, derivando (\ref{eq:punto_desplazado}), se obtiene la expresión en (\ref{eq:vel_desplazada}).
+
+\begin{equation}
+\dot{\mathbf{p_e}}(t)=\dot{\mathbf{p_0}}(t)+\left[\begin{array}{c c} -dsen(\theta(t))\dot{\theta}(t)&  dcos(\theta(t))\dot{\hteta}(t)\end{array} \right]^t
+\label{eq:vel_desplazado}
+\end{equation} 
+
+Para expresar la velocidad en el punto desplazado se define $M(t)$ en (\ref{eq:matriz_m}), la matriz de trasformación del punto central al punto desplazado.
+
+\begin{equation}
+\dot{\mathbf{p_e}}(t)=\left[ \begin{array}{c c c} 1&  0& -dsen(\theta(t))\\
+                                                 0&  1&  dcos(\theta(t))\end{array}  \right] \mathbf{\nu}(t)
+=M(t) \mathbf{\nu}(t)
+\label{eq:matriz_m}
+\end{equation} 
+
+
+Ahora, se define $A(t)=M(t)\Lambda(t)$, para obtener la relación entre $\dot{\mathbf{p_e}}(t)$, y $\mathbf{\omega}(t)$. En (\ref{eq:modelo_desplazado}) se presenta el modelo cinemático directo del punto desplazado.
+
+\begin{equation}
+\dot{\mathbf{p_e}}(t)= \left[ \begin{array}{c c} 0.5rcos(\theta(t))-\frac{drsen(\theta(t))}{b}& 0.5cos(\theta(t))+\frac{ersen(\theta(t))}{b}  \\
+                                                 -0.5rsen(\theta(t))-\frac{drcos(\theta(t))}{b}& 0.5sen(\theta(t))-\frac{drcos(\theta(t))}{b}  \end{array}  \right] \mathbf{\omega}(t)=A(t)\mathbf{\omega}(t)
+\label{eq:modelo_desplazado}
+\end{equation}
+
+
+Para poder controlar al robot, se necesita el modelo inverso. Primero se debe determinar si es posible encontrar el modelo, entonces se computa el determinante de la matriz $A(t)$. Se tiene que $det(A)=-\frac{dr^2}{b}$, de manera que el determinante es no nulo para todo valor de $t$. Entonces siempre es posible encontrar la matriz inversa de $A(t)$, esta se denota por $A^{-1}(t)$. Finalmente, en las ecuaciones (\ref{eq:a_inverso}) y (\ref{eq:desplazado_inverso}) se describe el modelo cinemático inverso para el punto desplazado.
+\begin{equation}
+
+\left[
+\begin{array}{cc}
+ \frac{1. d \cos (\theta (t))-0.5 b \sin (\theta (t))}{d r} & \frac{0.5 b \cos
+   (\theta (t))+1. d \sin (\theta (t))}{d r} \\
+ \frac{1. d \cos (\theta (t))+0.5 b \sin (\theta (t))}{d r} & \frac{1. d \sin
+   (\theta (t))-0.5 b \cos (\theta (t))}{d r} \\
+\end{array}
+\right]
+\end{equation}
 
 
 
