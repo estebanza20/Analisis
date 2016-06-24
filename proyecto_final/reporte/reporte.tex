@@ -107,71 +107,57 @@ En este documento se analiza el caso específico de un robot diferencial, este es
 
 %------------------
 \section{Introducción}
-%ESto hay que hacerlo, supongo que con la primera parte del marco teorico está bien...
-
-\section{Marco teórico}
-
-\subsection{Importancia y aplicación de los robots de dos ruedas}
-
 El desarrollo de robots móviles, responde a la necesidad de extender el campo de aplicación de la
 Robótica en la actualidad. En este campo, se trata de incrementar la autonomía del robot, limitando
 en todo lo posible la necesidad de intervención humana \citep{Collazo}.
 
-El presente trabajo, se centra alrededor de la descripción del movimiento de péndulo invertido que
-ocurre en los robots móviles de dos ruedas. Las aplicaciones del modelado de sistemas de tipo
-péndulo invertido, se pueden ver también en campos como el aeroespacial, en el cual se requiere el
-control activo de un cohete para mantenerlo en la posición vertical invertida durante su
-despegue. En Biomecánica, el péndulo invertido es frecuentemente utilizado para modelar bípedos
-caminantes, en los cuales la pierna de apoyo en contacto con el suelo a menudo se modela como un
-péndulo invertido \citep{Cruz}.
-
 Los robots de dos ruedas, tienen la ventaja de que son altamente maniobrables, al poder girar sobre
-su propio eje. También, pueden construirse altos sin requerir de una base muy grande, lo que los
+su eje z como lo muestra la figura \ref{ejes}. También, pueden construirse altos sin requerir de una base muy grande, lo que los
 hace muy útiles en interiores, en donde pueden pasar por lugares estrechos y dar curvas muy cerradas
 \citep{KarlStol}.  Algunas de sus aplicaciones, pueden ser como guías de excursiones dentro de
 museos, bases de equipo médico dentro de hospitales, para vigilancia (segway) y de limpieza en el
 hogar \citep{Coelho}.
 
+\section{Marco teórico}
 
-\subsection{Descripción general de los robots de dos ruedas}
+%\subsection{Descripción general de los robots de dos ruedas}
 
-El sistema que se estudia son los robots de dos ruedas coaxiales, encontrándose normalmente una a
-cada lado del cuerpo, con el centro de masa sobre el eje de las ruedas. Debido a que el centro de
-masa se encuentra sobre el eje de las ruedas, estos robots también son conocidos como péndulos
-invertidos móviles \citep{Yan-Hou}, ya que su base no está fija en el espacio, sino que puede
-desplazarse sobre una superficie debido a la acción de las ruedas (ver figura
-\ref{fig:segway_robot}).
 
-Estos robots tienen 3 grados de libertad, los cuales son: traslación hacia adelante o atrás, giro
-sobre su propio eje (yaw), y giro sobre el eje de las ruedas (pitch) (ver figura
-\ref{fig:axis}). Sin embargo, el robot únicamente tiene dos actuadores (las dos ruedas). Por lo
-tanto, se considera un sistema subactuado \citep{Xu}. De esta manera, no se puede lograr el control
-del movimiento del robot en los tres grados de libertad de forma independiente, ya que si se
-controla uno de ellos, los otros también se ven afectados. 
+%El sistema que se estudia son los robots de dos ruedas coaxiales, encontrándose normalmente una a
+%cada lado del cuerpo, con el centro de masa sobre el eje de las ruedas. Debido a que el centro de
+%masa se encuentra sobre el eje de las ruedas, estos robots también son conocidos como péndulos
+%invertidos móviles \citep{Yan-Hou}, ya que su base no está fija en el espacio, sino que puede
+%desplazarse sobre una superficie debido a la acción de las ruedas (ver figura
+%\ref{fig:segway_robot}).
 
-En el caso particular de este trabajo, el análisis se centrará en la descripción del péndulo
-invertido, por lo que el ángulo de yaw no se tomará en cuenta dentro del modelo.
+%Estos robots tienen 3 grados de libertad, los cuales son: traslación hacia adelante o atrás, giro
+%sobre su propio eje (yaw), y giro sobre el eje de las ruedas (pitch) (ver figura
+%\ref{fig:axis}). Sin embargo, el robot únicamente tiene dos actuadores (las dos ruedas). Por lo
+%tanto, se considera un sistema subactuado \citep{Xu}. De esta manera, no se puede lograr el control
+%del movimiento del robot en los tres grados de libertad de forma independiente, ya que si se
+%controla uno de ellos, los otros también se ven afectados. 
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.6\textwidth]{../pictures/robot-segway.png}	
-	\caption{Ejemplo de robot de dos ruedas}
-	\label{fig:segway_robot}
-\end{figure}
 
-Se debe notar que para que el sistema sea estable, se necesitan al menos tres puntos de apoyo
-\citep{KarlStol}. La mayor propiedad de este sistema, es que se considera dinámicamente estable
-\citep{Yan-Hou} o estáticamente inestable \citep{KarlStol}, esto porque se debe tener un controlador
-activo para mantener al sistema cerca de un punto de operación, y así evitar que se caiga.
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=0.6\textwidth]{../pictures/robot-segway.png}	
+%	\caption{Ejemplo de robot de dos ruedas}
+%	\label{fig:segway_robot}
+%\end{figure}
+
+%Se debe notar que para que el sistema sea estable, se necesitan al menos tres puntos de apoyo
+%\citep{KarlStol}. La mayor propiedad de este sistema, es que se considera dinámicamente estable
+%\citep{Yan-Hou} o estáticamente inestable \citep{KarlStol}, esto porque se debe tener un controlador
+%activo para mantener al sistema cerca de un punto de operación, y así evitar que se caiga.
 
 %Figura 2 de modelling and control of two wheeled robots
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.4\textwidth]{../pictures/Axis.pdf}	
-	\caption{Grados de libertad de un robot de dos ruedas}
-	\label{fig:axis}
-\end{figure}
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=0.4\textwidth]{../pictures/Axis.pdf}	
+%	\caption{Grados de libertad de un robot de dos ruedas}
+%	\label{fig:axis}
+%\end{figure}
 
 %\subsection{Consideraciones Iniciales}
 %El objetivo de estos sistemas es evitar que se caigan, entonces es conveniente tomar la salida como
@@ -179,6 +165,24 @@ activo para mantener al sistema cerca de un punto de operación, y así evitar que
 %otra parte, la entrada son los torques que actúan sobre el cuerpo. El torque que provoca la gravedad
 %puede no ser considerado como una entrada, pero el torque de las ruedas y el torque de
 %perturbaciones externas (como empujar al robot), sí corresponden a entradas.
+
+
+\subsection{Robots de locomoción diferencial}
+
+Los robots de ruedas diferenciales, son aquellos donde su locomoción está basada en dos (o más) ruedas motrices fijas controladas independientemente, dichas ruedas son las que proporcionan fuerza de tracción al robot. La relación entre ellas es la que determina la trayectoria que va a seguir el robot \citep{Saifizi} . Estos robots son no holónomos por lo tanto son sistemas con restricciones en las velocidades no integrables, es decir no es posible expresarlas, exclusivamente, en término de las posiciones \citep{Freire}.
+\\
+
+Algunas de las ventajas de estos sistemas de dos ruedas es que son más baratos, son fáciles de implementar y tienen un diseño simple, por otro lado son un poco más dificiles de controlar ya que son estáticamente inestables y requiere un control de precisión para trayectorias rectas \citep{sis_locomocion} \\.
+
+El modelo de robot que se estudia en el presente trabajo se supone con dos motores independientes, cada uno controlando una rueda, colocados a lo ancho  del eje central del robot. Se asume además su movimiento únicamente en dos dimensiones, por lo que se considera con una tercera rueda que no aporta ningún movimiento adicional (rueda loca o de castor) para que sea estable \citep{KarlStol}, además se considera que no hay deformación en la rueda y que se cumple la condición de rodamiento puro.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\textwidth]{../pictures/robot_ejes.eps}	
+	\caption{Ejes del Robot}
+	\label{fig:ejes}
+\end{figure}
+
 
 \subsection{Método de linealización}
 Los sistemas en estudio son intrínsicamente no lineales \citep{Sayidmarie}. De esta manera, para

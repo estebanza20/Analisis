@@ -1,0 +1,11 @@
+\select@language {spanish}
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Introducci\'on}{1}{section.1}
+\contentsline {section}{\numberline {2}Marco te\'orico}{1}{section.2}
+\contentsline {subsection}{\numberline {2.1}Importancia y aplicaci\'on de los robots de dos ruedas}{1}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Descripci\'on general de los robots de dos ruedas}{1}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}M\'etodo de linealizaci\'on}{3}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}An\'alisis de sistemas mec\'anicos: Enfoque de energ\IeC {\'\i }as}{3}{subsection.2.4}
+\contentsline {section}{\numberline {3}Resultados}{4}{section.3}
+\contentsline {section}{\numberline {4}Conclusiones y Recomendaciones}{4}{section.4}
+\contentsline {section}{Bibliograf\IeC {\'\i }a}{5}{section.4}
