@@ -1,0 +1,76 @@
+\begin{thebibliography}{11}
+\providecommand{\natexlab}[1]{#1}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\selectlanguage}[1]{\relax}
+\input{babelbst.tex}
+\newcommand{\Capitalize}[1]{\uppercase{#1}}
+\newcommand{\capitalize}[1]{\expandafter\Capitalize#1}
+
+\bibitem[{sis()}]{sis_locomocion}
+ (????).
+\newblock Sistemas de locomoción de robots móviles.
+\newblock Consultado el 18 de junio del 2016.
+
+\bibitem[{Buck(2003)}]{Buck}
+R.~Creighton Buck (2003).
+\newblock \emph{Advanced Calculus}.
+\newblock Waveland Press Long Grove, Illinois.
+
+\bibitem[{Coelho~V.(2008)}]{Coelho}
+Stol K. y Liu~G Coelho~V., Liew~S. (2008).
+\newblock Development of a mobile two-wheel balancing platform for autonomous
+  applications.
+\newblock \emph{Mechatronics and Machine Vision in Practice}, 15.
+
+\bibitem[{Collazo~J.(2009)}]{Collazo}
+Pedraza J. y Villaseñor U. y Romero R. y González~M. Collazo~J., Gorrostieta~E.
+  (2009).
+\newblock Modelación de un robot móvil de dos ruedas con tracción diferencia.
+\newblock Consultado el 14 de mayo del 2016.
+
+\bibitem[{Fitzpatrick(2011)}]{fitzpatrick2011}
+Richard Fitzpatrick (2011).
+\newblock {Generalized Coordinates}.
+\newblock
+  \url{http://farside.ph.utexas.edu/teaching/336k/Newtonhtml/node75.html}.
+\newblock Consultado 12 Mayo de 2016.
+
+\bibitem[{Freire~E.(2009)}]{Freire}
+Molina~M. Freire~E., Galan~J. (2009).
+\newblock Comportamiento dinámico de un sistema no holónomo: El sistema de
+  heisenberg modificado.
+\newblock Consultado el 18 de junio del 2016.
+
+\bibitem[{Gavin(2014)}]{gavin2014}
+Henri Gavin (2014).
+\newblock {Generalized Coordinates, Lagrange's Equations, and Constraints}.
+\newblock \url{http://people.duke.edu/~hpgavin/cee541/LagrangesEqns.pdf}.
+\newblock Consultado 13 Mayo de 2016.
+
+\bibitem[{Saifizi~M.(2011)}]{Saifizi}
+Noor~R. Saifizi~M., Desa~H. (2011).
+\newblock A differential steering conantrol with proportional controller for an
+  autonomous mobile robot.
+
+\bibitem[{Sayidmarie O. Yokhi~M.(2012)}]{Sayidmarie}
+Almeshal A. y Agouri~S. Sayidmarie O. Yokhi~M. (2012).
+\newblock Design and real-time implementation of a fuzzy logic control system
+  for a two-wheeled robot.
+\newblock \emph{Methods and Models in Automation and Robotics}, 17:569--572.
+
+\bibitem[{Stol~K.(2013)}]{KarlStol}
+Halkyard~R. Stol~K., Man~R. (2013).
+\newblock Review of modelling and control of two-wheeled robots.
+\newblock \emph{Annual Reviews in Control}, 37:89--103.
+
+\bibitem[{Vandiver(2011)}]{vandiver2011}
+J.~Vandiver (2011).
+\newblock {An Introduction to Lagrange Equations}.
+\newblock
+  \url{http://ocw.mit.edu/courses/mechanical-engineering/2-003sc-engineering-dynamics-fall-2011/lagrange-equations/MIT2_003SCF11_Lagrange.pdf}.
+\newblock Consultado 13 Mayo de 2016.
+
+\end{thebibliography}
