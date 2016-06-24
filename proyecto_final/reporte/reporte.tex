@@ -118,6 +118,21 @@ hace muy útiles en interiores, en donde pueden pasar por lugares estrechos y dar
 museos, bases de equipo médico dentro de hospitales, para vigilancia (segway) y de limpieza en el
 hogar \citep{Coelho}.
 
+\subsection{Objetivos}
+
+Se establecieron los siguientes objetivos para el desarrollo del trabajo:
+
+%ejemplo de una lista con viñetas
+\begin{itemize}
+	\item Estudiar la dinámica de un robot de dos ruedas.
+	
+	\item Analizar el sistema y obtener un modelo matemático que lo describa
+	
+	\item Simular el sistema.
+
+\end{itemize}
+
+
 \section{Marco teórico}
 
 %\subsection{Descripción general de los robots de dos ruedas}
@@ -176,12 +191,12 @@ Algunas de las ventajas de estos sistemas de dos ruedas es que son más baratos, 
 
 El modelo de robot que se estudia en el presente trabajo se supone con dos motores independientes, cada uno controlando una rueda, colocados a lo ancho  del eje central del robot. Se asume además su movimiento únicamente en dos dimensiones, por lo que se considera con una tercera rueda que no aporta ningún movimiento adicional (rueda loca o de castor) para que sea estable \citep{KarlStol}, además se considera que no hay deformación en la rueda y que se cumple la condición de rodamiento puro.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.6\textwidth]{../pictures/robot_ejes.eps}	
-	\caption{Ejes del Robot}
-	\label{fig:ejes}
-\end{figure}
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=0.6\textwidth]{../pictures/robot_ejes.eps}	
+%	\caption{Ejes del Robot}
+%	\label{fig:ejes}
+%\end{figure}
 
 
 \subsection{Método de linealización}
@@ -283,6 +298,8 @@ Gravitacional & $mgh$ \\ \midrule
 Elástica (Resorte) & $\frac{1}{2}k{x}^2$ \\ \bottomrule
 \end{tabular}
 \end{table}
+
+\section{Modelado y simulación}
 
 \subsection{Modelo cinemático}
 \subsubsection{Modelo directo}
@@ -510,14 +527,15 @@ Para analizar el comportamiento del centro geométrico del robot, y el punto desp
 \end{equation}
 
 
-
-
-\section{Resultados}
-
+\section{Análisis}
 
 
 
 \section{Conclusiones y Recomendaciones}
+
+\subsection{Conclusiones}
+
+\subsection{Recomendaciones}
 
 Se logró exitosamente simular el sistema descrito. En las simulaciones se obtienen los resultados observados en el sistema real.
 
