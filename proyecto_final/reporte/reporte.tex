@@ -457,8 +457,8 @@ Para expresar la velocidad en el punto desplazado se define $\Psi(t)$ en (\ref{e
 Ahora, se define $A(t)=\Psi(t)\Lambda(t)$, para obtener la relación entre $\dot{\mathbf{p_e}}(t)$, y $\mathbf{\varphi}(t)$. Como se presenta en (\ref{eq:modelo_desplazado}).
 
 \begin{equation}
-\dot{\mathbf{p_e}}(t)= \left[ \begin{array}{c c} 0.5r\cos(\theta(t))-\frac{dr\sin(\theta(t))}{b}& 0.5\cos(\theta(t))+\frac{er\sin(\theta(t))}{b}  \\
-                                                 -0.5r\sin(\theta(t))-\frac{dr\cos(\theta(t))}{b}& 0.5\sin(\theta(t))-\frac{dr\cos(\theta(t))}{b}  \end{array}  \right] \mathbf{\varphi}(t)=A(t)\mathbf{\varphi}(t)
+\dot{\mathbf{p_e}}(t)= \left[ \begin{array}{c c} 0.5r\cos(\theta(t))-\frac{dr\sin(\theta(t))}{b}& 0.5r\cos(\theta(t))+\frac{dr\sin(\theta(t))}{b}  \\
+                                                 0.5r\sin(\theta(t))+\frac{dr\cos(\theta(t))}{b}& 0.5r\sin(\theta(t))-\frac{dr\cos(\theta(t))}{b}  \end{array}  \right] \mathbf{\varphi}(t)=A(t)\mathbf{\varphi}(t)
 \label{eq:modelo_desplazado}
 \end{equation}
 
@@ -471,10 +471,10 @@ Para poder controlar al robot, se necesita el modelo inverso. Primero se debe de
 A^{-1}(t)=
 \left[
 \begin{array}{cc}
- \frac{ d \cos (\theta (t))-0.5 b \sin (\theta (t))}{d r} & \frac{0.5 b \cos
-   (\theta (t))+ d \sin (\theta (t))}{d r} \\
- \frac{ d \cos (\theta (t))+0.5 b \sin (\theta (t))}{d r} & \frac{ d \sin
-   (\theta (t))-0.5 b \cos (\theta (t))}{d r} \\
+ \frac{ d \cos (\theta (t))-0.5 b \sin (\theta (t))}{d r} & 
+\frac{0.5 b \cos(\theta (t))+ d \sin (\theta (t))}{d r} \\
+ \frac{ d \cos (\theta (t))+0.5 b \sin (\theta (t))}{d r} & 
+\frac{ d \sin(\theta (t))-0.5 b \cos (\theta (t))}{d r} \\
 \end{array}
 \right]
 \label{eq:a_inverso}
