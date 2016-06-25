@@ -93,26 +93,26 @@ realizaron las simulaciones correspondientes para cada modelo, para luego analiz
         \item[$\vec{v}$] Velocidad del centro de masa de un cuerpo
         \item[$\omega$] Velocidad angular
         \item[$k$] Constante de un resorte traslacional
-        \item[$x$] Elongación de un resorte traslacional
+        \item[$d$] Elongación de un resorte traslacional
         \item[$h$] Altura del centro de masa de un cuerpo con respecto a la referencia
         \item[$g$] Constante de la gravedad terrestre
-        \item[$P_0$] Posición centro geométrico
-        \item[$P_d$] Posición punto desplazado
-        \item[$P_g$] Posición centro de masa
-        \item[$2b$]  ancho del robot
-        \item[$p_r$] Posición rueda derecha
-        \item[$p_l$] Posición rueda izquierda 
+        \item[$p_0$] Posición del centro geométrico
+        \item[$p_d$] Posición del punto desplazado
+        \item[$p_g$] Posición del centro de masa
+        \item[$2b$]  Ancho del robot
+        \item[$p_r$] Posición de la rueda derecha
+        \item[$p_l$] Posición de la rueda izquierda 
         \item[$K$]  Energía cinética
-        \item[$r$] Radio rueda
-        \item[$m_c$] Masa carrito
-        \item[$m_w$] Masa rueda
-        \item[$I_g$] Momento de inercia respecto al punto al punto de masa
-        \item[$I_w$] Momento de inercia de la rueda, respecto al eje de rotación
-        \item[$I_m$] Momento de inercia alrededor del diámetro
-        \item[$\omega$] Rapidéz angular
-        \item[$\theta$] Orientación del carrito
-        \item[$X_0$] Desplazamiento del eje geométrico en el eje X
-        \item[$Y_0$] Desplazaminto del eje geométrico en el eje Y
+        \item[$r$] Radio de una rueda
+        \item[$m_c$] Masa del cuerpo del robot
+        \item[$m_w$] Masa de una rueda
+        \item[$I_g$] Momento de inercia del cuerpo alrededor del centro de masa
+        \item[$I_w$] Momento de inercia de una rueda alrededor de su eje central
+        \item[$I_m$] Momento de inercia de una rueda alrededor de un diámetro
+        \item[$\omega$] Rapidez angular de la rotación del robot
+        \item[$\theta$] Orientación del robot
+        \item[$x$] Posición del centro geométrico en el eje X
+        \item[$y$] Posición del centro geométrico en el eje Y
        
 \end{description}
 
@@ -144,6 +144,20 @@ hace muy útiles en interiores, en donde pueden pasar por lugares estrechos y dar
 \citep{KarlStol}.  Algunas de sus aplicaciones, pueden ser como guías de excursiones dentro de
 museos, bases de equipo médico dentro de hospitales, para vigilancia (segway) y de limpieza en el
 hogar \citep{Coelho}.
+
+\subsection{Objetivos}
+
+Se establecieron los siguientes objetivos para el desarrollo del trabajo:
+
+\begin{itemize}
+	\item Estudiar la dinámica de un robot de dos ruedas.
+	
+	\item Analizar el sistema y obtener un modelo matemático que lo describa
+	
+	\item Simular el sistema.
+
+\end{itemize}
+
 
 \section{Marco teórico}
 
@@ -311,6 +325,7 @@ Elástica (Resorte) & $\frac{1}{2}k{x}^2$ \\ \bottomrule
 \end{tabular}
 \end{table}
 
+\section{Modelado y simulación}
 \subsection{Modelo cinemático}
 \subsubsection{Modelo directo}
 
@@ -377,7 +392,7 @@ v_L(t)=v_0(t)-\frac{b}{2}\omega(t)
 Note que como lo que se puede controlar es $\dot{\varphi}_R$ y $\dot{\varphi}_L$, las velociddes angulares de los motores derecho e izquierdo respectivamente. Entonces se despeja $v_0$ y $\omega(t)$ en términos de $v_R$ y $v_L$ y si se toma en consideración que el radio de las ruedas es $r$, se obtiene el resultado en (\ref{eq:local_vel}) y en (\ref{eq:local_dir}).
 
 \begin{equation}
-v_0(t)         =\frac{r}{2}(\dot{\varphi}_R(t)+\dot{\varphi}_L(t))
+v_0(t) =\frac{r}{2}(\dot{\varphi}_R(t)+\dot{\varphi}_L(t))
 \label{eq:local_vel}
 \end{equation} 
 
@@ -1052,7 +1067,7 @@ correspondientes a (\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}) en términ
 % Modelado de la fricción
 
 
-\section{Resultados}
+\section{Análisis}
 
 
 
