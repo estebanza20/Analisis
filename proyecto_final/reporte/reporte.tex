@@ -87,6 +87,24 @@ En este documento se analiza el caso específico de un robot diferencial, este es
         \item[$x$] Elongación de un resorte traslacional
         \item[$h$] Altura del centro de masa de un cuerpo con respecto a la referencia
         \item[$g$] Constante de la gravedad terrestre
+        \item[$P_0$] Posición centro geométrico
+        \item[$P_d$] Posición punto desplazado
+        \item[$P_g$] Posición centro de masa
+        \item[$2b$]  ancho del robot
+        \item[$p_r$] Posición rueda derecha
+        \item[$p_l$] Posición rueda izquierda 
+        \item[$K$]  Energía cinética
+        \item[$r$] Radio rueda
+        \item[$m_c$] Masa carrito
+        \item[$m_w$] Masa rueda
+        \item[$I_g$] Momento de inercia respecto al punto al punto de masa
+        \item[$I_w$] Momento de inercia de la rueda, respecto al eje de rotación
+        \item[$I_m$] Momento de inercia alrededor del diámetro
+        \item[$\omega$] Rapidéz angular
+        \item[$\theta$] Orientación del carrito
+        \item[$X_0$] Desplazamiento del eje geométrico en el eje X
+        \item[$Y_0$] Desplazaminto del eje geométrico en el eje Y
+       
 \end{description}
 
 %--------------------
@@ -176,12 +194,12 @@ Algunas de las ventajas de estos sistemas de dos ruedas es que son más baratos, 
 
 El modelo de robot que se estudia en el presente trabajo se supone con dos motores independientes, cada uno controlando una rueda, colocados a lo ancho  del eje central del robot. Se asume además su movimiento únicamente en dos dimensiones, por lo que se considera con una tercera rueda que no aporta ningún movimiento adicional (rueda loca o de castor) para que sea estable \citep{KarlStol}, además se considera que no hay deformación en la rueda y que se cumple la condición de rodamiento puro.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.6\textwidth]{../pictures/robot_ejes.eps}	
-	\caption{Ejes del Robot}
-	\label{fig:ejes}
-\end{figure}
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=0.6\textwidth]{../pictures/robot_ejes.eps}	
+%	\caption{Ejes del Robot}
+%	\label{fig:ejes}
+%\end{figure}
 
 
 \subsection{Método de linealización}
@@ -521,13 +539,190 @@ Para analizar el comportamiento del centro geométrico del robot, y el punto desp
 
 Se logró exitosamente simular el sistema descrito. En las simulaciones se obtienen los resultados observados en el sistema real.
 
+
+\section{Apéndice Ecuaciones}
+\subsection{Restricciones}
+
+\begin{equation}
+\label{eq:restriccion_1}
+f_1  =  \dot{x}sen(\theta) -\dot{y}cos(\theta) = 0 
+\end{equation}
+
+\begin{equation}
+\label{eq:restriccion_2}
+f_2 =  \dot{x}cos(\theta) + \dot{y}sen(\theta) + b \theta - r \dot{\varphi_{r}} = 0 \\
+\end{equation}
+
+\begin{equation}
+\label{eq:restriccion_3}
+f_3  =  \dot{x}cos(\theta) + \dot{y}sen(\theta) - b \theta - r \dot{\varphi_{L}} = 0 \\
+\end{equation}
+
+\subsection{Posición del Vehículo}
+\begin{equation}
+p_r = \left[ \begin{array}{c}
+X_g  $ = $ X + s cos \left( \theta \right)\\
+Y_g $ = $ Y + s sen\left( \theta \right) \\
+\end{array} \right]
+\label{Posición_carrito}
+\end{equation}
+
+\subsection{Energía Cinética del carrito}
+\begin{equation}
+K_c = \frac{1}{2} m_c \left[ x^2 + y^2 - 2s \dot{\theta} \left( \dot{x} \cos \left( \theta \right) \right) - y \left(\cos \left( \theta \right) \right) + s^2 \dot{\theta}^2 \right] + \frac{1}{2} I_0 \dot{ \theta}  
+\label{eq:K_carrito}
+\end{equation}
+
+\subsection{Ruedas}
+\begin{equation}
+p_r = \left[ \begin{array}{c}
+X_r = x + bsen \left(\theta \right)\\
+Y_r = y + bcos \left(\theta \right)\\
+\end{array} \right]
+\label{eq:posición_ruedas}
+\end{equation}
+
+\begin{equation}
+\label{eq:K_rueda derecha}
+K_r=\frac{1}{2}m_{\omega}\left[ \dot{x}^2 + \dot{y}^2 + 2b \theta \left( \dot{x} \cos \left( \theta \right) \right) + y \sin \left( \theta \right) + b^2 \theta^2 \right] + \frac{1}{2} I_m  \theta^2 + \frac{1}{2} I_{\omega} \dot{\varphi_r}^2
+\end{equation}
+
+\begin{equation}
+\label{eq:K_rueda izquierda}
+K_l=\frac{1}{2}m_{\omega}\left[ \dot{x}^2 + \dot{y}^2 - 2b \theta \left( \dot{x} \cos \left( \theta \right) \right) + y \sin \left( \theta \right) + b^2 \theta^2 \right] + \frac{1}{2} I_m  \theta^2 + \frac{1}{2} I_{\omega} \dot{\varphi_L}^2
+\end{equation}
+
+\begin{equation}
+\label{eq:K_total}
+K_t = K_r + K_l + K_c
+\end{equation}
+
+\begin{equation}
+T_t = \begin{array}{c}
+ \frac{1}{2} \left(m_c + 2m_{\omega} \right) \left(\dot{x}^2+\dot{y}^2 \right) - m_c s \dot{\theta} \left(\dot{x}\sin \left(\theta \right) - \dot{y}\cos \left(\theta \right) \right) + \\
+\frac{1}{2} \left(m_c s^2 + I_0 + 2m_{\omega}b^2 + 2 I_m \right) \dot{\theta}^2 + \frac{1}{2} I_{\omega}\dot{\varphi_{r}}^2 + frac{1}{2} I_{\omega}\dot{\varphi_{l}}^2
+\end{array}
+\end{equation}
+
+\begin{equation}
+\label{eq:masa_total}
+m = m_c + 2m_{\omega}
+\end{equation}
+
+\begin{equation}
+\label{eq:momento_total}
+I=I_0+m_c s^2 + 2m_{\omega}b^2 + 2 I_m
+\end{equation}
+
+\begin{equation}
+T_t = 
+\frac{m}{2} \left(\dot{x}^2+\dot{y}^2 \right) + m_c s \dot{\theta} \left(\dot{y}\cos \left(\theta \right) - \dot{x}\sen \left(\theta \right) \right) + \frac{1}{2} I \dot{\theta}^2 +
+ \frac{I_{\omega}}{2} \left(\dot{\varphi_{r}}^2 + \dot{\varphi_{l}}^2 \right)
+\end{equation}
+
+
+\begin{eqnarray*}
+Sistema por resolver
+\begin{cases}
+m\ddot{x} - \ m_c s \left(\ddot{\theta} \sin \left( \theta \right) + \theta^2 \cos \left( \theta \right) \right) - \lambda_1 \sin \left( \theta \right) - \left( \lambda_2 + \lambda_3 \right) \cos \left( \theta \right) = 0\\
+m\ddot{y} + m_c s \left(\ddot{\theta}\cos\left(\theta\right) - \theta^2 \cos \left(\theta\right) \right) + \lambda_1 \cos \left(\theta\right) - \left(\lambda_2+\lambda_3\right)\sin\left(\theta\right) = 0 \\
+-m_c s \left( \ddot{x} \sin\left(\theta\right) - \ddot{y}\cos\left(\theta\right) \right) + I\ddot{\theta} + b\left(\lambda_3-\lambda_2\right) = 0\\
+I_{\omega}\ddot{\varphi_r}+\lambda_2 r = \tau_r \\
+I_{\omega}\ddot{\varphi_l}+\lambda_3 r = \tau_l
+\end{cases}
+\end{eqnarray*}
+
+\begin{equation}
+\label{eq:multiplicadores de lagrange}
+m\left(\ddot{x}\cos\left(\theta\right)+\ddot{y}\sin\left(\theta\right) \right) - m_c s \dot{\theta}^2-\left(\lambda_2 + \lambda_3\right) =0
+\end{equation}
+
+\begin{equation}
+\label{eq:lambdas}
+\lambda_2 + \lambda_3 = \frac{\tau_l + \tau_r}{r} - \frac{I_{\omega}}{R} \left(\ddot{\varphi_r}+\ddot{\varphi_l}\right)
+\end{equation}
+
+\begin{equation}
+\label{eq:velocidad}
+v=\dot{x}\cos\left(\theta\right) + \dot{y}\sin\left(\theta\right)
+\end{equation}
+
+\begin{equation}
+\label{eq:tau}
+m\dot{v} - m_c s \dot{\theta}^2 + \frac{I_{\omega}}{r} \left(\ddot{\varphi_r}+\ddot{\varphi_l}\right) = \frac{\tau_l+\tau_r}{r}
+\end{equation}
+
+\begin{equation}
+\label{eq:lamnda2-3}
+\lambda_3 - \lambda_2 = \frac{I_{\omega}}{r} \left(\ddot{\varphi_r}-\ddot{\varphi_l}\right)-\frac{\tau_r-\tau_l}{r}
+\end{equation}
+
+\begin{equation}
+-m_c s \left(\ddot{x}\sin\left(\theta\right) -\ddot{y} \cos\left(\theta\right)\right) + I\ddot{\theta}+\frac{bI_{\omega}}{r}\left(\ddot{\varphi_r}-\ddot{\varphi_l}\right) = \frac{b \left(\tau_r-\tau_l \right)}{r}
+\end{equation}
+
+\begin{equation}
+\ddot{\varphi_r} - \ddot{\varphi_l} = \frac{2b}{r} \ddot{\theta}
+\end{equation}
+
+\begin{equation}
+\ddot{\varphi_r} + \ddot{\varphi_l} = \frac{2}{r} \dot{v}
+\end{equation}
+
+\begin{align}
+F = \frac{\tau_r + \tau_l}{r}\\
+K = \frac{b}{r} \left(\tau_r-\tau_l\right)\\
+D = m + \frac{2I_{\omega}}{r^2}\\
+J = m + 2\frac{I_{\omega}}{r^2}\\
+\dot{\theta}v = -\left(\ddot{x}\sin\left(\theta\right)-\ddot{y}\cos\left(\theta\right)\right)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+\end{align}
+
+\begin{equation}
+D\ddot{v} -m_c s\ddot{\theta}^2=F
+\end{equation}
+
+\begin{equation}
+J\ddot{\theta}+m_cs\dot{\theta}v = K
+\end{equation}
+
+\begin{eqnarray*}
+MVE
+\begin{cases}
+\dot{x} = v\cos\left(\theta\right)\\
+\dot{y} = v\sin\left(\theta\right)\\
+\dot{\theta} = \omega \\
+\dot{v}=\frac{m_c s}{D} \omega^2 + \frac{F}{D}\\
+\dot{\omega} = \frac{-m_c s}{J}\omega v + \frac{K}{J}
+\end{cases}
+\end{eqnarray*}
+
+\begin{eqnarray}
+I_c = 15.625 Kg.m^2\\
+I_{\omega}= 0.005 kg.m^2\\
+I_m = 0.0025 kg. m^2\\
+b = 0.75
+d = s = 0.3 m\\
+m_c = 30 kg\\
+m_{\omega} = 1 kg\\
+r = 0.10m
+\end{eqnarray}
+
+\begin{equation}
+\dot{\varphi_r} =\frac{v}{r} + \frac{b}{r} \omega
+\end{equation}
+
+\begin{equation}
+\dot{\varphi_l}= \frac{v}{r} - \frac{b}{r} \omega
+\end{equation}
+
 \newpage
 %-------------------
 %bibliografía
 \addcontentsline{toc}{section}{Bibliografía}
 \bibliographystyle{EIEBib}
-%nombre del archivo .bib que contiene la bibliografía
 \bibliography{informe_ref}
+%nombre del archivo .bib que contiene la bibliografía
+
 
 % ------------------- archivo de apéndice si fuera necesario (* si no hay apéndice comentar las
 % siguientes dos líneas *)
