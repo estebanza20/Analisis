@@ -52,15 +52,9 @@
 %las siguientes son las secciones iniciales del informe
 
 %Esto hay que revisarlo!
-\section{Resumen}
-Los robots móviles son muy importantes porque permiten sistemas más flexibles, abriendo toda un área
-de la robótica que involucra el problema de la localización%referencias.
-En el presente documento se analiza el caso específico de un robot diferencial, el cual es un sistema que
-se moviliza en el plano xy debido a la acción de dos ruedas que funcionan de manera
-independiente. Se lleva a cabo la obtención de un modelo cinemático directo, un modelo cinemático
-inverso, y un modelo dinámico que describe las consideraciones energéticas del sistema. Se
-realizaron las simulaciones correspondientes para cada modelo, para luego analizar la respuesta
- del movimiento del sistema a las entradas respectivas. 
+
+Los robots móviles son muy importantes porque permiten sistemas más flexibles. Además abren toda un área de la robótica que es el problema de localización%referencias.
+En este documento se analiza el caso específico de un robot diferencial, este es un sistema que se moviliza en el plano xy debido a la acción de dos ruedas que funcionan de manera independiente. El principal objetivo es la obtención de un modelo cinemático directo, un modelo cinemático inverso, y un modelo dinámico que describa el sistema real. Se realizaron simulaciones, para verificar que la respuesta del modelo sea la esperada. 
 
 %-------------------
 %tablas de contenido (* si alguna no se ocupa se puede ``comentar'' (%) para que no aparezca)
@@ -93,6 +87,24 @@ realizaron las simulaciones correspondientes para cada modelo, para luego analiz
         \item[$x$] Elongación de un resorte traslacional
         \item[$h$] Altura del centro de masa de un cuerpo con respecto a la referencia
         \item[$g$] Constante de la gravedad terrestre
+        \item[$P_0$] Posición centro geométrico
+        \item[$P_d$] Posición punto desplazado
+        \item[$P_g$] Posición centro de masa
+        \item[$2b$]  ancho del robot
+        \item[$p_r$] Posición rueda derecha
+        \item[$p_l$] Posición rueda izquierda 
+        \item[$K$]  Energía cinética
+        \item[$r$] Radio rueda
+        \item[$m_c$] Masa carrito
+        \item[$m_w$] Masa rueda
+        \item[$I_g$] Momento de inercia respecto al punto al punto de masa
+        \item[$I_w$] Momento de inercia de la rueda, respecto al eje de rotación
+        \item[$I_m$] Momento de inercia alrededor del diámetro
+        \item[$\omega$] Rapidéz angular
+        \item[$\theta$] Orientación del carrito
+        \item[$X_0$] Desplazamiento del eje geométrico en el eje X
+        \item[$Y_0$] Desplazaminto del eje geométrico en el eje Y
+       
 \end{description}
 
 %--------------------
@@ -123,21 +135,6 @@ hace muy útiles en interiores, en donde pueden pasar por lugares estrechos y dar
 \citep{KarlStol}.  Algunas de sus aplicaciones, pueden ser como guías de excursiones dentro de
 museos, bases de equipo médico dentro de hospitales, para vigilancia (segway) y de limpieza en el
 hogar \citep{Coelho}.
-
-\subsection{Objetivos}
-
-Se establecieron los siguientes objetivos para el desarrollo del trabajo:
-
-%ejemplo de una lista con viñetas
-\begin{itemize}
-	\item Estudiar la dinámica de un robot de dos ruedas.
-	
-	\item Analizar el sistema y obtener un modelo matemático que lo describa
-	
-	\item Simular el sistema.
-
-\end{itemize}
-
 
 \section{Marco teórico}
 
@@ -305,8 +302,6 @@ Elástica (Resorte) & $\frac{1}{2}k{x}^2$ \\ \bottomrule
 \end{tabular}
 \end{table}
 
-\section{Modelado y simulación}
-
 \subsection{Modelo cinemático}
 \subsubsection{Modelo directo}
 
@@ -412,7 +407,7 @@ Entonces, sustituyendo (\ref{eq:local_vel}) en (\ref{eq:global_vel}), y tomadno 
 \label{eq:kinematic_model_matrix}
 \end{equation}
 
-Se definen los siguientes vectores, para simplificar la notación de esta sección: $\nu(t)=\left[\begin{array}{c c c}\dot{x}(t)&\dot{y}(t)&\omega(t)\end{array}\right]^t$ y $\varphi(t)=\left[\begin{array}{c c} \varphi_R(t)& \varphi_L(t) \end{array} \right]^t$. Se define $\Lambda(t)$, como la matriz en (\ref{eq:kinematic_model_matrix}). De esta manera de reescribe la ecuación como:
+Se definen los siguientes vectores, para simplificar la notación de esta sección: $\nu(t)=\left[\begin{array}{c c c}\dot{x}(t)&\dot{y}(t)&\omega(t)\end{array}\right]^t$ y $\varphi(t)=\left[\begin{array}{c c} \varphi_R(t)& \varphi_L(t) \end{array} \right]^t$. Se define $\Lambda(t)$, como la matriz en (\ref{eq:kinematic_model_matrix}). De esta menra de reescribe la ecuación como:
 
 \begin{equation}
 \mathbf{\nu}(t)=\Lambda(t) \mathbf{\varphi}(t)
@@ -421,29 +416,29 @@ Se definen los siguientes vectores, para simplificar la notación de esta sección
 
 La ecuación (\ref{eq:kinematic_model}) representa el modelo cinemático directo del sistema. Ya que relaciona la entrada ($\mathbf{\varphi}(t)$), con la salida ($\mathbf{\nu}(t)$). %mismo resultado que Trajectory Tracking Control for a Differential Drive Wheeled Mobile Robot Considering the Dynamics Related to the Actuators and Power Stage
 
-%\subsubsection{Modelo inverso}
+\subsubsection{Modelo inverso}
 
-%Para encontrar la cinemática inversa, es necesario encontrar las velocidades de las ruedas en términos de la velocidad del robot. Esto se logra computando la pseudoinversa de $\Lambda(t)$, que se denota por $\Lambda^{-1}(t)$. Se utiliza \textit{Wolfram Mathematica} para encontrar una expresión simbólica para $\Lambda^{-1}(t)$. El resultado se muestra en (\ref{eq:pseudoinverse}).
+Para encontrar la cinemática inversa, es necesario encontrar las velocidades de las ruedas en términos de la velocidad del robot. Esto se logra computando la pseudoinversa de $\Lambda(t)$, que se denota por $\Lambda^{-1}(t)$. Se utiliza \textit{Wolfram Mathematica} para encontrar una expresión simbólica para $\Lambda^{-1}(t)$. El resultado se muestra en (\ref{eq:pseudoinverse}).
 
-%\begin{equation}
-%\Lambda^{-1}=\left[
-%\begin{array}{c c c}
-%\frac{\cos(\theta(t))}{r} & \frac{\cos(\theta(t))}{r} & \frac{b}{2r}\\
-%\frac{\sin(\theta(t))}{r} & \frac{\sin(\theta(t))}{r} & \frac{-b}{2r}\\
-%\end{array}
-% \right]
-%\label{eq:pseudoinverse}
-%\end{equation}
+\begin{equation}
+\Lambda^{-1}=\left[
+\begin{array}{c c c}
+\frac{\cos(\theta(t))}{r} & \frac{\cos(\theta(t))}{r} & \frac{b}{2r}\\
+\frac{\sin(\theta(t))}{r} & \frac{\sin(\theta(t))}{r} & \frac{-b}{2r}\\
+\end{array}
+ \right]
+\label{eq:pseudoinverse}
+\end{equation}
 
-%El modelo cinemático inverso viene dado por (\ref{eq:inverse_kinematic_model}):
+El modelo cinemático inverso viene dado por (\ref{eq:inverse_kinematic_model}):
 
-%\begin{equation}
-%\mathbf{\varphi}(t)=\Lambda^{-1}\mathbf{\nu}(t)
-%\label{eq:inverse_kinematic_model}
-%\end{equation}
+\begin{equation}
+\mathbf{\varphi}(t)=\Lambda^{-1}\mathbf{\nu}(t)
+\label{eq:inverse_kinematic_model}
+\end{equation}
 
-%La ecuación en (\ref{eq:inverse_kinematic_model}) muestra al vector de velocidades angulares en las ruedas en términos de la velocidad traslacional del centro geométrico del robot y la velocidad angular del robot. Sin embargo por la no holonomicidad %OJO hay que citar esto. No se puede simplemente decir qeu es no holonomico!·········
-%del sistema, hay soluciones que no son posibles. Tome el caso en el que se requiera una velocidad traslacionar que sea perpendicular a la orientación actual del robot. Entonces se tiene $\theta(t)$ como la orientación actual. $(\cos(\theta(t)), \sin(\theta(t)))$, es un vector unitario en la dirección del robot. Entonces $\mathbf{v_{per}}(t)=(-\sin(\theta(t)),\cos(\theta(t)))$ es un vector perpendicular a la orientación del robot. Tome $\mathbf{\nu}_{\perp}(t)=\left[\begin{array}{c c c} -\sin(\theta(t))& \cos(\theta(t)) & 0\end{array} \right]^t$. Sutituyendo $\mathbf{\nu}_{\perp}(t)$ en (\label{eq:inverse_kinematic_model}), se obtiene una velocidad angular en las ruedas de $\mathbf{\varphi}_{\perp}(t)=$.
+La ecuación en (\ref{eq:inverse_kinematic_model}) muestra al vector de velocidades angulares en las ruedas en términos de la velocidad traslacional del centro geométrico del robot y la velocidad angular del robot. Sin embargo por la no holonomicidad %OJO hay que citar esto. No se puede simplemente decir qeu es no holonomico!·········
+del sistema, hay soluciones que no son posibles. Tome el caso en el que se requiera una velocidad traslacionar que sea perpendicular a la orientación actual del robot. Entonces se tiene $\theta(t)$ como la orientación actual. $(\cos(\theta(t)), \sin(\theta(t)))$, es un vector unitario en la dirección del robot. Entonces $\mathbf{v_{per}}(t)=(-\sin(\theta(t)),\cos(\theta(t)))$ es un vector perpendicular a la orientación del robot. Tome $\mathbf{\nu}_{\perp}(t)=\left[\begin{array}{c c c} -\sin(\theta(t))& \cos(\theta(t)) & 0\end{array} \right]^t$. Sutituyendo $\mathbf{\nu}_{\perp}(t)$ en (\label{eq:inverse_kinematic_model}), se obtiene una velocidad angular en las ruedas de $\mathbf{\varphi}_{\perp}(t)=$.
 
 %OJO hay que terminar esta parte IMPORTANTE. para justificvar utilizar el punto desplazado. 
 
@@ -480,8 +475,8 @@ Para expresar la velocidad en el punto desplazado se define $\Psi(t)$ en (\ref{e
 Ahora, se define $A(t)=\Psi(t)\Lambda(t)$, para obtener la relación entre $\dot{\mathbf{p_e}}(t)$, y $\mathbf{\varphi}(t)$. Como se presenta en (\ref{eq:modelo_desplazado}).
 
 \begin{equation}
-\dot{\mathbf{p_e}}(t)= \left[ \begin{array}{c c} 0.5r\cos(\theta(t))-\frac{dr\sin(\theta(t))}{b}& 0.5r\cos(\theta(t))+\frac{dr\sin(\theta(t))}{b}  \\
-                                                 0.5r\sin(\theta(t))+\frac{dr\cos(\theta(t))}{b}& 0.5r\sin(\theta(t))-\frac{dr\cos(\theta(t))}{b}  \end{array}  \right] \mathbf{\varphi}(t)=A(t)\mathbf{\varphi}(t)
+\dot{\mathbf{p_e}}(t)= \left[ \begin{array}{c c} 0.5r\cos(\theta(t))-\frac{dr\sin(\theta(t))}{b}& 0.5\cos(\theta(t))+\frac{er\sin(\theta(t))}{b}  \\
+                                                 -0.5r\sin(\theta(t))-\frac{dr\cos(\theta(t))}{b}& 0.5\sin(\theta(t))-\frac{dr\cos(\theta(t))}{b}  \end{array}  \right] \mathbf{\varphi}(t)=A(t)\mathbf{\varphi}(t)
 \label{eq:modelo_desplazado}
 \end{equation}
 
@@ -494,10 +489,10 @@ Para poder controlar al robot, se necesita el modelo inverso. Primero se debe de
 A^{-1}(t)=
 \left[
 \begin{array}{cc}
- \frac{ d \cos (\theta (t))-0.5 b \sin (\theta (t))}{d r} & 
-\frac{0.5 b \cos(\theta (t))+ d \sin (\theta (t))}{d r} \\
- \frac{ d \cos (\theta (t))+0.5 b \sin (\theta (t))}{d r} & 
-\frac{ d \sin(\theta (t))-0.5 b \cos (\theta (t))}{d r} \\
+ \frac{ d \cos (\theta (t))-0.5 b \sin (\theta (t))}{d r} & \frac{0.5 b \cos
+   (\theta (t))+ d \sin (\theta (t))}{d r} \\
+ \frac{ d \cos (\theta (t))+0.5 b \sin (\theta (t))}{d r} & \frac{ d \sin
+   (\theta (t))-0.5 b \cos (\theta (t))}{d r} \\
 \end{array}
 \right]
 \label{eq:a_inverso}
@@ -511,7 +506,7 @@ A^{-1}(t)=
 \begin{equation}
 \dot{\theta}(t)=\left[
 \begin{array}{cc}
- \frac{r}{b} & \frac{-r}{b}
+ \frac{b}{r} & \frac{-b}{r}
 \end{array}
 \right] A^{-1} \dot{\mathbf{p_e}}(t)
 \label{eq:estado_entrada_desplazado}
@@ -881,25 +876,219 @@ Se define entonces el vector de estados, tal como se muestra en la ecuación (***
 
 
 
-\section{Análisis}
+
+
+\section{Resultados}
+
 
 
 
 \section{Conclusiones y Recomendaciones}
 
-\subsection{Conclusiones}
-
-\subsection{Recomendaciones}
-
 Se logró exitosamente simular el sistema descrito. En las simulaciones se obtienen los resultados observados en el sistema real.
+
+
+\section{Apéndice Ecuaciones}
+\subsection{Restricciones}
+
+\begin{equation}
+\label{eq:restriccion_1}
+f_1  =  \dot{x}(t)sen(\theta(t)) -\dot{y}(t)cos(\theta(t)) = 0 
+\end{equation}
+
+\begin{equation}
+\label{eq:restriccion_2}
+f_2 =  \dot{x}(t)cos(\theta(t)) + \dot{y}(t)sen(\theta(t)) + b \theta(t) - r \dot{\varphi_{r}(t)} = 0 \\
+\end{equation}
+
+\begin{equation}
+\label{eq:restriccion_3}
+f_3  =  \dot{x}(t)cos(\theta(t)) + \dot{y}(t)sen(\theta(t)) - b \theta(t) - r \dot{\varphi_{l}(t)} = 0 \\
+\end{equation}
+
+\subsection{Posición del Vehículo}
+\begin{equation}
+p_r(t) = \left[ \begin{array}{c}
+X_g(t)  $ = $ X(t) + s cos \left( \theta(t) \right)\\
+Y_g(t) $ = $ Y(t) + s sen\left( \theta(t) \right) \\
+\end{array} \right]
+\label{Posición_carrito}
+\end{equation}
+
+\subsection{Energía Cinética del carrito}
+\begin{equation}
+K_c = \frac{1}{2} m_c \left[ x^2 + y^2 - 2s \dot{\theta(t)} \left( \dot{x}(t) \cos \left( \theta(t) \right) \right) - y \left(\cos \left( \theta(t) \right) \right) + s^2 \dot{\theta}(t)^2 \right] + \frac{1}{2} I_0 \dot{ \theta}(t)  
+\label{eq:K_carrito}
+\end{equation}
+
+\subsection{Ruedas}
+\begin{equation}
+p_r(t) = \left[ \begin{array}{c}
+X_r(t) = x(t) + bsen \left(\theta(t) \right)\\
+Y_r(t) = y(t) + bcos \left(\theta(t) \right)\\
+\end{array} \right]
+\label{eq:posición_ruedas}
+\end{equation}
+
+\begin{equation}
+\label{eq:K_rueda derecha}
+K_r=\frac{1}{2}m_{\omega}\left[ \dot{x}(t)^2 + \dot{y}(t)^2 + 2b \theta(t) \left( \dot{x}(t) \cos \left( \theta(t) \right) \right) + y \sin \left( \theta(t) \right) + b^2 \theta(t)^2 \right] + \frac{1}{2} I_m  \theta(t)^2 + \frac{1}{2} I_{\omega} \dot{\varphi_r}(t)^2
+\end{equation}
+
+\begin{equation}
+\label{eq:K_rueda izquierda}
+K_l=\frac{1}{2}m_{\omega}\left[ \dot{x}(t)^2 + \dot{y}^2 - 2b \theta \left( \dot{x} \cos \left( \theta(t) \right) \right) + y \sin \left( \theta(t) \right) + b^2 \theta(t)^2 \right] + \frac{1}{2} I_m  \theta(t)^2 + \frac{1}{2} I_{\omega} \dot{\varphi_l(t)}^2
+\end{equation}
+
+\begin{equation}
+\label{eq:K_total}
+K_t = K_r + K_l + K_c
+\end{equation}
+
+\begin{equation}
+K_t = \begin{array}{c}
+ \frac{1}{2} \left(m_c + 2m_{\omega} \right) \left(\dot{x}(t)^2+\dot{y}(t)^2 \right) - m_c s \dot{\theta}(t) \left(\dot{x}(t)\sin \left(\theta(t) \right) - \dot{y}(t)\cos \left(\theta(t) \right) \right) + \\
+\frac{1}{2} \left(m_c s^2 + I_0 + 2m_{\omega}b^2 + 2 I_m \right) \dot{\theta}(t)^2 + \frac{1}{2} I_{\omega}\dot{\varphi_{r}}(t)^2 + frac{1}{2} I_{\omega}\dot{\varphi_{l}}(t)^2
+\end{array}
+\end{equation}
+
+\begin{equation}
+\label{eq:masa_total}
+m = m_c + 2m_{\omega}
+\end{equation}
+
+\begin{equation}
+\label{eq:momento_total}
+I=I_0+m_c s^2 + 2m_{\omega}b^2 + 2 I_m
+\end{equation}
+
+\begin{equation}
+T_t = 
+\frac{m}{2} \left(\dot{x}(t)^2+\dot{y}(t)^2 \right) + m_c s \dot{\theta}(t) \left(\dot{y}(t)\cos \left(\theta(t) \right) - \dot{x}(t)\sen \left(\theta(t) \right) \right) + \frac{1}{2} I \dot{\theta}(t)^2 + \frac{I_{\omega}}{2} \left(\dot{\varphi_{r}}(t)^2 + \dot{\varphi_{l}}(t)^2 \right)
+\end{equation}
+
+\begin{equation}
+\label{eq:mul_lagrange}
+\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{q_1(t)}}\right) - \left(\frac{\partial k}{\partial q_1(t)}\right)= \left(\frac{\partial U}{\partial q_1(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{q_1}(t)}
+\end{equation}
+
+\begin{equation}
+\label{eq:mul_lagrange_0}
+\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{\theta}(t)}\right) - \left(\frac{\partial k}{\partial  \theta(t)}\right)= \left(\frac{\partial U}{\partial \theta(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{\theta}(t)}
+\end{equation}
+
+\begin{equation}
+\label{eq:mul_lagrange_x}
+\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{x}(t)}\right) - \left(\frac{\partial k}{\partial x(t)}\right)= \left(\frac{\partial U}{\partial x(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{x}(t)}
+\end{equation}
+
+\begin{equation}
+\label{eq:mul_lagrange_y}
+\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{y}(t)}\right) - \left(\frac{\partial k}{\partial y(t)}\right)= \left(\frac{\partial U}{\partial y(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{y}(t)}
+\end{equation}
+
+\begin{eqnarray*}
+Sistema por resolver
+\begin{cases}
+m\ddot{x}(t) - \ m_c s \left(\ddot{\theta}(t) \sin \left( \theta(t) \right) + \theta(t)^2 \cos \left( \theta(t) \right) \right) - \lambda_1 \sin \left( \theta(t) \right) - \left( \lambda_2 + \lambda_3 \right) \cos \left( \theta(t) \right) = 0\\
+m\ddot{y}(t) + m_c s \left(\ddot{\theta}(t)\cos\left(\theta(t)\right) - \theta(t)^2 \cos \left(\theta(t)\right) \right) + \lambda_1 \cos \left(\theta(t)\right) - \left(\lambda_2+\lambda_3\right)\sin\left(\theta(t)\right) = 0 \\
+-m_c s \left( \ddot{x}(t) \sin\left(\theta(t)\right) - \ddot{y}(t)\cos\left(\theta(t)\right) \right) + I\ddot{\theta}(t) + b\left(\lambda_3-\lambda_2\right) = 0\\
+I_{\omega}\ddot{\varphi_r}(t)+\lambda_2 r = \tau_r(t) \\
+I_{\omega}\ddot{\varphi_l}(t)+\lambda_3 r = \tau_l(t)
+\end{cases}
+\end{eqnarray*}
+
+\begin{equation}
+\label{eq:multiplicadores de lagrange}
+m\left(\ddot{x}(t)\cos\left(\theta\right)+\ddot{y}(t)\sin\left(\theta(t)\right) \right) - m_c s \dot{\theta}(t)^2-\left(\lambda_2 + \lambda_3\right) =0
+\end{equation}
+
+\begin{equation}
+\label{eq:lambdas}
+\lambda_2 + \lambda_3 = \frac{\tau_l(t) + \tau_r(t)}{r} - \frac{I_{\omega}}{R} \left(\ddot{\varphi_r}(t)+\ddot{\varphi_l}(t)\right)
+\end{equation}
+
+\begin{equation}
+\label{eq:velocidad}
+v(t)=\dot{x}(t)\cos\left(\theta(t)\right) + \dot{y}(t)\sin\left(\theta(t)\right)
+\end{equation}
+
+\begin{equation}
+\label{eq:tau}
+m\dot{v}(t) - m_c s \dot{\theta}(t)^2 + \frac{I_{\omega}}{r} \left(\ddot{\varphi_r}(t)+\ddot{\varphi_l}(t)\right) = \frac{\tau_l(t)+\tau_r(t)}{r}
+\end{equation}
+
+\begin{equation}
+\label{eq:lamnda2-3}
+\lambda_3 - \lambda_2 = \frac{I_{\omega}}{r} \left(\ddot{\varphi_r}(t)-\ddot{\varphi_l}(t)\right)-\frac{\tau_r(t)-\tau_l(t)}{r}
+\end{equation}
+
+\begin{equation}
+-m_c s \left(\ddot{x}(t)\sin\left(\theta(t)\right) -\ddot{y}(t) \cos\left(\theta(t)\right)\right) + I\ddot{\theta}(t)+\frac{bI_{\omega}}{r}\left(\ddot{\varphi_r}(t)-\ddot{\varphi_l}(t)\right) = \frac{b \left(\tau_r(t)-\tau_l(t) \right)}{r}
+\end{equation}
+
+\begin{equation}
+\ddot{\varphi_r}(t) - \ddot{\varphi_l}(t) = \frac{2b}{r} \ddot{\theta}(t)
+\end{equation}
+
+\begin{equation}
+\ddot{\varphi_r}(t) + \ddot{\varphi_l}(t) = \frac{2}{r} \dot{v}(t)
+\end{equation}
+
+\begin{align}
+F(t) = \frac{\tau_r(t) + \tau_l(t)}{r}\\
+K = \frac{b}{r} \left(\tau_r(t)-\tau_l(t)\right)\\
+D = m + \frac{2I_{\omega}}{r^2}\\
+J = m + 2\frac{I_{\omega}}{r^2}\\
+\dot{\theta}(t)v(t) = -\left(\ddot{x}(t)\sin\left(\theta(t)\right)-\ddot{y}(t)\cos\left(\theta(t)\right)\right)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+\end{align}
+
+\begin{equation}
+D\ddot{v}(t) -m_c s\ddot{\theta}(t)^2=F(t)
+\end{equation}
+
+\begin{equation}
+J\ddot{\theta}(t)+m_cs\dot{\theta}(t)v(t) = K
+\end{equation}
+
+\begin{eqnarray*}
+MVE
+\begin{cases}
+\dot{x}(t) = v(t)\cos\left(\theta(t)\right)\\
+\dot{y}(t) = v(t)\sin\left(\theta(t)\right)\\
+\dot{\theta}(t) = \omega(t) \\
+\dot{v}(t)=\frac{m_c s}{D} \omega(t)^2 + \frac{F(t)}{D}\\
+\dot{\omega}(t) = \frac{-m_c s}{J}\omega(t) v(t) + \frac{K}{J}
+\end{cases}
+\end{eqnarray*}
+
+\begin{eqnarray}
+I_c = 15.625 Kg.m^2\\
+I_{\omega}= 0.005 kg.m^2\\
+I_m = 0.0025 kg. m^2\\
+b = 0.75
+d = s = 0.3 m\\
+m_c = 30 kg\\
+m_{\omega} = 1 kg\\
+r = 0.10m
+\end{eqnarray}
+
+\begin{equation}
+\dot{\varphi_r}(t) =\frac{v(t)}{r} + \frac{b}{r} \omega
+\end{equation}
+
+\begin{equation}
+\dot{\varphi_l}(t)= \frac{v(t)}{r} - \frac{b}{r} \omega
+\end{equation}
 
 \newpage
 %-------------------
 %bibliografía
 \addcontentsline{toc}{section}{Bibliografía}
 \bibliographystyle{EIEBib}
-%nombre del archivo .bib que contiene la bibliografía
 \bibliography{informe_ref}
+%nombre del archivo .bib que contiene la bibliografía
+
 
 % ------------------- archivo de apéndice si fuera necesario (* si no hay apéndice comentar las
 % siguientes dos líneas *)
