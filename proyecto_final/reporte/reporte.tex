@@ -176,12 +176,12 @@ Algunas de las ventajas de estos sistemas de dos ruedas es que son más baratos, 
 
 El modelo de robot que se estudia en el presente trabajo se supone con dos motores independientes, cada uno controlando una rueda, colocados a lo ancho  del eje central del robot. Se asume además su movimiento únicamente en dos dimensiones, por lo que se considera con una tercera rueda que no aporta ningún movimiento adicional (rueda loca o de castor) para que sea estable \citep{KarlStol}, además se considera que no hay deformación en la rueda y que se cumple la condición de rodamiento puro.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.6\textwidth]{../pictures/robot_ejes.eps}	
-	\caption{Ejes del Robot}
-	\label{fig:ejes}
-\end{figure}
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=0.6\textwidth]{../pictures/robot_ejes.eps}	
+%	\caption{Ejes del Robot}
+%	\label{fig:ejes}
+%\end{figure}
 
 
 \subsection{Método de linealización}
@@ -389,7 +389,7 @@ Entonces, sustituyendo (\ref{eq:local_vel}) en (\ref{eq:global_vel}), y tomadno 
 \label{eq:kinematic_model_matrix}
 \end{equation}
 
-Se definen los siguientes vectores, para simplificar la notación de esta sección: $\nu(t)=\left[\begin{array}{c c c}\dot{x}(t)&\dot{y}(t)&\omega(t)\end{array}\right]^t$ y $\varphi(t)=\left[\begin{array}{c c} \varphi_R(t)& \varphi_L(t) \end{array} \right]^t$. Se define $\Lambda(t)$, como la matriz en (\ref{eq:kinematic_model_matrix}). De esta menra de reescribe la ecuación como:
+Se definen los siguientes vectores, para simplificar la notación de esta sección: $\nu(t)=\left[\begin{array}{c c c}\dot{x}(t)&\dot{y}(t)&\omega(t)\end{array}\right]^t$ y $\varphi(t)=\left[\begin{array}{c c} \varphi_R(t)& \varphi_L(t) \end{array} \right]^t$. Se define $\Lambda(t)$, como la matriz en (\ref{eq:kinematic_model_matrix}). De esta manera de reescribe la ecuación como:
 
 \begin{equation}
 \mathbf{\nu}(t)=\Lambda(t) \mathbf{\varphi}(t)
@@ -398,29 +398,29 @@ Se definen los siguientes vectores, para simplificar la notación de esta sección
 
 La ecuación (\ref{eq:kinematic_model}) representa el modelo cinemático directo del sistema. Ya que relaciona la entrada ($\mathbf{\varphi}(t)$), con la salida ($\mathbf{\nu}(t)$). %mismo resultado que Trajectory Tracking Control for a Differential Drive Wheeled Mobile Robot Considering the Dynamics Related to the Actuators and Power Stage
 
-\subsubsection{Modelo inverso}
+%\subsubsection{Modelo inverso}
 
-Para encontrar la cinemática inversa, es necesario encontrar las velocidades de las ruedas en términos de la velocidad del robot. Esto se logra computando la pseudoinversa de $\Lambda(t)$, que se denota por $\Lambda^{-1}(t)$. Se utiliza \textit{Wolfram Mathematica} para encontrar una expresión simbólica para $\Lambda^{-1}(t)$. El resultado se muestra en (\ref{eq:pseudoinverse}).
+%Para encontrar la cinemática inversa, es necesario encontrar las velocidades de las ruedas en términos de la velocidad del robot. Esto se logra computando la pseudoinversa de $\Lambda(t)$, que se denota por $\Lambda^{-1}(t)$. Se utiliza \textit{Wolfram Mathematica} para encontrar una expresión simbólica para $\Lambda^{-1}(t)$. El resultado se muestra en (\ref{eq:pseudoinverse}).
 
-\begin{equation}
-\Lambda^{-1}=\left[
-\begin{array}{c c c}
-\frac{\cos(\theta(t))}{r} & \frac{\cos(\theta(t))}{r} & \frac{b}{2r}\\
-\frac{\sin(\theta(t))}{r} & \frac{\sin(\theta(t))}{r} & \frac{-b}{2r}\\
-\end{array}
- \right]
-\label{eq:pseudoinverse}
-\end{equation}
+%\begin{equation}
+%\Lambda^{-1}=\left[
+%\begin{array}{c c c}
+%\frac{\cos(\theta(t))}{r} & \frac{\cos(\theta(t))}{r} & \frac{b}{2r}\\
+%\frac{\sin(\theta(t))}{r} & \frac{\sin(\theta(t))}{r} & \frac{-b}{2r}\\
+%\end{array}
+% \right]
+%\label{eq:pseudoinverse}
+%\end{equation}
 
-El modelo cinemático inverso viene dado por (\ref{eq:inverse_kinematic_model}):
+%El modelo cinemático inverso viene dado por (\ref{eq:inverse_kinematic_model}):
 
-\begin{equation}
-\mathbf{\varphi}(t)=\Lambda^{-1}\mathbf{\nu}(t)
-\label{eq:inverse_kinematic_model}
-\end{equation}
+%\begin{equation}
+%\mathbf{\varphi}(t)=\Lambda^{-1}\mathbf{\nu}(t)
+%\label{eq:inverse_kinematic_model}
+%\end{equation}
 
-La ecuación en (\ref{eq:inverse_kinematic_model}) muestra al vector de velocidades angulares en las ruedas en términos de la velocidad traslacional del centro geométrico del robot y la velocidad angular del robot. Sin embargo por la no holonomicidad %OJO hay que citar esto. No se puede simplemente decir qeu es no holonomico!·········
-del sistema, hay soluciones que no son posibles. Tome el caso en el que se requiera una velocidad traslacionar que sea perpendicular a la orientación actual del robot. Entonces se tiene $\theta(t)$ como la orientación actual. $(\cos(\theta(t)), \sin(\theta(t)))$, es un vector unitario en la dirección del robot. Entonces $\mathbf{v_{per}}(t)=(-\sin(\theta(t)),\cos(\theta(t)))$ es un vector perpendicular a la orientación del robot. Tome $\mathbf{\nu}_{\perp}(t)=\left[\begin{array}{c c c} -\sin(\theta(t))& \cos(\theta(t)) & 0\end{array} \right]^t$. Sutituyendo $\mathbf{\nu}_{\perp}(t)$ en (\label{eq:inverse_kinematic_model}), se obtiene una velocidad angular en las ruedas de $\mathbf{\varphi}_{\perp}(t)=$.
+%La ecuación en (\ref{eq:inverse_kinematic_model}) muestra al vector de velocidades angulares en las ruedas en términos de la velocidad traslacional del centro geométrico del robot y la velocidad angular del robot. Sin embargo por la no holonomicidad %OJO hay que citar esto. No se puede simplemente decir qeu es no holonomico!·········
+%del sistema, hay soluciones que no son posibles. Tome el caso en el que se requiera una velocidad traslacionar que sea perpendicular a la orientación actual del robot. Entonces se tiene $\theta(t)$ como la orientación actual. $(\cos(\theta(t)), \sin(\theta(t)))$, es un vector unitario en la dirección del robot. Entonces $\mathbf{v_{per}}(t)=(-\sin(\theta(t)),\cos(\theta(t)))$ es un vector perpendicular a la orientación del robot. Tome $\mathbf{\nu}_{\perp}(t)=\left[\begin{array}{c c c} -\sin(\theta(t))& \cos(\theta(t)) & 0\end{array} \right]^t$. Sutituyendo $\mathbf{\nu}_{\perp}(t)$ en (\label{eq:inverse_kinematic_model}), se obtiene una velocidad angular en las ruedas de $\mathbf{\varphi}_{\perp}(t)=$.
 
 %OJO hay que terminar esta parte IMPORTANTE. para justificvar utilizar el punto desplazado. 
 
@@ -488,7 +488,7 @@ A^{-1}(t)=
 \begin{equation}
 \dot{\theta}(t)=\left[
 \begin{array}{cc}
- \frac{b}{r} & \frac{-b}{r}
+ \frac{r}{b} & \frac{-r}{b}
 \end{array}
 \right] A^{-1} \dot{\mathbf{p_e}}(t)
 \label{eq:estado_entrada_desplazado}
