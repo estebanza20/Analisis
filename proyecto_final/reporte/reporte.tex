@@ -562,34 +562,34 @@ f_3  =  \dot{x}(t)cos(\theta(t)) + \dot{y}(t)sen(\theta(t)) - b \theta(t) - r \d
 \begin{equation}
 p_r(t) = \left[ \begin{array}{c}
 X_g(t)  $ = $ X(t) + s cos \left( \theta(t) \right)\\
-Y_g $ = $ Y(t) + s sen\left( \theta(t) \right) \\
+Y_g(t) $ = $ Y(t) + s sen\left( \theta(t) \right) \\
 \end{array} \right]
 \label{Posición_carrito}
 \end{equation}
 
 \subsection{Energía Cinética del carrito}
 \begin{equation}
-K_c = \frac{1}{2} m_c \left[ x^2 + y^2 - 2s \dot{\theta} \left( \dot{x} \cos \left( \theta \right) \right) - y \left(\cos \left( \theta \right) \right) + s^2 \dot{\theta}^2 \right] + \frac{1}{2} I_0 \dot{ \theta}  
+K_c = \frac{1}{2} m_c \left[ x^2 + y^2 - 2s \dot{\theta(t)} \left( \dot{x}(t) \cos \left( \theta(t) \right) \right) - y \left(\cos \left( \theta(t) \right) \right) + s^2 \dot{\theta}(t)^2 \right] + \frac{1}{2} I_0 \dot{ \theta}(t)  
 \label{eq:K_carrito}
 \end{equation}
 
 \subsection{Ruedas}
 \begin{equation}
-p_r = \left[ \begin{array}{c}
-X_r = x + bsen \left(\theta \right)\\
-Y_r = y + bcos \left(\theta \right)\\
+p_r(t) = \left[ \begin{array}{c}
+X_r(t) = x(t) + bsen \left(\theta(t) \right)\\
+Y_r(t) = y(t) + bcos \left(\theta(t) \right)\\
 \end{array} \right]
 \label{eq:posición_ruedas}
 \end{equation}
 
 \begin{equation}
 \label{eq:K_rueda derecha}
-K_r=\frac{1}{2}m_{\omega}\left[ \dot{x}^2 + \dot{y}^2 + 2b \theta \left( \dot{x} \cos \left( \theta \right) \right) + y \sin \left( \theta \right) + b^2 \theta^2 \right] + \frac{1}{2} I_m  \theta^2 + \frac{1}{2} I_{\omega} \dot{\varphi_r}^2
+K_r=\frac{1}{2}m_{\omega}\left[ \dot{x}(t)^2 + \dot{y}(t)^2 + 2b \theta(t) \left( \dot{x}(t) \cos \left( \theta(t) \right) \right) + y \sin \left( \theta(t) \right) + b^2 \theta(t)^2 \right] + \frac{1}{2} I_m  \theta(t)^2 + \frac{1}{2} I_{\omega} \dot{\varphi_r}(t)^2
 \end{equation}
 
 \begin{equation}
 \label{eq:K_rueda izquierda}
-K_l=\frac{1}{2}m_{\omega}\left[ \dot{x}^2 + \dot{y}^2 - 2b \theta \left( \dot{x} \cos \left( \theta \right) \right) + y \sin \left( \theta \right) + b^2 \theta^2 \right] + \frac{1}{2} I_m  \theta^2 + \frac{1}{2} I_{\omega} \dot{\varphi_L}^2
+K_l=\frac{1}{2}m_{\omega}\left[ \dot{x}(t)^2 + \dot{y}^2 - 2b \theta \left( \dot{x} \cos \left( \theta(t) \right) \right) + y \sin \left( \theta(t) \right) + b^2 \theta(t)^2 \right] + \frac{1}{2} I_m  \theta(t)^2 + \frac{1}{2} I_{\omega} \dot{\varphi_l(t)}^2
 \end{equation}
 
 \begin{equation}
@@ -598,9 +598,9 @@ K_t = K_r + K_l + K_c
 \end{equation}
 
 \begin{equation}
-T_t = \begin{array}{c}
- \frac{1}{2} \left(m_c + 2m_{\omega} \right) \left(\dot{x}^2+\dot{y}^2 \right) - m_c s \dot{\theta} \left(\dot{x}\sin \left(\theta \right) - \dot{y}\cos \left(\theta \right) \right) + \\
-\frac{1}{2} \left(m_c s^2 + I_0 + 2m_{\omega}b^2 + 2 I_m \right) \dot{\theta}^2 + \frac{1}{2} I_{\omega}\dot{\varphi_{r}}^2 + frac{1}{2} I_{\omega}\dot{\varphi_{l}}^2
+K_t = \begin{array}{c}
+ \frac{1}{2} \left(m_c + 2m_{\omega} \right) \left(\dot{x}(t)^2+\dot{y}(t)^2 \right) - m_c s \dot{\theta}(t) \left(\dot{x}(t)\sin \left(\theta(t) \right) - \dot{y}(t)\cos \left(\theta(t) \right) \right) + \\
+\frac{1}{2} \left(m_c s^2 + I_0 + 2m_{\omega}b^2 + 2 I_m \right) \dot{\theta}(t)^2 + \frac{1}{2} I_{\omega}\dot{\varphi_{r}}(t)^2 + frac{1}{2} I_{\omega}\dot{\varphi_{l}}(t)^2
 \end{array}
 \end{equation}
 
@@ -616,102 +616,101 @@ I=I_0+m_c s^2 + 2m_{\omega}b^2 + 2 I_m
 
 \begin{equation}
 T_t = 
-\frac{m}{2} \left(\dot{x}^2+\dot{y}^2 \right) + m_c s \dot{\theta} \left(\dot{y}\cos \left(\theta \right) - \dot{x}\sen \left(\theta \right) \right) + \frac{1}{2} I \dot{\theta}^2 +
- \frac{I_{\omega}}{2} \left(\dot{\varphi_{r}}^2 + \dot{\varphi_{l}}^2 \right)
+\frac{m}{2} \left(\dot{x}(t)^2+\dot{y}(t)^2 \right) + m_c s \dot{\theta}(t) \left(\dot{y}(t)\cos \left(\theta(t) \right) - \dot{x}(t)\sen \left(\theta(t) \right) \right) + \frac{1}{2} I \dot{\theta}(t)^2 + \frac{I_{\omega}}{2} \left(\dot{\varphi_{r}}(t)^2 + \dot{\varphi_{l}}(t)^2 \right)
 \end{equation}
 
 \begin{equation}
 \label{eq:mul_lagrange}
-\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{q_1}}\right) - \left(\frac{\partial k}{\partial q_1}\right)= \left(\frac{\partial U}{\partial q_1}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{q_1}}
+\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{q_1(t)}}\right) - \left(\frac{\partial k}{\partial q_1(t)}\right)= \left(\frac{\partial U}{\partial q_1(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{q_1}(t)}
 \end{equation}
 
 \begin{equation}
 \label{eq:mul_lagrange_0}
-\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{\theta}}\right) - \left(\frac{\partial k}{\partial  \theta}\right)= \left(\frac{\partial U}{\partial \theta}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{\theta}}
+\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{\theta}(t)}\right) - \left(\frac{\partial k}{\partial  \theta(t)}\right)= \left(\frac{\partial U}{\partial \theta(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{\theta}(t)}
 \end{equation}
 
 \begin{equation}
 \label{eq:mul_lagrange_x}
-\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{x}}\right) - \left(\frac{\partial k}{\partial x}\right)= \left(\frac{\partial U}{\partial x}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{x}}
+\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{x}(t)}\right) - \left(\frac{\partial k}{\partial x(t)}\right)= \left(\frac{\partial U}{\partial x(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{x}(t)}
 \end{equation}
 
 \begin{equation}
 \label{eq:mul_lagrange_y}
-\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{y}}\right) - \left(\frac{\partial k}{\partial y}\right)= \left(\frac{\partial U}{\partial y}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{y}}
+\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{y}(t)}\right) - \left(\frac{\partial k}{\partial y(t)}\right)= \left(\frac{\partial U}{\partial y(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{y}(t)}
 \end{equation}
 
 \begin{eqnarray*}
 Sistema por resolver
 \begin{cases}
-m\ddot{x} - \ m_c s \left(\ddot{\theta} \sin \left( \theta \right) + \theta^2 \cos \left( \theta \right) \right) - \lambda_1 \sin \left( \theta \right) - \left( \lambda_2 + \lambda_3 \right) \cos \left( \theta \right) = 0\\
-m\ddot{y} + m_c s \left(\ddot{\theta}\cos\left(\theta\right) - \theta^2 \cos \left(\theta\right) \right) + \lambda_1 \cos \left(\theta\right) - \left(\lambda_2+\lambda_3\right)\sin\left(\theta\right) = 0 \\
--m_c s \left( \ddot{x} \sin\left(\theta\right) - \ddot{y}\cos\left(\theta\right) \right) + I\ddot{\theta} + b\left(\lambda_3-\lambda_2\right) = 0\\
-I_{\omega}\ddot{\varphi_r}+\lambda_2 r = \tau_r \\
-I_{\omega}\ddot{\varphi_l}+\lambda_3 r = \tau_l
+m\ddot{x}(t) - \ m_c s \left(\ddot{\theta}(t) \sin \left( \theta(t) \right) + \theta(t)^2 \cos \left( \theta(t) \right) \right) - \lambda_1 \sin \left( \theta(t) \right) - \left( \lambda_2 + \lambda_3 \right) \cos \left( \theta(t) \right) = 0\\
+m\ddot{y}(t) + m_c s \left(\ddot{\theta}(t)\cos\left(\theta(t)\right) - \theta(t)^2 \cos \left(\theta(t)\right) \right) + \lambda_1 \cos \left(\theta(t)\right) - \left(\lambda_2+\lambda_3\right)\sin\left(\theta(t)\right) = 0 \\
+-m_c s \left( \ddot{x}(t) \sin\left(\theta(t)\right) - \ddot{y}(t)\cos\left(\theta(t)\right) \right) + I\ddot{\theta}(t) + b\left(\lambda_3-\lambda_2\right) = 0\\
+I_{\omega}\ddot{\varphi_r}(t)+\lambda_2 r = \tau_r(t) \\
+I_{\omega}\ddot{\varphi_l}(t)+\lambda_3 r = \tau_l(t)
 \end{cases}
 \end{eqnarray*}
 
 \begin{equation}
 \label{eq:multiplicadores de lagrange}
-m\left(\ddot{x}\cos\left(\theta\right)+\ddot{y}\sin\left(\theta\right) \right) - m_c s \dot{\theta}^2-\left(\lambda_2 + \lambda_3\right) =0
+m\left(\ddot{x}(t)\cos\left(\theta\right)+\ddot{y}(t)\sin\left(\theta(t)\right) \right) - m_c s \dot{\theta}(t)^2-\left(\lambda_2 + \lambda_3\right) =0
 \end{equation}
 
 \begin{equation}
 \label{eq:lambdas}
-\lambda_2 + \lambda_3 = \frac{\tau_l + \tau_r}{r} - \frac{I_{\omega}}{R} \left(\ddot{\varphi_r}+\ddot{\varphi_l}\right)
+\lambda_2 + \lambda_3 = \frac{\tau_l(t) + \tau_r(t)}{r} - \frac{I_{\omega}}{R} \left(\ddot{\varphi_r}(t)+\ddot{\varphi_l}(t)\right)
 \end{equation}
 
 \begin{equation}
 \label{eq:velocidad}
-v=\dot{x}\cos\left(\theta\right) + \dot{y}\sin\left(\theta\right)
+v(t)=\dot{x}(t)\cos\left(\theta(t)\right) + \dot{y}(t)\sin\left(\theta(t)\right)
 \end{equation}
 
 \begin{equation}
 \label{eq:tau}
-m\dot{v} - m_c s \dot{\theta}^2 + \frac{I_{\omega}}{r} \left(\ddot{\varphi_r}+\ddot{\varphi_l}\right) = \frac{\tau_l+\tau_r}{r}
+m\dot{v}(t) - m_c s \dot{\theta}(t)^2 + \frac{I_{\omega}}{r} \left(\ddot{\varphi_r}(t)+\ddot{\varphi_l}(t)\right) = \frac{\tau_l(t)+\tau_r(t)}{r}
 \end{equation}
 
 \begin{equation}
 \label{eq:lamnda2-3}
-\lambda_3 - \lambda_2 = \frac{I_{\omega}}{r} \left(\ddot{\varphi_r}-\ddot{\varphi_l}\right)-\frac{\tau_r-\tau_l}{r}
+\lambda_3 - \lambda_2 = \frac{I_{\omega}}{r} \left(\ddot{\varphi_r}(t)-\ddot{\varphi_l}(t)\right)-\frac{\tau_r(t)-\tau_l(t)}{r}
 \end{equation}
 
 \begin{equation}
--m_c s \left(\ddot{x}\sin\left(\theta\right) -\ddot{y} \cos\left(\theta\right)\right) + I\ddot{\theta}+\frac{bI_{\omega}}{r}\left(\ddot{\varphi_r}-\ddot{\varphi_l}\right) = \frac{b \left(\tau_r-\tau_l \right)}{r}
+-m_c s \left(\ddot{x}(t)\sin\left(\theta(t)\right) -\ddot{y}(t) \cos\left(\theta(t)\right)\right) + I\ddot{\theta}(t)+\frac{bI_{\omega}}{r}\left(\ddot{\varphi_r}(t)-\ddot{\varphi_l}(t)\right) = \frac{b \left(\tau_r(t)-\tau_l(t) \right)}{r}
 \end{equation}
 
 \begin{equation}
-\ddot{\varphi_r} - \ddot{\varphi_l} = \frac{2b}{r} \ddot{\theta}
+\ddot{\varphi_r}(t) - \ddot{\varphi_l}(t) = \frac{2b}{r} \ddot{\theta}(t)
 \end{equation}
 
 \begin{equation}
-\ddot{\varphi_r} + \ddot{\varphi_l} = \frac{2}{r} \dot{v}
+\ddot{\varphi_r}(t) + \ddot{\varphi_l}(t) = \frac{2}{r} \dot{v}(t)
 \end{equation}
 
 \begin{align}
-F = \frac{\tau_r + \tau_l}{r}\\
-K = \frac{b}{r} \left(\tau_r-\tau_l\right)\\
+F(t) = \frac{\tau_r(t) + \tau_l(t)}{r}\\
+K = \frac{b}{r} \left(\tau_r(t)-\tau_l(t)\right)\\
 D = m + \frac{2I_{\omega}}{r^2}\\
 J = m + 2\frac{I_{\omega}}{r^2}\\
-\dot{\theta}v = -\left(\ddot{x}\sin\left(\theta\right)-\ddot{y}\cos\left(\theta\right)\right)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+\dot{\theta}(t)v(t) = -\left(\ddot{x}(t)\sin\left(\theta(t)\right)-\ddot{y}(t)\cos\left(\theta(t)\right)\right)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 \end{align}
 
 \begin{equation}
-D\ddot{v} -m_c s\ddot{\theta}^2=F
+D\ddot{v}(t) -m_c s\ddot{\theta}(t)^2=F(t)
 \end{equation}
 
 \begin{equation}
-J\ddot{\theta}+m_cs\dot{\theta}v = K
+J\ddot{\theta}(t)+m_cs\dot{\theta}(t)v(t) = K
 \end{equation}
 
 \begin{eqnarray*}
 MVE
 \begin{cases}
-\dot{x} = v\cos\left(\theta\right)\\
-\dot{y} = v\sin\left(\theta\right)\\
-\dot{\theta} = \omega \\
-\dot{v}=\frac{m_c s}{D} \omega^2 + \frac{F}{D}\\
-\dot{\omega} = \frac{-m_c s}{J}\omega v + \frac{K}{J}
+\dot{x}(t) = v(t)\cos\left(\theta(t)\right)\\
+\dot{y}(t) = v(t)\sin\left(\theta(t)\right)\\
+\dot{\theta}(t) = \omega(t) \\
+\dot{v}(t)=\frac{m_c s}{D} \omega(t)^2 + \frac{F(t)}{D}\\
+\dot{\omega}(t) = \frac{-m_c s}{J}\omega(t) v(t) + \frac{K}{J}
 \end{cases}
 \end{eqnarray*}
 
@@ -727,11 +726,11 @@ r = 0.10m
 \end{eqnarray}
 
 \begin{equation}
-\dot{\varphi_r} =\frac{v}{r} + \frac{b}{r} \omega
+\dot{\varphi_r}(t) =\frac{v(t)}{r} + \frac{b}{r} \omega
 \end{equation}
 
 \begin{equation}
-\dot{\varphi_l}= \frac{v}{r} - \frac{b}{r} \omega
+\dot{\varphi_l}(t)= \frac{v(t)}{r} - \frac{b}{r} \omega
 \end{equation}
 
 \newpage
