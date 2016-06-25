@@ -552,47 +552,77 @@ consideran entonces las siguientes suposiciones:
 \item No se consideran las limitaciones relacionadas con la potencia máxima que pueden entregar los motores
   de cada rueda, de manera que los mismos pueden generar pares de torsión muy grandes que cambian de
   manera abrupta. %REVISAR!!!!!!!!!! 
+  % \item La distribución de masa del robot es simétrica con respecto a la línea central definida por el
+  % frente del vehículo, de manera que tanto el centro de masa como el centro geométrico se encuentran
+  % sobre dicha línea.  
+\item El cuerpo del robot no se comporta como un péndulo invertido, ya que presenta el soporte
+  adecuado para mantenerse estable sin balancearse.
 \end{itemize}
 
 A partir de la condición de no deslizamiento hacia los lados, se obtiene que el componente de la
 velocidad traslacional del centro geométrico que es perpendicular a la recta descrita por el frente del
-robot (definida por el ángulo de orientación $thetta$), es nulo, lo cual se muestra en la ecuación
-(***).
+robot (definida por el ángulo de orientación $\theta(t)$), es nulo, lo cual se muestra en (***).
 
 %ECUACIÓN RESTRICCION NO DESLIZAMIENTO LATERAL
 
 
-Para la rueda derecha, se tiene que la magnitud de su velocidad tangencial es
-$v_{Tr} = r\dot{\varphi_r}$, en donde $r$ es el radio de cada rueda y $\dot{\varphi_r}$ es la
-velocidad angular de un punto de la rueda. 
+Para la rueda derecha, se tiene que la magnitud de su velocidad tangencial es la mostrada en
+(\ref{eq:vel_tan_rueda_r}).
+\begin{equation}
+  \label{eq:vel_tan_rueda_r}
+  v_{Tr}(t) = r\dot{\varphi_r}(t)
+\end{equation}
+
+En donde $r$ es el radio de cada rueda y $\dot{\varphi_r}(t)$ es la velocidad angular de un punto de
+la rueda derecha.
 
 Por otro lado, la magnitud de la velocidad traslacional del punto en donde se encuentra ubicada la
-rueda derecha sobre el vehículo es $v_{Pr}=\dot{x}\cos(\theta)+\dot{y}sen(\theta)+b\dot{\theta}$, en
-donde el término $\dot{x}\cos(\theta)+\dot{y}sen(\theta)$ es la rapidez traslacional del centro del
-vehículo, y el término $b\dot{\theta}$ corresponde al aporte en la velocidad dado por la rotación
-del robot, el cual se suma porque el giro en la dirección positiva de incremento de $\theta$
-(contraria a las manecillas del reloj) favorece el movimiento hacia adelante de la rueda derecha. De
-la restricción de rodamiento de las ruedas, se tiene que $v_{Tr}=v_{Pr}$, lo cual se muestra en la
-ecuación (***).
+rueda derecha sobre el vehículo corresponde a la expresión de (\ref{eq:vel_tras_rueda_r}).
+
+\begin{equation}
+  \label{eq:vel_tras_rueda_r}
+  v_{Pr}(t)=\dot{x}(t)\cos(\theta(t))+\dot{y}(t)\sen(\theta(t))+b\dot{\theta(t)}
+\end{equation}
+ 
+
+En donde el término $\dot{x}(t)\cos(\theta(t))+\dot{y}(t)\sen(\theta(t))$ es la rapidez traslacional
+del centro del vehículo, y el término $b\dot{\theta}(t)$ corresponde al aporte en la velocidad dado
+por la rotación del robot, el cual se suma porque el giro en la dirección positiva de incremento de
+$\theta(t)$ (contraria a las manecillas del reloj) favorece el movimiento hacia adelante de la rueda
+derecha. De la restricción de rodamiento de las ruedas, se tiene que $v_{Tr}=v_{Pr}$, lo cual se
+muestra en (***).
 
 %ECUACIÓN RODADURA RUEDA DERECHA
 
-De manera análoga, para la rueda izquierda se tiene que $v_{Tl} = r\dot{\varphi_l}$ y que
-$v_{Pr}=\dot{x}\cos(\theta)+\dot{y}sen(\theta)-b\dot{\theta}$, en donde el aporte en la velocidad
-dada por la rotación del robot ($b\dot{\theta}$) se resta porque el giro en la dirección positiva de
-incremento de $\theta$ se opone al movimiento hacia adelante de la rueda izquierda. De la misma
-forma que para la rueda derecha, la restricción de rodamiento implica que se cumple que
-$v_{Tl}=v_{Pl}$, lo cual se presenta en la ecuación (***).
+De manera análoga, se tiene que la velocidad tangencial de la rueda izquierda corresponde a
+(\ref{eq:vel_tan_rueda_l}), y que la velocidad traslacional del punto en donde se encuentra ubicada
+dicha rueda es la mostrada en (\ref{eq:vel_tras_rueda_l}).
+
+\begin{equation}
+  \label{eq:vel_tan_rueda_l}
+  v_{Tl}(t) = r\dot{\varphi_l}(t) 
+\end{equation}
+
+\begin{equation}
+  \label{eq:vel_tras_rueda_l}
+  v_{Pr}(t)=\dot{x}(t)\cos(\theta(t))+\dot{y}(t)\sen(\theta(t))-b\dot{\theta}(t)
+\end{equation}
+
+
+En donde el aporte en la velocidad dada por la rotación del robot $b\dot{\theta}(t)$, se resta
+porque el giro en la dirección positiva de incremento de $\theta(t)$ se opone al movimiento hacia
+adelante de la rueda izquierda. De la misma forma que para la rueda derecha, la restricción de
+rodamiento implica que se cumple que $v_{Tl}=v_{Pl}$, lo cual se presenta en (***).
 
 %ECUACIÓN RODADURA RUEDA IZQUIERDA
 
 Con respecto a las restricciones descritas por las ecuaciones (***), (***) y (***), denominadas
 $f_1$, $f_2$ y $f_3$ respectivamente, se conoce que las mismas corresponden a restricciones no
 holonómicas (***Sarkar), ya que establecen condiciones sobre las derivadas de las coordenadas
-generalizadas a utilizar para el método de Euler-Lagrange, las cuales corresponden a $x$, $y$, $\theta$,
-$\varphi_r$ y $\varphi_l$. 
+generalizadas a utilizar para el método de Euler-Lagrange, las cuales corresponden a $x(t)$, $y(t)$,
+$\theta(t)$, $\varphi_r(t)$ y $\varphi_l(t)$.
 
-Estas restricciones no holonómicas estan asociadas a fuerzas generalizadas que mantienen el
+Estas restricciones no holonómicas están asociadas a fuerzas generalizadas que mantienen el
 movimiento bajo dichas condiciones (***REF), las cuales dependen de multiplicadores de Lagrange
 tal como se muestra en la ecuación (***), y que en este caso son $\lambda_1$, $\lambda_2$ y
 $\lambda_3$, correspondientes a $f_1$, $f_2$ y $f_3$ respectivamente. Dichas fuerzas generalizadas
@@ -600,18 +630,249 @@ modifican la ecuación de Lagrange para cada coordenada, tal como se describe en 
 de las cuales se obtendrá el modelo en variables de estado.
 
 Para el método de Lagrange, se tiene en primer lugar que la energía potencial asociada al sistema es
-constante, ya que el robot se mueve en un plano horizontal y no se consideran las posibles
-deformaciones elásticas del vehículo. De esta forma, el término que está asociado al cambio en la
-energía potencial en la ecuación de Lagrange (***Lagrange+Restricciones) para cada coordenada es
-cero ($\frac{\partial U}{\partial q_i} = 0$), de lo que se obtiene la ecuación
-\ref{eq:lagrange_restrict_final}, la cual se utilizará para la obtención de las ecuaciones del
-movimiento del sistema
+constante, ya que el centro de masa del robot se mueve en un plano horizontal y no se consideran las
+posibles deformaciones elásticas del vehículo, ni tampoco se presenta el comportamiento de péndulo
+invertido. De esta forma, el término que está asociado al cambio en la energía potencial en la
+ecuación de Lagrange (***Lagrange+Restricciones) para cada coordenada es cero
+($\frac{\partial U}{\partial q_i} = 0$), de lo que se obtiene la ecuación
+(\ref{eq:lagrange_restrict_final}), la cual se utilizará para la obtención de las ecuaciones del
+movimiento del sistema.
 
 \begin{equation}
   \frac{d}{dt}\left( \frac{\partial K}{\partial \dot{q_i}}\right) - \frac{\partial K}{\partial
     q_i} = Q_i + \sum_{k=1}^3 \lambda_k \frac{\partial f_k}{\partial \dot{q_i}}
   \label{eq:lagrange_restrict_final}
 \end{equation}
+
+De esta forma, se procede a obtener la energía cinética total del sistema, así como las fuerzas
+generalizadas correspondientes a cada coordenada, para luego obtener las ecuaciones del movimiento
+correspondientes.
+
+En primer lugar, si se estudia el movimiento del cuerpo del vehículo sin las ruedas (de masa $m_c$),
+se puede calcular la energía cinética correspondiente a esta porción del robot. Para el componente
+traslacional, se considera que dicho cuerpo sólido es equivalente a una partícula de masa $m_c$ que
+se encuentra ubicada en el centro de masa del cuerpo, localizado a una distancia $s$ en línea
+recta con el centro geométrico del robot, el cual se toma en medio de las dos ruedas. %Referenciar
+                                %imagen
+Se tiene entonces que la posición que permite ubicar al centro de masa es la mostrada en (***). De
+dicho punto se puede obtener la velocidad del centro de masa (\ref{eq:vel_centro_masa}), a partir de
+la cual se obtiene la energía cinética traslacional, que corresponde a la expresión de (\ref{eq:k_tras_cuerpo}).
+
+%ECUACION PUNTO CENTRO DE MASA
+
+\begin{equation}
+ \mathbf{\dot{p_g}}(t)= \left[ \begin{array}{c} \dot{x_g}(t) \\ \dot{y_g}(t) \end{array} \right] = \left[
+    \begin{array}{c} \dot{x}(t)-s\sen(\theta(t))\dot{\theta}(t) \\ \dot{y}(t)+s\cos(\theta(t))\dot{\theta}(t) \end{array} \right]
+  \label{eq:vel_centro_masa}  
+\end{equation}
+
+\begin{equation}
+  \label{eq:k_tras_cuerpo}
+  K_{Ctr} = \frac{1}{2}m_c \left\lVert \mathbf{\dot{p_g}}\right\rVert^2 = \frac{1}{2}m_c \left( \dot{x_g}(t)^2 + \dot{y_g}(t)^2 \right)
+\end{equation}
+
+Para el componente rotacional, se tiene que la energía cinética asociada al cuerpo
+corresponde a la rotación relacionada con $\theta(t)$ alrededor del centro de masa como
+eje (en donde se tiene un  momento de inercia $I_o$), ya que este punto se toma como referencia para la
+obtención de la energía total del cuerpo (traslacional y rotacional). De esta forma, la energía
+cinética rotacional del cuerpo corresponde a la ecuación (\ref{eq:k_rot_cuerpo}).
+
+\begin{equation}
+  \label{eq:k_rot_cuerpo}
+  K_{Cro} = \frac{1}{2}I_o\dot{\theta}(t)^2
+\end{equation}
+
+Al sumar las energías cinéticas de las ecuaciones (\ref{eq:k_tras_cuerpo}) y
+(\ref{eq:k_rot_cuerpo}), se obtiene la energía cinética del cuerpo del vehículo, tal como se muestra
+en (***), en donde se sustituyeron las variables $\dot{x_g}(t)$ y $\dot{y_g}(t)$ en términos de
+$x(t)$, $y(t)$ y $\theta(t)$, para luego simplificar algebraicamente la expresión.
+
+
+%ECUACIÓN ENERGÍA CINÉTICA CUERPO
+
+Para calcular la energía cinética asociada a la rueda derecha de masa $m_w$, se obtiene en primer
+lugar la expresión para la posición de dicha rueda, a partir de la constitución geométrica del
+vehículo, lo cual se muestra en la ecuación (\ref{eq:pos_rueda_r}).
+
+\begin{equation}
+  \label{eq:pos_rueda_r}
+  \mathbf{p_r}(t)= \left[ \begin{array}{c} x_r(t) \\ y_r(t) \end{array} \right] = \left[
+    \begin{array}{c} x(t)+b\sen(\theta(t)) \\ y(t)-b\cos(\theta(t)) \end{array} \right]
+\end{equation}
+
+A partir de posición de la rueda derecha, se calcula el vector de velocidad asociado
+$\mathbf{\dot{p_r}}(t)$, con el cual se obtiene la energía cinética traslacional de esta rueda, la
+cual se expresa en la ecuación (\ref{eq:k_tras_rueda_r}).
+
+\begin{equation}
+  \label{eq:k_tras_rueda_r}
+  K_{Rtr}=\frac{1}{2}m_w\left(\dot{x_r}(t)^2 + \dot{y_r}(t)^2\right)
+\end{equation}
+
+Con respecto al componente de energía cinética rotacional, es importante notar que esta rueda gira
+tanto por la rotación sobre su eje central $\dot{\varphi_r}(t)$, asociada a $I_w$, como debido al
+cambio en la orientación del robot $\dot{\theta}(t)$, en donde se tiene que la rueda gira sobre un
+eje definido por un diámetro, lo cual corresponde al momento de inercia $I_m$. De esta manera, se
+obtiene la energía cinética rotacional de la rueda derecha tal como se muestra en la ecuación
+(\ref{eq:k_rot_rueda_r}).
+
+\begin{equation}
+  \label{eq:k_rot_rueda_r}
+  K_{Rro}= \frac{1}{2}I_w\dot{\varphi_r}(t)^2 + \frac{1}{2}I_m\dot{\theta}(t)^2
+\end{equation}
+
+De esta manera, al sumar las energías cinéticas de las ecuaciones (\ref{eq:k_tras_rueda_r}) y
+(\ref{eq:k_rot_rueda_r}), y sustituyendo las variables $\dot{x_r}$ y $\dot{y_r}$ en términos de
+$x(t)$, $y(t)$ y $\theta(t)$, se obtiene la energía cinética total de la rueda derecha, la cual se
+presenta en la ecuación (***).
+
+%ECUACIÓN ENERGÍA CINÉTICA RUEDA DERECHA
+
+De manera análoga, a partir de la expresión para el vector de posición de la rueda izquierda
+mostrada en la ecuación (\ref{eq:pos_rueda_l}), en conjunto con el mismo análisis realizado para la
+obtención de la energía cinética en la rueda derecha, se llega a la energía cinética total de la
+rueda izquierda, mostrada en la ecuación (***).
+
+\begin{equation}
+  \label{eq:pos_rueda_l}
+  \mathbf{p_l}(t)= \left[ \begin{array}{c} x_l(t) \\ y_l(t) \end{array} \right] = \left[
+    \begin{array}{c} x(t)-b\sen(\theta(t)) \\ y(t)+b\cos(\theta(t)) \end{array} \right]
+\end{equation}
+
+%ECUACIÓN ENERGÍA CINÉTICA RUEDA IZQUIERDA
+
+A partir de las energías del cuerpo del robot y de las ruedas, se obtiene la energía cinética total
+del sistema como $K_t = K_c + K_r + K_l $, de lo cual al simplificar algebraicamente los términos se
+obtiene la ecuación (***)
+
+%ECUACIÓN ENERGÍA TOTAL SISTEMA
+
+Si se establecen las definiciones descritas por (***) y (***), la ecuación (***) se simplifica
+obteniéndose la expresión de (***).
+
+A continuación, para obtener las ecuaciones del movimiento se expresa la ecuación de Lagrange
+(\ref{eq:lagrange_restrict_final}) respectiva para cada coordenada. De esta forma, para cada una de
+estas se calculan los términos relacionados con la energía cinética a partir de la ecuación (***),
+la fuerza generalizada, y la sumatoria de términos correspondientes a las restricciones del
+movimiento descritas por las ecuaciones (***), (***) y (***). 
+
+Con respecto a las fuerzas generalizadas, que corresponden a factores externos que modifican la
+energía del sistema, se tiene que para las coordenadas $x(t)$, $y(t)$ y $\theta(t)$ estas fuerzas
+son nulas, ya que no hay ningún factor externo que modifique la energía del sistema por medio de
+dichas coordenadas (no hay trabajo realizado sobre el sistema por medio de estas).
+
+Sin embargo, para las coordenadas $\varphi_r(t)$ y $\varphi_l(t)$, existe respectivamente un torque
+neto en cada rueda que modifica la energía del sistema al variar dichas posiciones angulares
+(***REF), ya que un par de torsión aplicado sobre un cuerpo que se mueve con cierta rapidez angular
+implica que está presente una potencia mecánica. Por esta razón, los torques $\tau_r$ y $\tau_l$
+son las fuerzas generalizadas correspondientes a $\varphi_r(t)$ y $\varphi_l(t)$,
+respectivamente.
+
+Al calcular los términos indicados para cada coordenada, y al expresar la ecuación de Lagrange para
+cada una de estas, se obtiene un sistema de ecuaciones diferenciales no lineal en donde es necesario
+encontrar (o eliminar) los multiplicadores de Lagrange $\lambda_1$, $\lambda_2$ y $\lambda_3$. Este
+sistema se muestra en (***), para el cual se procederá a eliminar estas incógnitas.
+
+%SISTEMA MULTIPLICADORES LAGRANGE
+
+Al multiplicar la ecuación (***) por $\cos(\theta(t))$ y al sumarle la ecuación (***) multiplicada
+por $\sen(\theta(t))$, y luego de simplificar la expresión algebraica, se obtiene (***).
+
+Sumando las ecuaciones (***) y (***), se obtiene la expresión para $\lambda_2+\lambda_3$ que se
+muestra en la ecuación (***).
+.
+%ECUACIÓN LAMBDA_2+LAMBDA_3
+
+Se define la expresión de la ecuación \ref{eq:vel_tras_robot}, la cual corresponde a la magnitud de
+la velocidad traslacional del vehículo, y que además está restringida a presentar la dirección sobre
+la línea definida por $\theta(t)$.
+
+\begin{equation}
+  \label{eq:vel_tras_robot}
+  v(t)=\dot{x}(t)cos(\theta(t))+\dot{y}(t)sen(\theta(t))
+\end{equation}
+
+Derivando la ecuación \ref{eq:vel_tras_robot}, se calcula una expresión para la aceleración
+traslacional del robot, la cual se simplifica a la ecuación mostrada en (***), al aplicar la
+condición de no deslizamiento lateral descrita por (***).
+
+\begin{equation}
+  \label{eq:acel_tras_robot}
+  \dot{v}(t) = \ddot{x}(t)cos(\theta(t)) + \ddot{y}(t)\sen(\theta(t))
+\end{equation}
+
+Al sustituir (***) y (***) en (***), se obtiene la ecuación del movimiento (***), en la cual se
+lograron eliminar los multiplicadores de Lagrange.
+
+%ECUACIÓN A
+
+Por otro lado, al restar las ecuaciones (***) y (***) se obtiene una expresión para
+$\lambda_3-\lambda_2$, la cual se presenta en (***).
+
+%ECUACIÓN LAMBDA_3-LAMBDA_2
+
+Sustituyendo (***) en (***), se llega a otra ecuación del movimiento en donde se eliminaron los
+multiplicadores de Lagrange.
+
+Para simplificar aún más las ecuaciones del movimiento, se toman las ecuaciones de las restricciones
+de la condición de rodadura para cada llanta, que corresponden a (***) y (***). Al sumar dichas
+ecuaciones y derivar el resultado, se obtiene (***), mientras que al restar estas ecuaciones y al
+derivar la expresión obtenida, se llega a la ecuación (***). Por otro lado, al derivar la ecuación
+de la restricción de no deslizamiento lateral (***), se obtiene la expresión mostrada en (***).
+
+%ECUACIÓN C
+
+%ECUACIÓN D
+
+%ECUACIÓN E
+
+También, se definen las expresiones mostradas en (***) y (***), que pueden interpretarse
+respectivamente como la fuerza ($F$) y el torque ($T$) totales aplicados sobre el sistema, que son
+producto de los torques netos en las ruedas. 
+
+%ECUACIÓN F
+
+%ECUACIÓN T
+
+De esta forma, sustituyendo (***) y (***) en (***), se obtiene la ecuación (***), mientras que
+sustituyendo (***) y (***) en (***), se llega a la ecuación (***). Estas ecuaciones corresponden a
+las ecuaciones del movimiento del sistema. Finalmente, para simplificarlas aún más se definen (***)
+y (***), las cuales se pueden interpretar como la masa ($D$) y el momento de inercia ($J$)
+equivalentes del sistema. Al sustituir dichas expresiones de $D$ y $J$ en las ecuaciones del
+movimiento (***) y (***), se obtienen las expresiones finales que corresponden a $\dot{v}(t)$ y a
+$\dot{\omega}(t)$, en donde $\omega(t) = \dot{\theta}(t)$.
+
+%ECUACIÓN D
+%ECUACIÓN J
+
+Se define entonces el vector de estados, tal como se muestra en la ecuación (***).
+
+
+
+%MVE
+
+
+% Modelado de la fricción
+
+
+\begin{equation}
+  \label{eq:vect_estados}
+  \mathbf{X}(t)= \left[ \begin{array}{c} x(t) \\ y(t) \\ \theta(t) \\ v(t) \\ \omega(t)  \end{array} \right]
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
