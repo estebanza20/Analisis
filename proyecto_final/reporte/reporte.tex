@@ -545,24 +545,24 @@ Se logró exitosamente simular el sistema descrito. En las simulaciones se obtien
 
 \begin{equation}
 \label{eq:restriccion_1}
-f_1  =  \dot{x}sen(\theta) -\dot{y}cos(\theta) = 0 
+f_1  =  \dot{x}(t)sen(\theta(t)) -\dot{y}(t)cos(\theta(t)) = 0 
 \end{equation}
 
 \begin{equation}
 \label{eq:restriccion_2}
-f_2 =  \dot{x}cos(\theta) + \dot{y}sen(\theta) + b \theta - r \dot{\varphi_{r}} = 0 \\
+f_2 =  \dot{x}(t)cos(\theta(t)) + \dot{y}(t)sen(\theta(t)) + b \theta(t) - r \dot{\varphi_{r}(t)} = 0 \\
 \end{equation}
 
 \begin{equation}
 \label{eq:restriccion_3}
-f_3  =  \dot{x}cos(\theta) + \dot{y}sen(\theta) - b \theta - r \dot{\varphi_{L}} = 0 \\
+f_3  =  \dot{x}(t)cos(\theta(t)) + \dot{y}(t)sen(\theta(t)) - b \theta(t) - r \dot{\varphi_{l}(t)} = 0 \\
 \end{equation}
 
 \subsection{Posición del Vehículo}
 \begin{equation}
-p_r = \left[ \begin{array}{c}
-X_g  $ = $ X + s cos \left( \theta \right)\\
-Y_g $ = $ Y + s sen\left( \theta \right) \\
+p_r(t) = \left[ \begin{array}{c}
+X_g(t)  $ = $ X(t) + s cos \left( \theta(t) \right)\\
+Y_g $ = $ Y(t) + s sen\left( \theta(t) \right) \\
 \end{array} \right]
 \label{Posición_carrito}
 \end{equation}
@@ -620,6 +620,25 @@ T_t =
  \frac{I_{\omega}}{2} \left(\dot{\varphi_{r}}^2 + \dot{\varphi_{l}}^2 \right)
 \end{equation}
 
+\begin{equation}
+\label{eq:mul_lagrange}
+\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{q_1}}\right) - \left(\frac{\partial k}{\partial q_1}\right)= \left(\frac{\partial U}{\partial q_1}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{q_1}}
+\end{equation}
+
+\begin{equation}
+\label{eq:mul_lagrange_0}
+\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{\theta}}\right) - \left(\frac{\partial k}{\partial  \theta}\right)= \left(\frac{\partial U}{\partial \theta}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{\theta}}
+\end{equation}
+
+\begin{equation}
+\label{eq:mul_lagrange_x}
+\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{x}}\right) - \left(\frac{\partial k}{\partial x}\right)= \left(\frac{\partial U}{\partial x}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{x}}
+\end{equation}
+
+\begin{equation}
+\label{eq:mul_lagrange_y}
+\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{y}}\right) - \left(\frac{\partial k}{\partial y}\right)= \left(\frac{\partial U}{\partial y}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{y}}
+\end{equation}
 
 \begin{eqnarray*}
 Sistema por resolver
