@@ -1133,8 +1133,40 @@ angular de cambio en la orientación del robot $\omega(t)$ y las ecuaciones (\ref
 \end{empheq}
 \end{subequations}
 
+Además, para completar la definición formal del modelo en variables de estado, las salidas de
+interés del sistema se indican mediante la ecuación (\ref{eq:salidas_mve_dinamico}), y las entradas del
+mismo mediante el vector indicado en (\ref{eq:entradas_mve_dinamico}).
 
-%& \dot{\varphi_r}(t) =\frac{v(t)}{r} + \frac{b}{r} \omega(t) \label{eq:phi_r_dot_mve}\\
+\begin{equation}
+  \label{eq:salidas_mve_dinamico}
+  \mathbf{Y}(t) = \left[
+    \begin{array}{c}
+      x(t)\\y(t)\\\theta(t)\\v(t)\\\omega(t)\\\dot{\varphi_r}(t)\\\dot{\varphi_l}(t)
+    \end{array}
+\right] 
+= \left[\begin{array}{c c c c c}
+  1 &0 &0 &0 &0 \\
+  0 &1 &0 &0 &0 \\
+  0 &0 &1 &0 &0 \\
+  0 &0 &0 &1 &0 \\
+  0 &0 &0 &0 &1 \\
+  0 &0 &0 &\frac{1}{r} & \frac{b}{r} \\
+  0 &0 &0 &\frac{1}{r} & -\frac{b}{r} \\
+\end{array} \right] \mathbf{X}(t) 
+\end{equation}
+
+\begin{equation}
+  \label{eq:entradas_mve_dinamico}
+  \mathbf{U}(t) = \left[ 
+    \begin{array}{c}
+      \tau_r(t)\\\tau_l(t)
+    \end{array}
+  \right]
+\end{equation}
+
+
+
+% \dot{\varphi_r}(t) =\frac{v(t)}{r} + \frac{b}{r} \omega(t) \label{eq:phi_r_dot_mve}\\
 %& \dot{\varphi_l}(t)= \frac{v(t)}{r} - \frac{b}{r} \omega(t) \label{eq:phi_l_dot_mve}
 %, y las ecuaciones
 %(\ref{eq:phi_r_dot_mve}) y (\ref{eq:phi_l_dot_mve}) se obtienen de las restricciones
