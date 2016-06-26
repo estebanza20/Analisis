@@ -352,9 +352,10 @@ Elástica (Resorte) & $\frac{1}{2}k{d}^2$ \\ \bottomrule
 El modelado de la tracción delantera de un robot movil es una condición no holonómica  que esta sujeto a una serie de restricciones p no integrables que involucran las derivadas con respecto al tiempo del vector de configuración q y estas toman la forma de la ecuación  \eqref{no_holonomico}
 
 \begin{equation}
-\label{no_holonomico}
-G \left(( q\right)q = 0 
+\label{eq:mul_lagrange}
+\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{q_1(t)}}\right) - \left(\frac{\partial k}{\partial q_1(t)}\right)= \left(\frac{\partial U}{\partial q_1(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{q_1}(t)}
 \end{equation}
+
 
 \subsection{Algoritmo de punto descentralizado}
 El algoritmo de punto descentralizado consiste en establecer un punto separado del eje de tracción una distancia $e$ con el fin de que este defina la trayectoria deseada, de esta forma el robot gira con antelación de forma que, cuando termine de girar, su origen se encuentre sobre la trayectoria deseada. Para esto se define la ecuación \ref{eq:punto_descentralizado} el cual relaciona las velocidades de las ruedas con la velocidad global del carrito.\cite{punisher}
@@ -1406,13 +1407,6 @@ Se logró exitosamente simular el sistema descrito. En las simulaciones se obtien
 
 
 \section{Apéndice Ecuaciones}
-
-
-
-\begin{equation}
-\label{eq:mul_lagrange}
-\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{q_1(t)}}\right) - \left(\frac{\partial k}{\partial q_1(t)}\right)= \left(\frac{\partial U}{\partial q_1(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{q_1}(t)}
-\end{equation}
 
 
 \begin{eqnarray}
