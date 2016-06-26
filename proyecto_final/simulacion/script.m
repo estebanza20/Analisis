@@ -6,7 +6,7 @@
 
 save = 0;
 %la variable simulacion es para determinar la entrada al modelo
-simulacion=0;
+simulacion=2;
 t=0:0.01:20;
 if simulacion==0
     %generar un cradrado a rapidez constante
