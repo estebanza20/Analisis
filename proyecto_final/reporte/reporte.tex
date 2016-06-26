@@ -1116,26 +1116,36 @@ Se define entonces el vector de estados, el cual se muestra en la ecuación (\ref
 \end{equation}
 
 De esta manera, en (\ref{eq:mve_dinamico}) se presentan las derivadas de los estados del modelo en
-variables de estado no lineal que describe al sistema, en donde las ecuaciones (\ref{eq:x_dot_mve}) y
-(\ref{eq:y_dot_mve}) corresponden a los componentes de la velocidad del centro geométrico sobre los
-ejes cartesianos, la ecuación (\ref{eq:theta_dot_mve}) resulta de la definición de la rapidez
-angular de cambio en la orientación del robot $\omega(t)$ y las ecuaciones (\ref{eq:v_dot_mve}) y
-(\ref{eq:omega_dot_mve}) se obtienen del análisis dinámico del sistema descrito previamente.
+variables de estado no lineal que describe al sistema, en donde las ecuaciones de $\dot{x}(t)$ y
+$\dot{y}(t)$ corresponden a los componentes de la velocidad del centro geométrico sobre los
+ejes cartesianos, la ecuación de $\dot{\theta}(t)$ resulta de la definición de la rapidez
+angular de cambio en la orientación del robot $\omega(t)$ y las ecuaciones de $\dot{v}(t)$ y
+$\dot{\omega}(t)$ se obtienen del análisis dinámico del sistema descrito previamente.
 
-\begin{subequations}
+\begin{equation}
   \label{eq:mve_dinamico}
-  \begin{empheq}[left = \empheqlbrace]{align}
-& \dot{x}(t) = v(t)\cos\left(\theta(t)\right) \label{eq:x_dot_mve}\\
-& \dot{y}(t) = v(t)\sin\left(\theta(t)\right) \label{eq:y_dot_mve}\\
-& \dot{\theta}(t) = \omega(t)\label{eq:theta_dot_mve}\\
-& \dot{v}(t)=\frac{m_c s}{D} \omega(t)^2 - \frac{2 B}{Dr^2}v(t)  + \frac{F(t)}{D} \label{eq:v_dot_mve}\\
-& \dot{\omega}(t) = \frac{-m_c s}{J}\omega(t)v(t) - \frac{2 B b^2}{Jr^2}\omega(t)  + \frac{T(t)}{J} \label{eq:omega_dot_mve}\\
-\end{empheq}
-\end{subequations}
+   \mathbf{\dot{X}}(t) = \left[\begin{array}{c}
+      \dot{x}(t)\\\dot{y}(t)\\\dot{\theta}(t)\\\dot{v}(t)\\\dot{\omega}(t)
+    \end{array}\right]
+  = \left[\begin{array}{c}
+      v(t)\cos\left(\theta(t)\right) \\
+      v(t)\sen\left(\theta(t)\right) \\
+      \omega(t)\\
+      \frac{m_c s}{D} \omega(t)^2 - \frac{2 B}{Dr^2}v(t)  + \frac{F(t)}{D} \\
+      \frac{-m_c s}{J}\omega(t)v(t) - \frac{2 B b^2}{Jr^2}\omega(t)  + \frac{T(t)}{J}
+    \end{array}\right]
+%& \dot{x}(t) = v(t)\cos\left(\theta(t)\right) \label{eq:x_dot_mve}\\
+%& \dot{y}(t) = v(t)\sin\left(\theta(t)\right) \label{eq:y_dot_mve}\\
+%& \dot{\theta}(t) = \omega(t)\label{eq:theta_dot_mve}\\
+%& \dot{v}(t)=\frac{m_c s}{D} \omega(t)^2 - \frac{2 B}{Dr^2}v(t)  + \frac{F(t)}{D} \label{eq:v_dot_mve}\\
+%& \dot{\omega}(t) = \frac{-m_c s}{J}\omega(t)v(t) - \frac{2 B b^2}{Jr^2}\omega(t)  + \frac{T(t)}{J} \label{eq:omega_dot_mve}\\
+\end{equation}
 
 Además, para completar la definición formal del modelo en variables de estado, las salidas de
-interés del sistema se indican mediante la ecuación (\ref{eq:salidas_mve_dinamico}), y las entradas del
-mismo mediante el vector indicado en (\ref{eq:entradas_mve_dinamico}).
+interés del sistema se indican mediante la ecuación (\ref{eq:salidas_mve_dinamico}), en donde se
+incluyen las velocidades angulares de las ruedas, obtenidas en términos de los estados con base en
+(\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}). Por otro lado, las entradas del sistema se
+presentan mediante el vector indicado en (\ref{eq:entradas_mve_dinamico}).
 
 \begin{equation}
   \label{eq:salidas_mve_dinamico}
