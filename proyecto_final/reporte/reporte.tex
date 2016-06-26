@@ -116,7 +116,7 @@ realizaron las simulaciones correspondientes para cada modelo, para luego analiz
         \item[$\omega$] Velocidad angular [$rad/s$]
         \item[$k$] Constante de un resorte traslacional [$N/m$]
         \item[$d$] Elongación de un resorte traslacional [$m$]
-        \item[$h$] Altura del centro de masa de un cuerpo con respecto a la referencia [$m$]
+        \item[$h$] Altura del centro de masa de un cuerpo [$m$]
         \item[$g$] Constante de la gravedad terrestre [$m/s^2$]
         \item[$p_0$] Posición del centro geométrico (punto entre las ruedas) [$m$]
         \item[$p_d$] Posición del punto descentralizado [$m$]
@@ -349,6 +349,7 @@ Elástica (Resorte) & $\frac{1}{2}k{d}^2$ \\ \bottomrule
 \end{tabular}
 \end{table}
 
+
 El modelado de la tracción delantera de un robot movil es una condición no holonómica  que esta sujeto a una serie de restricciones p no integrables que involucran las derivadas con respecto al tiempo del vector de configuración q y estas toman la forma de la ecuación  \eqref{no_holonomico}
 
 \begin{equation}
@@ -357,40 +358,12 @@ El modelado de la tracción delantera de un robot movil es una condición no holon
 \end{equation}
 
 
-\subsection{Algoritmo de punto descentralizado}
-El algoritmo de punto descentralizado consiste en establecer un punto separado del eje de tracción una distancia $e$ con el fin de que este defina la trayectoria deseada, de esta forma el robot gira con antelación de forma que, cuando termine de girar, su origen se encuentre sobre la trayectoria deseada. Para esto se define la ecuación \ref{eq:punto_descentralizado} el cual relaciona las velocidades de las ruedas con la velocidad global del carrito.\cite{punisher}
-
-\begin{equation}
-\left[\begin{array}{c}
-x_p \\
-y_p \\
-\end{array}\right] =
-\left[\begin{array}{c}
-x_m + e\cos\left(\theta \right)\\
-y_m + e\sin\left(\theta \right)
-\end{array} \right]
-\end{equation}
-
-\begin{equation}
-\label{eq:punto_descentralizado}
-\left[\begin{array}{c}
-v_l\\
-v_r\\
-\end{array} \right] =
-\frac{1}{e} \left[\begin{array}{c}
-e\cos\left(\theta\right) + 0.5b\sin\left(\theta\right) \ e\sin\left(\theta\right) - 0.5b\cos\left(\theta\right) \\
-e\cos\left(\theta\right) - 0.5b\sin\left(\theta\right) \ e\sin\left(\theta\right) + 0.5b\cos\left(\theta\right)
-\end{array}\right]
-\left[\begin{array}{c}
-\dot{x_p}\\
-\dot{y_p}
-\end{array} \right]
-\end{equation}
-
 \subsection{Sistemas subactuados}
-Un sistema subactuado ocurre cuando existen menos actuadores que grados de libertad, es decir una sola entrada controla movimientos distintos e independientes del robot. Una ventaja de estos sistemas es que al utilizar menos actuadores consumen menos energía sin embargo el control se vuelve un poco más complejo
+Un sistema subactuado es aquel en el cual existen menos actuadores que grados de libertad \citep{Conejo}, es decir una sola entrada controla movimientos distintos e independientes del robot . Una ventaja de estos sistemas es que al utilizar menos actuadores consumen menos energía sin embargo el control se vuelve un poco más complejo. 
 
-\section{Modelado y simulación}
+
+\section{Modelado del sistema}
+
 Se procede a obtener el modelo cinemático (directo e inverso) y  el modelo dinámico de un robot de
 dos ruedas, para lo cual se toman las siguientes consideraciones generales:
 \begin{itemize}
@@ -661,7 +634,6 @@ La obtención del modelo dinámico se fundamenta en la aplicación del método de Eu
 considerando las restricciones propias del sistema del robot diferencial de dos ruedas.
 
 %IMAGEN ROBOT
-
 
 
 A partir de la condición de no deslizamiento hacia los lados, se obtiene que el componente de la
@@ -1182,10 +1154,10 @@ Se define entonces el vector de estados, el cual se muestra en la ecuación (\ref
   \mathbf{X}(t)= \left[ \begin{array}{c} x(t) \\ y(t) \\ \theta(t) \\ v(t) \\ \omega(t) \end{array} \right]
 \end{equation}
 
-De esta manera, en (\ref{eq:mve_dinamico}) se presentan las derivadas de los estados del modelo en
-variables de estado no lineal que describe al sistema, en donde las ecuaciones de $\dot{x}(t)$ y
-$\dot{y}(t)$ corresponden a los componentes de la velocidad del centro geométrico sobre los
-ejes cartesianos, la ecuación de $\dot{\theta}(t)$ resulta de la definición de la rapidez
+De esta manera, en (\ref{eq:mve_dinamico}) se presentan las derivadas de los estados del
+modelo en variables de estado no lineal que describe al sistema, en donde las ecuaciones de
+$\dot{x}(t)$ y $\dot{y}(t)$ corresponden a los componentes de la velocidad del centro geométrico
+sobre los ejes cartesianos, la ecuación de $\dot{\theta}(t)$ resulta de la definición de la rapidez
 angular de cambio en la orientación del robot $\omega(t)$ y las ecuaciones de $\dot{v}(t)$ y
 $\dot{\omega}(t)$ se obtienen del análisis dinámico del sistema descrito previamente.
 
@@ -1241,22 +1213,8 @@ presentan mediante el vector indicado en (\ref{eq:entradas_mve_dinamico}).
   \right]
 \end{equation}
 
+\section{Análisis y simulaciones}
 
-
-% \dot{\varphi_r}(t) =\frac{v(t)}{r} + \frac{b}{r} \omega(t) \label{eq:phi_r_dot_mve}\\
-%& \dot{\varphi_l}(t)= \frac{v(t)}{r} - \frac{b}{r} \omega(t) \label{eq:phi_l_dot_mve}
-%, y las ecuaciones
-%(\ref{eq:phi_r_dot_mve}) y (\ref{eq:phi_l_dot_mve}) se obtienen de las restricciones
-%correspondientes a (\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}), expresadas en términos de los
-%estados definidos.
-
-
-
-
-% Modelado de la fricción
-
-
-\section{Análisis}
 \subsection{Modelo Cinemático}
 Se realizaron tres simulaciones. Las tres se diferencian porque se tiene el mismo proceso pero con entradas distintas. Primero se explica el proceso, y luego las entradas. 
 
@@ -1401,6 +1359,12 @@ Para poder generar la primera trayectoria se utilizan escalones en la entrada. L
 	\label{fig:evaluacion_de_la_restriccion_cuadrado}
 \end{figure}
 
+
+
+\subsection{Modelo dinámico}
+
+
+
 \section{Conclusiones y Recomendaciones}
 
 Se logró exitosamente simular el sistema descrito. En las simulaciones se obtienen los resultados observados en el sistema real.
@@ -1413,7 +1377,7 @@ Se logró exitosamente simular el sistema descrito. En las simulaciones se obtien
 I_c = 15.625 Kg.m^2\\
 I_{\omega}= 0.005 kg.m^2\\
 I_m = 0.0025 kg. m^2\\
-b = 0.75
+b = 0.75 \\
 d = s = 0.3 m\\
 m_c = 30 kg\\
 m_{\omega} = 1 kg\\
