@@ -83,8 +83,8 @@ realizaron las simulaciones correspondientes para cada modelo, para luego analiz
 \begin{description}[labelindent=1cm,labelwidth=2.25cm,align=left]
 %ponerlo en orden alfabetico
         \item[$L$] Lagrangiano de un sistema
-        \item[$T$] Energía cinética de un sistema
-        \item[$V$] Energía potencial de un sistema
+        \item[$K$] Energía cinética de un sistema
+        \item[$U$] Energía potencial de un sistema
         \item[$q_j$] Coordenada generalizada
         \item[$Q_j$] Fuerza generalizada
         \item[$n$] Cantidad de grados de libertad de un sistema
@@ -97,7 +97,7 @@ realizaron las simulaciones correspondientes para cada modelo, para luego analiz
         \item[$h$] Altura del centro de masa de un cuerpo con respecto a la referencia
         \item[$g$] Constante de la gravedad terrestre
         \item[$p_0$] Posición del centro geométrico
-        \item[$p_d$] Posición del punto desplazado
+        \item[$p_d$] Posición del punto descentralizado
         \item[$p_g$] Posición del centro de masa
         \item[$2b$]  Ancho del robot
         \item[$p_r$] Posición de la rueda derecha
@@ -279,7 +279,7 @@ independientes entre sí \citep{fitzpatrick2011}. Por otro lado, los grados de li
 cantidad de coordenadas que pueden ser modificadas de manera independiente para determinar la
 configuración de los cuerpos en el sistema \citep{vandiver2011}.
 
-El Lagrangiano, definido como $L=T-V$, es función de las coordenadas generalizadas y de sus
+El Lagrangiano, definido como $L=K-U$, es función de las coordenadas generalizadas y de sus
 respectivas derivadas \citep{gavin2014}, tal como se muestra en la ecuación \ref{eq:lagrangian}, en
 donde $n$ es la cantidad de grados de libertad del sistema.
 
@@ -318,16 +318,45 @@ dichas energías para sistemas mecánicos.
 \label{tab:energias}
 \begin{tabular}{@{}ll@{}}
 \toprule
-\multicolumn{2}{l}{\textbf{Energía cinética (T)}} \\ \midrule
+\multicolumn{2}{l}{\textbf{Energía cinética (K)}} \\ \midrule
 Traslacional & $\frac{1}{2} m {\left\lVert \vec{v} \right\rVert}^2  $   \\ \midrule
 Rotacional & $\frac{1}{2} J {\omega}^2$ \\ \midrule
-\multicolumn{2}{l}{\textbf{Energía potencial (V)}} \\ \midrule
+\multicolumn{2}{l}{\textbf{Energía potencial (U)}} \\ \midrule
 Gravitacional & $mgh$ \\ \midrule
-Elástica (Resorte) & $\frac{1}{2}k{x}^2$ \\ \bottomrule
+Elástica (Resorte) & $\frac{1}{2}k{d}^2$ \\ \bottomrule
 \end{tabular}
 \end{table}
 
 \section{Modelado y simulación}
+Se procede a obtener el modelo cinemático (directo e inverso) y  el modelo dinámico de un robot de
+dos ruedas, para lo cual se toman las siguientes consideraciones generales:
+\begin{itemize}
+\item El robot no se desliza hacia los lados, de modo que solo se puede desplazar en la dirección
+  definida por el frente del mismo.
+\item La rapidez traslacional del robot sobre el punto en donde se ubica cada rueda, es igual a la
+  rapidez tangencial de la rueda respectiva en contacto con el suelo, lo cual corresponde a la
+  condición de rodadura.
+\item El robot sólamente puede perder energía debido a la fricción en los ejes de cada rueda, la
+  cual se considera viscosa para simplificar la obtención del modelo.
+\item No existen fuerzas externas aplicadas al robot excepto por la fuerza asociada al torque de los
+  motores, ni tampoco se presentan colisiones con otros posibles cuerpos externos al sistema. De
+  esta forma, el movimiento del robot está completamente determinado por su dinámica y por la fuerza
+  aplicada por los motores.
+\item El movimiento que describe el robot se lleva a cabo sobre una superficie plana, de manera que
+  no hay cambios energéticos debidos a la acción del campo gravitacional terrestre sobre el robot.
+\item El cuerpo del vehículo es no deformable, de modo que no se acumula energía potencial debido a
+  elasticidad ni se dan pérdidas de energía debido a la deformación de las llantas o el cuerpo del
+  robot.
+\item No se consideran las limitaciones relacionadas con la potencia máxima que pueden entregar los motores
+  de cada rueda, de manera que los mismos pueden generar pares de torsión muy grandes que cambian de
+  manera abrupta.
+ \item La distribución de masa del robot es uniforme. %simétrica con respecto a la línea central definida por el
+  % frente del vehículo, de manera que tanto el centro de masa como el centro geométrico se encuentran
+  % sobre dicha línea.  
+\item El cuerpo del robot no se comporta como un péndulo invertido, ya que presenta el soporte
+  adecuado para mantenerse estable sin balancearse.
+\end{itemize}
+
 \subsection{Modelo cinemático}
 \subsubsection{Modelo directo}
 
@@ -545,7 +574,7 @@ A^{-1}(t)=
 
 
 %IMPORTANTE definir centro geometrico. Puede que sea distinto al punto medio entre las llantas!
-Para analizar el comportamiento del centro geométrico del robot, y el punto desplazado, se debe encontrar una transformación que los relacione. De esta manera se puede verificar qeu al controlar el punto desplazado, se logra un control indirecto sobre el centro geométrico, y que la orientación del robot se adapta, conforme el robot avanza en la trayectoria. Sustituyendo (\ref{eq:kinematic_model}) en (\ref{eq:desplazado_inverso}) se obtiene (\ref{eq:desplazado_contra_centro}), que es la relación entre la velocidad en el punto desplazado (que se puede controlar) y el centro geométrico (sobre el qeu no se tiene control completo).
+Para analizar el comportamiento del centro geométrico del robot, y el punto desplazado, se debe encontrar una transformación que los relacione. De esta manera se puede verificar qeu al controlar el punto desplazado, se logra un control indirecto sobre el centro geométrico, y que la orientación del robot se adapta, conforme el robot avanza en la trayectoria. Sustituyendo (\ref{eq:kinematic_model}) en (\ref{eq:desplazado_inverso}) se obtiene (\ref{eq:desplazado_contra_centro}), que es la relación entre la velocidad en el punto desplazado (que se puede controlar) y el centro geométrico (sobre el que no se tiene control completo).
 
  \begin{equation}
 \mathbf{\nu}(t)=\Lambda A^{-1}\dot{\mathbf{p_d}}(t)=
@@ -564,30 +593,11 @@ Para analizar el comportamiento del centro geométrico del robot, y el punto desp
 
 \subsection{Modelo dinámico}
 La obtención del modelo dinámico se fundamenta en la aplicación del método de Euler-Lagrange
-considerando las restricciones propias del sistema del robot diferencial de dos ruedas. Se
-consideran entonces las siguientes suposiciones:
-\begin{itemize}
-\item El robot no se desliza hacia los lados, de modo que solo se puede desplazar en la dirección
-  definida por el frente del mismo.
-\item La rapidez traslacional del robot sobre el punto en donde se ubica cada rueda, es igual a la
-  rapidez tangencial de la rueda respectiva en contacto con el suelo, lo cual corresponde a la
-  condición de rodadura.
-\item El robot sólamente puede perder energía debido a la fricción en los ejes de cada rueda, la
-  cual se considera viscosa para simplificar la obtención del modelo.
-\item El movimiento que describe el robot se lleva a cabo sobre una superficie plana, de manera que
-  no hay cambios energéticos debidos a la acción del campo gravitacional terrestre sobre el robot.
-\item El cuerpo del vehículo es no deformable, de modo que no se acumula energía potencial debido a
-  elasticidad ni se dan pérdidas de energía debido a la deformación de las llantas o el cuerpo del
-  robot.
-\item No se consideran las limitaciones relacionadas con la potencia máxima que pueden entregar los motores
-  de cada rueda, de manera que los mismos pueden generar pares de torsión muy grandes que cambian de
-  manera abrupta. %REVISAR!!!!!!!!!! 
-  % \item La distribución de masa del robot es simétrica con respecto a la línea central definida por el
-  % frente del vehículo, de manera que tanto el centro de masa como el centro geométrico se encuentran
-  % sobre dicha línea.  
-\item El cuerpo del robot no se comporta como un péndulo invertido, ya que presenta el soporte
-  adecuado para mantenerse estable sin balancearse.
-\end{itemize}
+considerando las restricciones propias del sistema del robot diferencial de dos ruedas.
+
+%IMAGEN ROBOT
+
+
 
 A partir de la condición de no deslizamiento hacia los lados, se obtiene que el componente de la
 velocidad traslacional del centro geométrico que es perpendicular a la recta descrita por el frente del
@@ -656,7 +666,6 @@ f_3  =  \dot{x}(t)cos(\theta(t)) + \dot{y}(t)sen(\theta(t)) - b \dot{\theta}(t) 
 \end{equation}
 
 
-
 Con respecto a las restricciones descritas por las ecuaciones (\ref{eq:restriccion_1}),
 (\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}), denominadas $f_1$, $f_2$ y $f_3$
 respectivamente, se conoce que las mismas corresponden a restricciones no holonómicas (***Sarkar),
@@ -668,8 +677,7 @@ Estas restricciones no holonómicas están asociadas a fuerzas generalizadas que m
 movimiento bajo dichas condiciones (***REF), las cuales dependen de multiplicadores de Lagrange
 tal como se muestra en la ecuación (***), y que en este caso son $\lambda_1$, $\lambda_2$ y
 $\lambda_3$, correspondientes a $f_1$, $f_2$ y $f_3$ respectivamente. Dichas fuerzas generalizadas
-modifican la ecuación de Lagrange para cada coordenada, tal como se describe en la ecuación (***) y
-de las cuales se obtendrá el modelo en variables de estado.
+modifican la ecuación de Lagrange para cada coordenada, tal como se describe en la ecuación (***).
 
 Para el método de Lagrange, se tiene en primer lugar que la energía potencial asociada al sistema es
 constante, ya que el centro de masa del robot se mueve en un plano horizontal y no se consideran las
@@ -779,7 +787,7 @@ obtiene la energía cinética rotacional de la rueda derecha tal como se muestra e
   K_{Rro}= \frac{1}{2}I_w\dot{\varphi_r}(t)^2 + \frac{1}{2}I_m\dot{\theta}(t)^2
 \end{equation}
 
-De esta manera, al sumar las energías cinéticas de las ecuaciones (\ref{eq:k_tras_rueda_r}) y
+Al sumar las energías cinéticas de las ecuaciones (\ref{eq:k_tras_rueda_r}) y
 (\ref{eq:k_rot_rueda_r}), y sustituyendo las variables $\dot{x_r}$ y $\dot{y_r}$ en términos de
 $x(t)$, $y(t)$ y $\theta(t)$, se obtiene la energía cinética total de la rueda derecha, la cual se
 presenta en la ecuación (\ref{eq:K_rueda derecha}).
@@ -837,9 +845,9 @@ obteniéndose la expresión de (\ref{eq:k_total_simpl}).
 
 \begin{equation}
 \begin{cases}
-\begin{array}{c c c}
-m &=& m_c + 2m_{w} \\
-I &=& I_g+m_c s^2 + 2m_{w}b^2 + 2 I_m 
+\begin{array}{c c}
+m =& m_c + 2m_{w} \\
+I =& I_g+m_c s^2 + 2m_{w}b^2 + 2 I_m 
 \end{array}
 \end{cases}
 \label{eq:def_m_I}
@@ -857,11 +865,11 @@ K_t = &
 
 
 A continuación, para obtener las ecuaciones del movimiento se expresa la ecuación de Lagrange
-respectiva para cada coordenada (\ref{eq:ecuaciones_lagrange}). De esta forma, para cada una de ellas se calculan los
-términos relacionados con la energía cinética a partir de la ecuación (\ref{eq:k_total_simpl}), la
-fuerza generalizada, y la sumatoria de términos correspondientes a las restricciones del movimiento
-descritas por las ecuaciones (\ref{eq:restriccion_1}), (\ref{eq:restriccion_2}) y
-(\ref{eq:restriccion_3}).
+respectiva para cada coordenada, lo cual se muestra en (\ref{eq:ecuaciones_lagrange}). De esta
+forma, para cada una de ellas se calculan los términos relacionados con la energía cinética a partir
+de la ecuación (\ref{eq:k_total_simpl}), la fuerza generalizada, y la sumatoria de términos
+correspondientes a las restricciones del movimiento descritas por las ecuaciones
+(\ref{eq:restriccion_1}), (\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}).
 
 \begin{equation}
 \begin{cases}
@@ -884,7 +892,8 @@ descritas por las ecuaciones (\ref{eq:restriccion_1}), (\ref{eq:restriccion_2}) 
 Con respecto a las fuerzas generalizadas, que corresponden a factores externos que modifican la
 energía del sistema, se tiene que para las coordenadas $x(t)$, $y(t)$ y $\theta(t)$ estas fuerzas
 son nulas, ya que no hay ningún factor externo que modifique la energía del sistema por medio de
-dichas coordenadas (no hay trabajo realizado sobre el sistema por medio de estas).
+dichas coordenadas (no hay trabajo realizado sobre el sistema por medio de estas), de lo cual se
+tiene que $Q_x = Q_y = Q_{\theta} = 0$.
 
 Sin embargo, para las coordenadas $\varphi_r(t)$ y $\varphi_l(t)$, existe respectivamente un torque
 neto en cada rueda que modifica la energía del sistema al variar dichas posiciones angulares
@@ -901,15 +910,15 @@ t. Se procederá entonces a eliminar dichas incógnitas.
 \begin{subequations}
   \label{eq:sistema_lagrange}
   \begin{empheq}[left = \empheqlbrace]{align}
-& m\ddot{x} - \ m_c s \left(\ddot{\theta} \sen \left( \theta \right) + \theta^2 \cos \left( \theta
+0 &= m\ddot{x} - \ m_c s \left(\ddot{\theta} \sen \left( \theta \right) + \dot{\theta}^2 \cos \left( \theta
   \right) \right) - \lambda_1 \sen \left( \theta \right) - \left( \lambda_2 + \lambda_3 \right) \cos
-\left( \theta \right) = 0 \label{eq:sist_lagrange_x}\\
-& m\ddot{y} + m_c s \left(\ddot{\theta}\cos\left(\theta \right) - \theta^2 \cos \left(\theta \right)
- \right) + \lambda_1 \cos \left(\theta \right) - \left(\lambda_2+\lambda_3\right)\sen\left(\theta\right) = 0 \label{eq:sist_lagrange_y}\\
-& -m_c s \left( \ddot{x} \sen\left(\theta\right) - \ddot{y}\cos\left(\theta\right) \right) +
-I\ddot{\theta} + b\left(\lambda_3-\lambda_2\right) = 0 \label{eq:sist_lagrange_theta}\\
-& I_{w}\ddot{\varphi_r}+\lambda_2 r = \tau_r \label{eq:sist_lagrange_phi_r}\\
-& I_{w}\ddot{\varphi_l}+\lambda_3 r = \tau_l \label{eq:sist_lagrange_phi_l}
+\left( \theta \right)  \label{eq:sist_lagrange_x}\\
+0 &= m\ddot{y} + m_c s \left(\ddot{\theta}\cos\left(\theta \right) - \dot{\theta}^2 \cos \left(\theta \right)
+ \right) + \lambda_1 \cos \left(\theta \right) - \left(\lambda_2+\lambda_3\right)\sen\left(\theta\right) \label{eq:sist_lagrange_y}\\
+0 &= -m_c s \left( \ddot{x} \sen\left(\theta\right) - \ddot{y}\cos\left(\theta\right) \right) +
+I\ddot{\theta} + b\left(\lambda_3-\lambda_2\right) \label{eq:sist_lagrange_theta}\\
+\tau_r &= I_{w}\ddot{\varphi_r}+\lambda_2 r \label{eq:sist_lagrange_phi_r}\\
+\tau_l &= I_{w}\ddot{\varphi_l}+\lambda_3 r \label{eq:sist_lagrange_phi_l}
   \end{empheq}
 \end{subequations}
 
@@ -918,7 +927,7 @@ por $\sen(\theta(t))$, se obtiene (\ref{eq:ec_mov_1}) al simplificar la expresió
 
 \begin{equation}
 \label{eq:ec_mov_1}
-m\left(\ddot{x}(t)\cos\left(\theta\right)+\ddot{y}(t)\sen\left(\theta(t)\right) \right) - m_c s
+m\left(\ddot{x}(t)\cos\left(\theta(t)\right)+\ddot{y}(t)\sen\left(\theta(t)\right) \right) - m_c s
 \dot{\theta}(t)^2-\left(\lambda_2 + \lambda_3\right) = 0
 \end{equation}
 
@@ -1002,18 +1011,18 @@ obtiene la expresión mostrada en (\ref{eq:wv}).
 \begin{equation}
   \label{eq:wv}
   -\dot{\theta}(t)v(t) =
-  \ddot{x}(t)\sin\left(\theta(t)\right)-\ddot{y}(t)\cos\left(\theta(t)\right)
+  \ddot{x}(t)\sen\left(\theta(t)\right)-\ddot{y}(t)\cos\left(\theta(t)\right)
 \end{equation}
 
 También, se definen las expresiones mostradas en (\ref{eq:FyT}), que pueden interpretarse
 respectivamente como la fuerza ($F$) y el torque ($T$) totales externos aplicados sobre el sistema,
-los cuales son producidos por los torques netos en las ruedas.
+los cuales se generan debido a los torques netos en las ruedas.
 
 \begin{equation}
 \begin{cases}
 \begin{array}{c c c}
 F(t) &=& \frac{\tau_r(t) + \tau_l(t)}{r} \\
-T(t) &=& \frac{b}{r}\left( \tau_r(t) - \tau_l(t) \right)
+T(t) &=& \frac{b\left( \tau_r(t) - \tau_l(t) \right)}{r}
 \end{array}
 \end{cases}
 \label{eq:FyT}
@@ -1035,35 +1044,148 @@ la masa y el momento de inercia equivalentes del sistema, respectivamente.
   \end{empheq}
 \end{subequations}
 
+Tal como se explicó en la descripción general del sistema por modelar, se considerará solamente la
+fricción debida al contacto que se opone a la rotación alrededor del eje de cada motor, la cual se
+modelará como un amortiguador viscoso torsional. 
+
+De esta manera, el torque de la fricción aplicado sobre cada rueda es directamente proporcional a
+velocidad rotacional de la rueda, tal como se presenta en la ecuación (\ref{eq:torque_friccion}). El
+parámetro $B$ corresponde a una constante de proporcionalidad que determina la magnitud del torque
+de oposición generado dada cierta rapidez angular (***REF), conocido como factor de amortiguamiento.
+
+\begin{equation}
+  \label{eq:torque_friccion}
+  \tau_f(t) = -B\dot{\varphi}(t)
+\end{equation}
+
+Si bien es cierto este modelo de la fricción es muy simplificado y por lo tanto no describirá con
+exactitud el comportamiento real del robot en movimiento, el mismo resulta en una aproximación
+útil para observar de manera cualitativa los efectos básicos que podría provocar la fricción sobre
+la dinámica de un robot de dos ruedas, los cuales están relacionados con la oposición a la traslación
+y al cambio en la orientación del mismo.
+
+De esta forma, se procede a descomponer los torques netos en las ruedas en términos de los torques
+de los motores ($\tau_{rm}$, $\tau_{lm}$) y los de la fricción ($\tau_{rf}$, $\tau_{lf}$), en donde
+se considera que el factor de amortiguamiento $B$ es el mismo para las dos ruedas. De esta forma, se
+obtienen las ecuaciones (\ref{eq:torque_r}) y (\ref{eq:torque_l}).
+
+\begin{equation}
+  \label{eq:torque_r}
+  \tau_r(t) = \tau_{rm}(t) - B\dot{\varphi_r}(t)
+\end{equation}
+
+\begin{equation}
+  \label{eq:torque_l}
+  \tau_l(t) = \tau_{lm}(t) - B\dot{\varphi_l}(t)
+\end{equation}
+
+Al sustituir las ecuaciones (\ref{eq:torque_r}) y (\ref{eq:torque_l}) en (\ref{eq:FyT}), y al
+expresar el resultado en términos de $v(t)$ y $\dot{\theta}(t)$ por medio de las restricciones
+expuestas en (\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}), se obtienen las expresiones de
+(\ref{eq:FyT_friccion}). En donde se define $F_m(t) = \frac{\tau_r(t)+\tau_l(t)}{r}$ y
+$T_m(t) = \frac{b(\tau_r(t)-\tau_l(t))}{r}$.
+
+\begin{equation}
+\begin{cases}
+\begin{array}{c c c}
+F(t) &=& F_m(t)-\frac{2 B}{r^2}v(t) \\
+T(t) &=& T_m(t)-\frac{2 B b^2}{r^2}\dot{\theta}(t)
+\end{array}
+\end{cases}
+\label{eq:FyT_friccion}
+\end{equation}
+
+Al sustituir las expresiones de (\ref{eq:FyT_friccion}) en (\ref{eq:ecs_dinamicas}), se obtienen
+las ecuaciones dinámicas (\ref{eq:v_dot_friccion}) y (\ref{eq:omega_dot_friccion}), que están en
+términos de la fuerza ($F_m(t)$) y el torque ($T_m(t)$) equivalente aplicado por los motores sobre
+el robot. Estas ecuaciones se utilizarán para obtener el modelo en variables de estado
+correspondiente.
+
+\begin{subequations}
+  \label{eq:ecs_dinamicas_friccion}
+  \begin{empheq}[left = \empheqlbrace]{align}
+    & D\ddot{v}(t) -m_c s\ddot{\theta}(t)^2 + \frac{2 B}{r^2}v(t) = F_m(t) \label{eq:v_dot_friccion}\\
+    & J\ddot{\theta}(t)+m_cs\dot{\theta}(t)v(t) + \frac{2 B b^2}{r^2}\dot{\theta}(t) =
+    T_m(t) \label{eq:omega_dot_friccion}
+  \end{empheq}
+\end{subequations}
 
 Se define entonces el vector de estados, el cual se muestra en la ecuación (\ref{eq:vect_estados}).
 
 \begin{equation}
   \label{eq:vect_estados}
-  \mathbf{X}(t)= \left[ \begin{array}{c} x(t) \\ y(t) \\ \theta(t) \\ v(t) \\ \omega(t) \\ \varphi_r(t) \\ \varphi_l(t) \end{array} \right]
+  \mathbf{X}(t)= \left[ \begin{array}{c} x(t) \\ y(t) \\ \theta(t) \\ v(t) \\ \omega(t) \end{array} \right]
 \end{equation}
 
-De esta manera, se presenta el modelo en variables de estado dinámico del sistema en
-(\ref{eq:mve_dinamico}), en donde las ecuaciones (\ref{eq:x_dot_mve}) y (\ref{eq:y_dot_mve})
-corresponden a los componentes de la velocidad del centro geométrico en los ejes cartesianos, la
-ecuación (\ref{eq:theta_dot_mve}) resulta de la definición de la rapidez angular de cambio en la
-orientación del vehículo $\omega(t)$, las ecuaciones (\ref{eq:v_dot_mve}) y (\ref{eq:omega_dot_mve})
-se obtienen del análisis dinámico del sistema descrito previamente, y las ecuaciones
-(\ref{eq:phi_r_dot_mve}) y (\ref{eq:phi_l_dot_mve}) se obtienen de las restricciones
-correspondientes a (\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}) en términos de los estados definidos.
+De esta manera, en (\ref{eq:mve_dinamico}) se presentan las derivadas de los estados del modelo en
+variables de estado no lineal que describe al sistema, en donde las ecuaciones de $\dot{x}(t)$ y
+$\dot{y}(t)$ corresponden a los componentes de la velocidad del centro geométrico sobre los
+ejes cartesianos, la ecuación de $\dot{\theta}(t)$ resulta de la definición de la rapidez
+angular de cambio en la orientación del robot $\omega(t)$ y las ecuaciones de $\dot{v}(t)$ y
+$\dot{\omega}(t)$ se obtienen del análisis dinámico del sistema descrito previamente.
 
-\begin{subequations}
+\begin{equation}
   \label{eq:mve_dinamico}
-  \begin{empheq}[left = \empheqlbrace]{align}
-& \dot{x}(t) = v(t)\cos\left(\theta(t)\right) \label{eq:x_dot_mve}\\
-& \dot{y}(t) = v(t)\sin\left(\theta(t)\right) \label{eq:y_dot_mve}\\
-& \dot{\theta}(t) = \omega(t)\label{eq:theta_dot_mve}\\
-& \dot{v}(t)=\frac{m_c s}{D} \omega(t)^2 + \frac{F(t)}{D} \label{eq:v_dot_mve}\\
-& \dot{\omega}(t) = \frac{-m_c s}{J}\omega(t) v(t) + \frac{T(t)}{J} \label{eq:omega_dot_mve}\\
-& \dot{\varphi_r}(t) =\frac{v(t)}{r} + \frac{b}{r} \omega(t) \label{eq:phi_r_dot_mve}\\
-& \dot{\varphi_l}(t)= \frac{v(t)}{r} - \frac{b}{r} \omega(t) \label{eq:phi_l_dot_mve}
-\end{empheq}
-\end{subequations}
+   \mathbf{\dot{X}}(t) = \left[\begin{array}{c}
+      \dot{x}(t)\\\dot{y}(t)\\\dot{\theta}(t)\\\dot{v}(t)\\\dot{\omega}(t)
+    \end{array}\right]
+  = \left[\begin{array}{c}
+      v(t)\cos\left(\theta(t)\right) \\
+      v(t)\sen\left(\theta(t)\right) \\
+      \omega(t)\\
+      \frac{m_c s}{D} \omega(t)^2 - \frac{2 B}{Dr^2}v(t)  + \frac{F(t)}{D} \\
+      \frac{-m_c s}{J}\omega(t)v(t) - \frac{2 B b^2}{Jr^2}\omega(t)  + \frac{T(t)}{J}
+    \end{array}\right]
+%& \dot{x}(t) = v(t)\cos\left(\theta(t)\right) \label{eq:x_dot_mve}\\
+%& \dot{y}(t) = v(t)\sin\left(\theta(t)\right) \label{eq:y_dot_mve}\\
+%& \dot{\theta}(t) = \omega(t)\label{eq:theta_dot_mve}\\
+%& \dot{v}(t)=\frac{m_c s}{D} \omega(t)^2 - \frac{2 B}{Dr^2}v(t)  + \frac{F(t)}{D} \label{eq:v_dot_mve}\\
+%& \dot{\omega}(t) = \frac{-m_c s}{J}\omega(t)v(t) - \frac{2 B b^2}{Jr^2}\omega(t)  + \frac{T(t)}{J} \label{eq:omega_dot_mve}\\
+\end{equation}
+
+Además, para completar la definición formal del modelo en variables de estado, las salidas de
+interés del sistema se indican mediante la ecuación (\ref{eq:salidas_mve_dinamico}), en donde se
+incluyen las velocidades angulares de las ruedas, obtenidas en términos de los estados con base en
+(\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}). Por otro lado, las entradas del sistema se
+presentan mediante el vector indicado en (\ref{eq:entradas_mve_dinamico}).
+
+\begin{equation}
+  \label{eq:salidas_mve_dinamico}
+  \mathbf{Y}(t) = \left[
+    \begin{array}{c}
+      x(t)\\y(t)\\\theta(t)\\v(t)\\\omega(t)\\\dot{\varphi_r}(t)\\\dot{\varphi_l}(t)
+    \end{array}
+\right] 
+= \left[\begin{array}{c c c c c}
+  1 &0 &0 &0 &0 \\
+  0 &1 &0 &0 &0 \\
+  0 &0 &1 &0 &0 \\
+  0 &0 &0 &1 &0 \\
+  0 &0 &0 &0 &1 \\
+  0 &0 &0 &\frac{1}{r} & \frac{b}{r} \\
+  0 &0 &0 &\frac{1}{r} & -\frac{b}{r} \\
+\end{array} \right] \mathbf{X}(t) 
+\end{equation}
+
+\begin{equation}
+  \label{eq:entradas_mve_dinamico}
+  \mathbf{U}(t) = \left[ 
+    \begin{array}{c}
+      \tau_r(t)\\\tau_l(t)
+    \end{array}
+  \right]
+\end{equation}
+
+
+
+% \dot{\varphi_r}(t) =\frac{v(t)}{r} + \frac{b}{r} \omega(t) \label{eq:phi_r_dot_mve}\\
+%& \dot{\varphi_l}(t)= \frac{v(t)}{r} - \frac{b}{r} \omega(t) \label{eq:phi_l_dot_mve}
+%, y las ecuaciones
+%(\ref{eq:phi_r_dot_mve}) y (\ref{eq:phi_l_dot_mve}) se obtienen de las restricciones
+%correspondientes a (\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}), expresadas en términos de los
+%estados definidos.
+
+
 
 
 % Modelado de la fricción
