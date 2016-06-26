@@ -168,7 +168,7 @@ su eje z como lo muestra la figura \ref{ejes}. También, pueden construirse altos
 hace muy útiles en interiores, en donde pueden pasar por lugares estrechos y dar curvas muy cerradas
 \citep{KarlStol}.  Algunas de sus aplicaciones, pueden ser como guías de excursiones dentro de
 museos, bases de equipo médico dentro de hospitales, para vigilancia (segway) y de limpieza en el
-hogar \citep{Coelho}.
+hogar \cite{Coelho}.
 
 \subsection{Objetivos}
 
@@ -242,12 +242,12 @@ Algunas de las ventajas de estos sistemas de dos ruedas es que son más baratos, 
 
 El modelo de robot que se estudia en el presente trabajo se supone con dos motores independientes, cada uno controlando una rueda, colocados a lo ancho  del eje central del robot. Se asume además su movimiento únicamente en dos dimensiones, por lo que se considera con una tercera rueda que no aporta ningún movimiento adicional (rueda loca o de castor) para que sea estable \citep{KarlStol}, además se considera que no hay deformación en la rueda y que se cumple la condición de rodamiento puro.
 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=0.6\textwidth]{../pictures/robot_ejes.eps}	
-%	\caption{Ejes del Robot}
-%	\label{fig:ejes}
-%\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\textwidth]{../pictures/Diagrama_3d_robot.eps}	
+	\caption{Ejes del Robot}
+	\label{fig:ejes}
+\end{figure}
 
 
 \subsection{Método de linealización}
@@ -350,6 +350,13 @@ Elástica (Resorte) & $\frac{1}{2}k{d}^2$ \\ \bottomrule
 \end{tabular}
 \end{table}
 
+El modelado de la tracción delantera de un robot movil es una condición no holonómica  que esta sujeto a una serie de restricciones p no integrables que involucran las derivadas con respecto al tiempo del vector de configuración q y estas toman la forma de la ecuación  \eqref{no_holonomico}
+
+\begin{equation}
+\label{eq:mul_lagrange}
+\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{q_1(t)}}\right) - \left(\frac{\partial k}{\partial q_1(t)}\right)= \left(\frac{\partial U}{\partial q_1(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{q_1}(t)}
+\end{equation}
+
 
 \subsection{Algoritmo de punto descentralizado}
 El algoritmo de punto descentralizado consiste en establecer un punto separado del eje de tracción una distancia $e$ con el fin de que este defina la trayectoria deseada, de esta forma el robot gira con antelación de forma que, cuando termine de girar, su origen se encuentre sobre la trayectoria deseada. Para esto se define la ecuación \ref{eq:punto_descentralizado} el cual relaciona las velocidades de las ruedas con la velocidad global del carrito.\cite{punisher}
@@ -381,6 +388,9 @@ e\cos\left(\theta\right) - 0.5b\sin\left(\theta\right) \ e\sin\left(\theta\right
 \end{array} \right]
 \end{equation}
 
+\subsection{Sistemas subactuados}
+Un sistema subactuado ocurre cuando existen menos actuadores que grados de libertad, es decir una sola entrada controla movimientos distintos e independientes del robot. Una ventaja de estos sistemas es que al utilizar menos actuadores consumen menos energía sin embargo el control se vuelve un poco más complejo
+
 \section{Modelado y simulación}
 Se procede a obtener el modelo cinemático (directo e inverso) y  el modelo dinámico de un robot de
 dos ruedas, para lo cual se toman las siguientes consideraciones generales:
@@ -410,6 +420,7 @@ dos ruedas, para lo cual se toman las siguientes consideraciones generales:
 \item El cuerpo del robot no se comporta como un péndulo invertido, ya que presenta el soporte
   adecuado para mantenerse estable sin balancearse.
 \end{itemize}
+
 
 
 \subsection{Modelo cinemático}
@@ -1399,13 +1410,6 @@ Se logró exitosamente simular el sistema descrito. En las simulaciones se obtien
 
 
 \section{Apéndice Ecuaciones}
-
-
-
-\begin{equation}
-\label{eq:mul_lagrange}
-\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{q_1(t)}}\right) - \left(\frac{\partial k}{\partial q_1(t)}\right)= \left(\frac{\partial U}{\partial q_1(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{q_1}(t)}
-\end{equation}
 
 
 \begin{eqnarray}
