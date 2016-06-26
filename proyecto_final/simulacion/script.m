@@ -4,7 +4,7 @@
 %automaticamente. save = 0 no guarda. save = 1 si garda.
 save = 1;
 %la variable simulacion es para determinar la entrada al modelo
-simulacion=2;
+simulacion=0;
 t=0:0.01:20;
 if simulacion==0
     %generar un cradrado a rapidez constante
