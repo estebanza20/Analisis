@@ -1261,33 +1261,134 @@ Se recibe la velocidad traslacional requerida del punto descentralizado $\mathbf
 
 En cada simulación el robot describió una trayectoria distinta, y esta trayectoria defina la entrada. En la primera fue una trayectoria cuadrada a rapidez constante, la segunda es una trayectoria circular a rapidez constante, y la tercera es una trayectoria cuadrada pero con desaceleración quendo el robot se acerca a las esqinas del cuadrado. 
 
-Para poder generar la primera trayectoria se utilizan en la velocidad, entradas escalón. 
+Para poder generar la primera trayectoria se utilizan escalones en la entrada. La trayectoria viene dada por (\ref{eq:entrada_cuadrado}). De esta manera se logra describir una trayectoria cuadrada con rapidez constante. En la figura \ref{fig>entrada_trayectoria_cuadrada} se mestra la entrada contra el tiempo. Luego de pocesar la entrada como se indica en la figura \ref{fig:simulacion_flow}, se obtienen los resultados en %ref a las figuras
+
+\begin{equation}
+\mathbf{\dot{p_d}}(t)=\left[\begin{array}{c}\mu(t-5)-\mu(t-10)-\mu(t-1)\\ \mu(t)-\mu(t-5)-\mu(t-10)+\mu(t-15) \end{array}\right]
+\label{eq:entrada_cuadrado}
+\end{equation} 
 
 
-
+%**********Entradas de las simulaciones*******************************************************************
  \begin{figure}
  	\centering
- 	\begin{subfigure}[t]{0.3\textwidth}
+ 	\begin{subfigure}[t]{0.48\textwidth}
  		\includegraphics[width=\textwidth]{../pictures/entrada_trayectoria_cuadrada.eps}
  		\caption{Velocidades para generar el cuadrado}
- 		\label{fig:entrada_trayectoria_cuadrada_suavizada}
+ 		\label{fig:entrada_trayectoria_cuadrada}
  	\end{subfigure}
- 	\begin{subfigure}[t]{0.3\textwidth}
+ 	\begin{subfigure}[t]{0.48\textwidth}
  		\includegraphics[width=\textwidth]{../pictures/entrada_trayectoria_circular.eps}
  		\caption{Velocidades para generar el circulo}
- 		\label{fig:entrada_trayectoria_cuadrada_suavizada}
+ 		\label{fig:entrada_trayectoria_circular}
  	\end{subfigure}
- 	\begin{subfigure}[b]{0.3\textwidth}
+
+ 	\begin{subfigure}[b]{0.48\textwidth}
  		\includegraphics[width=\textwidth]{../pictures/entrada_trayectoria_cuadrada_suavizada.eps}
  		\caption{Velocidades para generar el cuadrado con desaceleración en las esquinas}
  		\label{fig:entrada_trayectoria_cuadrada_suavizada}
  	\end{subfigure}
         \caption{Entradas de las simulaciones}
         \label{fig:entradas_simulaciones_cinematico}
- 	
  \end{figure}
 
+%******Posicion trayectoria cuadrada***********************************************************************
+\begin{figure}
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/posicion_del_robot_modelo_cinematico_cuadrado.eps}	
+	\caption{Posición del robot en la trayectoria cuadrada}
+	\label{fig:posicion_del_robot_modelo_cinematico_cuadrado}
+\end{figure}
 
+ \begin{figure}
+ 	\centering
+ 	\begin{subfigure}[t]{0.48\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_cuadrado.eps}
+ 		\caption{Velocidad de las ruedas obtenidas del modelo inverso}
+ 		\label{fig:velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_cuadrado}
+ 	\end{subfigure}
+ 	\begin{subfigure}[t]{0.48\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/velocidad_de_las_ruedas_con_limitantes_de_aceleracion_cuadrado.eps}
+ 		\caption{Velocidad de las ruedas con limitantes de aceleración}
+ 		\label{fig:velocidad_de_las_ruedas_con_limitantes_de_aceleracion_cuadrado}
+ 	\end{subfigure}
+        \caption{Velocidades de las ruedas par la trayectoria cuadrada}
+        \label{fig:velocidades_ruedas_trayectoria_cuadrada}
+ \end{figure}
+
+\begin{figure}
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/evaluacion_de_la_restriccion_cuadrado.eps}	
+	\caption{Evaluación de la restricción para la trayectoria cuadrada}
+	\label{fig:evaluacion_de_la_restriccion_cuadrado}
+\end{figure}
+
+
+
+
+%******Posicion trayectoria circular***********************************************************************
+\begin{figure}
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/posicion_del_robot_modelo_cinematico_circulo.eps}	
+	\caption{Posición del robot en la trayectoria circular}
+	\label{fig:posicion_del_robot_modelo_cinematico_circulo}
+\end{figure}
+
+\begin{figure}
+ 	\centering
+ 	\begin{subfigure}[t]{0.48\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_circulo.eps}
+ 		\caption{Velocidad de las ruedas obtenidas del modelo inverso}
+ 		\label{fig:velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_circulo}
+ 	\end{subfigure}
+ 	\begin{subfigure}[t]{0.48\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/velocidad_de_las_ruedas_con_limitantes_de_aceleracion_circulo.eps}
+ 		\caption{Velocidad de las ruedas con limitantes de aceleración}
+ 		\label{fig:velocidad_de_las_ruedas_con_limitantes_de_aceleracion_circulo}
+ 	\end{subfigure}
+        \caption{Velocidades de las ruedas par la trayectoria circular}
+        \label{fig:velocidades_ruedas_trayectoria_circulo}
+ \end{figure}
+
+\begin{figure}
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/evaluacion_de_la_restriccion_circulo.eps}	
+	\caption{Evaluación de la restricción para la trayectoria circular}
+	\label{fig:evaluacion_de_la_restriccion_circulo}
+\end{figure}
+
+
+
+%******Posicion trayectoria cuadrada suavizada**************************************************************
+\begin{figure}
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/posicion_del_robot_modelo_cinematico_cuadrado_suavizado.eps}	
+	\caption{Posición del robot en la trayectoria cuadrada con desaceleración en las esquinas}
+	\label{fig:posicion_del_robot_modelo_cinematico_cuadrado_suavizado}
+\end{figure}
+
+\begin{figure}
+ 	\centering
+ 	\begin{subfigure}[t]{0.48\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_cuadrado_suavizado.eps}
+ 		\caption{Velocidad de las ruedas obtenidas del modelo inverso}
+ 		\label{fig:velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_cuadrado_suavizado}
+ 	\end{subfigure}
+ 	\begin{subfigure}[t]{0.48\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/velocidad_de_las_ruedas_con_limitantes_de_aceleracion_cuadrado_suavizado.eps}
+ 		\caption{Velocidad de las ruedas con limitantes de aceleración}
+ 		\label{fig:velocidad_de_las_ruedas_con_limitantes_de_aceleracion_cuadrado_suavizado}
+ 	\end{subfigure}
+        \caption{Velocidades de las ruedas par la trayectoria cuadrada con desaceleración en las esquinas}
+        \label{fig:velocidades_ruedas_trayectoria_cuadrada_suavizado}
+ \end{figure}
+
+\begin{figure}
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/evaluacion_de_la_restriccion_cuadrado.eps}	
+	\caption{Evaluación de la restricción para la trayectoria cuadrada}
+	\label{fig:evaluacion_de_la_restriccion_cuadrado}
+\end{figure}
 
 \section{Conclusiones y Recomendaciones}
 
