@@ -9,6 +9,8 @@
 \usepackage{booktabs}
 \usepackage{url}
 \usepackage{empheq}
+\usepackage{subcaption}
+\usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage[spanish]{babel}
 \hypersetup{
@@ -17,6 +19,26 @@
     filecolor=black,      
     urlcolor=black,
 }
+
+\usepackage{helvet}
+\usepackage{amsmath,amsfonts,amssymb,commath}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{tabls}
+\usepackage[space]{grffile}
+\usepackage{listings}
+
+\usepackage{siunitx}
+
+\usepackage{matlab-prettifier}
+
+\usepackage{textcomp} 
+\usepackage{pdfpages}   %incluir paginas de pdf externo, para los anexos
+\usepackage{caption} 
+\usepackage{rotating}
+\usepackage[section]{placeins}
+\usepackage{tikz}
 
 %--------- Agregue aquí algún paquete extra que sea necesario>---------
 %
@@ -82,39 +104,39 @@ realizaron las simulaciones correspondientes para cada modelo, para luego analiz
 
 \begin{description}[labelindent=1cm,labelwidth=2.25cm,align=left]
 %ponerlo en orden alfabetico
-        \item[$L$] Lagrangiano de un sistema
-        \item[$K$] Energía cinética de un sistema
-        \item[$U$] Energía potencial de un sistema
+        \item[$L$] Lagrangiano de un sistema [$J$]
+        \item[$K$] Energía cinética de un sistema [$J$]
+        \item[$U$] Energía potencial de un sistema [$J$]
         \item[$q_j$] Coordenada generalizada
         \item[$Q_j$] Fuerza generalizada
         \item[$n$] Cantidad de grados de libertad de un sistema
-        \item[$J$] Momento de inercia de un cuerpo
-        \item[$m$] Masa de un cuerpo
-        \item[$\vec{v}$] Velocidad del centro de masa de un cuerpo
-        \item[$\omega$] Velocidad angular
-        \item[$k$] Constante de un resorte traslacional
-        \item[$d$] Elongación de un resorte traslacional
-        \item[$h$] Altura del centro de masa de un cuerpo con respecto a la referencia
-        \item[$g$] Constante de la gravedad terrestre
-        \item[$p_0$] Posición del centro geométrico
-        \item[$p_d$] Posición del punto descentralizado
-        \item[$p_g$] Posición del centro de masa
-        \item[$2b$]  Ancho del robot
-        \item[$p_r$] Posición de la rueda derecha
-        \item[$p_l$] Posición de la rueda izquierda 
-        \item[$\varphi_r$] Posición angular de la rueda derecha
-        \item[$\varphi_l$] Posición angular de la rueda izquierda
-        \item[$K$]  Energía cinética
-        \item[$r$] Radio de una rueda
-        \item[$m_c$] Masa del cuerpo del robot
-        \item[$m_w$] Masa de una rueda
-        \item[$I_g$] Momento de inercia del cuerpo alrededor del centro de masa
-        \item[$I_w$] Momento de inercia de una rueda alrededor de su eje central
-        \item[$I_m$] Momento de inercia de una rueda alrededor de un diámetro
-        \item[$\omega$] Rapidez angular de la rotación del robot
-        \item[$\theta$] Orientación del robot
-        \item[$x$] Posición del centro geométrico en el eje X
-        \item[$y$] Posición del centro geométrico en el eje Y
+        \item[$J$] Momento de inercia de un cuerpo [$Nms^2$]
+        \item[$m$] Masa de un cuerpo [$kg$]
+        \item[$\vec{v}$] Velocidad del centro de masa de un cuerpo [$m/s$]
+        \item[$\omega$] Velocidad angular [$rad/s$]
+        \item[$k$] Constante de un resorte traslacional [$N/m$]
+        \item[$d$] Elongación de un resorte traslacional [$m$]
+        \item[$h$] Altura del centro de masa de un cuerpo con respecto a la referencia [$m$]
+        \item[$g$] Constante de la gravedad terrestre [$m/s^2$]
+        \item[$p_0$] Posición del centro geométrico (punto entre las ruedas) [$m$]
+        \item[$p_d$] Posición del punto descentralizado [$m$]
+        \item[$p_g$] Posición del centro de masa [$m$]
+        \item[$2b$]  Ancho del robot [$m$]
+        \item[$p_r$] Posición de la rueda derecha [$m$]
+        \item[$p_l$] Posición de la rueda izquierda [$m$]
+        \item[$\varphi_r$] Posición angular de la rueda derecha [$rad$]
+        \item[$\varphi_l$] Posición angular de la rueda izquierda [$rad$]
+        \item[$K$]  Energía cinética [$J$]
+        \item[$r$] Radio de una rueda [$m$]
+        \item[$m_c$] Masa del cuerpo del robot [$kg$]
+        \item[$m_w$] Masa de una rueda [$kg$]
+        \item[$I_g$] Momento de inercia del cuerpo alrededor del centro de masa [$Nms^2$]
+        \item[$I_w$] Momento de inercia de una rueda alrededor de su eje central [$Nms^2$]
+        \item[$I_m$] Momento de inercia de una rueda alrededor de un diámetro [$Nms^2$]
+        \item[$\omega$] Rapidez angular de la rotación del robot [$rad/s$]
+        \item[$\theta$] Orientación del robot [$rad$]
+        \item[$x$] Posición del centro geométrico en el eje X [$m$]
+        \item[$y$] Posición del centro geométrico en el eje Y [$m$]
        
 \end{description}
 
@@ -145,7 +167,7 @@ su eje z como lo muestra la figura \ref{ejes}. También, pueden construirse altos
 hace muy útiles en interiores, en donde pueden pasar por lugares estrechos y dar curvas muy cerradas
 \citep{KarlStol}.  Algunas de sus aplicaciones, pueden ser como guías de excursiones dentro de
 museos, bases de equipo médico dentro de hospitales, para vigilancia (segway) y de limpieza en el
-hogar \citep{Coelho}.
+hogar \cite{Coelho}.
 
 \subsection{Objetivos}
 
@@ -219,12 +241,12 @@ Algunas de las ventajas de estos sistemas de dos ruedas es que son más baratos, 
 
 El modelo de robot que se estudia en el presente trabajo se supone con dos motores independientes, cada uno controlando una rueda, colocados a lo ancho  del eje central del robot. Se asume además su movimiento únicamente en dos dimensiones, por lo que se considera con una tercera rueda que no aporta ningún movimiento adicional (rueda loca o de castor) para que sea estable \citep{KarlStol}, además se considera que no hay deformación en la rueda y que se cumple la condición de rodamiento puro.
 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=0.6\textwidth]{../pictures/robot_ejes.eps}	
-%	\caption{Ejes del Robot}
-%	\label{fig:ejes}
-%\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\textwidth]{../pictures/Diagrama_3d_robot.eps}	
+	\caption{Ejes del Robot}
+	\label{fig:ejes}
+\end{figure}
 
 
 \subsection{Método de linealización}
@@ -327,6 +349,13 @@ Elástica (Resorte) & $\frac{1}{2}k{d}^2$ \\ \bottomrule
 \end{tabular}
 \end{table}
 
+El modelado de la tracción delantera de un robot movil es una condición no holonómica  que esta sujeto a una serie de restricciones p no integrables que involucran las derivadas con respecto al tiempo del vector de configuración q y estas toman la forma de la ecuación  \eqref{no_holonomico}
+
+\begin{equation}
+\label{eq:mul_lagrange}
+\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{q_1(t)}}\right) - \left(\frac{\partial k}{\partial q_1(t)}\right)= \left(\frac{\partial U}{\partial q_1(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{q_1}(t)}
+\end{equation}
+
 
 \subsection{Algoritmo de punto descentralizado}
 El algoritmo de punto descentralizado consiste en establecer un punto separado del eje de tracción una distancia $e$ con el fin de que este defina la trayectoria deseada, de esta forma el robot gira con antelación de forma que, cuando termine de girar, su origen se encuentre sobre la trayectoria deseada. Para esto se define la ecuación \ref{eq:punto_descentralizado} el cual relaciona las velocidades de las ruedas con la velocidad global del carrito.\cite{punisher}
@@ -358,6 +387,9 @@ e\cos\left(\theta\right) - 0.5b\sin\left(\theta\right) \ e\sin\left(\theta\right
 \end{array} \right]
 \end{equation}
 
+\subsection{Sistemas subactuados}
+Un sistema subactuado ocurre cuando existen menos actuadores que grados de libertad, es decir una sola entrada controla movimientos distintos e independientes del robot. Una ventaja de estos sistemas es que al utilizar menos actuadores consumen menos energía sin embargo el control se vuelve un poco más complejo
+
 \section{Modelado y simulación}
 Se procede a obtener el modelo cinemático (directo e inverso) y  el modelo dinámico de un robot de
 dos ruedas, para lo cual se toman las siguientes consideraciones generales:
@@ -387,6 +419,7 @@ dos ruedas, para lo cual se toman las siguientes consideraciones generales:
 \item El cuerpo del robot no se comporta como un péndulo invertido, ya que presenta el soporte
   adecuado para mantenerse estable sin balancearse.
 \end{itemize}
+
 
 
 \subsection{Modelo cinemático}
@@ -1224,9 +1257,149 @@ presentan mediante el vector indicado en (\ref{eq:entradas_mve_dinamico}).
 
 
 \section{Análisis}
+\subsection{Modelo Cinemático}
+Se realizaron tres simulaciones. Las tres se diferencian porque se tiene el mismo proceso pero con entradas distintas. Primero se explica el proceso, y luego las entradas. 
+
+Se recibe la velocidad traslacional requerida del punto descentralizado $\mathbf{p_d}(t)$. Este vector se utiliza como la entrada al modelo del punto descentralizado inverso. De esta manera se obtienen las velocidades en las ruedas $\mathbf{\dot{\varphi}}(t)$ requeridas para lograr las velocidades de entrada. Esta velocidad, en algunos casos puede tener puntos de discontinuidades, que provocan una derivada infinita. Como es sabido que esto no es posible en el mundo real, entonces se pasa la señal de las ruedas por un sistema cuya función de transferencia es $\frac{10}{s+10}$. De esta manera se logra suavizar la función, y evitar una salida que sea imposible en la realidad. Una vez, se tienen estas velocidades ($\mathbf{\dot{\varphi_S}}(t)$), entonces e utilizan como la entrada a los modelos directos. De esta manera se obtiene la velocidad del centor del robot $\mathbf{\nu_S}(t)$, y la velocidad del punto descentralizado $\mathbf{\dot{p_{e_S}}}(t)$,que generan las velocidades de las ruedas suavizadas. Finalmente se integran $\mathbf{\nu_S}(t)$ y $\mathbf{\dot{p_{e_S}}}(t)$, para obtener la posición del robot a travez del tiempo. Un resumen de la simulación se muestra en la figura \ref{fig:simulacion_flow}. Es importante suavizar la funcion de salida del modelo inverso, porque luego se utilizó como entrada del modelo dinámico. 
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{../pictures/simulacion_flow.pdf}	
+	\caption{Flujo de la simulación}
+	\label{fig:simulacion_flow}
+\end{figure}
+
+En cada simulación el robot describió una trayectoria distinta, y esta trayectoria defina la entrada. En la primera fue una trayectoria cuadrada a rapidez constante, la segunda es una trayectoria circular a rapidez constante, y la tercera es una trayectoria cuadrada pero con desaceleración quendo el robot se acerca a las esqinas del cuadrado. 
+
+Para poder generar la primera trayectoria se utilizan escalones en la entrada. La trayectoria viene dada por (\ref{eq:entrada_cuadrado}). De esta manera se logra describir una trayectoria cuadrada con rapidez constante. En la figura \ref{fig>entrada_trayectoria_cuadrada} se mestra la entrada contra el tiempo. Luego de pocesar la entrada como se indica en la figura \ref{fig:simulacion_flow}, se obtienen los resultados en %ref a las figuras
+
+\begin{equation}
+\mathbf{\dot{p_d}}(t)=\left[\begin{array}{c}\mu(t-5)-\mu(t-10)-\mu(t-1)\\ \mu(t)-\mu(t-5)-\mu(t-10)+\mu(t-15) \end{array}\right]
+\label{eq:entrada_cuadrado}
+\end{equation} 
+
+
+%**********Entradas de las simulaciones*******************************************************************
+ \begin{figure}
+ 	\centering
+ 	\begin{subfigure}[t]{0.48\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/entrada_trayectoria_cuadrada.eps}
+ 		\caption{Velocidades para generar el cuadrado}
+ 		\label{fig:entrada_trayectoria_cuadrada}
+ 	\end{subfigure}
+ 	\begin{subfigure}[t]{0.48\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/entrada_trayectoria_circular.eps}
+ 		\caption{Velocidades para generar el circulo}
+ 		\label{fig:entrada_trayectoria_circular}
+ 	\end{subfigure}
+
+ 	\begin{subfigure}[b]{0.48\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/entrada_trayectoria_cuadrada_suavizada.eps}
+ 		\caption{Velocidades para generar el cuadrado con desaceleración en las esquinas}
+ 		\label{fig:entrada_trayectoria_cuadrada_suavizada}
+ 	\end{subfigure}
+        \caption{Entradas de las simulaciones}
+        \label{fig:entradas_simulaciones_cinematico}
+ \end{figure}
+
+%******Posicion trayectoria cuadrada***********************************************************************
+\begin{figure}
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/posicion_del_robot_modelo_cinematico_cuadrado.eps}	
+	\caption{Posición del robot en la trayectoria cuadrada}
+	\label{fig:posicion_del_robot_modelo_cinematico_cuadrado}
+\end{figure}
+
+ \begin{figure}
+ 	\centering
+ 	\begin{subfigure}[t]{0.48\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_cuadrado.eps}
+ 		\caption{Velocidad de las ruedas obtenidas del modelo inverso}
+ 		\label{fig:velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_cuadrado}
+ 	\end{subfigure}
+ 	\begin{subfigure}[t]{0.48\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/velocidad_de_las_ruedas_con_limitantes_de_aceleracion_cuadrado.eps}
+ 		\caption{Velocidad de las ruedas con limitantes de aceleración}
+ 		\label{fig:velocidad_de_las_ruedas_con_limitantes_de_aceleracion_cuadrado}
+ 	\end{subfigure}
+        \caption{Velocidades de las ruedas par la trayectoria cuadrada}
+        \label{fig:velocidades_ruedas_trayectoria_cuadrada}
+ \end{figure}
+
+\begin{figure}
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/evaluacion_de_la_restriccion_cuadrado.eps}	
+	\caption{Evaluación de la restricción para la trayectoria cuadrada}
+	\label{fig:evaluacion_de_la_restriccion_cuadrado}
+\end{figure}
 
 
 
+
+%******Posicion trayectoria circular***********************************************************************
+\begin{figure}
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/posicion_del_robot_modelo_cinematico_circulo.eps}	
+	\caption{Posición del robot en la trayectoria circular}
+	\label{fig:posicion_del_robot_modelo_cinematico_circulo}
+\end{figure}
+
+\begin{figure}
+ 	\centering
+ 	\begin{subfigure}[t]{0.48\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_circulo.eps}
+ 		\caption{Velocidad de las ruedas obtenidas del modelo inverso}
+ 		\label{fig:velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_circulo}
+ 	\end{subfigure}
+ 	\begin{subfigure}[t]{0.48\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/velocidad_de_las_ruedas_con_limitantes_de_aceleracion_circulo.eps}
+ 		\caption{Velocidad de las ruedas con limitantes de aceleración}
+ 		\label{fig:velocidad_de_las_ruedas_con_limitantes_de_aceleracion_circulo}
+ 	\end{subfigure}
+        \caption{Velocidades de las ruedas par la trayectoria circular}
+        \label{fig:velocidades_ruedas_trayectoria_circulo}
+ \end{figure}
+
+\begin{figure}
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/evaluacion_de_la_restriccion_circulo.eps}	
+	\caption{Evaluación de la restricción para la trayectoria circular}
+	\label{fig:evaluacion_de_la_restriccion_circulo}
+\end{figure}
+
+
+
+%******Posicion trayectoria cuadrada suavizada**************************************************************
+\begin{figure}
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/posicion_del_robot_modelo_cinematico_cuadrado_suavizado.eps}	
+	\caption{Posición del robot en la trayectoria cuadrada con desaceleración en las esquinas}
+	\label{fig:posicion_del_robot_modelo_cinematico_cuadrado_suavizado}
+\end{figure}
+
+\begin{figure}
+ 	\centering
+ 	\begin{subfigure}[t]{0.48\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_cuadrado_suavizado.eps}
+ 		\caption{Velocidad de las ruedas obtenidas del modelo inverso}
+ 		\label{fig:velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_cuadrado_suavizado}
+ 	\end{subfigure}
+ 	\begin{subfigure}[t]{0.48\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/velocidad_de_las_ruedas_con_limitantes_de_aceleracion_cuadrado_suavizado.eps}
+ 		\caption{Velocidad de las ruedas con limitantes de aceleración}
+ 		\label{fig:velocidad_de_las_ruedas_con_limitantes_de_aceleracion_cuadrado_suavizado}
+ 	\end{subfigure}
+        \caption{Velocidades de las ruedas par la trayectoria cuadrada con desaceleración en las esquinas}
+        \label{fig:velocidades_ruedas_trayectoria_cuadrada_suavizado}
+ \end{figure}
+
+\begin{figure}
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/evaluacion_de_la_restriccion_cuadrado.eps}	
+	\caption{Evaluación de la restricción para la trayectoria cuadrada}
+	\label{fig:evaluacion_de_la_restriccion_cuadrado}
+\end{figure}
 
 \section{Conclusiones y Recomendaciones}
 
@@ -1234,13 +1407,6 @@ Se logró exitosamente simular el sistema descrito. En las simulaciones se obtien
 
 
 \section{Apéndice Ecuaciones}
-
-
-
-\begin{equation}
-\label{eq:mul_lagrange}
-\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{q_1(t)}}\right) - \left(\frac{\partial k}{\partial q_1(t)}\right)= \left(\frac{\partial U}{\partial q_1(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{q_1}(t)}
-\end{equation}
 
 
 \begin{eqnarray}
