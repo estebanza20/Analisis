@@ -1,8 +1,8 @@
 %Este script es el script para hacer las graficas
 
 %la variable save es para determinar si se desan guardar las graficas
-%automaticamente. save = 0 no guarda. save = 1 si garda.
-save = 1;
+%automaticamente. save = 0 no guarda. save = 1 si guarda.
+save = 0;
 %la variable simulacion es para determinar la entrada al modelo
 simulacion=2;
 t=0:0.01:20;
