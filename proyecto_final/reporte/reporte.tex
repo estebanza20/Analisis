@@ -287,7 +287,7 @@ el tipo de movimiento, la posición de los cuerpos y la constitución física de lo
 (elasticidad). En el cuadro \ref{tab:energias}, se muestran algunos de los principales tipos de
 dichas energías para sistemas mecánicos.
 
-\begin{table}[]
+\begin{table}[H]
 \centering
 \caption{Principales tipos de energías cinéticas y potenciales para un sistema mecánico}
 \label{tab:energias}
@@ -301,6 +301,36 @@ Gravitacional & $mgh$ \\ \midrule
 Elástica (Resorte) & $\frac{1}{2}k{x}^2$ \\ \bottomrule
 \end{tabular}
 \end{table}
+
+\subsection{Algoritmo de punto descentralizado}
+El algoritmo de punto descentralizado consiste en establecer un punto separado del eje de tracción una distancia $e$ con el fin de que este defina la trayectoria deseada, de esta forma el robot gira con antelación de forma que, cuando termine de girar, su origen se encuentre sobre la trayectoria deseada. Para esto se define la ecuación \ref{eq:punto_descentralizado} el cual relaciona las velocidades de las ruedas con la velocidad global del carrito.\cite{punisher}
+
+\begin{equation}
+\left[\begin{array}{c}
+x_p \\
+y_p \\
+\end{array}\right] =
+\left[\begin{array}{c}
+x_m + e\cos\left(\theta \right)\\
+y_m + e\sin\left(\theta \right)
+\end{array} \right]
+\end{equation}
+
+\begin{equation}
+\label{eq:punto_descentralizado}
+\left[\begin{array}{c}
+v_l\\
+v_r\\
+\end{array} \right] =
+\frac{1}{e} \left[\begin{array}{c}
+e\cos\left(\theta\right) + 0.5b\sin\left(\theta\right) \ e\sin\left(\theta\right) - 0.5b\cos\left(\theta\right) \\
+e\cos\left(\theta\right) - 0.5b\sin\left(\theta\right) \ e\sin\left(\theta\right) + 0.5b\cos\left(\theta\right)
+\end{array}\right]
+\left[\begin{array}{c}
+\dot{x_p}\\
+\dot{y_p}
+\end{array} \right]
+\end{equation}
 
 \subsection{Modelo cinemático}
 \subsubsection{Modelo directo}
