@@ -357,38 +357,9 @@ El modelado de la tracción delantera de un robot movil es una condición no holon
 \end{equation}
 
 
-\subsection{Algoritmo de punto descentralizado}
-El algoritmo de punto descentralizado consiste en establecer un punto separado del eje de tracción una distancia $e$ con el fin de que este defina la trayectoria deseada, de esta forma el robot gira con antelación de forma que, cuando termine de girar, su origen se encuentre sobre la trayectoria deseada. Para esto se define la ecuación \ref{eq:punto_descentralizado} el cual relaciona las velocidades de las ruedas con la velocidad global del carrito.\cite{punisher}
-
-\begin{equation}
-\left[\begin{array}{c}
-x_p \\
-y_p \\
-\end{array}\right] =
-\left[\begin{array}{c}
-x_m + e\cos\left(\theta \right)\\
-y_m + e\sin\left(\theta \right)
-\end{array} \right]
-\end{equation}
-
-\begin{equation}
-\label{eq:punto_descentralizado}
-\left[\begin{array}{c}
-v_l\\
-v_r\\
-\end{array} \right] =
-\frac{1}{e} \left[\begin{array}{c}
-e\cos\left(\theta\right) + 0.5b\sin\left(\theta\right) \ e\sin\left(\theta\right) - 0.5b\cos\left(\theta\right) \\
-e\cos\left(\theta\right) - 0.5b\sin\left(\theta\right) \ e\sin\left(\theta\right) + 0.5b\cos\left(\theta\right)
-\end{array}\right]
-\left[\begin{array}{c}
-\dot{x_p}\\
-\dot{y_p}
-\end{array} \right]
-\end{equation}
-
 \subsection{Sistemas subactuados}
-Un sistema subactuado ocurre cuando existen menos actuadores que grados de libertad, es decir una sola entrada controla movimientos distintos e independientes del robot. Una ventaja de estos sistemas es que al utilizar menos actuadores consumen menos energía sin embargo el control se vuelve un poco más complejo
+Un sistema subactuado es aquel en el cual existen menos actuadores que grados de libertad \citep{Conejo}, es decir una sola entrada controla movimientos distintos e independientes del robot . Una ventaja de estos sistemas es que al utilizar menos actuadores consumen menos energía sin embargo el control se vuelve un poco más complejo. 
+
 
 \section{Modelado y simulación}
 Se procede a obtener el modelo cinemático (directo e inverso) y  el modelo dinámico de un robot de
