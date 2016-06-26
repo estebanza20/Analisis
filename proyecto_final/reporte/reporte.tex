@@ -8,6 +8,7 @@
 %--------- <Agregue aquí algún paquete extra que sea necesario---------
 \usepackage{booktabs}
 \usepackage{url}
+\usepackage{empheq}
 \usepackage{hyperref}
 \usepackage[spanish]{babel}
 \hypersetup{
@@ -53,8 +54,16 @@
 
 %Esto hay que revisarlo!
 
-Los robots móviles son muy importantes porque permiten sistemas más flexibles. Además abren toda un área de la robótica que es el problema de localización%referencias.
-En este documento se analiza el caso específico de un robot diferencial, este es un sistema que se moviliza en el plano xy debido a la acción de dos ruedas que funcionan de manera independiente. El principal objetivo es la obtención de un modelo cinemático directo, un modelo cinemático inverso, y un modelo dinámico que describa el sistema real. Se realizaron simulaciones, para verificar que la respuesta del modelo sea la esperada. 
+\section{Resumen}
+Los robots móviles son muy importantes porque permiten sistemas más flexibles, abriendo toda un área
+de la robótica que involucra el problema de la localización%referencias.
+En el presente documento se analiza el caso específico de un robot diferencial, el cual es un sistema que
+se moviliza en el plano xy debido a la acción de dos ruedas que funcionan de manera
+independiente. Se lleva a cabo la obtención de un modelo cinemático directo, un modelo cinemático
+inverso, y un modelo dinámico que describe las consideraciones energéticas del sistema. Se
+realizaron las simulaciones correspondientes para cada modelo, para luego analizar la respuesta
+ del movimiento del sistema a las entradas respectivas. 
+
 
 %-------------------
 %tablas de contenido (* si alguna no se ocupa se puede ``comentar'' (%) para que no aparezca)
@@ -74,8 +83,8 @@ En este documento se analiza el caso específico de un robot diferencial, este es
 \begin{description}[labelindent=1cm,labelwidth=2.25cm,align=left]
 %ponerlo en orden alfabetico
         \item[$L$] Lagrangiano de un sistema
-        \item[$T$] Energía cinética de un sistema
-        \item[$V$] Energía potencial de un sistema
+        \item[$K$] Energía cinética de un sistema
+        \item[$U$] Energía potencial de un sistema
         \item[$q_j$] Coordenada generalizada
         \item[$Q_j$] Fuerza generalizada
         \item[$n$] Cantidad de grados de libertad de un sistema
@@ -84,26 +93,26 @@ En este documento se analiza el caso específico de un robot diferencial, este es
         \item[$\vec{v}$] Velocidad del centro de masa de un cuerpo
         \item[$\omega$] Velocidad angular
         \item[$k$] Constante de un resorte traslacional
-        \item[$x$] Elongación de un resorte traslacional
+        \item[$d$] Elongación de un resorte traslacional
         \item[$h$] Altura del centro de masa de un cuerpo con respecto a la referencia
         \item[$g$] Constante de la gravedad terrestre
-        \item[$P_0$] Posición centro geométrico
-        \item[$P_d$] Posición punto desplazado
-        \item[$P_g$] Posición centro de masa
-        \item[$2b$]  ancho del robot
-        \item[$p_r$] Posición rueda derecha
-        \item[$p_l$] Posición rueda izquierda 
+        \item[$p_0$] Posición del centro geométrico
+        \item[$p_d$] Posición del punto descentralizado
+        \item[$p_g$] Posición del centro de masa
+        \item[$2b$]  Ancho del robot
+        \item[$p_r$] Posición de la rueda derecha
+        \item[$p_l$] Posición de la rueda izquierda 
         \item[$K$]  Energía cinética
-        \item[$r$] Radio rueda
-        \item[$m_c$] Masa carrito
-        \item[$m_w$] Masa rueda
-        \item[$I_g$] Momento de inercia respecto al punto al punto de masa
-        \item[$I_w$] Momento de inercia de la rueda, respecto al eje de rotación
-        \item[$I_m$] Momento de inercia alrededor del diámetro
-        \item[$\omega$] Rapidéz angular
-        \item[$\theta$] Orientación del carrito
-        \item[$X_0$] Desplazamiento del eje geométrico en el eje X
-        \item[$Y_0$] Desplazaminto del eje geométrico en el eje Y
+        \item[$r$] Radio de una rueda
+        \item[$m_c$] Masa del cuerpo del robot
+        \item[$m_w$] Masa de una rueda
+        \item[$I_g$] Momento de inercia del cuerpo alrededor del centro de masa
+        \item[$I_w$] Momento de inercia de una rueda alrededor de su eje central
+        \item[$I_m$] Momento de inercia de una rueda alrededor de un diámetro
+        \item[$\omega$] Rapidez angular de la rotación del robot
+        \item[$\theta$] Orientación del robot
+        \item[$x$] Posición del centro geométrico en el eje X
+        \item[$y$] Posición del centro geométrico en el eje Y
        
 \end{description}
 
@@ -135,6 +144,20 @@ hace muy útiles en interiores, en donde pueden pasar por lugares estrechos y dar
 \citep{KarlStol}.  Algunas de sus aplicaciones, pueden ser como guías de excursiones dentro de
 museos, bases de equipo médico dentro de hospitales, para vigilancia (segway) y de limpieza en el
 hogar \citep{Coelho}.
+
+\subsection{Objetivos}
+
+Se establecieron los siguientes objetivos para el desarrollo del trabajo:
+
+\begin{itemize}
+	\item Estudiar la dinámica de un robot de dos ruedas.
+	
+	\item Analizar el sistema y obtener un modelo matemático que lo describa
+	
+	\item Simular el sistema.
+
+\end{itemize}
+
 
 \section{Marco teórico}
 
@@ -254,7 +277,7 @@ independientes entre sí \citep{fitzpatrick2011}. Por otro lado, los grados de li
 cantidad de coordenadas que pueden ser modificadas de manera independiente para determinar la
 configuración de los cuerpos en el sistema \citep{vandiver2011}.
 
-El Lagrangiano, definido como $L=T-V$, es función de las coordenadas generalizadas y de sus
+El Lagrangiano, definido como $L=K-U$, es función de las coordenadas generalizadas y de sus
 respectivas derivadas \citep{gavin2014}, tal como se muestra en la ecuación \ref{eq:lagrangian}, en
 donde $n$ es la cantidad de grados de libertad del sistema.
 
@@ -293,38 +316,68 @@ dichas energías para sistemas mecánicos.
 \label{tab:energias}
 \begin{tabular}{@{}ll@{}}
 \toprule
-\multicolumn{2}{l}{\textbf{Energía cinética (T)}} \\ \midrule
+\multicolumn{2}{l}{\textbf{Energía cinética (K)}} \\ \midrule
 Traslacional & $\frac{1}{2} m {\left\lVert \vec{v} \right\rVert}^2  $   \\ \midrule
 Rotacional & $\frac{1}{2} J {\omega}^2$ \\ \midrule
-\multicolumn{2}{l}{\textbf{Energía potencial (V)}} \\ \midrule
+\multicolumn{2}{l}{\textbf{Energía potencial (U)}} \\ \midrule
 Gravitacional & $mgh$ \\ \midrule
-Elástica (Resorte) & $\frac{1}{2}k{x}^2$ \\ \bottomrule
+Elástica (Resorte) & $\frac{1}{2}k{d}^2$ \\ \bottomrule
 \end{tabular}
 \end{table}
+
+\section{Modelado y simulación}
+Se procede a obtener el modelo cinemático (directo e inverso) y  el modelo dinámico de un robot de
+dos ruedas, para lo cual se toman las siguientes consideraciones generales:
+\begin{itemize}
+\item El robot no se desliza hacia los lados, de modo que solo se puede desplazar en la dirección
+  definida por el frente del mismo.
+\item La rapidez traslacional del robot sobre el punto en donde se ubica cada rueda, es igual a la
+  rapidez tangencial de la rueda respectiva en contacto con el suelo, lo cual corresponde a la
+  condición de rodadura.
+\item El robot sólamente puede perder energía debido a la fricción en los ejes de cada rueda, la
+  cual se considera viscosa para simplificar la obtención del modelo.
+\item No existen fuerzas externas aplicadas al robot excepto por la fuerza asociada al torque de los
+  motores, ni tampoco se presentan colisiones con otros posibles cuerpos externos al sistema. De
+  esta forma, el movimiento del robot está completamente determinado por su dinámica y por la fuerza
+  aplicada por los motores.
+\item El movimiento que describe el robot se lleva a cabo sobre una superficie plana, de manera que
+  no hay cambios energéticos debidos a la acción del campo gravitacional terrestre sobre el robot.
+\item El cuerpo del vehículo es no deformable, de modo que no se acumula energía potencial debido a
+  elasticidad ni se dan pérdidas de energía debido a la deformación de las llantas o el cuerpo del
+  robot.
+\item No se consideran las limitaciones relacionadas con la potencia máxima que pueden entregar los motores
+  de cada rueda, de manera que los mismos pueden generar pares de torsión muy grandes que cambian de
+  manera abrupta.
+ \item La distribución de masa del robot es uniforme. %simétrica con respecto a la línea central definida por el
+  % frente del vehículo, de manera que tanto el centro de masa como el centro geométrico se encuentran
+  % sobre dicha línea.  
+\item El cuerpo del robot no se comporta como un péndulo invertido, ya que presenta el soporte
+  adecuado para mantenerse estable sin balancearse.
+\end{itemize}
 
 \subsection{Modelo cinemático}
 \subsubsection{Modelo directo}
 
 
-Para efectos de la obtención de este modelo se considera el centro del robot como el punto medio en el eje de las ruedas (también se le llama centro geométrico). La posición de este punto de describe por el vector $p_0$. Se toma que cuando el robot está orientado hacia el eje x positivo, entonces su ángulo de orientación es $0^\circ$. Luego se define el ángulo de orientación $\theta$ como el medido a partir del eje x positivo. Como se muestra en la figura %ref
+Para efectos de la obtención de este modelo se considera el centro del robot como el punto medio en el eje de las ruedas (también se le llama centro geométrico). La posición de este punto de describe por el vector $\mathbf{p_0}$. Se toma que cuando el robot está orientado hacia el eje x positivo, entonces su ángulo de orientación es $0^\circ$. Luego se define el ángulo de orientación $\theta$ como el medido a partir del eje x positivo. Como se muestra en la figura %ref
 
-La posición de cada motor se decribe por los vectores $p_L$ y $p_R$ para el motor izquierdo y derecho respectivamente. Note que, utilizando álgebra de vectores, se puede deducir que: 
+La posición de cada motor se decribe por los vectores $\mathbf{p_L}$ y $\mathbf{p_R}$ para el motor izquierdo y derecho respectivamente. Note que, utilizando álgebra de vectores, se puede deducir que: 
 
 \begin{equation}
 \begin{cases}
-\mathbf{p_R}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c}\frac{b}{2}\cos(90^\circ-\theta(t))&  -\frac{b}{2}\sin(90^\circ-\theta(t))\end{array}\right]^t\\
-\mathbf{p_L}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c}-\frac{b}{2}\cos(90^\circ-\theta(t))&  \frac{b}{2}\sin(90^\circ-\theta(t))\end{array}\right]^t
+\mathbf{p_R}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c}\frac{b}{2}\cos(90^\circ-\theta(t))&  -\frac{b}{2}\sen(90^\circ-\theta(t))\end{array}\right]^t\\
+\mathbf{p_L}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c}-\frac{b}{2}\cos(90^\circ-\theta(t))&  \frac{b}{2}\sen(90^\circ-\theta(t))\end{array}\right]^t
 \end{cases}
 \label{eq:global_position_prev_simplification}
 \end{equation}
 
 
-Note que $\cos(90^\circ-\theta(t))=\sin(\theta(t))$ y que $\sin(90^\circ-\theta(t))=\cos(\theta(t))$. Entonces, sustituyendo en (\ref{eq:global_position_prev_simplification}), se obtiene (\ref{eq:global_position}). 
+Note que $\cos(90^\circ-\theta(t))=\sen(\theta(t))$ y que $\sen(90^\circ-\theta(t))=\cos(\theta(t))$. Entonces, sustituyendo en (\ref{eq:global_position_prev_simplification}), se obtiene (\ref{eq:global_position}). 
 
 \begin{equation}
 \begin{cases}
-\mathbf{p_R}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} \frac{b}{2}\sin(\theta(t))&  -\frac{b}{2}\cos(\theta(t))\end{array} \right]^t\\
-\mathbf{p_L}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} -\frac{b}{2}\sin(\theta(t))&  \frac{b}{2}\cos(\theta(t))\end{array}\right]^t
+\mathbf{p_R}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} \frac{b}{2}\sen(\theta(t))&  -\frac{b}{2}\cos(\theta(t))\end{array} \right]^t\\
+\mathbf{p_L}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} -\frac{b}{2}\sen(\theta(t))&  \frac{b}{2}\cos(\theta(t))\end{array}\right]^t
 \end{cases}
 \label{eq:global_position}
 \end{equation}
@@ -335,27 +388,27 @@ Derivando (\ref{eq:global_position})se obtiene:
 
 \begin{equation}
 \begin{cases}
-\dot{\mathbf{p_R}}(t)=\mathbf{v_R}(t)=\mathbf{v_0}(t)+\left[  \begin{array}{c c} \frac{b}{2}\cos(\theta(t)) \omega(t) &  \frac{b}{2}\sin(\theta(t)) \omega(t) \end{array}\right]^t \\
-\dot{\mathbf{p_L}}(t)=\mathbf{v_L}(t)=\mathbf{v_0}(t)+\left[  \begin{array}{c c}-\frac{b}{2}\cos(\theta(t)) \omega(t) & -\frac{b}{2}\sin(\theta(t)) \omega(t) \end{array}\right]^t
+\dot{\mathbf{p_R}}(t)=\mathbf{v_R}(t)=\mathbf{v_0}(t)+\left[  \begin{array}{c c} \frac{b}{2}\cos(\theta(t)) \omega(t) &  \frac{b}{2}\sen(\theta(t)) \omega(t) \end{array}\right]^t \\
+\dot{\mathbf{p_L}}(t)=\mathbf{v_L}(t)=\mathbf{v_0}(t)+\left[  \begin{array}{c c}-\frac{b}{2}\cos(\theta(t)) \omega(t) & -\frac{b}{2}\sen(\theta(t)) \omega(t) \end{array}\right]^t
 \end{cases}
 \label{eq:global_velocities}
 \end{equation}
 
-Reescribiendo (\ref{eq:global_velocities}), pero sustituyendo que $\mathbf{v_n}=\left[ \begin{array}{c c} v_n\cos(\theta(t)) & v_n\sin(\theta(t)) \end{array} \right]^t$  en  (\ref{eq:velocities_system}) donde $|\mathbf{v_n}|=v_n$.
+Reescribiendo (\ref{eq:global_velocities}), pero sustituyendo que $\mathbf{v_n}=\left[ \begin{array}{c c} v_n\cos(\theta(t)) & v_n\sen(\theta(t)) \end{array} \right]^t$  en  (\ref{eq:velocities_system}) donde $|\mathbf{v_n}|=v_n$.
 
 \begin{equation}
 \begin{cases}
 \begin{array}{c c c c c}
 v_R\cos(\theta(t)) &=&v_0\cos(\theta(t))&+&\frac{b}{2}\cos(\theta(t))\omega(t)\\
-v_R\sin(\theta(t)) &=&v_0\sin(\theta(t))&+&\frac{b}{2}\sin(\theta(t))\omega(t)\\
+v_R\sen(\theta(t)) &=&v_0\sen(\theta(t))&+&\frac{b}{2}\sen(\theta(t))\omega(t)\\
 v_L\cos(\theta(t)) &=&v_0\cos(\theta(t))&+&\frac{b}{2}\cos(\theta(t))\omega(t)\\
-v_L\sin(\theta(t)) &=&v_0\sin(\theta(t))&+&\frac{b}{2}\sin(\theta(t))\omega(t)
+v_L\sen(\theta(t)) &=&v_0\sen(\theta(t))&+&\frac{b}{2}\sen(\theta(t))\omega(t)
 \end{array}
 \end{cases}
 \label{eq:velocities_system}
 \end{equation}
 
-De (\ref{eq:velocities_system}) suponga que $\cos(\theta(t))\neq 0$, entonces se concluye (\ref{eq:local_vel_wheels}) multiplicando por $1/\cos(\theta(t))$ a ambos lados de las ecauciones. Si $\cos(\theta(t))= 0$, se sabe que $\sin(\theta(t))\neq 0$, y por tanto también se puede concluir (\ref{eq:local_vel_wheels}).
+De (\ref{eq:velocities_system}) suponga que $\cos(\theta(t))\neq 0$, entonces se concluye (\ref{eq:local_vel_wheels}) multiplicando por $1/\cos(\theta(t))$ a ambos lados de las ecuaciones. Si $\cos(\theta(t))= 0$, se sabe que $\sen(\theta(t))\neq 0$, y por tanto también se puede concluir (\ref{eq:local_vel_wheels}).
 
 \begin{equation}
 \begin{cases}
@@ -365,25 +418,25 @@ v_L(t)=v_0(t)-\frac{b}{2}\omega(t)
 \label{eq:local_vel_wheels}
 \end{equation}
 
-Note que como lo que se puede controlar es $\varphi_R$ y $\varphi_L$, las velociddes angulares de los motores derecho e izquierdo respectivamente. Entonces se despeja $v_0$ y $\omega(t)$ en términos de $v_R$ y $v_L$ y si se toma en consideración que el radio de las ruedas es $r$, se obtiene el resultado en (\ref{eq:local_vel}) y en (\ref{eq:local_dir}).
+Note que como lo que se puede controlar es $\dot{\varphi}_R$ y $\dot{\varphi}_L$, las velociddes angulares de los motores derecho e izquierdo respectivamente. Entonces se despeja $v_0$ y $\omega(t)$ en términos de $v_R$ y $v_L$ y si se toma en consideración que el radio de las ruedas es $r$, se obtiene el resultado en (\ref{eq:local_vel}) y en (\ref{eq:local_dir}).
 
 \begin{equation}
-v_0(t)         =\frac{r}{2}(\varphi_R(t)+\varphi_L(t))
+v_0(t) =\frac{r}{2}(\dot{\varphi}_R(t)+\dot{\varphi}_L(t))
 \label{eq:local_vel}
 \end{equation} 
 
 \begin{equation}
-\dot{\theta}(t)=\frac{r}{b}(\varphi_R(t)-\varphi_L(t))
+\dot{\theta}(t)=\frac{r}{b}(\dot{\varphi}_R(t)-\dot{\varphi}_L(t))
 \label{eq:local_dir}
 \end{equation}
 
 También es sabido que:
 \begin{equation}
-\mathbf{v_0(t)}(t)=\left[ \begin{array}{c} \dot{x}(t) \\ \dot{y}(t) \end{array} \right]=\left[\begin{array}{c} v_0(t)\cos(\theta(t)) \\ v_0(t)\sin(\theta(t)) \end{array} \right]
+\mathbf{v_0}(t)=\left[ \begin{array}{c} \dot{x}(t) \\ \dot{y}(t) \end{array} \right]=\left[\begin{array}{c} v_0(t)\cos(\theta(t)) \\ v_0(t)\sen(\theta(t)) \end{array} \right]
 \label{eq:global_vel}
 \end{equation} 
 
-Entonces, sustituyendo (\ref{eq:local_vel}) en (\ref{eq:global_vel}), y tomadno en consideración (\ref{eq:local_dir}), se obtiene la ecuación descrita en (\ref{eq:kinematic_model_matrix}).
+Entonces, sustituyendo (\ref{eq:local_vel}) en (\ref{eq:global_vel}), y tomando en consideración (\ref{eq:local_dir}), se obtiene la ecuación descrita en (\ref{eq:kinematic_model_matrix}).
 
 \begin{equation}
 \left[
@@ -395,103 +448,104 @@ Entonces, sustituyendo (\ref{eq:local_vel}) en (\ref{eq:global_vel}), y tomadno 
 \left[
 \begin{array}{c c}
 \frac{r}{2}\cos(\theta(t))&\frac{r}{2}\cos(\theta(t))\\
-\frac{r}{2}\sin(\theta(t))&\frac{r}{2}\sin(\theta(t))\\
+\frac{r}{2}\sen(\theta(t))&\frac{r}{2}\sen(\theta(t))\\
 \frac{r}{b}&\frac{-r}{b}
 \end{array}
 \right]
 \left[
 \begin{array}{c}
-\varphi_R(t)\\ \varphi_L(t)
+\dot{\varphi}_R(t)\\ \dot{\varphi}_L(t)
 \end{array}
 \right]
 \label{eq:kinematic_model_matrix}
 \end{equation}
 
-Se definen los siguientes vectores, para simplificar la notación de esta sección: $\nu(t)=\left[\begin{array}{c c c}\dot{x}(t)&\dot{y}(t)&\omega(t)\end{array}\right]^t$ y $\varphi(t)=\left[\begin{array}{c c} \varphi_R(t)& \varphi_L(t) \end{array} \right]^t$. Se define $\Lambda(t)$, como la matriz en (\ref{eq:kinematic_model_matrix}). De esta menra de reescribe la ecuación como:
+Se definen los siguientes vectores, para simplificar la notación de esta sección: $\nu(t)=\left[\begin{array}{c c c}\dot{x}(t)&\dot{y}(t)&\omega(t)\end{array}\right]^t$ y $\dot{\varphi}(t)=\left[\begin{array}{c c} \dot{\varphi}_R(t)& \dot{\varphi}_L(t) \end{array} \right]^t$. Se define $\Lambda(t)$, como la matriz en (\ref{eq:kinematic_model_matrix}). De esta menra de reescribe la ecuación como:
 
 \begin{equation}
-\mathbf{\nu}(t)=\Lambda(t) \mathbf{\varphi}(t)
+\mathbf{\nu}(t)=\Lambda(t) \mathbf{\dot{\varphi}}(t)
 \label{eq:kinematic_model}
 \end{equation}
 
-La ecuación (\ref{eq:kinematic_model}) representa el modelo cinemático directo del sistema. Ya que relaciona la entrada ($\mathbf{\varphi}(t)$), con la salida ($\mathbf{\nu}(t)$). %mismo resultado que Trajectory Tracking Control for a Differential Drive Wheeled Mobile Robot Considering the Dynamics Related to the Actuators and Power Stage
+La ecuación (\ref{eq:kinematic_model}) representa el modelo cinemático directo del sistema. Ya que relaciona la entrada ($\mathbf{\dot{\varphi}}(t)$), con la salida ($\mathbf{\nu}(t)$). %mismo resultado que Trajectory Tracking Control for a Differential Drive Wheeled Mobile Robot Considering the Dynamics Related to the Actuators and Power Stage
 
-\subsubsection{Modelo inverso}
+%\subsubsection{Modelo inverso}
 
-Para encontrar la cinemática inversa, es necesario encontrar las velocidades de las ruedas en términos de la velocidad del robot. Esto se logra computando la pseudoinversa de $\Lambda(t)$, que se denota por $\Lambda^{-1}(t)$. Se utiliza \textit{Wolfram Mathematica} para encontrar una expresión simbólica para $\Lambda^{-1}(t)$. El resultado se muestra en (\ref{eq:pseudoinverse}).
+%Para encontrar la cinemática inversa, es necesario encontrar las velocidades de las ruedas en términos de la velocidad del robot. Esto se logra computando la pseudoinversa de $\Lambda(t)$, que se denota por $\Lambda^{-1}(t)$. Se utiliza \textit{Wolfram Mathematica} para encontrar una expresión simbólica para $\Lambda^{-1}(t)$. El resultado se muestra en (\ref{eq:pseudoinverse}).
 
-\begin{equation}
-\Lambda^{-1}=\left[
-\begin{array}{c c c}
-\frac{\cos(\theta(t))}{r} & \frac{\cos(\theta(t))}{r} & \frac{b}{2r}\\
-\frac{\sin(\theta(t))}{r} & \frac{\sin(\theta(t))}{r} & \frac{-b}{2r}\\
-\end{array}
- \right]
-\label{eq:pseudoinverse}
-\end{equation}
+%\begin{equation}
+%\Lambda^{-1}=\left[
+%\begin{array}{c c c}
+%\frac{\cos(\theta(t))}{r} & \frac{\cos(\theta(t))}{r} & \frac{b}{2r}\\
+%\frac{\sen(\theta(t))}{r} & \frac{\sen(\theta(t))}{r} & \frac{-b}{2r}\\
+%\end{array}
+% \right]
+%\label{eq:pseudoinverse}
+%\end{equation}
 
-El modelo cinemático inverso viene dado por (\ref{eq:inverse_kinematic_model}):
+%El modelo cinemático inverso viene dado por (\ref{eq:inverse_kinematic_model}):
 
-\begin{equation}
-\mathbf{\varphi}(t)=\Lambda^{-1}\mathbf{\nu}(t)
-\label{eq:inverse_kinematic_model}
-\end{equation}
+%\begin{equation}
+%\mathbf{\dot{\varphi}}(t)=\Lambda^{-1}\mathbf{\nu}(t)
+%\label{eq:inverse_kinematic_model}
+%\end{equation}
 
-La ecuación en (\ref{eq:inverse_kinematic_model}) muestra al vector de velocidades angulares en las ruedas en términos de la velocidad traslacional del centro geométrico del robot y la velocidad angular del robot. Sin embargo por la no holonomicidad %OJO hay que citar esto. No se puede simplemente decir qeu es no holonomico!·········
-del sistema, hay soluciones que no son posibles. Tome el caso en el que se requiera una velocidad traslacionar que sea perpendicular a la orientación actual del robot. Entonces se tiene $\theta(t)$ como la orientación actual. $(\cos(\theta(t)), \sin(\theta(t)))$, es un vector unitario en la dirección del robot. Entonces $\mathbf{v_{per}}(t)=(-\sin(\theta(t)),\cos(\theta(t)))$ es un vector perpendicular a la orientación del robot. Tome $\mathbf{\nu}_{\perp}(t)=\left[\begin{array}{c c c} -\sin(\theta(t))& \cos(\theta(t)) & 0\end{array} \right]^t$. Sutituyendo $\mathbf{\nu}_{\perp}(t)$ en (\label{eq:inverse_kinematic_model}), se obtiene una velocidad angular en las ruedas de $\mathbf{\varphi}_{\perp}(t)=$.
+%La ecuación en (\ref{eq:inverse_kinematic_model}) muestra al vector de velocidades angulares en las ruedas en términos de la velocidad traslacional del centro geométrico del robot y la velocidad angular del robot. Sin embargo por la no holonomicidad %OJO hay que citar esto. No se puede simplemente decir qeu es no holonomico!·········
+%del sistema, hay soluciones que no son posibles. Tome el caso en el que se requiera una velocidad traslacionar que sea perpendicular a la orientación actual del robot. Entonces se tiene $\theta(t)$ como la orientación actual. $(\cos(\theta(t)), \sen(\theta(t)))$, es un vector unitario en la dirección del robot. Entonces $\mathbf{v_{per}}(t)=(-\sen(\theta(t)),\cos(\theta(t)))$ es un vector perpendicular a la orientación del robot. Tome $\mathbf{\nu}_{\perp}(t)=\left[\begin{array}{c c c} -\sen(\theta(t))& \cos(\theta(t)) & 0\end{array} \right]^t$. Sutituyendo $\mathbf{\nu}_{\perp}(t)$ en (\label{eq:inverse_kinematic_model}), se obtiene una velocidad angular en las ruedas de $\mathbf{\dot{\varphi}}_{\perp}(t)=$.
 
 %OJO hay que terminar esta parte IMPORTANTE. para justificvar utilizar el punto desplazado. 
 
-\subsubsection{Modelo del punto desplazado}
+\subsubsection{Modelo del punto descentralizado}
 
 %Hacer la justificaciond e contrabilidad.
 
-En algunos casos es más conveniente tomar un punto desplazado del centro del robot. Este normalmente se toma hacia el frente. Se calculan las velocidades de las ruedas para controlar la velocidad traslacional del punto desplazado. En este caso no se toma en cuenta la orientación, ya que este modelo se utiliza para un robot que usualmente se va a utilizar para seguir trayectorias. De esta manera se hace que el punto desplazado siga la trayectoria, y el robot de manera natural va a seguir la trayectoria con la orientación adecuada. %citar esto que acabod e decir
+En algunos casos es más conveniente tomar un punto desplazado del centro del robot. Este normalmente se toma hacia el frente. Se calculan las velocidades de las ruedas para controlar la velocidad traslacional del punto desplazado (conocido en adelante como punto descentralizado). En este caso no se toma en cuenta la orientación, ya que este modelo se utiliza para un robot que usualmente se va a utilizar para seguir trayectorias. De esta manera se hace que el punto desplazado siga la trayectoria, y el centro del robot de manera natural va a seguir la trayectoria con la orientación adecuada. %citar esto que acabod e decir
 
-Entonces considere el punto desplazado, cuyo vector de posición es $\mathbf{p_e}(t)$. Se define que la distancia entre $\mathbf{p_e}(t)$ y $\mathbf{p_0}(t)$ es $d$.Note que $\mathbf{p_e}(t)$ está fijo en el marco de referencia del robot, entonces $d$ es constante. Se cumple lo descrito en (\ref{eq:punto_desplazado}).
+Entonces considere el punto descentralizado, cuyo vector de posición es $\mathbf{p_d}(t)$. Se define que la distancia entre $\mathbf{p_d}(t)$ y $\mathbf{p_0}(t)$ es $d$. Note que $\mathbf{p_d}(t)$ está fijo en el marco de referencia del robot, entonces $d$ es constante. Se cumple lo descrito en (\ref{eq:punto_desplazado}).
 
 \begin{equation}
-\mathbf{p_e}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} d\cos(\theta(t))&  d\sin(\theta(t))\end{array} \right]^t
+\mathbf{p_d}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} d\cos(\theta(t))&  d\sen(\theta(t))\end{array} \right]^t
 \label{eq:punto_desplazado}
 \end{equation}
 
 Luego, derivando (\ref{eq:punto_desplazado}), se obtiene la expresión en (\ref{eq:vel_desplazado}).
 
 \begin{equation}
-\dot{\mathbf{p_e}}(t)=\dot{\mathbf{p_0}}(t)+\left[\begin{array}{c c} -d\sin(\theta(t))\omega(t)&  d\cos(\theta(t))\omega(t)\end{array} \right]^t
+\dot{\mathbf{p_d}}(t)=\dot{\mathbf{p_0}}(t)+\left[\begin{array}{c c} -d\sen(\theta(t))\omega(t)&  d\cos(\theta(t))\omega(t)\end{array} \right]^t
 \label{eq:vel_desplazado}
 \end{equation} 
 
-Para expresar la velocidad en el punto desplazado se define $\Psi(t)$ en (\ref{eq:matriz_m}), la matriz de trasformación del punto central al punto desplazado.
+Para expresar la velocidad en el punto descentralizado descrita en (\ref{eq:vel_desplazado}), se define $\Psi(t)$ en (\ref{eq:matriz_m}), la matriz de trasformación del punto central al punto descentralizado.
 
 \begin{equation}
-\dot{\mathbf{p_e}}(t)=\left[ \begin{array}{c c c} 1&  0& -d\sin(\theta(t))\\
+\dot{\mathbf{p_d}}(t)=\left[ \begin{array}{c c c} 1&  0& -d\sen(\theta(t))\\
                                                  0&  1&  d\cos(\theta(t))\end{array}  \right] \mathbf{\nu}(t)
 =\Psi(t) \mathbf{\nu}(t)
 \label{eq:matriz_m}
 \end{equation} 
 
 
-Ahora, se define $A(t)=\Psi(t)\Lambda(t)$, para obtener la relación entre $\dot{\mathbf{p_e}}(t)$, y $\mathbf{\varphi}(t)$. Como se presenta en (\ref{eq:modelo_desplazado}).
+Ahora, se define $A(t)=\Psi(t)\Lambda(t)$, para obtener la relación entre $\dot{\mathbf{p_d}}(t)$, y $\mathbf{\dot{\varphi}}(t)$. Como se presenta en (\ref{eq:modelo_desplazado}).
 
 \begin{equation}
-\dot{\mathbf{p_e}}(t)= \left[ \begin{array}{c c} 0.5r\cos(\theta(t))-\frac{dr\sin(\theta(t))}{b}& 0.5\cos(\theta(t))+\frac{er\sin(\theta(t))}{b}  \\
-                                                 -0.5r\sin(\theta(t))-\frac{dr\cos(\theta(t))}{b}& 0.5\sin(\theta(t))-\frac{dr\cos(\theta(t))}{b}  \end{array}  \right] \mathbf{\varphi}(t)=A(t)\mathbf{\varphi}(t)
+\dot{\mathbf{p_d}}(t)= \left[ \begin{array}{c c} 0.5r\cos(\theta(t))-\frac{dr\sen(\theta(t))}{b}& 0.5\cos(\theta(t))+\frac{er\sen(\theta(t))}{b}  \\
+                                                 -0.5r\sen(\theta(t))-\frac{dr\cos(\theta(t))}{b}& 0.5\sen(\theta(t))-\frac{dr\cos(\theta(t))}{b}  \end{array}  \right] \mathbf{\dot{\varphi}}(t)=A(t)\mathbf{\dot{\varphi}}(t)
 \label{eq:modelo_desplazado}
 \end{equation}
 
-Se define a $\theta$ como el estado del sistema. Entocnes la relación entrada-estado viene dada en (\ref{eq:local_dir}). y la relación entrada-salida-estado viene dada en (\ref{eq:modelo_desplazado}). 
+Se define a $\theta$ como el estado del sistema. Entonces la relación entrada-estado del modelo directo del punto descentralizado viene dada en (\ref{eq:local_dir}). Y la relación entrada-salida-estado viene dada en (\ref{eq:modelo_desplazado}). 
 
+\subsubsection{Modelo inverso del punto descentralizado}
 
-Para poder controlar al robot, se necesita el modelo inverso. Primero se debe determinar si es posible encontrarlo. Se tiene que $det(A)=-\frac{dr^2}{b}$, de manera que el determinante es no nulo para todo valor de $t$. Entonces siempre es posible encontrar la matriz inversa de $A(t)$, esta se denota por $A^{-1}(t)$, su resultado se muestra en (\ref{eq:a_inverso}). Para el modelo inverso, se tiene a $\mathbf{\varphi}(t)$ como la salida, y a $\dot{\mathbf{p_e}}(t)$ como la entrada, pero el estado no cambia; $\theta(t)$ es el estado de este modelo. Entonces en (\ref{eq:desplazado_inverso}) se muestra la relación entre la entrada y la salida del modelo inverso. De sustituir (\ref{eq:local_dir}) en  (\ref{eq:desplazado_inverso}), se obtiene (\ref{eq:estado_entrada_desplazado}). Finalmente, el modelo cinemático inverso para el punto desplazado viene dado por las ecuaciones (\ref{eq:a_inverso}),(\ref{eq:estado_entrada_desplazado}) y (\ref{eq:desplazado_inverso}).
+Para poder controlar al robot, se necesita el modelo inverso. Primero se debe determinar si es posible encontrarlo. Se tiene que $det(A)=-\frac{dr^2}{b}$, de manera que el determinante es no nulo para todo valor de $t$. Entonces siempre es posible encontrar la matriz inversa de $A(t)$, esta se denota por $A^{-1}(t)$, su resultado se muestra en (\ref{eq:a_inverso}). Para el modelo inverso, se tiene a $\mathbf{\dot{\varphi}}(t)$ como la salida, y a $\dot{\mathbf{p_d}}(t)$ como la entrada, pero el estado no cambia; $\theta(t)$ es el estado de este modelo. Entonces en (\ref{eq:desplazado_inverso}) se muestra la relación entre la entrada y la salida del modelo inverso. De sustituir (\ref{eq:local_dir}) en  (\ref{eq:desplazado_inverso}), se obtiene (\ref{eq:estado_entrada_desplazado}). Finalmente, el modelo cinemático inverso para el punto desplazado viene dado por las ecuaciones (\ref{eq:a_inverso}),(\ref{eq:estado_entrada_desplazado}) y (\ref{eq:desplazado_inverso}).
 
 \begin{equation}
 A^{-1}(t)=
 \left[
 \begin{array}{cc}
- \frac{ d \cos (\theta (t))-0.5 b \sin (\theta (t))}{d r} & \frac{0.5 b \cos
-   (\theta (t))+ d \sin (\theta (t))}{d r} \\
- \frac{ d \cos (\theta (t))+0.5 b \sin (\theta (t))}{d r} & \frac{ d \sin
+ \frac{ d \cos (\theta (t))-0.5 b \sen (\theta (t))}{d r} & \frac{0.5 b \cos
+   (\theta (t))+ d \sen (\theta (t))}{d r} \\
+ \frac{ d \cos (\theta (t))+0.5 b \sen (\theta (t))}{d r} & \frac{ d \sen
    (\theta (t))-0.5 b \cos (\theta (t))}{d r} \\
 \end{array}
 \right]
@@ -499,7 +553,7 @@ A^{-1}(t)=
 \end{equation}
 
 \begin{equation}
-\mathbf{\varphi}(t)=A^{-1}(t)\dot{\mathbf{p_e}}(t)
+\mathbf{\dot{\varphi}}(t)=A^{-1}(t)\dot{\mathbf{p_d}}(t)
 \label{eq:desplazado_inverso}
 \end{equation}
 
@@ -508,29 +562,634 @@ A^{-1}(t)=
 \begin{array}{cc}
  \frac{b}{r} & \frac{-b}{r}
 \end{array}
-\right] A^{-1} \dot{\mathbf{p_e}}(t)
+\right] A^{-1} \dot{\mathbf{p_d}}(t)
 \label{eq:estado_entrada_desplazado}
 \end{equation}
 
+
+%Esta parte puede que desaparezca! ya no es tan relevante!****************************************************
+%*************************************************************************************************************
+
+
 %IMPORTANTE definir centro geometrico. Puede que sea distinto al punto medio entre las llantas!
-Para analizar el comportamiento del centro geométrico del robot, y el punto desplazado, se debe encontrar una transformación que los relacione. De esta manera se puede verificar qeu al controlar el punto desplazado, se logra un control indirecto sobre el centro geométrico, y que la orientación del robot se adapta, conforme el robot avanza en la trayectoria. Sustituyendo (\ref{eq:kinematic_model}) en (\ref{eq:desplazado_inverso}) se obtiene (\ref{eq:desplazado_contra_centro}), que es la relación entre la velocidad en el punto desplazado (que se puede controlar) y el centro geométrico (sobre el qeu no se tiene control completo).
+Para analizar el comportamiento del centro geométrico del robot, y el punto desplazado, se debe encontrar una transformación que los relacione. De esta manera se puede verificar qeu al controlar el punto desplazado, se logra un control indirecto sobre el centro geométrico, y que la orientación del robot se adapta, conforme el robot avanza en la trayectoria. Sustituyendo (\ref{eq:kinematic_model}) en (\ref{eq:desplazado_inverso}) se obtiene (\ref{eq:desplazado_contra_centro}), que es la relación entre la velocidad en el punto desplazado (que se puede controlar) y el centro geométrico (sobre el que no se tiene control completo).
 
  \begin{equation}
-\mathbf{\nu}(t)=\Lambda A^{-1}\dot{\mathbf{p_e}}(t)=
+\mathbf{\nu}(t)=\Lambda A^{-1}\dot{\mathbf{p_d}}(t)=
 \left[
 \begin{array}{cc}
- \cos^2(\theta(t)) & \cos(\theta(t))\sin(\theta(t))\\
- \cos(\theta(t))\sin(\theta(t))& \sin^2(\theta(t))\\
-\frac{-\sin(\theta(t))}{d}&\frac{\cos(\theta(t))}{d}
+ \cos^2(\theta(t)) & \cos(\theta(t))\sen(\theta(t))\\
+ \cos(\theta(t))\sen(\theta(t))& \sen^2(\theta(t))\\
+\frac{-\sen(\theta(t))}{d}&\frac{\cos(\theta(t))}{d}
 \end{array}
-\right] \dot{\mathbf{p_e}}(t)
+\right] \dot{\mathbf{p_d}}(t)
 \label{eq:desplazado_contra_centro}
+\end{equation}
+
+%Esta parte puede que desaparezca! ya no es tan relevante!****************************************************
+%*************************************************************************************************************
+
+\subsection{Modelo dinámico}
+La obtención del modelo dinámico se fundamenta en la aplicación del método de Euler-Lagrange
+considerando las restricciones propias del sistema del robot diferencial de dos ruedas.
+
+%IMAGEN ROBOT
+
+
+
+A partir de la condición de no deslizamiento hacia los lados, se obtiene que el componente de la
+velocidad traslacional del centro geométrico que es perpendicular a la recta descrita por el frente del
+robot (definida por el ángulo de orientación $\theta(t)$), es nulo, lo cual se muestra en (\ref{eq:restriccion_1}).
+
+\begin{equation}
+\label{eq:restriccion_1}
+f_1  =  \dot{x}(t)sen(\theta(t)) -\dot{y}(t)cos(\theta(t)) = 0 
+\end{equation}
+
+
+Para la rueda derecha, se tiene que la magnitud de su velocidad tangencial es la mostrada en
+(\ref{eq:vel_tan_rueda_r}).
+\begin{equation}
+  \label{eq:vel_tan_rueda_r}
+  v_{Tr}(t) = r\dot{\varphi_r}(t)
+\end{equation}
+
+En donde $r$ es el radio de cada rueda y $\dot{\varphi_r}(t)$ es la velocidad angular de un punto de
+la rueda derecha.
+
+Por otro lado, la magnitud de la velocidad traslacional del punto en donde se encuentra ubicada la
+rueda derecha sobre el vehículo corresponde a la expresión de (\ref{eq:vel_tras_rueda_r}).
+
+\begin{equation}
+  \label{eq:vel_tras_rueda_r}
+  v_{Pr}(t)=\dot{x}(t)\cos(\theta(t))+\dot{y}(t)\sen(\theta(t))+b\dot{\theta}(t)
+\end{equation}
+ 
+
+En donde el término $\dot{x}(t)\cos(\theta(t))+\dot{y}(t)\sen(\theta(t))$ es la rapidez traslacional
+del centro del vehículo, y el término $b\dot{\theta}(t)$ corresponde al aporte en la velocidad dado
+por la rotación del robot, el cual se suma porque el giro en la dirección positiva de incremento de
+$\theta(t)$ (contraria a las manecillas del reloj) favorece el movimiento hacia adelante de la rueda
+derecha. De la restricción de rodamiento de las ruedas, se tiene que $v_{Tr}=v_{Pr}$, lo cual se
+muestra en (\ref{eq:restriccion_2}).
+
+\begin{equation}
+\label{eq:restriccion_2}
+f_2 =  \dot{x}(t)cos(\theta(t)) + \dot{y}(t)sen(\theta(t)) + b \dot{\theta}(t) - r \dot{\varphi_{r}}(t) = 0 \\
+\end{equation}
+
+De manera análoga, se tiene que la velocidad tangencial de la rueda izquierda corresponde a
+(\ref{eq:vel_tan_rueda_l}), y que la velocidad traslacional del punto en donde se encuentra ubicada
+dicha rueda es la mostrada en (\ref{eq:vel_tras_rueda_l}).
+
+\begin{equation}
+  \label{eq:vel_tan_rueda_l}
+  v_{Tl}(t) = r\dot{\varphi_l}(t) 
+\end{equation}
+
+\begin{equation}
+  \label{eq:vel_tras_rueda_l}
+  v_{Pr}(t)=\dot{x}(t)\cos(\theta(t))+\dot{y}(t)\sen(\theta(t))-b\dot{\theta}(t)
+\end{equation}
+
+
+En donde el aporte en la velocidad dada por la rotación del robot $b\dot{\theta}(t)$, se resta
+porque el giro en la dirección positiva de incremento de $\theta(t)$ se opone al movimiento hacia
+adelante de la rueda izquierda. De la misma forma que para la rueda derecha, la restricción de
+rodamiento implica que se cumple que $v_{Tl}=v_{Pl}$, lo cual se presenta en (\ref{eq:restriccion_3}).
+
+\begin{equation}
+\label{eq:restriccion_3}
+f_3  =  \dot{x}(t)cos(\theta(t)) + \dot{y}(t)sen(\theta(t)) - b \dot{\theta}(t) - r \dot{\varphi_{l}}(t) = 0 \\
+\end{equation}
+
+
+Con respecto a las restricciones descritas por las ecuaciones (\ref{eq:restriccion_1}),
+(\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}), denominadas $f_1$, $f_2$ y $f_3$
+respectivamente, se conoce que las mismas corresponden a restricciones no holonómicas (***Sarkar),
+ya que establecen condiciones sobre las derivadas de las coordenadas generalizadas a utilizar para
+el método de Euler-Lagrange, las cuales corresponden a $x(t)$, $y(t)$, $\theta(t)$, $\varphi_r(t)$ y
+$\varphi_l(t)$.
+
+Estas restricciones no holonómicas están asociadas a fuerzas generalizadas que mantienen el
+movimiento bajo dichas condiciones (***REF), las cuales dependen de multiplicadores de Lagrange
+tal como se muestra en la ecuación (***), y que en este caso son $\lambda_1$, $\lambda_2$ y
+$\lambda_3$, correspondientes a $f_1$, $f_2$ y $f_3$ respectivamente. Dichas fuerzas generalizadas
+modifican la ecuación de Lagrange para cada coordenada, tal como se describe en la ecuación (***).
+
+Para el método de Lagrange, se tiene en primer lugar que la energía potencial asociada al sistema es
+constante, ya que el centro de masa del robot se mueve en un plano horizontal y no se consideran las
+posibles deformaciones elásticas del vehículo, ni tampoco se presenta el comportamiento de péndulo
+invertido. De esta forma, el término que está asociado al cambio en la energía potencial en la
+ecuación de Lagrange (***Lagrange+Restricciones) para cada coordenada es cero
+($\frac{\partial U}{\partial q_i} = 0$), de lo que se obtiene la ecuación
+(\ref{eq:lagrange_restrict_final}), la cual se utilizará para la obtención de las ecuaciones del
+movimiento del sistema.
+
+\begin{equation}
+  \frac{d}{dt}\left( \frac{\partial K}{\partial \dot{q_i}}\right) - \frac{\partial K}{\partial
+    q_i} = Q_i + \sum_{k=1}^3 \lambda_k \frac{\partial f_k}{\partial \dot{q_i}}
+  \label{eq:lagrange_restrict_final}
+\end{equation}
+
+De esta forma, se procede a obtener la energía cinética total del sistema, así como las fuerzas
+generalizadas correspondientes a cada coordenada, para luego obtener las ecuaciones del movimiento
+correspondientes.
+
+En primer lugar, si se estudia el movimiento del cuerpo del vehículo sin las ruedas (de masa $m_c$),
+se puede calcular la energía cinética correspondiente a esta porción del robot. Para el componente
+traslacional, se considera que dicho cuerpo sólido es equivalente a una partícula de masa $m_c$ que
+se encuentra ubicada en el centro de masa del cuerpo, localizado a una distancia $s$ en línea recta
+con el centro geométrico del robot, el cual se toma en medio de las dos ruedas. %Referenciar
+                                %imagen
+Se tiene entonces que la posición que permite ubicar al centro de masa es la mostrada en
+(\ref{eq:posición_carrito}). De dicho punto se puede obtener la velocidad del centro de masa
+(\ref{eq:vel_centro_masa}), a partir de la cual se obtiene la energía cinética traslacional, que
+corresponde a la expresión de (\ref{eq:k_tras_cuerpo}).
+
+\begin{equation}
+\mathbf{p_g}(t) = \left[ \begin{array}{c}
+x_g(t) \\ y_g(t) \end{array} \right] = \left[ \begin{array}{c} x(t) + s \cos \left( \theta(t) \right)\\
+ y(t) + s \sen\left( \theta(t) \right) \end{array} \right]
+\label{eq:posición_carrito}
+\end{equation}
+
+
+\begin{equation}
+ \mathbf{\dot{p_g}}(t)= \left[ \begin{array}{c} \dot{x_g}(t) \\ \dot{y_g}(t) \end{array} \right] = \left[
+    \begin{array}{c} \dot{x}(t)-s\sen(\theta(t))\dot{\theta}(t) \\ \dot{y}(t)+s\cos(\theta(t))\dot{\theta}(t) \end{array} \right]
+  \label{eq:vel_centro_masa}  
+\end{equation}
+
+\begin{equation}
+  \label{eq:k_tras_cuerpo}
+  K_{Ctr} = \frac{1}{2}m_c \left\lVert \mathbf{\dot{p_g}}\right\rVert^2 = \frac{1}{2}m_c \left( \dot{x_g}(t)^2 + \dot{y_g}(t)^2 \right)
+\end{equation}
+
+Para el componente rotacional, se tiene que la energía cinética asociada al cuerpo
+corresponde a la rotación relacionada con $\theta(t)$ alrededor del centro de masa como
+eje (en donde se tiene un  momento de inercia $I_g$), ya que este punto se toma como referencia para la
+obtención de la energía total del cuerpo (traslacional y rotacional). De esta forma, la energía
+cinética rotacional del cuerpo corresponde a la ecuación (\ref{eq:k_rot_cuerpo}).
+
+\begin{equation}
+  \label{eq:k_rot_cuerpo}
+  K_{Cro} = \frac{1}{2}I_g\dot{\theta}(t)^2
+\end{equation}
+
+Al sumar las energías cinéticas de las ecuaciones (\ref{eq:k_tras_cuerpo}) y
+(\ref{eq:k_rot_cuerpo}), se obtiene la energía cinética del cuerpo del vehículo, tal como se muestra
+en (\ref{eq:K_carrito}), en donde se sustituyeron las variables $\dot{x_g}(t)$ y $\dot{y_g}(t)$ en términos de
+$x(t)$, $y(t)$ y $\theta(t)$, para luego simplificar algebraicamente la expresión.
+
+
+\begin{equation}
+  \begin{aligned}
+    K_c = &\frac{1}{2} m_c \left[ \dot{x}(t)^2 + \dot{y}(t)^2 - 2s \dot{\theta}(t) \left( \dot{x}(t) \sen
+        (\theta(t)) - \dot{y}(t) \cos( \theta(t)) \right) + s^2
+      \dot{\theta}(t)^2 \right] \\ & + \frac{1}{2} I_g \dot{ \theta}(t)  
+  \end{aligned}
+  \label{eq:K_carrito}
+\end{equation}
+
+
+Para calcular la energía cinética asociada a la rueda derecha de masa $m_w$, se obtiene en primer
+lugar la expresión para la posición de dicha rueda, a partir de la constitución geométrica del
+vehículo, lo cual se muestra en la ecuación (\ref{eq:pos_rueda_r}).
+
+\begin{equation}
+  \label{eq:pos_rueda_r}
+  \mathbf{p_r}(t)= \left[ \begin{array}{c} x_r(t) \\ y_r(t) \end{array} \right] = \left[
+    \begin{array}{c} x(t)+b\sen(\theta(t)) \\ y(t)-b\cos(\theta(t)) \end{array} \right]
+\end{equation}
+
+
+A partir de posición de la rueda derecha, se calcula el vector de velocidad asociado
+$\mathbf{\dot{p_r}}(t)$, con el cual se obtiene la energía cinética traslacional de esta rueda, la
+cual se expresa en la ecuación (\ref{eq:k_tras_rueda_r}).
+
+\begin{equation}
+  \label{eq:k_tras_rueda_r}
+  K_{Rtr}=\frac{1}{2}m_w\left(\dot{x_r}(t)^2 + \dot{y_r}(t)^2\right)
+\end{equation}
+
+Con respecto al componente de energía cinética rotacional, es importante notar que esta rueda gira
+tanto por la rotación sobre su eje central $\dot{\varphi_r}(t)$, asociada a $I_w$, como debido al
+cambio en la orientación del robot $\dot{\theta}(t)$, en donde se tiene que la rueda gira sobre un
+eje definido por un diámetro, lo cual corresponde al momento de inercia $I_m$. De esta manera, se
+obtiene la energía cinética rotacional de la rueda derecha tal como se muestra en la ecuación
+(\ref{eq:k_rot_rueda_r}).
+
+\begin{equation}
+  \label{eq:k_rot_rueda_r}
+  K_{Rro}= \frac{1}{2}I_w\dot{\varphi_r}(t)^2 + \frac{1}{2}I_m\dot{\theta}(t)^2
+\end{equation}
+
+Al sumar las energías cinéticas de las ecuaciones (\ref{eq:k_tras_rueda_r}) y
+(\ref{eq:k_rot_rueda_r}), y sustituyendo las variables $\dot{x_r}$ y $\dot{y_r}$ en términos de
+$x(t)$, $y(t)$ y $\theta(t)$, se obtiene la energía cinética total de la rueda derecha, la cual se
+presenta en la ecuación (\ref{eq:K_rueda derecha}).
+
+\begin{equation}
+\label{eq:K_rueda derecha}
+  \begin{aligned}
+    K_r= &\frac{1}{2}m_{w}\left[ \dot{x}(t)^2 + \dot{y}(t)^2 + 2b \dot{\theta}(t) \left( \dot{x}(t)
+        \cos( \theta(t)) + \dot{y}(t) \sen \left( \theta(t) \right)\right) + b^2 \dot{\theta}(t)^2
+    \right] \\ 
+    & + \frac{1}{2} I_m  \dot{\theta}(t)^2 + \frac{1}{2} I_{w} \dot{\varphi_r}(t)^2
+  \end{aligned}
+\end{equation}
+
+
+De manera análoga, a partir de la expresión para el vector de posición de la rueda izquierda
+mostrada en la ecuación (\ref{eq:pos_rueda_l}), en conjunto con el mismo análisis realizado para la
+obtención de la energía cinética en la rueda derecha, se llega a la energía cinética total de la
+rueda izquierda, mostrada en la ecuación (\ref{eq:K_rueda izquierda}).
+
+\begin{equation}
+  \label{eq:pos_rueda_l}
+  \mathbf{p_l}(t)= \left[ \begin{array}{c} x_l(t) \\ y_l(t) \end{array} \right] = \left[
+    \begin{array}{c} x(t)-b\sen(\theta(t)) \\ y(t)+b\cos(\theta(t)) \end{array} \right]
+\end{equation}
+
+
+\begin{equation}
+\label{eq:K_rueda izquierda}
+\begin{aligned}
+K_l= &\frac{1}{2}m_{w}\left[ \dot{x}(t)^2 + \dot{y}(t)^2 - 2b \dot{\theta}(t) \left( \dot{x}(t) \cos \left(
+      \theta(t) \right) + \dot{y}(t)\sen \left( \theta(t) \right)\right) + b^2 \dot{\theta}(t)^2 \right] \\ & +
+\frac{1}{2} I_m  \dot{\theta}(t)^2  + \frac{1}{2} I_{w} \dot{\varphi_l}(t)^2
+\end{aligned}
+\end{equation}
+
+
+A partir de las energías del cuerpo del robot y de las ruedas, se obtiene la energía cinética total
+del sistema como $K_t = K_c + K_r + K_l $, de lo cual al simplificar algebraicamente los términos se
+obtiene la ecuación (\ref{eq:k_total}).
+
+\begin{equation}
+\label{eq:k_total}
+\begin{aligned}
+K_t = &
+ \frac{1}{2} \left(m_c + 2m_{w} \right) \left[\dot{x}(t)^2+\dot{y}(t)^2 \right] - m_c s
+ \dot{\theta}(t) \left[\dot{x}(t)\sen(\theta(t)) - \dot{y}(t)\cos (\theta(t)) \right] \\ 
+ &  + \frac{1}{2} \left(m_c s^2 + I_g + 2m_{w}b^2 + 2 I_m \right) \dot{\theta}(t)^2 + \frac{1}{2} I_{w}\dot{\varphi_{r}}(t)^2 + \frac{1}{2} I_{w}\dot{\varphi_{l}}(t)^2
+\end{aligned}
+\end{equation}
+
+Si se establecen las definiciones descritas por (\ref{eq:def_m_I}), la ecuación (\ref{eq:k_total}) se simplifica
+obteniéndose la expresión de (\ref{eq:k_total_simpl}).
+
+
+\begin{equation}
+\begin{cases}
+\begin{array}{c c}
+m =& m_c + 2m_{w} \\
+I =& I_g+m_c s^2 + 2m_{w}b^2 + 2 I_m 
+\end{array}
+\end{cases}
+\label{eq:def_m_I}
+\end{equation}
+
+
+\begin{equation}
+\label{eq:k_total_simpl}
+\begin{aligned}
+K_t = &
+\frac{1}{2} m \left(\dot{x}(t)^2+\dot{y}(t)^2 \right) + m_c s \dot{\theta}(t) \left(\dot{y}(t)\cos
+  \left(\theta(t) \right) - \dot{x}(t)\sen \left(\theta(t) \right) \right) \\ & + \frac{1}{2} I \dot{\theta}(t)^2 + \frac{1}{2} I_{w}\left(\dot{\varphi_{r}}(t)^2 + \dot{\varphi_{l}}(t)^2 \right)
+\end{aligned}
+\end{equation}
+
+
+A continuación, para obtener las ecuaciones del movimiento se expresa la ecuación de Lagrange
+respectiva para cada coordenada, lo cual se muestra en (\ref{eq:ecuaciones_lagrange}). De esta
+forma, para cada una de ellas se calculan los términos relacionados con la energía cinética a partir
+de la ecuación (\ref{eq:k_total_simpl}), la fuerza generalizada, y la sumatoria de términos
+correspondientes a las restricciones del movimiento descritas por las ecuaciones
+(\ref{eq:restriccion_1}), (\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}).
+
+\begin{equation}
+\begin{cases}
+\begin{array}{c c c c c}
+\frac{d}{dt}\left(\frac{\partial K_t}{\partial \dot{x}}\right) - \frac{\partial K_t}{\partial x} -
+  \sum_{k=1}^³  \lambda_k\frac{\partial f_k}{\partial \dot{x}} &=& Q_x\\
+\frac{d}{dt}\left(\frac{\partial K_t}{\partial \dot{y}}\right) - \frac{\partial K_t}{\partial y} -
+  \sum_{k=1}^³ \lambda_k \frac{\ \partial f_k}{\partial \dot{y}} &=& Q_y\\
+\frac{d}{dt}\left(\frac{\partial K_t}{\partial \dot{\theta}}\right) - \frac{\partial K_t}{\partial \theta} -
+  \sum_{k=1}^³ \lambda_k\frac{\partial f_k}{\partial \dot{\theta}} &=& Q_{\theta}\\
+\frac{d}{dt}\left(\frac{\partial K_t}{\partial \dot{\varphi_r}}\right) - \frac{\partial K_t}{\partial \varphi_r} -
+  \sum_{k=1}^³ \lambda_k \frac{\partial f_k}{\partial \dot{\varphi_r}} &=& Q_{\varphi_r}\\
+\frac{d}{dt}\left(\frac{\partial K_t}{\partial \dot{\varphi_l}}\right) - \frac{\partial K_t}{\partial \varphi_l} -
+  \sum_{k=1}^³ \lambda_k \frac{\partial f_k}{\partial \dot{\varphi_l}} &=& Q_{\varphi_l}\\
+\end{array}
+\end{cases}
+\label{eq:ecuaciones_lagrange}
+\end{equation}
+
+Con respecto a las fuerzas generalizadas, que corresponden a factores externos que modifican la
+energía del sistema, se tiene que para las coordenadas $x(t)$, $y(t)$ y $\theta(t)$ estas fuerzas
+son nulas, ya que no hay ningún factor externo que modifique la energía del sistema por medio de
+dichas coordenadas (no hay trabajo realizado sobre el sistema por medio de estas), de lo cual se
+tiene que $Q_x = Q_y = Q_{\theta} = 0$.
+
+Sin embargo, para las coordenadas $\varphi_r(t)$ y $\varphi_l(t)$, existe respectivamente un torque
+neto en cada rueda que modifica la energía del sistema al variar dichas posiciones angulares
+(***REF), ya que un par de torsión aplicado sobre un cuerpo que se mueve con cierta rapidez angular
+implica que está presente una potencia mecánica. Por esta razón, se cumple que
+$Q_{\varphi_r}=\tau_r(t)$ y $Q_{\varphi_l}=\tau_l(t)$.
+
+Al calcular los términos indicados para cada coordenada en (\ref{eq:ecuaciones_lagrange}), se
+obtiene un sistema de ecuaciones diferenciales no lineal en donde es necesario encontrar (o
+eliminar) los multiplicadores de Lagrange $\lambda_1$, $\lambda_2$ y $\lambda_3$. El sistema de
+ecuaciones resultante se muestra en (\ref{eq:sistema_lagrange}), en donde se omiten los subíndices
+t. Se procederá entonces a eliminar dichas incógnitas.
+
+\begin{subequations}
+  \label{eq:sistema_lagrange}
+  \begin{empheq}[left = \empheqlbrace]{align}
+0 &= m\ddot{x} - \ m_c s \left(\ddot{\theta} \sen \left( \theta \right) + \dot{\theta}^2 \cos \left( \theta
+  \right) \right) - \lambda_1 \sen \left( \theta \right) - \left( \lambda_2 + \lambda_3 \right) \cos
+\left( \theta \right)  \label{eq:sist_lagrange_x}\\
+0 &= m\ddot{y} + m_c s \left(\ddot{\theta}\cos\left(\theta \right) - \dot{\theta}^2 \cos \left(\theta \right)
+ \right) + \lambda_1 \cos \left(\theta \right) - \left(\lambda_2+\lambda_3\right)\sen\left(\theta\right) \label{eq:sist_lagrange_y}\\
+0 &= -m_c s \left( \ddot{x} \sen\left(\theta\right) - \ddot{y}\cos\left(\theta\right) \right) +
+I\ddot{\theta} + b\left(\lambda_3-\lambda_2\right) \label{eq:sist_lagrange_theta}\\
+\tau_r &= I_{w}\ddot{\varphi_r}+\lambda_2 r \label{eq:sist_lagrange_phi_r}\\
+\tau_l &= I_{w}\ddot{\varphi_l}+\lambda_3 r \label{eq:sist_lagrange_phi_l}
+  \end{empheq}
+\end{subequations}
+
+Al multiplicar la ecuación (\ref{eq:sist_lagrange_x}) por $\cos(\theta(t))$ y al sumarle la ecuación (\ref{eq:sist_lagrange_y}) multiplicada
+por $\sen(\theta(t))$, se obtiene (\ref{eq:ec_mov_1}) al simplificar la expresión algebraica.
+
+\begin{equation}
+\label{eq:ec_mov_1}
+m\left(\ddot{x}(t)\cos\left(\theta(t)\right)+\ddot{y}(t)\sen\left(\theta(t)\right) \right) - m_c s
+\dot{\theta}(t)^2-\left(\lambda_2 + \lambda_3\right) = 0
+\end{equation}
+
+Sumando las ecuaciones (\ref{eq:sist_lagrange_phi_r}) y (\ref{eq:sist_lagrange_phi_l}), se obtiene la expresión para $\lambda_2+\lambda_3$ que se
+muestra en la ecuación (\ref{eq:lambda2+3}).
+
+\begin{equation}
+\label{eq:lambda2+3}
+\lambda_2 + \lambda_3 = \frac{\tau_l(t) + \tau_r(t)}{r} - \frac{I_{w}}{R} \left(\ddot{\varphi_r}(t)+\ddot{\varphi_l}(t)\right)
+\end{equation}
+
+
+Se define la expresión de la ecuación (\ref{eq:vel_tras_robot}), la cual corresponde a la magnitud de
+la velocidad traslacional del vehículo, y que además está restringida a presentar la dirección sobre
+la línea definida por $\theta(t)$.
+
+\begin{equation}
+  \label{eq:vel_tras_robot}
+  v(t)=\dot{x}(t)cos(\theta(t))+\dot{y}(t)sen(\theta(t))
+\end{equation}
+
+Derivando la ecuación (\ref{eq:vel_tras_robot}), se calcula una expresión para la aceleración
+traslacional del robot, la cual se simplifica a la ecuación mostrada en (\ref{eq:acel_tras_robot}), al aplicar la
+condición de no deslizamiento lateral descrita por (\ref{eq:restriccion_1}).
+
+\begin{equation}
+  \label{eq:acel_tras_robot}
+  \dot{v}(t) = \ddot{x}(t)cos(\theta(t)) + \ddot{y}(t)\sen(\theta(t))
+\end{equation}
+
+Al sustituir (\ref{eq:lambda2+3}) y (\ref{eq:acel_tras_robot}) en (\ref{eq:ec_mov_1}), se obtiene la
+ecuación del movimiento (\ref{eq:ec_mov_1_simpl_1}), en la cual se lograron eliminar los
+multiplicadores de Lagrange.
+
+\begin{equation}
+\label{eq:ec_mov_1_simpl_1}
+m\dot{v}(t) - m_c s \dot{\theta}(t)^2 + \frac{I_{w}}{r} \left(\ddot{\varphi_r}(t)+\ddot{\varphi_l}(t)\right) = \frac{\tau_l(t)+\tau_r(t)}{r}
+\end{equation}
+
+Por otro lado, al restar las ecuaciones (\ref{eq:sist_lagrange_phi_l}) y
+(\ref{eq:sist_lagrange_phi_r}) se obtiene una expresión para $\lambda_3-\lambda_2$, la cual se
+presenta en (\ref{eq:lambda3-2}).
+
+\begin{equation}
+\label{eq:lambda3-2}
+\lambda_3 - \lambda_2 = \frac{I_{w}}{r} \left(\ddot{\varphi_r}(t)-\ddot{\varphi_l}(t)\right)-\frac{\tau_r(t)-\tau_l(t)}{r}
+\end{equation}
+
+Sustituyendo (\ref{eq:lambda3-2}) en (\ref{eq:sist_lagrange_theta}), se llega a la ecuación del
+movimiento (\ref{eq:ec_mov_2_simpl_1}), en donde también se eliminaron los multiplicadores de Lagrange.
+
+
+\begin{equation}
+\label{eq:ec_mov_2_simpl_1}
+\begin{aligned}
+  &I\ddot{\theta}(t) -m_c s \left(\ddot{x}(t)\sen\left(\theta(t)\right) -\ddot{y}(t)
+    \cos\left(\theta(t)\right)\right) +\frac{bI_{w}}{r}\left(\ddot{\varphi_r}(t)
+    -\ddot{\varphi_l}(t)\right) \\ & = \frac{b \left(\tau_r(t)-\tau_l(t) \right)}{r}
+\end{aligned}
+\end{equation}
+
+
+Para simplificar aún más las ecuaciones del movimiento, se utilizan las ecuaciones de las
+restricciones de la condición de rodadura para cada llanta, que corresponden a
+(\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}). Al sumar dichas ecuaciones y derivar el
+resultado, se obtiene (\ref{eq:ddphi_r+ddphi_l}), mientras que al restar estas ecuaciones y al
+derivar la expresión obtenida, se llega a la ecuación (\ref{eq:ddphi_r-ddphi_l}). Por otro lado, al
+derivar la ecuación de la restricción de no deslizamiento lateral (\ref{eq:restriccion_1}), se
+obtiene la expresión mostrada en (\ref{eq:wv}).
+
+\begin{equation}
+\label{eq:ddphi_r+ddphi_l}
+\ddot{\varphi_r}(t) + \ddot{\varphi_l}(t) = \frac{2}{r} \dot{v}(t)
+\end{equation}
+
+\begin{equation}
+\label{eq:ddphi_r-ddphi_l}
+\ddot{\varphi_r}(t) - \ddot{\varphi_l}(t) = \frac{2b}{r} \ddot{\theta}(t)
+\end{equation}
+
+\begin{equation}
+  \label{eq:wv}
+  -\dot{\theta}(t)v(t) =
+  \ddot{x}(t)\sen\left(\theta(t)\right)-\ddot{y}(t)\cos\left(\theta(t)\right)
+\end{equation}
+
+También, se definen las expresiones mostradas en (\ref{eq:FyT}), que pueden interpretarse
+respectivamente como la fuerza ($F$) y el torque ($T$) totales externos aplicados sobre el sistema,
+los cuales se generan debido a los torques netos en las ruedas.
+
+\begin{equation}
+\begin{cases}
+\begin{array}{c c c}
+F(t) &=& \frac{\tau_r(t) + \tau_l(t)}{r} \\
+T(t) &=& \frac{b\left( \tau_r(t) - \tau_l(t) \right)}{r}
+\end{array}
+\end{cases}
+\label{eq:FyT}
+\end{equation}
+
+
+Al sustituir (\ref{eq:ddphi_r+ddphi_l}) y (\ref{eq:FyT}) en (\ref{eq:ec_mov_1_simpl_1}), y al
+sustituir (\ref{eq:ddphi_r-ddphi_l}) y (\ref{eq:FyT}) en (\ref{eq:ec_mov_2_simpl_1}), se obtienen
+las ecuaciones (\ref{eq:v_dot}) y (\ref{eq:omega_dot}) respectivamente, las cuales describen el
+comportamiento dinámico del sistema sujeto a las restricciones impuestas. En donde se define
+$D = m + \frac{2I_{w}}{r^2}$ y $J = m + 2\frac{I_{w}}{r^2}$, los cuales se pueden interpretar como
+la masa y el momento de inercia equivalentes del sistema, respectivamente.
+
+\begin{subequations}
+  \label{eq:ecs_dinamicas}
+  \begin{empheq}[left = \empheqlbrace]{align}
+& D\ddot{v}(t) -m_c s\ddot{\theta}(t)^2 = F(t) \label{eq:v_dot}\\
+& J\ddot{\theta}(t)+m_cs\dot{\theta}(t)v(t) = T(t) \label{eq:omega_dot}
+  \end{empheq}
+\end{subequations}
+
+Tal como se explicó en la descripción general del sistema por modelar, se considerará solamente la
+fricción debida al contacto que se opone a la rotación alrededor del eje de cada motor, la cual se
+modelará como un amortiguador viscoso torsional. 
+
+De esta manera, el torque de la fricción aplicado sobre cada rueda es directamente proporcional a
+velocidad rotacional de la rueda, tal como se presenta en la ecuación (\ref{eq:torque_friccion}). El
+parámetro $B$ corresponde a una constante de proporcionalidad que determina la magnitud del torque
+de oposición generado dada cierta rapidez angular (***REF), conocido como factor de amortiguamiento.
+
+\begin{equation}
+  \label{eq:torque_friccion}
+  \tau_f(t) = -B\dot{\varphi}(t)
+\end{equation}
+
+Si bien es cierto este modelo de la fricción es muy simplificado y por lo tanto no describirá con
+exactitud el comportamiento real del robot en movimiento, el mismo resulta en una aproximación
+útil para observar de manera cualitativa los efectos básicos que podría provocar la fricción sobre
+la dinámica de un robot de dos ruedas, los cuales están relacionados con la oposición a la traslación
+y al cambio en la orientación del mismo.
+
+De esta forma, se procede a descomponer los torques netos en las ruedas en términos de los torques
+de los motores ($\tau_{rm}$, $\tau_{lm}$) y los de la fricción ($\tau_{rf}$, $\tau_{lf}$), en donde
+se considera que el factor de amortiguamiento $B$ es el mismo para las dos ruedas. De esta forma, se
+obtienen las ecuaciones (\ref{eq:torque_r}) y (\ref{eq:torque_l}).
+
+\begin{equation}
+  \label{eq:torque_r}
+  \tau_r(t) = \tau_{rm}(t) - B\dot{\varphi_r}(t)
+\end{equation}
+
+\begin{equation}
+  \label{eq:torque_l}
+  \tau_l(t) = \tau_{lm}(t) - B\dot{\varphi_l}(t)
+\end{equation}
+
+Al sustituir las ecuaciones (\ref{eq:torque_r}) y (\ref{eq:torque_l}) en (\ref{eq:FyT}), y al
+expresar el resultado en términos de $v(t)$ y $\dot{\theta}(t)$ por medio de las restricciones
+expuestas en (\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}), se obtienen las expresiones de
+(\ref{eq:FyT_friccion}). En donde se define $F_m(t) = \frac{\tau_r(t)+\tau_l(t)}{r}$ y
+$T_m(t) = \frac{b(\tau_r(t)-\tau_l(t))}{r}$.
+
+\begin{equation}
+\begin{cases}
+\begin{array}{c c c}
+F(t) &=& F_m(t)-\frac{2 B}{r^2}v(t) \\
+T(t) &=& T_m(t)-\frac{2 B b^2}{r^2}\dot{\theta}(t)
+\end{array}
+\end{cases}
+\label{eq:FyT_friccion}
+\end{equation}
+
+Al sustituir las expresiones de (\ref{eq:FyT_friccion}) en (\ref{eq:ecs_dinamicas}), se obtienen
+las ecuaciones dinámicas (\ref{eq:v_dot_friccion}) y (\ref{eq:omega_dot_friccion}), que están en
+términos de la fuerza ($F_m(t)$) y el torque ($T_m(t)$) equivalente aplicado por los motores sobre
+el robot. Estas ecuaciones se utilizarán para obtener el modelo en variables de estado
+correspondiente.
+
+\begin{subequations}
+  \label{eq:ecs_dinamicas_friccion}
+  \begin{empheq}[left = \empheqlbrace]{align}
+    & D\ddot{v}(t) -m_c s\ddot{\theta}(t)^2 + \frac{2 B}{r^2}v(t) = F_m(t) \label{eq:v_dot_friccion}\\
+    & J\ddot{\theta}(t)+m_cs\dot{\theta}(t)v(t) + \frac{2 B b^2}{r^2}\dot{\theta}(t) =
+    T_m(t) \label{eq:omega_dot_friccion}
+  \end{empheq}
+\end{subequations}
+
+Se define entonces el vector de estados, el cual se muestra en la ecuación (\ref{eq:vect_estados}).
+
+\begin{equation}
+  \label{eq:vect_estados}
+  \mathbf{X}(t)= \left[ \begin{array}{c} x(t) \\ y(t) \\ \theta(t) \\ v(t) \\ \omega(t) \end{array} \right]
+\end{equation}
+
+De esta manera, en (\ref{eq:mve_dinamico}) se presentan las derivadas de los estados del modelo en
+variables de estado no lineal que describe al sistema, en donde las ecuaciones de $\dot{x}(t)$ y
+$\dot{y}(t)$ corresponden a los componentes de la velocidad del centro geométrico sobre los
+ejes cartesianos, la ecuación de $\dot{\theta}(t)$ resulta de la definición de la rapidez
+angular de cambio en la orientación del robot $\omega(t)$ y las ecuaciones de $\dot{v}(t)$ y
+$\dot{\omega}(t)$ se obtienen del análisis dinámico del sistema descrito previamente.
+
+\begin{equation}
+  \label{eq:mve_dinamico}
+   \mathbf{\dot{X}}(t) = \left[\begin{array}{c}
+      \dot{x}(t)\\\dot{y}(t)\\\dot{\theta}(t)\\\dot{v}(t)\\\dot{\omega}(t)
+    \end{array}\right]
+  = \left[\begin{array}{c}
+      v(t)\cos\left(\theta(t)\right) \\
+      v(t)\sen\left(\theta(t)\right) \\
+      \omega(t)\\
+      \frac{m_c s}{D} \omega(t)^2 - \frac{2 B}{Dr^2}v(t)  + \frac{F(t)}{D} \\
+      \frac{-m_c s}{J}\omega(t)v(t) - \frac{2 B b^2}{Jr^2}\omega(t)  + \frac{T(t)}{J}
+    \end{array}\right]
+%& \dot{x}(t) = v(t)\cos\left(\theta(t)\right) \label{eq:x_dot_mve}\\
+%& \dot{y}(t) = v(t)\sin\left(\theta(t)\right) \label{eq:y_dot_mve}\\
+%& \dot{\theta}(t) = \omega(t)\label{eq:theta_dot_mve}\\
+%& \dot{v}(t)=\frac{m_c s}{D} \omega(t)^2 - \frac{2 B}{Dr^2}v(t)  + \frac{F(t)}{D} \label{eq:v_dot_mve}\\
+%& \dot{\omega}(t) = \frac{-m_c s}{J}\omega(t)v(t) - \frac{2 B b^2}{Jr^2}\omega(t)  + \frac{T(t)}{J} \label{eq:omega_dot_mve}\\
+\end{equation}
+
+Además, para completar la definición formal del modelo en variables de estado, las salidas de
+interés del sistema se indican mediante la ecuación (\ref{eq:salidas_mve_dinamico}), en donde se
+incluyen las velocidades angulares de las ruedas, obtenidas en términos de los estados con base en
+(\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}). Por otro lado, las entradas del sistema se
+presentan mediante el vector indicado en (\ref{eq:entradas_mve_dinamico}).
+
+\begin{equation}
+  \label{eq:salidas_mve_dinamico}
+  \mathbf{Y}(t) = \left[
+    \begin{array}{c}
+      x(t)\\y(t)\\\theta(t)\\v(t)\\\omega(t)\\\dot{\varphi_r}(t)\\\dot{\varphi_l}(t)
+    \end{array}
+\right] 
+= \left[\begin{array}{c c c c c}
+  1 &0 &0 &0 &0 \\
+  0 &1 &0 &0 &0 \\
+  0 &0 &1 &0 &0 \\
+  0 &0 &0 &1 &0 \\
+  0 &0 &0 &0 &1 \\
+  0 &0 &0 &\frac{1}{r} & \frac{b}{r} \\
+  0 &0 &0 &\frac{1}{r} & -\frac{b}{r} \\
+\end{array} \right] \mathbf{X}(t) 
+\end{equation}
+
+\begin{equation}
+  \label{eq:entradas_mve_dinamico}
+  \mathbf{U}(t) = \left[ 
+    \begin{array}{c}
+      \tau_r(t)\\\tau_l(t)
+    \end{array}
+  \right]
 \end{equation}
 
 
 
+% \dot{\varphi_r}(t) =\frac{v(t)}{r} + \frac{b}{r} \omega(t) \label{eq:phi_r_dot_mve}\\
+%& \dot{\varphi_l}(t)= \frac{v(t)}{r} - \frac{b}{r} \omega(t) \label{eq:phi_l_dot_mve}
+%, y las ecuaciones
+%(\ref{eq:phi_r_dot_mve}) y (\ref{eq:phi_l_dot_mve}) se obtienen de las restricciones
+%correspondientes a (\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}), expresadas en términos de los
+%estados definidos.
 
-\section{Resultados}
+
+
+
+% Modelado de la fricción
+
+
+\section{Análisis}
 
 
 
@@ -541,178 +1200,14 @@ Se logró exitosamente simular el sistema descrito. En las simulaciones se obtien
 
 
 \section{Apéndice Ecuaciones}
-\subsection{Restricciones}
 
-\begin{equation}
-\label{eq:restriccion_1}
-f_1  =  \dot{x}(t)sen(\theta(t)) -\dot{y}(t)cos(\theta(t)) = 0 
-\end{equation}
 
-\begin{equation}
-\label{eq:restriccion_2}
-f_2 =  \dot{x}(t)cos(\theta(t)) + \dot{y}(t)sen(\theta(t)) + b \theta(t) - r \dot{\varphi_{r}(t)} = 0 \\
-\end{equation}
-
-\begin{equation}
-\label{eq:restriccion_3}
-f_3  =  \dot{x}(t)cos(\theta(t)) + \dot{y}(t)sen(\theta(t)) - b \theta(t) - r \dot{\varphi_{l}(t)} = 0 \\
-\end{equation}
-
-\subsection{Posición del Vehículo}
-\begin{equation}
-p_r(t) = \left[ \begin{array}{c}
-X_g(t)  $ = $ X(t) + s cos \left( \theta(t) \right)\\
-Y_g(t) $ = $ Y(t) + s sen\left( \theta(t) \right) \\
-\end{array} \right]
-\label{Posición_carrito}
-\end{equation}
-
-\subsection{Energía Cinética del carrito}
-\begin{equation}
-K_c = \frac{1}{2} m_c \left[ x^2 + y^2 - 2s \dot{\theta(t)} \left( \dot{x}(t) \cos \left( \theta(t) \right) \right) - y \left(\cos \left( \theta(t) \right) \right) + s^2 \dot{\theta}(t)^2 \right] + \frac{1}{2} I_0 \dot{ \theta}(t)  
-\label{eq:K_carrito}
-\end{equation}
-
-\subsection{Ruedas}
-\begin{equation}
-p_r(t) = \left[ \begin{array}{c}
-X_r(t) = x(t) + bsen \left(\theta(t) \right)\\
-Y_r(t) = y(t) + bcos \left(\theta(t) \right)\\
-\end{array} \right]
-\label{eq:posición_ruedas}
-\end{equation}
-
-\begin{equation}
-\label{eq:K_rueda derecha}
-K_r=\frac{1}{2}m_{\omega}\left[ \dot{x}(t)^2 + \dot{y}(t)^2 + 2b \theta(t) \left( \dot{x}(t) \cos \left( \theta(t) \right) \right) + y \sin \left( \theta(t) \right) + b^2 \theta(t)^2 \right] + \frac{1}{2} I_m  \theta(t)^2 + \frac{1}{2} I_{\omega} \dot{\varphi_r}(t)^2
-\end{equation}
-
-\begin{equation}
-\label{eq:K_rueda izquierda}
-K_l=\frac{1}{2}m_{\omega}\left[ \dot{x}(t)^2 + \dot{y}^2 - 2b \theta \left( \dot{x} \cos \left( \theta(t) \right) \right) + y \sin \left( \theta(t) \right) + b^2 \theta(t)^2 \right] + \frac{1}{2} I_m  \theta(t)^2 + \frac{1}{2} I_{\omega} \dot{\varphi_l(t)}^2
-\end{equation}
-
-\begin{equation}
-\label{eq:K_total}
-K_t = K_r + K_l + K_c
-\end{equation}
-
-\begin{equation}
-K_t = \begin{array}{c}
- \frac{1}{2} \left(m_c + 2m_{\omega} \right) \left(\dot{x}(t)^2+\dot{y}(t)^2 \right) - m_c s \dot{\theta}(t) \left(\dot{x}(t)\sin \left(\theta(t) \right) - \dot{y}(t)\cos \left(\theta(t) \right) \right) + \\
-\frac{1}{2} \left(m_c s^2 + I_0 + 2m_{\omega}b^2 + 2 I_m \right) \dot{\theta}(t)^2 + \frac{1}{2} I_{\omega}\dot{\varphi_{r}}(t)^2 + frac{1}{2} I_{\omega}\dot{\varphi_{l}}(t)^2
-\end{array}
-\end{equation}
-
-\begin{equation}
-\label{eq:masa_total}
-m = m_c + 2m_{\omega}
-\end{equation}
-
-\begin{equation}
-\label{eq:momento_total}
-I=I_0+m_c s^2 + 2m_{\omega}b^2 + 2 I_m
-\end{equation}
-
-\begin{equation}
-T_t = 
-\frac{m}{2} \left(\dot{x}(t)^2+\dot{y}(t)^2 \right) + m_c s \dot{\theta}(t) \left(\dot{y}(t)\cos \left(\theta(t) \right) - \dot{x}(t)\sen \left(\theta(t) \right) \right) + \frac{1}{2} I \dot{\theta}(t)^2 + \frac{I_{\omega}}{2} \left(\dot{\varphi_{r}}(t)^2 + \dot{\varphi_{l}}(t)^2 \right)
-\end{equation}
 
 \begin{equation}
 \label{eq:mul_lagrange}
 \frac{d}{dt}\left(\frac{\partial k}{\partial \dot{q_1(t)}}\right) - \left(\frac{\partial k}{\partial q_1(t)}\right)= \left(\frac{\partial U}{\partial q_1(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{q_1}(t)}
 \end{equation}
 
-\begin{equation}
-\label{eq:mul_lagrange_0}
-\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{\theta}(t)}\right) - \left(\frac{\partial k}{\partial  \theta(t)}\right)= \left(\frac{\partial U}{\partial \theta(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{\theta}(t)}
-\end{equation}
-
-\begin{equation}
-\label{eq:mul_lagrange_x}
-\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{x}(t)}\right) - \left(\frac{\partial k}{\partial x(t)}\right)= \left(\frac{\partial U}{\partial x(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{x}(t)}
-\end{equation}
-
-\begin{equation}
-\label{eq:mul_lagrange_y}
-\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{y}(t)}\right) - \left(\frac{\partial k}{\partial y(t)}\right)= \left(\frac{\partial U}{\partial y(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{y}(t)}
-\end{equation}
-
-\begin{eqnarray*}
-Sistema por resolver
-\begin{cases}
-m\ddot{x}(t) - \ m_c s \left(\ddot{\theta}(t) \sin \left( \theta(t) \right) + \theta(t)^2 \cos \left( \theta(t) \right) \right) - \lambda_1 \sin \left( \theta(t) \right) - \left( \lambda_2 + \lambda_3 \right) \cos \left( \theta(t) \right) = 0\\
-m\ddot{y}(t) + m_c s \left(\ddot{\theta}(t)\cos\left(\theta(t)\right) - \theta(t)^2 \cos \left(\theta(t)\right) \right) + \lambda_1 \cos \left(\theta(t)\right) - \left(\lambda_2+\lambda_3\right)\sin\left(\theta(t)\right) = 0 \\
--m_c s \left( \ddot{x}(t) \sin\left(\theta(t)\right) - \ddot{y}(t)\cos\left(\theta(t)\right) \right) + I\ddot{\theta}(t) + b\left(\lambda_3-\lambda_2\right) = 0\\
-I_{\omega}\ddot{\varphi_r}(t)+\lambda_2 r = \tau_r(t) \\
-I_{\omega}\ddot{\varphi_l}(t)+\lambda_3 r = \tau_l(t)
-\end{cases}
-\end{eqnarray*}
-
-\begin{equation}
-\label{eq:multiplicadores de lagrange}
-m\left(\ddot{x}(t)\cos\left(\theta\right)+\ddot{y}(t)\sin\left(\theta(t)\right) \right) - m_c s \dot{\theta}(t)^2-\left(\lambda_2 + \lambda_3\right) =0
-\end{equation}
-
-\begin{equation}
-\label{eq:lambdas}
-\lambda_2 + \lambda_3 = \frac{\tau_l(t) + \tau_r(t)}{r} - \frac{I_{\omega}}{R} \left(\ddot{\varphi_r}(t)+\ddot{\varphi_l}(t)\right)
-\end{equation}
-
-\begin{equation}
-\label{eq:velocidad}
-v(t)=\dot{x}(t)\cos\left(\theta(t)\right) + \dot{y}(t)\sin\left(\theta(t)\right)
-\end{equation}
-
-\begin{equation}
-\label{eq:tau}
-m\dot{v}(t) - m_c s \dot{\theta}(t)^2 + \frac{I_{\omega}}{r} \left(\ddot{\varphi_r}(t)+\ddot{\varphi_l}(t)\right) = \frac{\tau_l(t)+\tau_r(t)}{r}
-\end{equation}
-
-\begin{equation}
-\label{eq:lamnda2-3}
-\lambda_3 - \lambda_2 = \frac{I_{\omega}}{r} \left(\ddot{\varphi_r}(t)-\ddot{\varphi_l}(t)\right)-\frac{\tau_r(t)-\tau_l(t)}{r}
-\end{equation}
-
-\begin{equation}
--m_c s \left(\ddot{x}(t)\sin\left(\theta(t)\right) -\ddot{y}(t) \cos\left(\theta(t)\right)\right) + I\ddot{\theta}(t)+\frac{bI_{\omega}}{r}\left(\ddot{\varphi_r}(t)-\ddot{\varphi_l}(t)\right) = \frac{b \left(\tau_r(t)-\tau_l(t) \right)}{r}
-\end{equation}
-
-\begin{equation}
-\ddot{\varphi_r}(t) - \ddot{\varphi_l}(t) = \frac{2b}{r} \ddot{\theta}(t)
-\end{equation}
-
-\begin{equation}
-\ddot{\varphi_r}(t) + \ddot{\varphi_l}(t) = \frac{2}{r} \dot{v}(t)
-\end{equation}
-
-\begin{align}
-F(t) = \frac{\tau_r(t) + \tau_l(t)}{r}\\
-K = \frac{b}{r} \left(\tau_r(t)-\tau_l(t)\right)\\
-D = m + \frac{2I_{\omega}}{r^2}\\
-J = m + 2\frac{I_{\omega}}{r^2}\\
-\dot{\theta}(t)v(t) = -\left(\ddot{x}(t)\sin\left(\theta(t)\right)-\ddot{y}(t)\cos\left(\theta(t)\right)\right)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
-\end{align}
-
-\begin{equation}
-D\ddot{v}(t) -m_c s\ddot{\theta}(t)^2=F(t)
-\end{equation}
-
-\begin{equation}
-J\ddot{\theta}(t)+m_cs\dot{\theta}(t)v(t) = K
-\end{equation}
-
-\begin{eqnarray*}
-MVE
-\begin{cases}
-\dot{x}(t) = v(t)\cos\left(\theta(t)\right)\\
-\dot{y}(t) = v(t)\sin\left(\theta(t)\right)\\
-\dot{\theta}(t) = \omega(t) \\
-\dot{v}(t)=\frac{m_c s}{D} \omega(t)^2 + \frac{F(t)}{D}\\
-\dot{\omega}(t) = \frac{-m_c s}{J}\omega(t) v(t) + \frac{K}{J}
-\end{cases}
-\end{eqnarray*}
 
 \begin{eqnarray}
 I_c = 15.625 Kg.m^2\\
@@ -725,13 +1220,6 @@ m_{\omega} = 1 kg\\
 r = 0.10m
 \end{eqnarray}
 
-\begin{equation}
-\dot{\varphi_r}(t) =\frac{v(t)}{r} + \frac{b}{r} \omega
-\end{equation}
-
-\begin{equation}
-\dot{\varphi_l}(t)= \frac{v(t)}{r} - \frac{b}{r} \omega
-\end{equation}
 
 \newpage
 %-------------------
