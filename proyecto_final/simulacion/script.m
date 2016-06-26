@@ -1,11 +1,22 @@
 %Este script es el script para hacer las graficas
+
 %la variable save es para determinar si se desan guardar las graficas
 %automaticamente. save = 0 no guarda. save = 1 si garda.
 save = 0;
-phi_r_in=[0 0; 5 0; 5.001 1; 10 1; 10.001 0; 15 0; 15.001 -1; 20 -1];
-phi_l_in=[0 1; 5 1; 5.001 0; 10 0; 10.001 -1; 15 -1; 15.001 0; 20 0];
+%la variable simulacion es para determinar la entrada al modelo
+simulacion=1;
+if simulacion==0
+    xe_dot_in=[0 0; 5 0; 5.001 1; 10 1; 10.001 0; 15 0; 15.001 -1; 20 -1];
+    ye_dot_in=[0 1; 5 1; 5.001 0; 10 0; 10.001 -1; 15 -1; 15.001 0; 20 0];
+end
 
-Simout= sim('Modelo_cinematico_2015.slx');
+if simulacion==1
+    t=0:0.01:20;
+    xe_dot_in=[t ; 2*sin(t)].';
+    ye_dot_in=[t ; 2*cos(t)].';
+end
+
+Simout= sim('Modelo_cinematico_2015_daniel_backup.slx');
 
 
 
@@ -31,6 +42,8 @@ ylabel('Error [m/s]')
 if save==1
    print('../pictures/evaluacion_de_la_restriccion', '-depsc') 
 end
+
+
 
 %figure
 %plot(ye_dot_in)
