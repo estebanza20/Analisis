@@ -168,7 +168,7 @@ su eje z como lo muestra la figura \ref{ejes}. También, pueden construirse altos
 hace muy útiles en interiores, en donde pueden pasar por lugares estrechos y dar curvas muy cerradas
 \citep{KarlStol}.  Algunas de sus aplicaciones, pueden ser como guías de excursiones dentro de
 museos, bases de equipo médico dentro de hospitales, para vigilancia (segway) y de limpieza en el
-hogar \cite{Coelho}.
+hogar \citep{Coelho}.
 
 \subsection{Objetivos}
 
@@ -242,12 +242,12 @@ Algunas de las ventajas de estos sistemas de dos ruedas es que son más baratos, 
 
 El modelo de robot que se estudia en el presente trabajo se supone con dos motores independientes, cada uno controlando una rueda, colocados a lo ancho  del eje central del robot. Se asume además su movimiento únicamente en dos dimensiones, por lo que se considera con una tercera rueda que no aporta ningún movimiento adicional (rueda loca o de castor) para que sea estable \citep{KarlStol}, además se considera que no hay deformación en la rueda y que se cumple la condición de rodamiento puro.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.6\textwidth]{../pictures/Diagrama_3d_robot.eps}	
-	\caption{Ejes del Robot}
-	\label{fig:ejes}
-\end{figure}
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=0.6\textwidth]{../pictures/robot_ejes.eps}	
+%	\caption{Ejes del Robot}
+%	\label{fig:ejes}
+%\end{figure}
 
 
 \subsection{Método de linealización}
@@ -350,13 +350,6 @@ Elástica (Resorte) & $\frac{1}{2}k{d}^2$ \\ \bottomrule
 \end{tabular}
 \end{table}
 
-El modelado de la tracción delantera de un robot movil es una condición no holonómica  que esta sujeto a una serie de restricciones p no integrables que involucran las derivadas con respecto al tiempo del vector de configuración q y estas toman la forma de la ecuación  \eqref{no_holonomico}
-
-\begin{equation}
-\label{eq:mul_lagrange}
-\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{q_1(t)}}\right) - \left(\frac{\partial k}{\partial q_1(t)}\right)= \left(\frac{\partial U}{\partial q_1(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{q_1}(t)}
-\end{equation}
-
 
 \subsection{Algoritmo de punto descentralizado}
 El algoritmo de punto descentralizado consiste en establecer un punto separado del eje de tracción una distancia $e$ con el fin de que este defina la trayectoria deseada, de esta forma el robot gira con antelación de forma que, cuando termine de girar, su origen se encuentre sobre la trayectoria deseada. Para esto se define la ecuación \ref{eq:punto_descentralizado} el cual relaciona las velocidades de las ruedas con la velocidad global del carrito.\cite{punisher}
@@ -388,9 +381,6 @@ e\cos\left(\theta\right) - 0.5b\sin\left(\theta\right) \ e\sin\left(\theta\right
 \end{array} \right]
 \end{equation}
 
-\subsection{Sistemas subactuados}
-Un sistema subactuado ocurre cuando existen menos actuadores que grados de libertad, es decir una sola entrada controla movimientos distintos e independientes del robot. Una ventaja de estos sistemas es que al utilizar menos actuadores consumen menos energía sin embargo el control se vuelve un poco más complejo
-
 \section{Modelado y simulación}
 Se procede a obtener el modelo cinemático (directo e inverso) y  el modelo dinámico de un robot de
 dos ruedas, para lo cual se toman las siguientes consideraciones generales:
@@ -420,7 +410,6 @@ dos ruedas, para lo cual se toman las siguientes consideraciones generales:
 \item El cuerpo del robot no se comporta como un péndulo invertido, ya que presenta el soporte
   adecuado para mantenerse estable sin balancearse.
 \end{itemize}
-
 
 
 \subsection{Modelo cinemático}
@@ -1275,12 +1264,18 @@ En cada simulación el robot describió una trayectoria distinta, y esta trayector
 
 Para poder generar la primera trayectoria se utilizan escalones en la entrada. La trayectoria viene dada por (\ref{eq:entrada_cuadrado}). De esta manera se logra describir una trayectoria cuadrada con rapidez constante (durante 20s). En la figura \ref{fig:entrada_trayectoria_cuadrada} se mestra la entrada contra el tiempo. Luego de pocesar la entrada como se indica en la figura \ref{fig:simulacion_flow}, se obtienen los resultados en las figuras \ref{fig:posicion_del_robot_modelo_cinematico_cuadrado}, \ref{fig:velocidades_ruedas_trayectoria_cuadrada} y \ref{fig:evaluacion_de_la_restriccion_cuadrado}. 
 
-Al tomar la 
-
 \begin{equation}
 \mathbf{\dot{p_d}}(t)=\left[\begin{array}{c}\mu(t-5)-\mu(t-10)-\mu(t-1)\\ \mu(t)-\mu(t-5)-\mu(t-10)+\mu(t-15) \end{array}\right]
 \label{eq:entrada_cuadrado}
-\end{equation} 
+\end{equation}
+
+La salida del modelo inverso del punto descentralizado se muestra en la figura \ref{fig:velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_cuadrado}. Note que cuando el robot llega a las esquinas de la trayectoria, se tienen discontinuidades en las velocidades de las ruedas. Esto es en 0s, 5s, 10s, 15s. En cada uno de ellos el robot debe realizar un giro de $90^\circ$ a rapidez constante, y es lo que provocan las disconrinuidades. En la figura \ref{fig:velocidad_de_las_ruedas_con_limitantes_de_aceleracion_cuadrado} se muestra la señal suavizada. en esta se evitan las discotinuidades de la salida del modelo inverso. Note que as discontinuidades indican aceleraciones infinitas, por lo que es imposible para un robot realizar una trayectoria cuadrada perfecta a rapidez constante. Este resultado es el esperado para el sistema que se está simulando. 
+
+Note tambien que la salida de las ruedas es la esperada, dada la trayectoria que se debe seguir. por ejemplo, cada vez que el robot gita a la derecha (5s, 10s, 15s) se espera un aumento en la velocidad de la rueda izquierda y una disminución de la rueda derecha. Además, cuando no se realizan giros, sino que se sigue una trayectoria recta, se espera ue las velocidades tiendan a un mismo valor. Estos resultados soniciden son los que se muestran en la figura \ref{fig:velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_cuadrado}.
+
+La función de las velocidades angulares de las ruedas suavizadas (figura \ref{fig:velocidad_de_las_ruedas_con_limitantes_de_aceleracion_cuadrado}), se utiliza como la entrada para el modelo directo del punto descentralizado. Note que estas velocidades ya no son las que producen la trayectoria cuadrada perfecta, sino que se espera una trayectoria similar, pero deformada (se le llama $\phi$). En la figura   \ref{fig:posicion_del_robot_modelo_cinematico_cuadrado} se muestra el resultado de la posición del punto descentralizado a través del tiempo, provocado por las velocidades de la figura \ref{fig:velocidad_de_las_ruedas_con_limitantes_de_aceleracion_cuadrado}. Cuando $\phi$ describe porciones rectas, coincide con el cuadrado, sin embargo en las esquinas, se presentan cambios. Se debe notar que $\phi$ tiene sus esquinas redondeadas. Esto se debe al suavizamiento que se le realiza a la entrada del sistema. Este resultado es el esperado. Ya que las diferencias más grandes entre las velocidades de las fuedas, y las velocidades suavizadas (ver figura \ref{fig:velocidades_ruedas_trayectoria_cuadrada}) se dan cuando el robot se encuentra en als esquinas. Entonces las trayectorias descritas por el robot, deben tener mayores diferencias en las esquinas.
+
+Finalmente se analiza el resultado del centro del robot. Las velocidades suavizadas de las ruedas son la entrada al modelo directo del punto central del robot. Es de esperarse que la trayectoria que describe el punto central del robot no sea la misma que la que describe el punto descentralizado, ya que con el método del punto descentralizado no se puede controlar la orientación. Sin embargo se evidente que cuando el robot describe trayectorias rectas, la posición del centro del robot se apoxima a la trayectoria del punto descentralizado. Además la orientación del robot cada vez se asemeja más a la que describe la trayectoria del punto descentralizado. Con este resultado se comprueba la validez del modelo del punto descentralizado, ya que sí logra describir una buena aproximación de la posición del robot. Cuando el robot realiza un giro se evidencia una direfencia entre el centro del robot y la trayectoria cuadrada, pero este se corrige cuando el robot se mueve en la  porción recta.
 
 
 %**********Entradas de las simulaciones*******************************************************************
@@ -1404,12 +1399,26 @@ Al tomar la
 	\label{fig:evaluacion_de_la_restriccion_cuadrado}
 \end{figure}
 
+\begin{figure}
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/zoom_trayectoria_cuadrada_suavizada.eps}	
+	\caption{Trayectoria cuadrada con desaceleración en una esquina}
+	\label{fig:zoom_trayectoria_cuadrada_suavizada}
+\end{figure}
+
 \section{Conclusiones y Recomendaciones}
 
 Se logró exitosamente simular el sistema descrito. En las simulaciones se obtienen los resultados observados en el sistema real.
 
 
 \section{Apéndice Ecuaciones}
+
+
+
+\begin{equation}
+\label{eq:mul_lagrange}
+\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{q_1(t)}}\right) - \left(\frac{\partial k}{\partial q_1(t)}\right)= \left(\frac{\partial U}{\partial q_1(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{q_1}(t)}
+\end{equation}
 
 
 \begin{eqnarray}
