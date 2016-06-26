@@ -14,7 +14,7 @@ if simulacion==0
     %ye_dot_in=[0 1; 5 1; 5.001 0; 10 0; 10.001 -1; 15 -1; 15.001 0; 20 0];
     figure('pos', [10 10 1000 900])
     plot(t,xe_dot_in(:,2),'--',t,ye_dot_in(:,2))
-    title('entrada al modelo')
+    title('Entrada al modelo')
     xlabel('Tiempo [s]')
     ylabel('Velocidad del punto descentralizado [m/s]')
     legend('Movimiento en x', 'Movimiento en y')
@@ -29,7 +29,7 @@ if simulacion==1
     ye_dot_in=[t ; 2*cos(t)].';
     figure('pos', [10 10 1000 900])
     plot(t,xe_dot_in(:,2),'--',t,ye_dot_in(:,2))
-    title('entrada al modelo')
+    title('Entrada al modelo')
     xlabel('Tiempo [s]')
     ylabel('Velocidad del punto descentralizado [m/s]')
     legend('Movimiento en x', 'Movimiento en y')
@@ -47,7 +47,7 @@ if simulacion==2
     ye_dot_in=[t; 0.5*temporal_ye].';
     figure('pos', [10 10 1000 900])
     plot(t,xe_dot_in(:,2),'--',t,ye_dot_in(:,2))
-    title('entrada al modelo')
+    title('Entrada al modelo')
     xlabel('Tiempo [s]')
     ylabel('Velocidad del punto descentralizado [m/s]')
     legend('Movimiento en x', 'Movimiento en y')
@@ -57,7 +57,7 @@ if simulacion==2
 end
 
 
-Simout= sim('Modelo_cinematico_2015_daniel_backup.slx');
+Simout= sim('Modelo_cinematico.slx');
 
 
 
