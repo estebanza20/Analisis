@@ -30,20 +30,18 @@ tau_l = (r/2)*(Fm - (1/b)*Tm);
 
 
 
+tau_r = zeros(length(t),1);
 
-%tau_r = zeros(length(t),1);
+for k=0:10
+    tau_r = heaviside(t); %tau_r + 0.1*(t-5*(2*k)).*(heaviside(t-5*(2*k))-heaviside(t-5*(2*k+1)));
+end
 
-%for k=0:299
-%    tau_r = 0;   
-    %heaviside(t); %tau_r + 0.1*(t-5*(2*k)).*(heaviside(t-5*(2*k))-heaviside(t-5*(2*k+1)));
-%end
+tau_l = zeros(length(t),1);
 
-%tau_l = zeros(length(t),1);
-
-%for k=0:299
-%    tau_l = 0;  
-%    %0*t; %0.1*heaviside(t); %20*cos(t); %tau_l - 0.01*(t-5*(2*k)).*(heaviside(t-5*(2*k))-heaviside(t-5*(2*k+1)));
-%end
+for k=0:299
+    tau_l = 0*t;  
+     %0.1*heaviside(t); %20*cos(t); %tau_l - 0.01*(t-5*(2*k)).*(heaviside(t-5*(2*k))-heaviside(t-5*(2*k+1)));
+end
 
 figure
 plot(t,v,t,w);

@@ -325,7 +325,7 @@ Elástica (Resorte) & $\frac{1}{2}k{d}^2$ \\ \bottomrule
 \end{tabular}
 \end{table}
 
-\section{Modelado y simulación}
+\section{Modelado del sistema}
 Se procede a obtener el modelo cinemático (directo e inverso) y  el modelo dinámico de un robot de
 dos ruedas, para lo cual se toman las siguientes consideraciones generales:
 \begin{itemize}
@@ -1115,10 +1115,10 @@ Se define entonces el vector de estados, el cual se muestra en la ecuación (\ref
   \mathbf{X}(t)= \left[ \begin{array}{c} x(t) \\ y(t) \\ \theta(t) \\ v(t) \\ \omega(t) \end{array} \right]
 \end{equation}
 
-De esta manera, en (\ref{eq:mve_dinamico}) se presentan las derivadas de los estados del modelo en
-variables de estado no lineal que describe al sistema, en donde las ecuaciones de $\dot{x}(t)$ y
-$\dot{y}(t)$ corresponden a los componentes de la velocidad del centro geométrico sobre los
-ejes cartesianos, la ecuación de $\dot{\theta}(t)$ resulta de la definición de la rapidez
+De esta manera, en (\ref{eq:mve_dinamico}) se presentan las derivadas de los estados del
+modelo en variables de estado no lineal que describe al sistema, en donde las ecuaciones de
+$\dot{x}(t)$ y $\dot{y}(t)$ corresponden a los componentes de la velocidad del centro geométrico
+sobre los ejes cartesianos, la ecuación de $\dot{\theta}(t)$ resulta de la definición de la rapidez
 angular de cambio en la orientación del robot $\omega(t)$ y las ecuaciones de $\dot{v}(t)$ y
 $\dot{\omega}(t)$ se obtienen del análisis dinámico del sistema descrito previamente.
 
@@ -1174,22 +1174,10 @@ presentan mediante el vector indicado en (\ref{eq:entradas_mve_dinamico}).
   \right]
 \end{equation}
 
+\section{Simulaciones y análisis}
 
+\subsection{Simulación del modelo dinámico}
 
-% \dot{\varphi_r}(t) =\frac{v(t)}{r} + \frac{b}{r} \omega(t) \label{eq:phi_r_dot_mve}\\
-%& \dot{\varphi_l}(t)= \frac{v(t)}{r} - \frac{b}{r} \omega(t) \label{eq:phi_l_dot_mve}
-%, y las ecuaciones
-%(\ref{eq:phi_r_dot_mve}) y (\ref{eq:phi_l_dot_mve}) se obtienen de las restricciones
-%correspondientes a (\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}), expresadas en términos de los
-%estados definidos.
-
-
-
-
-% Modelado de la fricción
-
-
-\section{Análisis}
 
 
 
@@ -1213,7 +1201,7 @@ Se logró exitosamente simular el sistema descrito. En las simulaciones se obtien
 I_c = 15.625 Kg.m^2\\
 I_{\omega}= 0.005 kg.m^2\\
 I_m = 0.0025 kg. m^2\\
-b = 0.75
+b = 0.75 \\
 d = s = 0.3 m\\
 m_c = 30 kg\\
 m_{\omega} = 1 kg\\
