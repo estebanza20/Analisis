@@ -79,11 +79,12 @@
 \section{Resumen}
 Los robots móviles son muy importantes porque permiten sistemas más flexibles, abriendo toda un área
 de la robótica que involucra el problema de la localización%referencias.
+
 En el presente documento se analiza el caso específico de un robot diferencial, el cual es un sistema que
 se moviliza en el plano xy debido a la acción de dos ruedas que funcionan de manera
 independiente. Se lleva a cabo la obtención de un modelo cinemático directo, un modelo cinemático
 inverso, y un modelo dinámico que describe las consideraciones energéticas del sistema. Se
-realizaron las simulaciones correspondientes para cada modelo, para luego analizar la respuesta
+realizaron las simulaciones correspondientes para cada modelo, y postgeriormente analizar la respuesta
  del movimiento del sistema a las entradas respectivas. 
 
 
@@ -1249,7 +1250,7 @@ presentan mediante el vector indicado en (\ref{eq:entradas_mve_dinamico}).
 \subsection{Modelo Cinemático}
 Se realizaron tres simulaciones. Las tres se diferencian porque se tiene el mismo proceso pero con entradas distintas. Primero se explica el proceso, y luego las entradas. 
 
-Se recibe la velocidad traslacional requerida del punto descentralizado $\mathbf{p_d}(t)$. Este vector se utiliza como la entrada al modelo del punto descentralizado inverso. De esta manera se obtienen las velocidades en las ruedas $\mathbf{\dot{\varphi}}(t)$ requeridas para lograr las velocidades de entrada. Esta velocidad, en algunos casos puede tener puntos de discontinuidades, que provocan una derivada infinita. Como es sabido que esto no es posible en el mundo real, entonces se pasa la señal de las ruedas por un sistema cuya función de transferencia es $\frac{10}{s+10}$. De esta manera se logra suavizar la función, y evitar una salida que sea imposible en la realidad. Una vez, se tienen estas velocidades ($\mathbf{\dot{\varphi_S}}(t)$), entonces e utilizan como la entrada a los modelos directos. De esta manera se obtiene la velocidad del centor del robot $\mathbf{\nu_S}(t)$, y la velocidad del punto descentralizado $\mathbf{\dot{p_{e_S}}}(t)$,que generan las velocidades de las ruedas suavizadas. Finalmente se integran $\mathbf{\nu_S}(t)$ y $\mathbf{\dot{p_{e_S}}}(t)$, para obtener la posición del robot a travez del tiempo. Un resumen de la simulación se muestra en la figura \ref{fig:simulacion_flow}. Es importante suavizar la funcion de salida del modelo inverso, porque luego se utilizó como entrada del modelo dinámico. 
+Se recibe la velocidad traslacional requerida del punto descentralizado $\mathbf{p_d}(t)$. Este vector se utiliza como la entrada al modelo del punto descentralizado inverso. De esta manera se obtienen las velocidades en las ruedas $\mathbf{\dot{\varphi}}(t)$ requeridas para lograr las velocidades de entrada. Esta velocidad, en algunos casos puede tener puntos de discontinuidades, que provocan una derivada infinita. Como es sabido que esto no es posible en el mundo real, entonces se pasa la señal de las ruedas por un sistema cuya función de transferencia es $\frac{10}{s+10}$. De esta manera se logra suavizar la función, y evitar una salida que sea imposible en la realidad. Una vez, se tienen estas velocidades ($\mathbf{\dot{\varphi_S}}(t)$), entonces e utilizan como la entrada a los modelos directos. De esta manera se obtiene la velocidad del centor del robot $\mathbf{\nu_S}(t)$, y la velocidad del punto descentralizado $\mathbf{\dot{p_{e_S}}}(t)$,que generan las velocidades de las ruedas suavizadas. Finalmente se integran $\mathbf{\nu_S}(t)$ y $\mathbf{\dot{p_{e_S}}}(t)$, para obtener la posición del robot a travez del tiempo. Un resumen de la simulación se muestra en la figura \ref{fig:simulacion_flow}. El proceso de suavizar la función de las ruedas es importante porque luego se utilizó como entrada del modelo dinámico, y no se pueden tener entradas de aceleración infinita. 
 
 
 \begin{figure}
@@ -1261,7 +1262,9 @@ Se recibe la velocidad traslacional requerida del punto descentralizado $\mathbf
 
 En cada simulación el robot describió una trayectoria distinta, y esta trayectoria defina la entrada. En la primera fue una trayectoria cuadrada a rapidez constante, la segunda es una trayectoria circular a rapidez constante, y la tercera es una trayectoria cuadrada pero con desaceleración quendo el robot se acerca a las esqinas del cuadrado. 
 
-Para poder generar la primera trayectoria se utilizan escalones en la entrada. La trayectoria viene dada por (\ref{eq:entrada_cuadrado}). De esta manera se logra describir una trayectoria cuadrada con rapidez constante. En la figura \ref{fig>entrada_trayectoria_cuadrada} se mestra la entrada contra el tiempo. Luego de pocesar la entrada como se indica en la figura \ref{fig:simulacion_flow}, se obtienen los resultados en %ref a las figuras
+Para poder generar la primera trayectoria se utilizan escalones en la entrada. La trayectoria viene dada por (\ref{eq:entrada_cuadrado}). De esta manera se logra describir una trayectoria cuadrada con rapidez constante (durante 20s). En la figura \ref{fig:entrada_trayectoria_cuadrada} se mestra la entrada contra el tiempo. Luego de pocesar la entrada como se indica en la figura \ref{fig:simulacion_flow}, se obtienen los resultados en las figuras \ref{fig:posicion_del_robot_modelo_cinematico_cuadrado}, \ref{fig:velocidades_ruedas_trayectoria_cuadrada} y \ref{fig:evaluacion_de_la_restriccion_cuadrado}. 
+
+Al tomar la 
 
 \begin{equation}
 \mathbf{\dot{p_d}}(t)=\left[\begin{array}{c}\mu(t-5)-\mu(t-10)-\mu(t-1)\\ \mu(t)-\mu(t-5)-\mu(t-10)+\mu(t-15) \end{array}\right]
@@ -1279,7 +1282,7 @@ Para poder generar la primera trayectoria se utilizan escalones en la entrada. L
  	\end{subfigure}
  	\begin{subfigure}[t]{0.48\textwidth}
  		\includegraphics[width=\textwidth]{../pictures/entrada_trayectoria_circular.eps}
- 		\caption{Velocidades para generar el circulo}
+ 		\caption{Velocidades para generar el círculo}
  		\label{fig:entrada_trayectoria_circular}
  	\end{subfigure}
 
