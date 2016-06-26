@@ -1042,23 +1042,85 @@ la masa y el momento de inercia equivalentes del sistema, respectivamente.
   \end{empheq}
 \end{subequations}
 
+Tal como se explicó en la descripción general del sistema por modelar, se considerará solamente la
+fricción debida al contacto que se opone a la rotación alrededor del eje de cada motor, la cual se
+modelará como un amortiguador viscoso torsional. 
+
+De esta manera, el torque de la fricción aplicado sobre cada rueda es directamente proporcional a
+velocidad rotacional de la rueda, tal como se presenta en la ecuación (\ref{eq:torque_friccion}). El
+parámetro $B$ corresponde a una constante de proporcionalidad que determina la magnitud del torque
+de oposición generado dada cierta rapidez angular (***REF), conocido como factor de amortiguamiento.
+
+\begin{equation}
+  \label{eq:torque_friccion}
+  \tau_f(t) = -B\dot{\varphi}(t)
+\end{equation}
+
+Si bien es cierto este modelo de la fricción es muy simplificado y por lo tanto no describirá con
+exactitud el comportamiento real del robot en movimiento, el mismo resulta en una aproximación
+útil para observar de manera cualitativa los efectos básicos que podría provocar la fricción sobre
+la dinámica de un robot de dos ruedas, los cuales están relacionados con la oposición a la traslación
+y al cambio en la orientación del mismo.
+
+De esta forma, se procede a descomponer los torques netos en las ruedas en términos de los torques
+de los motores ($\tau_{rm}$, $\tau_{lm}$) y los de la fricción ($\tau_{rf}$, $\tau_{lf}$), en donde
+se considera que el factor de amortiguamiento $B$ es el mismo para las dos ruedas. De esta forma, se
+obtienen las ecuaciones (\ref{eq:torque_r}) y (\ref{eq:torque_l}).
+
+\begin{equation}
+  \label{eq:torque_r}
+  \tau_r(t) = \tau_{rm}(t) - B\dot{\varphi_r}(t)
+\end{equation}
+
+\begin{equation}
+  \label{eq:torque_l}
+  \tau_l(t) = \tau_{lm}(t) - B\dot{\varphi_l}(t)
+\end{equation}
+
+Al sustituir las ecuaciones (\ref{eq:torque_r}) y (\ref{eq:torque_l}) en (\ref{eq:FyT}), y al
+expresar el resultado en términos de $v(t)$ y $\dot{\theta}(t)$ por medio de las restricciones
+expuestas en (\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}), se obtienen las expresiones de
+(\ref{eq:FyT_friccion}). En donde se define $F_m(t) = \frac{\tau_r(t)+\tau_l(t)}{r}$ y
+$T_m(t) = \frac{b(\tau_r(t)-\tau_l(t))}{r}$.
+
+\begin{equation}
+\begin{cases}
+\begin{array}{c c c}
+F(t) &=& F_m(t)-\frac{2 B}{r^2}v(t) \\
+T(t) &=& T_m(t)-\frac{2 B b^2}{r^2}\dot{\theta}(t)
+\end{array}
+\end{cases}
+\label{eq:FyT_friccion}
+\end{equation}
+
+Al sustituir las expresiones de (\ref{eq:FyT_friccion}) en (\ref{eq:ecs_dinamicas}), se obtienen
+las ecuaciones dinámicas (\ref{eq:v_dot_friccion}) y (\ref{eq:omega_dot_friccion}), que están en
+términos de la fuerza ($F_m(t)$) y el torque ($T_m(t)$) equivalente aplicado por los motores sobre
+el robot. Estas ecuaciones se utilizarán para obtener el modelo en variables de estado
+correspondiente.
+
+\begin{subequations}
+  \label{eq:ecs_dinamicas_friccion}
+  \begin{empheq}[left = \empheqlbrace]{align}
+    & D\ddot{v}(t) -m_c s\ddot{\theta}(t)^2 + \frac{2 B}{r^2}v(t) = F_m(t) \label{eq:v_dot_friccion}\\
+    & J\ddot{\theta}(t)+m_cs\dot{\theta}(t)v(t) + \frac{2 B b^2}{r^2}\dot{\theta}(t) =
+    T_m(t) \label{eq:omega_dot_friccion}
+  \end{empheq}
+\end{subequations}
 
 Se define entonces el vector de estados, el cual se muestra en la ecuación (\ref{eq:vect_estados}).
 
 \begin{equation}
   \label{eq:vect_estados}
-  \mathbf{X}(t)= \left[ \begin{array}{c} x(t) \\ y(t) \\ \theta(t) \\ v(t) \\ \omega(t) \\ \varphi_r(t) \\ \varphi_l(t) \end{array} \right]
+  \mathbf{X}(t)= \left[ \begin{array}{c} x(t) \\ y(t) \\ \theta(t) \\ v(t) \\ \omega(t) \end{array} \right]
 \end{equation}
 
-De esta manera, se presenta el modelo en variables de estado dinámico del sistema en
-(\ref{eq:mve_dinamico}), en donde las ecuaciones (\ref{eq:x_dot_mve}) y (\ref{eq:y_dot_mve})
-corresponden a los componentes de la velocidad del centro geométrico sobre los ejes cartesianos, la
-ecuación (\ref{eq:theta_dot_mve}) resulta de la definición de la rapidez angular de cambio en la
-orientación del vehículo $\omega(t)$, las ecuaciones (\ref{eq:v_dot_mve}) y (\ref{eq:omega_dot_mve})
-se obtienen del análisis dinámico del sistema descrito previamente, y las ecuaciones
-(\ref{eq:phi_r_dot_mve}) y (\ref{eq:phi_l_dot_mve}) se obtienen de las restricciones
-correspondientes a (\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}), expresadas en términos de los
-estados definidos.
+De esta manera, en (\ref{eq:mve_dinamico}) se presentan las derivadas de los estados del modelo en
+variables de estado no lineal que describe al sistema, en donde las ecuaciones (\ref{eq:x_dot_mve}) y
+(\ref{eq:y_dot_mve}) corresponden a los componentes de la velocidad del centro geométrico sobre los
+ejes cartesianos, la ecuación (\ref{eq:theta_dot_mve}) resulta de la definición de la rapidez
+angular de cambio en la orientación del robot $\omega(t)$ y las ecuaciones (\ref{eq:v_dot_mve}) y
+(\ref{eq:omega_dot_mve}) se obtienen del análisis dinámico del sistema descrito previamente.
 
 \begin{subequations}
   \label{eq:mve_dinamico}
@@ -1066,12 +1128,20 @@ estados definidos.
 & \dot{x}(t) = v(t)\cos\left(\theta(t)\right) \label{eq:x_dot_mve}\\
 & \dot{y}(t) = v(t)\sin\left(\theta(t)\right) \label{eq:y_dot_mve}\\
 & \dot{\theta}(t) = \omega(t)\label{eq:theta_dot_mve}\\
-& \dot{v}(t)=\frac{m_c s}{D} \omega(t)^2 + \frac{F(t)}{D} \label{eq:v_dot_mve}\\
-& \dot{\omega}(t) = \frac{-m_c s}{J}\omega(t) v(t) + \frac{T(t)}{J} \label{eq:omega_dot_mve}\\
-& \dot{\varphi_r}(t) =\frac{v(t)}{r} + \frac{b}{r} \omega(t) \label{eq:phi_r_dot_mve}\\
-& \dot{\varphi_l}(t)= \frac{v(t)}{r} - \frac{b}{r} \omega(t) \label{eq:phi_l_dot_mve}
+& \dot{v}(t)=\frac{m_c s}{D} \omega(t)^2 - \frac{2 B}{Dr^2}v(t)  + \frac{F(t)}{D} \label{eq:v_dot_mve}\\
+& \dot{\omega}(t) = \frac{-m_c s}{J}\omega(t)v(t) - \frac{2 B b^2}{Jr^2}\omega(t)  + \frac{T(t)}{J} \label{eq:omega_dot_mve}\\
 \end{empheq}
 \end{subequations}
+
+
+%& \dot{\varphi_r}(t) =\frac{v(t)}{r} + \frac{b}{r} \omega(t) \label{eq:phi_r_dot_mve}\\
+%& \dot{\varphi_l}(t)= \frac{v(t)}{r} - \frac{b}{r} \omega(t) \label{eq:phi_l_dot_mve}
+%, y las ecuaciones
+%(\ref{eq:phi_r_dot_mve}) y (\ref{eq:phi_l_dot_mve}) se obtienen de las restricciones
+%correspondientes a (\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}), expresadas en términos de los
+%estados definidos.
+
+
 
 
 % Modelado de la fricción
