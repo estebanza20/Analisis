@@ -9,6 +9,8 @@
 \usepackage{booktabs}
 \usepackage{url}
 \usepackage{empheq}
+\usepackage{subcaption}
+\usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage[spanish]{babel}
 \hypersetup{
@@ -17,6 +19,26 @@
     filecolor=black,      
     urlcolor=black,
 }
+
+\usepackage{helvet}
+\usepackage{amsmath,amsfonts,amssymb,commath}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{tabls}
+\usepackage[space]{grffile}
+\usepackage{listings}
+
+\usepackage{siunitx}
+
+\usepackage{matlab-prettifier}
+
+\usepackage{textcomp} 
+\usepackage{pdfpages}   %incluir paginas de pdf externo, para los anexos
+\usepackage{caption} 
+\usepackage{rotating}
+\usepackage[section]{placeins}
+\usepackage{tikz}
 
 %--------- Agregue aquí algún paquete extra que sea necesario>---------
 %
@@ -1224,7 +1246,46 @@ presentan mediante el vector indicado en (\ref{eq:entradas_mve_dinamico}).
 
 
 \section{Análisis}
+\subsection{Modelo Cinemático}
+Se realizaron tres simulaciones. Las tres se diferencian porque se tiene el mismo proceso pero con entradas distintas. Primero se explica el proceso, y luego las entradas. 
 
+Se recibe la velocidad traslacional requerida del punto descentralizado $\mathbf{p_d}(t)$. Este vector se utiliza como la entrada al modelo del punto descentralizado inverso. De esta manera se obtienen las velocidades en las ruedas $\mathbf{\dot{\varphi}}(t)$ requeridas para lograr las velocidades de entrada. Esta velocidad, en algunos casos puede tener puntos de discontinuidades, que provocan una derivada infinita. Como es sabido que esto no es posible en el mundo real, entonces se pasa la señal de las ruedas por un sistema cuya función de transferencia es $\frac{10}{s+10}$. De esta manera se logra suavizar la función, y evitar una salida que sea imposible en la realidad. Una vez, se tienen estas velocidades ($\mathbf{\dot{\varphi_S}}(t)$), entonces e utilizan como la entrada a los modelos directos. De esta manera se obtiene la velocidad del centor del robot $\mathbf{\nu_S}(t)$, y la velocidad del punto descentralizado $\mathbf{\dot{p_{e_S}}}(t)$,que generan las velocidades de las ruedas suavizadas. Finalmente se integran $\mathbf{\nu_S}(t)$ y $\mathbf{\dot{p_{e_S}}}(t)$, para obtener la posición del robot a travez del tiempo. Un resumen de la simulación se muestra en la figura \ref{fig:simulacion_flow}. Es importante suavizar la funcion de salida del modelo inverso, porque luego se utilizó como entrada del modelo dinámico. 
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{../pictures/simulacion_flow.pdf}	
+	\caption{Flujo de la simulación}
+	\label{fig:simulacion_flow}
+\end{figure}
+
+En cada simulación el robot describió una trayectoria distinta, y esta trayectoria defina la entrada. En la primera fue una trayectoria cuadrada a rapidez constante, la segunda es una trayectoria circular a rapidez constante, y la tercera es una trayectoria cuadrada pero con desaceleración quendo el robot se acerca a las esqinas del cuadrado. 
+
+Para poder generar la primera trayectoria se utilizan en la velocidad, entradas escalón. 
+
+
+
+ \begin{figure}
+ 	\centering
+ 	\begin{subfigure}[t]{0.3\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/entrada_trayectoria_cuadrada.eps}
+ 		\caption{Velocidades para generar el cuadrado}
+ 		\label{fig:entrada_trayectoria_cuadrada_suavizada}
+ 	\end{subfigure}
+ 	\begin{subfigure}[t]{0.3\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/entrada_trayectoria_circular.eps}
+ 		\caption{Velocidades para generar el circulo}
+ 		\label{fig:entrada_trayectoria_cuadrada_suavizada}
+ 	\end{subfigure}
+ 	\begin{subfigure}[b]{0.3\textwidth}
+ 		\includegraphics[width=\textwidth]{../pictures/entrada_trayectoria_cuadrada_suavizada.eps}
+ 		\caption{Velocidades para generar el cuadrado con desaceleración en las esquinas}
+ 		\label{fig:entrada_trayectoria_cuadrada_suavizada}
+ 	\end{subfigure}
+        \caption{Entradas de las simulaciones}
+        \label{fig:entradas_simulaciones_cinematico}
+ 	
+ \end{figure}
 
 
 
