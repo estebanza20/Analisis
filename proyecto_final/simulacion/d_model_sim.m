@@ -1,7 +1,7 @@
 %Simulación y graficación modelo dinámico
 
 mode = 1;
-print_figs = 1;
+print_figs = 0;
 
 %Parametros del modelo:
 
@@ -76,7 +76,7 @@ end
 
 %Simulación
 sim_time = 150;
-Simout= sim('dynamic_model.slx');
+Simout= sim('dynamic_model_2015.slx');
 
 t = x_y.time;
 
