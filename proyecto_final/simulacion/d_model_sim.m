@@ -100,7 +100,7 @@ test = 'Simulación torques opuestos';
 %Torques de entrada
 figure(1)
 plot(t,tau_r,t,tau_l);
-legend({'$\tau_r(t)$';'$\tau_l(t)$'},'Interpreter','latex');
+legend({'$\tau_r(t)$: Rueda derecha';'$\tau_l(t)$: Rueda izquierda'},'Interpreter','latex');
 title({'Torques de entrada al sistema:'; test});
 ylabel('Torque (Nm)');
 xlabel('Tiempo (s)');
@@ -124,7 +124,7 @@ end
 %Posición con respecto al tiempo
 figure(3)
 plot(t,x,t,y)
-legend('x(t)','y(t)');
+legend({'x(t): Coordenada en X';'y(t): Coordenada en Y'},'Interpreter','latex');
 %axis([0 37.5 0 1400])
 title({'Posición del robot en función del tiempo:'; test});
 %title('Posición del robot en función del tiempo');
@@ -155,7 +155,7 @@ end
 %Velocidades angulares ruedas con respecto al tiempo
 figure(5)
 plot(t,phi_r_dot,t,phi_l_dot);
-legend({'$\dot{\varphi_r}(t)$';'$\dot{\varphi_l}(t)$'},'Interpreter','latex');
+legend({'$\dot{\varphi_r}(t)$: Rueda derecha';'$\dot{\varphi_l}(t)$: Rueda izquierda'},'Interpreter','latex');
 title({'Velocidad angular en las ruedas en función del tiempo:'; test});
 ylabel('Velocidad angular (rad/s)');
 xlabel('Tiempo (s)');
