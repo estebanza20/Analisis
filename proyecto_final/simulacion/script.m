@@ -6,7 +6,7 @@
 
 save = 0;
 %la variable simulacion es para determinar la entrada al modelo
-simulacion=2;
+simulacion=0;
 t=0:0.01:20;
 if simulacion==0
     %generar un cradrado a rapidez constante
@@ -59,7 +59,7 @@ if simulacion==2
 end
 
 
-Simout= sim('Modelo_cinematico.slx');
+Simout= sim('Modelo_cinematico_2015_daniel_backup.slx');
 
 
 
