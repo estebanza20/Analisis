@@ -29,8 +29,8 @@ Compiled source #
 *~
 
 #pdfs and binary files
-*.pdf
-*converted-to.pdf
+#*.pdf
+#*converted-to.pdf
 
 
 
