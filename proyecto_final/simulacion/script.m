@@ -6,7 +6,7 @@
 
 save = 0;
 %la variable simulacion es para determinar la entrada al modelo
-simulacion=0;
+simulacion=2;
 t=0:0.01:20;
 if simulacion==0
     %generar un cradrado a rapidez constante
@@ -65,8 +65,8 @@ Simout= sim('Modelo_cinematico_2015_daniel_backup.slx');
 
 figure('pos', [10 10 1000 900])
 plot(x_modelo_directo.Data, y_modelo_directo.Data, '--', x_modelo_desplazado.Data, y_modelo_desplazado.Data,xe_centro_contra_desplazado.Data, ye_centro_contra_desplazado.Data, '-.')
-legend('Posicion del centro','Posicion punto descentralizado', 'Posicion punto descentralizado ideal', 'Location', 'southoutside', 'Orientation', 'horizontal')
-title('Posicion del robot respecto al tiempo')
+legend('Posición del centro','Posición punto descentralizado', 'Posición punto descentralizado ideal', 'Location', 'southoutside', 'Orientation', 'horizontal')
+title('Posición del robot respecto al tiempo')
 xlabel('Desplazamiento en X [m]')
 ylabel('Desplazamiento en Y [m]')
 
@@ -89,7 +89,7 @@ ydotcos=(ydot_modelo_directo.Data).*(cos(orientacion_modelo_directo.Data));
 %ydotcos=(ydot_centro_contra_desplazado.Data).*(cos(orientacion_centro_contra_desplazado.Data));
 cero=xdotsin-ydotcos;
 plot(orientacion_modelo_directo.Time,cero)
-title('Restriccion de movimiento')
+title('Restricción de movimiento')
 xlabel('Tiempo [s]')
 ylabel('Error [m/s]')
 if save==1
@@ -138,7 +138,7 @@ figure%('pos', [10 10 1000 900])
 plot(derecha_limitada)
 hold
 plot(izquierda_limitada)
-title('Velocidad angular en las ruedas adaptada para ser mas realista')
+title('Velocidad angular en las ruedas adaptada para ser más realista')
 xlabel('Tiempo [s]')
 ylabel('Velocidad angular [rads/s]')
 legend('Rueda derecha','Rueda izquierda', 'Location', 'southoutside', 'Orientation', 'horizontal')
