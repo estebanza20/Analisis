@@ -9,7 +9,6 @@
 \usepackage{booktabs}
 \usepackage{url}
 \usepackage{empheq}
-\usepackage[justification=centering]{caption}
 \usepackage{subcaption}
 \usepackage{graphicx}
 \usepackage{hyperref}
@@ -80,11 +79,12 @@
 \section{Resumen}
 Los robots móviles son muy importantes porque permiten sistemas más flexibles, abriendo toda un área
 de la robótica que involucra el problema de la localización%referencias.
+
 En el presente documento se analiza el caso específico de un robot diferencial, el cual es un sistema que
 se moviliza en el plano xy debido a la acción de dos ruedas que funcionan de manera
 independiente. Se lleva a cabo la obtención de un modelo cinemático directo, un modelo cinemático
 inverso, y un modelo dinámico que describe las consideraciones energéticas del sistema. Se
-realizaron las simulaciones correspondientes para cada modelo, para luego analizar la respuesta
+realizaron las simulaciones correspondientes para cada modelo, y postgeriormente analizar la respuesta
  del movimiento del sistema a las entradas respectivas. 
 
 
@@ -122,9 +122,7 @@ realizaron las simulaciones correspondientes para cada modelo, para luego analiz
         \item[$p_0$] Posición del centro geométrico (punto entre las ruedas) [$m$]
         \item[$p_d$] Posición del punto descentralizado [$m$]
         \item[$p_g$] Posición del centro de masa [$m$]
-        \item[$B$] Factor de amortiguamiento viscoso torsional
         \item[$2b$]  Ancho del robot [$m$]
-        \item[$s$] Distancia entre el centro geométrico y el de masa del el robot [$m$]
         \item[$p_r$] Posición de la rueda derecha [$m$]
         \item[$p_l$] Posición de la rueda izquierda [$m$]
         \item[$\varphi_r$] Posición angular de la rueda derecha [$rad$]
@@ -170,7 +168,7 @@ su eje z como lo muestra la figura \ref{ejes}. También, pueden construirse altos
 hace muy útiles en interiores, en donde pueden pasar por lugares estrechos y dar curvas muy cerradas
 \citep{KarlStol}.  Algunas de sus aplicaciones, pueden ser como guías de excursiones dentro de
 museos, bases de equipo médico dentro de hospitales, para vigilancia (segway) y de limpieza en el
-hogar \cite{Coelho}.
+hogar \citep{Coelho}.
 
 \subsection{Objetivos}
 
@@ -244,12 +242,12 @@ Algunas de las ventajas de estos sistemas de dos ruedas es que son más baratos, 
 
 El modelo de robot que se estudia en el presente trabajo se supone con dos motores independientes, cada uno controlando una rueda, colocados a lo ancho  del eje central del robot. Se asume además su movimiento únicamente en dos dimensiones, por lo que se considera con una tercera rueda que no aporta ningún movimiento adicional (rueda loca o de castor) para que sea estable \citep{KarlStol}, además se considera que no hay deformación en la rueda y que se cumple la condición de rodamiento puro.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.6\textwidth]{../pictures/Diagrama_3d_robot.eps}	
-	\caption{Ejes del Robot}
-	\label{fig:ejes}
-\end{figure}
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=0.6\textwidth]{../pictures/robot_ejes.eps}	
+%	\caption{Ejes del Robot}
+%	\label{fig:ejes}
+%\end{figure}
 
 
 \subsection{Método de linealización}
@@ -365,7 +363,8 @@ El modelado de la tracción delantera de un robot movil es una condición no holon
 Un sistema subactuado es aquel en el cual existen menos actuadores que grados de libertad \citep{Conejo}, es decir una sola entrada controla movimientos distintos e independientes del robot . Una ventaja de estos sistemas es que al utilizar menos actuadores consumen menos energía sin embargo el control se vuelve un poco más complejo. 
 
 
-\section{Modelado del sistema}
+
+\section{Modelado y simulación}
 
 Se procede a obtener el modelo cinemático (directo e inverso) y  el modelo dinámico de un robot de
 dos ruedas, para lo cual se toman las siguientes consideraciones generales:
@@ -395,7 +394,6 @@ dos ruedas, para lo cual se toman las siguientes consideraciones generales:
 \item El cuerpo del robot no se comporta como un péndulo invertido, ya que presenta el soporte
   adecuado para mantenerse estable sin balancearse.
 \end{itemize}
-
 
 
 \subsection{Modelo cinemático}
@@ -1218,10 +1216,33 @@ presentan mediante el vector indicado en (\ref{eq:entradas_mve_dinamico}).
 
 \section{Análisis y simulaciones}
 
+En este apartado, se procede a realizar el análisis y las simulaciones respectivas al modelo
+cinemático y al modelo dinámico, obtenidas en la sección de modelado para el robot de dos
+ruedas. Para las simulaciones, se toman las características del robot real indicadas por Sarkar
+(***), las cuales se presentan en \ref{eq:datos_robot_sim}.
+
+\begin{equation}
+\begin{cases}
+\begin{array}{c c c}
+I_c &=& 15.625 \hspace{0.1cm} kg \cdot m^2\\
+I_{w} &=& 0.005 \hspace{0.1cm} kg \cdot m^2\\
+I_m &=& 0.0025 \hspace{0.1cm} kg \cdot m^2\\
+b &=& 0.75 \hspace{0.1cm} m\\
+s &=& 0.3 \hspace{0.1cm} m\\
+m_c &=& 30 \hspace{0.1cm} kg\\
+m_{w} &=& 1 \hspace{0.1cm} kg\\
+r &=& 0.10 \hspace{0.1cm} m
+\end{array}
+\end{cases}
+\label{eq:datos_robot_sim}
+\end{equation}
+
+
+
 \subsection{Modelo Cinemático}
 Se realizaron tres simulaciones. Las tres se diferencian porque se tiene el mismo proceso pero con entradas distintas. Primero se explica el proceso, y luego las entradas. 
 
-Se recibe la velocidad traslacional requerida del punto descentralizado $\mathbf{p_d}(t)$. Este vector se utiliza como la entrada al modelo del punto descentralizado inverso. De esta manera se obtienen las velocidades en las ruedas $\mathbf{\dot{\varphi}}(t)$ requeridas para lograr las velocidades de entrada. Esta velocidad, en algunos casos puede tener puntos de discontinuidades, que provocan una derivada infinita. Como es sabido que esto no es posible en el mundo real, entonces se pasa la señal de las ruedas por un sistema cuya función de transferencia es $\frac{10}{s+10}$. De esta manera se logra suavizar la función, y evitar una salida que sea imposible en la realidad. Una vez, se tienen estas velocidades ($\mathbf{\dot{\varphi_S}}(t)$), entonces e utilizan como la entrada a los modelos directos. De esta manera se obtiene la velocidad del centor del robot $\mathbf{\nu_S}(t)$, y la velocidad del punto descentralizado $\mathbf{\dot{p_{e_S}}}(t)$,que generan las velocidades de las ruedas suavizadas. Finalmente se integran $\mathbf{\nu_S}(t)$ y $\mathbf{\dot{p_{e_S}}}(t)$, para obtener la posición del robot a travez del tiempo. Un resumen de la simulación se muestra en la figura \ref{fig:simulacion_flow}. Es importante suavizar la funcion de salida del modelo inverso, porque luego se utilizó como entrada del modelo dinámico. 
+Se recibe la velocidad traslacional requerida del punto descentralizado $\mathbf{p_d}(t)$. Este vector se utiliza como la entrada al modelo del punto descentralizado inverso. De esta manera se obtienen las velocidades en las ruedas $\mathbf{\dot{\varphi}}(t)$ requeridas para lograr las velocidades de entrada. Esta velocidad, en algunos casos puede tener puntos de discontinuidades, que provocan una derivada infinita. Como es sabido que esto no es posible en el mundo real, entonces se pasa la señal de las ruedas por un sistema cuya función de transferencia es $\frac{10}{s+10}$. De esta manera se logra suavizar la función, y evitar una salida que sea imposible en la realidad. Una vez, se tienen estas velocidades ($\mathbf{\dot{\varphi_S}}(t)$), entonces e utilizan como la entrada a los modelos directos. De esta manera se obtiene la velocidad del centor del robot $\mathbf{\nu_S}(t)$, y la velocidad del punto descentralizado $\mathbf{\dot{p_{e_S}}}(t)$,que generan las velocidades de las ruedas suavizadas. Finalmente se integran $\mathbf{\nu_S}(t)$ y $\mathbf{\dot{p_{e_S}}}(t)$, para obtener la posición del robot a travez del tiempo. Un resumen de la simulación se muestra en la figura \ref{fig:simulacion_flow}. El proceso de suavizar la función de las ruedas es importante porque luego se utilizó como entrada del modelo dinámico, y no se pueden tener entradas de aceleración infinita. 
 
 
 \begin{figure}
@@ -1231,14 +1252,24 @@ Se recibe la velocidad traslacional requerida del punto descentralizado $\mathbf
 	\label{fig:simulacion_flow}
 \end{figure}
 
-En cada simulación el robot describió una trayectoria distinta, y esta trayectoria defina la entrada. En la primera fue una trayectoria cuadrada a rapidez constante, la segunda es una trayectoria circular a rapidez constante, y la tercera es una trayectoria cuadrada pero con desaceleración quendo el robot se acerca a las esqinas del cuadrado. 
+En cada simulación el robot describió una trayectoria distinta, y esta trayectoria defina la entrada. En la primera fue una trayectoria cuadrada a rapidez constante, la segunda es una trayectoria circular a rapidez constante, y la tercera es una trayectoria cuadrada pero con desaceleración quendo el robot se acerca a las esqinas del cuadrado. En todos los casos, el robot comienza en el origen con $\theta=0$. Además se utilizan los parámetros en el apéndice. %PONER LA CITA
 
-Para poder generar la primera trayectoria se utilizan escalones en la entrada. La trayectoria viene dada por (\ref{eq:entrada_cuadrado}). De esta manera se logra describir una trayectoria cuadrada con rapidez constante. En la figura \ref{fig>entrada_trayectoria_cuadrada} se mestra la entrada contra el tiempo. Luego de pocesar la entrada como se indica en la figura \ref{fig:simulacion_flow}, se obtienen los resultados en %ref a las figuras
+\subsubsection{Primera simulación: trayectoria cuadrada}
+
+Para poder generar la primera trayectoria se utilizan escalones en la entrada. La velocidad de la trayectoria viene dada por (\ref{eq:entrada_cuadrado}). De esta manera se logra describir una trayectoria cuadrada con rapidez constante (durante 20s). En la figura \ref{fig:entrada_trayectoria_cuadrada} se mestra la entrada contra el tiempo. Luego de pocesar la entrada como se indica en la figura \ref{fig:simulacion_flow}, se obtienen los resultados en las figuras \ref{fig:posicion_del_robot_modelo_cinematico_cuadrado}, \ref{fig:velocidades_ruedas_trayectoria_cuadrada} y \ref{fig:evaluacion_de_la_restriccion_cuadrado}. 
 
 \begin{equation}
-\mathbf{\dot{p_d}}(t)=\left[\begin{array}{c}\mu(t-5)-\mu(t-10)-\mu(t-1)\\ \mu(t)-\mu(t-5)-\mu(t-10)+\mu(t-15) \end{array}\right]
+\mathbf{\dot{p_d}}(t)=\left[\begin{array}{c}\mu(t-5)-\mu(t-10)-\mu(t-15)\\ \mu(t)-\mu(t-5)-\mu(t-10)+\mu(t-15) \end{array}\right]
 \label{eq:entrada_cuadrado}
-\end{equation} 
+\end{equation}
+
+La salida del modelo inverso del punto descentralizado se muestra en la figura \ref{fig:velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_cuadrado}. Note que cuando el robot llega a las esquinas de la trayectoria, se tienen discontinuidades en las velocidades de las ruedas. Esto es en 0s, 5s, 10s, 15s. En cada uno de ellos el robot debe realizar un giro de $90^\circ$ a rapidez constante, y es lo que provocan las disconrinuidades. En la figura \ref{fig:velocidad_de_las_ruedas_con_limitantes_de_aceleracion_cuadrado} se muestra la señal suavizada. en esta se evitan las discotinuidades de la salida del modelo inverso. Note que as discontinuidades indican aceleraciones infinitas, por lo que es imposible para un robot realizar una trayectoria cuadrada perfecta a rapidez constante. Este resultado es el esperado para el sistema que se está simulando. 
+
+Note tambien que la salida de las ruedas es la esperada, dada la trayectoria que se debe seguir. por ejemplo, cada vez que el robot gira a la derecha (5s, 10s, 15s) se espera un aumento en la velocidad de la rueda izquierda y una disminución de la rueda derecha. Además, cuando no se realizan giros, sino que se sigue una trayectoria recta, se espera ue las velocidades tiendan a un mismo valor. Estos resultados soniciden son los que se muestran en la figura \ref{fig:velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_cuadrado}.
+
+La función de las velocidades angulares de las ruedas suavizadas (figura \ref{fig:velocidad_de_las_ruedas_con_limitantes_de_aceleracion_cuadrado}), se utiliza como la entrada para el modelo directo del punto descentralizado. Note que estas velocidades ya no son las que producen la trayectoria cuadrada perfecta, sino que se espera una trayectoria similar, pero deformada (se le llama $\phi$). En la figura   \ref{fig:posicion_del_robot_modelo_cinematico_cuadrado} se muestra el resultado de la posición del punto descentralizado a través del tiempo, provocado por las velocidades de la figura \ref{fig:velocidad_de_las_ruedas_con_limitantes_de_aceleracion_cuadrado}. Cuando $\phi$ describe porciones rectas, coincide con el cuadrado, sin embargo en las esquinas, se presentan cambios. Se debe notar que $\phi$ tiene sus esquinas redondeadas. Esto se debe al suavizamiento que se le realiza a la entrada del sistema. Este resultado es el esperado. Ya que las diferencias más grandes entre las velocidades de las fuedas, y las velocidades suavizadas (ver figura \ref{fig:velocidades_ruedas_trayectoria_cuadrada}) se dan cuando el robot se encuentra en als esquinas. Entonces las trayectorias descritas por el robot, deben tener mayores diferencias en las esquinas.
+
+Finalmente se analiza el resultado del centro del robot. Las velocidades suavizadas de las ruedas son la entrada al modelo directo del punto central del robot. Es de esperarse que la trayectoria que describe el punto central del robot no sea la misma que la que describe el punto descentralizado, ya que con el método del punto descentralizado no se puede controlar la orientación. Sin embargo se evidente que cuando el robot describe trayectorias rectas, la posición del centro del robot se apoxima a la trayectoria del punto descentralizado. Además la orientación del robot cada vez se asemeja más a la que describe la trayectoria del punto descentralizado. Con este resultado se comprueba la validez del modelo del punto descentralizado, ya que sí logra describir una buena aproximación de la posición del robot. Cuando el robot realiza un giro se evidencia una direfencia entre el centro del robot y la trayectoria cuadrada, pero este se corrige cuando el robot se mueve en la  porción recta. TOmando en cuanta el análisis cuantitativo, se mide de las gráficas en \ref{fig:velocidades_ruedas_trayectoria_cuadrada} que la velocidad de las ruedas es de $10 rad/s$ en los trayectos rectos. Como  el radio de las ruedas cumple que $r=0.1$, y no se consideran deslizamientos de las ruedas. Entocnes se obtiene una velocidad traslacional de $1m/s$, que es exactamente la que se introduce como entrada.  
 
 
 %**********Entradas de las simulaciones*******************************************************************
@@ -1251,7 +1282,7 @@ Para poder generar la primera trayectoria se utilizan escalones en la entrada. L
  	\end{subfigure}
  	\begin{subfigure}[t]{0.48\textwidth}
  		\includegraphics[width=\textwidth]{../pictures/entrada_trayectoria_circular.eps}
- 		\caption{Velocidades para generar el circulo}
+ 		\caption{Velocidades para generar el círculo}
  		\label{fig:entrada_trayectoria_circular}
  	\end{subfigure}
 
@@ -1263,6 +1294,7 @@ Para poder generar la primera trayectoria se utilizan escalones en la entrada. L
         \caption{Entradas de las simulaciones}
         \label{fig:entradas_simulaciones_cinematico}
  \end{figure}
+
 
 %******Posicion trayectoria cuadrada***********************************************************************
 \begin{figure}
@@ -1295,6 +1327,23 @@ Para poder generar la primera trayectoria se utilizan escalones en la entrada. L
 	\label{fig:evaluacion_de_la_restriccion_cuadrado}
 \end{figure}
 
+
+\subsubsection{Segunda simulación: trayectoria circular}
+
+Para poder generar la segunda trayectoria se utilizan funciones trigonométricas en la entrada. La velocidad de la trayectoria viene dada por (\ref{eq:entrada_circular}). De esta manera se logra describir una trayectoria circular con rapidez constante (durante 20s). En la figura \ref{fig:entrada_trayectoria_circular} se mestra la entrada contra el tiempo. Luego de pocesar la entrada como se indica en la figura \ref{fig:simulacion_flow}, se obtienen los resultados en las figuras \ref{fig:posicion_del_robot_modelo_cinematico_circulo}, \ref{fig:velocidades_ruedas_trayectoria_circulo} y \ref{fig:evaluacion_de_la_restriccion_circulo}.
+
+\begin{equation}
+\mathbf{\dot{p_d}}(t)=\left[\begin{array}{c} 2\sen(t)\\ 2\cos(t) \end{array}\right]
+\label{eq:entrada_circular}
+\end{equation}
+
+En esta simulación, a diferencia de la primera, la trayectoria se completa más de una vez. Esto se debe a que la trayectoria del centro del robot no llega a coincidir con la trayectoria del punto descentralizado (ver figura \ref{fig:posicion_del_robot_modelo_cinematico_circulo}), entonces se hace al robot girar más veces sobre la trayectoria, para averiguar si esta condición cambia cuando t aumenta. Se completan poco más de tres revoluciones, y no se observan cambios en la condición descrita. SE pueden apreciar puntos de corte entre las trayectorias, pero no se tiene un comportamiento asintótico, que sí se tiene en los trayectos rectos. Se puede apreciar que en general, la trayectoria del centro del robot se encuentra adentro de la trayectoria del punto descentralizado (los que se obtienen de los modelos directos). En la figura \ref{fig:posicion_del_robot_modelo_cinematico_cuadrado}, se nota que cuando el robot gira, la trayectoria del centro, se encuentra hacia adentro. Si se considera al círculo como un giro contínuo, entonces ambos resultados son consistentes. %Sinembargo, note que como el círculo es lo suficientemente grande, entonces ambas trayectorias están cercanas, ya que entre mayor sea el radio del círculo, mayor será su semajanza con una trayectoria recta, y por tanto las trayectorias del dentro y eñl punto descentralizado se vana a asemejar más.  
+
+  También se debe analizar lo que se muestra en la figura \ref{fig:velocidades_ruedas_trayectoria_circulo}. Estas son las velocidades angulares de las reedas que generan las trayectorias en la figura \ref{fig:posicion_del_robot_modelo_cinematico_circulo}. Estas presentan el comportamiento esperado. Al inicio se tiene un comportamiento con aceleraciones elevadas, esto se debe a que el robot se encuentra perpendicular a la trayectoria. Sin embargo, conforme avanza el tiempo, las velocidades se estabilizan en un valor, que es lo que permite que se describa el círculo. De las gáfiacas, se miden los valores donde se estabilizan las velocidades angulares de las ruedas, y se obtiene $27.7rad/s$ para la rueda izquierda, y $12.27rad/s$ para la rueda derecha. Note que como el robot se encuentra avanzando hacia su frente, entonces se esperan valores positivos, y como el robot gira hacia su derecha, se espera qeu la velocidad de la rueda izquierda sea mayor. 
+
+Ahora, respecto al valor numérico de estos vfalores finales, se debe conciderar que estos se tienen cuando ya el robot se encuentra describiendo un círculo. De la figura  \ref{fig:posicion_del_robot_modelo_cinematico_circulo} se puede concluir que el radio $R$ de la trayectoria circular que describe el centro del robot es aproximadamente $1.977m$ (midiendo los extremos de la posición en y). De la ecuación (\ref{eq:entrada_circular}), se sabe que la magnitud de la velocidad tangencial al círculo del robot viene dada por $v_0=\sqrt{4\cos^2(t)+4\sen^2(t)}=2$. Se concidera a $\rho$ como la velocidad angular alrededor del círculo, entonces se tiene que $\rho=v_0/R=1.012 rad/s$. 
+
+Como el robot diferencial tiene la restricción que solo se puede mover hacia el frente (o hacia atrás pero no hacia los lados). Se puede suponer que el robot se encentra perpendicular al radio de la trayectoria circular. Se sabe que el ancho del robot es $1.5m$, enotnces la trayectoria que describe la rueda derecha tiene un radio de $R_r=R-0.75=1.25m$, y la rueda izquierda de $R_l=R+0.75=2.75m$. Conociendo la velocidad angular y el radio de cada rueda, se determina la velocidad traslacional. $v_r=\rho R_r= 1.265m/s$, y $v_l=\rho R_l= 2.783m/s$. Tomando en centa que $r=0.01$. se obtiene que la velocidad de la ruda derecha debe ser $27.83rad/s$, y en la izquierda $12.65rad/s$. Estos valores son muy cercanos a los obtenidos en la simulación, entocnes los resultados simulados son los esperados para el sistema en cuestión. 
 
 
 
@@ -1329,7 +1378,20 @@ Para poder generar la primera trayectoria se utilizan escalones en la entrada. L
 	\label{fig:evaluacion_de_la_restriccion_circulo}
 \end{figure}
 
+\subsubsection{Tercera simulación: trayectoria cuadrada con desaceleración en las esquinas}
 
+Para poder generar la primera trayectoria se utilizan escalones en la entrada. La velocidad de la trayectoria viene dada por (\ref{eq:entrada_cuadrado_suavizado}). De esta manera se logra describir una trayectoria cuadrada con rapidez constante (durante 20s). En la figura \ref{fig:entrada_trayectoria_cuadrada_suavizada} se muestra la entrada contra el tiempo. Luego de pocesar la entrada como se indica en la figura \ref{fig:simulacion_flow}, se obtienen los resultados en las figuras \ref{fig:posicion_del_robot_modelo_cinematico_cuadrado_suavizado}, \ref{fig:velocidades_ruedas_trayectoria_cuadrada_suavizado}, \ref{fig:evaluacion_de_la_restriccion_cuadrado}, y \ref{fig:zoom_trayectoria_cuadrada_suavizada}. 
+
+\begin{equation}
+\mathbf{\dot{p_d}}(t)=\left[\begin{array}{c}(\mu(t-5)-\mu(t-10))(1-\cos(\pi (t-5)/5))-\mu(t-15)(1-\cos(\pi (t-15)/5))\\
+ (\mu(t)-\mu(t-5))(1-\cos(\pi t/5))-(\mu(t-10)+\mu(t-15))(1-\cos(\pi (t-10)/5)) \end{array}\right]
+\label{eq:entrada_cuadrado_suavizado}
+\end{equation}
+
+Esta simulación se realiza como un método alternativo para evitar las discotinuidades en las velocidades angulares de las ruedas. Se construye la entrada de manera que se describa una trayectoria cuadrada, pero que el robot desacelere cuando se acerca a las esquinas del cuadrado. Para evitar los cambios abruptos en las velocidades de los motores, se espera que en cada esquina la velocidad traslacional del robot sea nula. Como se desea constrir una trayectoria cuadrada, en periodos no se tiene traslacion en x, y en otors periodos no se tien traslacion en y. Estos cambios ocurren al llegal a las esquinas, enotnces la señal de entrada debe tener una derivada de 0 al llegar a una esquina. En síntesis se necesita una señal de entrada que sea contínua, pueda describir una trayecotria cuadrada, y su derivada sea también contínua. ESto se logra con la función en \ref{eq:entrada_cuadrado_suavizado}. Que la entrada pueda describir una trayectoria cuadrada, se logra con los escalones, para evitar desplazamiento en ambas dimensiones al mismo tiempo. Y la continuidad de la función y su derivada, se logra con la parte de los cosenos. De la figura \ref{eq:entrada_cuadrado_suavizado} es evidente que la función de entrada cumple con los requerimientos. 
+
+De las gráficas que se presentan en la figura \ref{fig:velocidades_ruedas_trayectoria_cuadrada_suavizado}, se nota que no tienen discotinuidades, por lo que con la entrada propuesta se logran tener velocidades en las ruedas cuya aceleración sea finita en todo punto. Además cabe destacar que ambas gráficas (\ref{fig:velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_cuadrado_suavizado} y\ref{fig:velocidad_de_las_ruedas_con_limitantes_de_aceleracion_cuadrado_suavizado}) presentan comportamientos sumamente parecidos. Esto significa que los comandos que envía el robot a sus motores son muy cercanos a los que se necesitan para poder describir la trayectoria cuadrada con su punto descentralizado. Este hecho se hace evidente al observar la figura \ref{fig:zoom_trayectoria_cuadrada_suavizada}. En esta se presenta una porción de la trayectoria, que muestra una esquina. Se debe notar que en este caso (a diferencia de la trayectoria cuadrada a rapidez constante), el robot sí puede describir el giro de $90^\circ$ que se requiere para tener un cuadrado.  Por otra parte, el comportamiento del centro del robot es asintótico al del punto descentralizado, cuando se tienen trayectorias rectas. 
+ 
 
 %******Posicion trayectoria cuadrada suavizada**************************************************************
 \begin{figure}
@@ -1363,31 +1425,19 @@ Para poder generar la primera trayectoria se utilizan escalones en la entrada. L
 \end{figure}
 
 
+\begin{figure}
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/zoom_trayectoria_cuadrada_suavizada.eps}	
+	\caption{Trayectoria cuadrada con desaceleración en una esquina}
+	\label{fig:zoom_trayectoria_cuadrada_suavizada}
+\end{figure}
+
 
 \subsection{Modelo dinámico}
 Para estudiar el comportamiento del modelo dinámico obtenido del sistema, descrito por las
-ecuaciones \ref{eq:mve_dinamico}, \ref{eq:entradas_mve_dinamico} y \ref{eq:salidas_mve_dinamico}, se
+ecuaciones (\ref{eq:mve_dinamico}), (\ref{eq:entradas_mve_dinamico}) y (\ref{eq:salidas_mve_dinamico}), se
 procederá a llevar a cabo una serie de simulaciones en donde se analiza la respuesta del mismo al
-aplicar distintas funciones de entrada. Para estas simulaciones, se toman las características del
-robot real de dos ruedas indicado por Sarkar (***), el cual presenta los valores indicados en
-(\ref{eq:datos_robot_sim_m_dinamico}).
-
-
-\begin{equation}
-\begin{cases}
-\begin{array}{c c c}
-I_c &=& 15.625 \hspace{0.1cm} kg \cdot m^2\\
-I_{w} &=& 0.005 \hspace{0.1cm} kg \cdot m^2\\
-I_m &=& 0.0025 \hspace{0.1cm} kg \cdot m^2\\
-b &=& 0.75 \hspace{0.1cm} m\\
-s &=& 0.3 \hspace{0.1cm} m\\
-m_c &=& 30 \hspace{0.1cm} kg\\
-m_{w} &=& 1 \hspace{0.1cm} kg\\
-r &=& 0.10 \hspace{0.1cm} m
-\end{array}
-\end{cases}
-\label{eq:datos_robot_sim_m_dinamico}
-\end{equation}
+aplicar distintas funciones de entrada. 
 
 \subsubsection{Simulación torques constantes y opuestos}
 En esta simulación se aplica la entrada que se muestra en la figura
@@ -1467,7 +1517,7 @@ grados entre estas.
  evidentemente se producen cambios en la velocidad traslacional del centro geométrico del
  robot. Esto es así debido al término $\frac{m_cs}{D}\omega(t)^2$ presente en la ecuación de
  $\dot{v}(t)$ en (\ref{eq:mve_dinamico}), el cual provoca que la velocidad traslacional cambie
- debido a esta relación directa con la velocidad angular de cambio en la orientación. Este término
+ debido a esta relación directa con la velocidad angular del robot. Este término
  se genera debido a que el centro geométrico y el centro de masa del robot simulado no se encuentran
  en el mismo lugar, de manera que hay una inercia asociada a la distancia entre los mismos ($s$), la
  cual provoca que el vehículo acumule energía cinética traslacional. De esta forma, se evidencia que
@@ -1513,13 +1563,9 @@ de la simulación.
 
 
 
-
-
-
 \section{Conclusiones y Recomendaciones}
 
 Se logró exitosamente simular el sistema descrito. En las simulaciones se obtienen los resultados observados en el sistema real.
-
 
 
 

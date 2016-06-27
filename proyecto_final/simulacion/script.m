@@ -1,10 +1,12 @@
 %Este script es el script para hacer las graficas
 
 %la variable save es para determinar si se desan guardar las graficas
+
 %automaticamente. save = 0 no guarda. save = 1 si guarda.
+
 save = 0;
 %la variable simulacion es para determinar la entrada al modelo
-simulacion=2;
+simulacion=0;
 t=0:0.01:20;
 if simulacion==0
     %generar un cradrado a rapidez constante
@@ -12,12 +14,12 @@ if simulacion==0
     ye_dot_in=[t; heaviside(t)-heaviside(t-5)-heaviside(t-10)+heaviside(t-15)].';
     %xe_dot_in=[0 0; 5 0; 5.001 1; 10 1; 10.001 0; 15 0; 15.001 -1; 20 -1];
     %ye_dot_in=[0 1; 5 1; 5.001 0; 10 0; 10.001 -1; 15 -1; 15.001 0; 20 0];
-    figure('pos', [10 10 1000 900])
+    figure
     plot(t,xe_dot_in(:,2),'--',t,ye_dot_in(:,2))
     title('Entrada al modelo')
     xlabel('Tiempo [s]')
     ylabel('Velocidad del punto descentralizado [m/s]')
-    legend('Movimiento en x', 'Movimiento en y')
+    legend('Movimiento en x', 'Movimiento en y', 'Location', 'southoutside', 'Orientation', 'horizontal')
     if save==1
         print('../pictures/entrada_trayectoria_cuadrada', '-depsc');
     end
@@ -27,12 +29,12 @@ if simulacion==1
     %generar un circulo a rapidez constante
     xe_dot_in=[t ; 2*sin(t)].';
     ye_dot_in=[t ; 2*cos(t)].';
-    figure('pos', [10 10 1000 900])
+    figure
     plot(t,xe_dot_in(:,2),'--',t,ye_dot_in(:,2))
     title('Entrada al modelo')
     xlabel('Tiempo [s]')
     ylabel('Velocidad del punto descentralizado [m/s]')
-    legend('Movimiento en x', 'Movimiento en y')
+    legend('Movimiento en x', 'Movimiento en y', 'Location', 'southoutside', 'Orientation', 'horizontal')
     if save==1
         print('../pictures/entrada_trayectoria_circular', '-depsc');
     end
@@ -45,25 +47,25 @@ if simulacion==2
     temporal_ye=heaviside(t).*(1-cos(t*pi/2.5))-heaviside(t-5).*(1-cos(t*pi/2.5))-heaviside(t-10).*(1-cos((t-10)*pi/2.5))+heaviside(t-15).*(1-cos((t-10)*pi/2.5));
     xe_dot_in=[t ; 0.5*temporal_xe].';
     ye_dot_in=[t; 0.5*temporal_ye].';
-    figure('pos', [10 10 1000 900])
+    figure
     plot(t,xe_dot_in(:,2),'--',t,ye_dot_in(:,2))
     title('Entrada al modelo')
     xlabel('Tiempo [s]')
     ylabel('Velocidad del punto descentralizado [m/s]')
-    legend('Movimiento en x', 'Movimiento en y')
+    legend('Movimiento en x', 'Movimiento en y', 'Location', 'southoutside', 'Orientation', 'horizontal')
     if save==1
         print('../pictures/entrada_trayectoria_cuadrada_suavizada', '-depsc');
     end
 end
 
 
-Simout= sim('Modelo_cinematico.slx');
+Simout= sim('Modelo_cinematico_2015_daniel_backup.slx');
 
 
 
 figure('pos', [10 10 1000 900])
 plot(x_modelo_directo.Data, y_modelo_directo.Data, '--', x_modelo_desplazado.Data, y_modelo_desplazado.Data,xe_centro_contra_desplazado.Data, ye_centro_contra_desplazado.Data, '-.')
-legend('Posicion del centro','Posicion punto descentralizado', 'Posicion punto descentralizado ideal')
+legend('Posicion del centro','Posicion punto descentralizado', 'Posicion punto descentralizado ideal', 'Location', 'southoutside', 'Orientation', 'horizontal')
 title('Posicion del robot respecto al tiempo')
 xlabel('Desplazamiento en X [m]')
 ylabel('Desplazamiento en Y [m]')
@@ -80,7 +82,7 @@ if save == 1
     end
 end
 %xsin ycos
-figure('pos', [10 10 1000 900])
+figure
 xdotsin=(xdot_modelo_directo.Data).*(sin(orientacion_modelo_directo.Data));
 ydotcos=(ydot_modelo_directo.Data).*(cos(orientacion_modelo_directo.Data));
 %xdotsin=(xdot_centro_contra_desplazado.Data).*(sin(orientacion_centro_contra_desplazado.Data));
@@ -106,14 +108,14 @@ end
 
 %figure
 %plot(ye_dot_in)
-figure('pos', [10 10 1000 900])
+figure%('pos', [10 10 1000 900])
 plot(derecha_modelo_inverso)
 hold
 plot(izquierda_modelo_inverso)
 title('Velocidad angular en las ruedas del Modelo Inverso')
 xlabel('Tiempo [s]')
 ylabel('Velocidad angular [rads/s]')
-legend('Rueda derecha','Rueda izquierda')
+legend('Rueda derecha','Rueda izquierda', 'Location', 'southoutside', 'Orientation', 'horizontal')
 if save==1
     if simulacion ==0
     print('../pictures/velocidad_de_las_ruedas_obtenidas_del_modelo_inverso_cuadrado', '-depsc')
@@ -126,20 +128,20 @@ if save==1
     end
 end
 
-figure('pos', [10 10 1000 900])
+figure%('pos', [10 10 1000 900])
 plot(omega_centro_contra_desplazado)
 title('Velocidad angular respecto al tiempo')
 ylabel('Velocidad angular [rads/s]')
 xlabel('Tiempo [t]')
 
-figure('pos', [10 10 1000 900])
+figure%('pos', [10 10 1000 900])
 plot(derecha_limitada)
 hold
 plot(izquierda_limitada)
 title('Velocidad angular en las ruedas adaptada para ser mas realista')
 xlabel('Tiempo [s]')
 ylabel('Velocidad angular [rads/s]')
-legend('Rueda derecha','Rueda izquierda')
+legend('Rueda derecha','Rueda izquierda', 'Location', 'southoutside', 'Orientation', 'horizontal')
 if save==1
     if simulacion==0
     print('../pictures/velocidad_de_las_ruedas_con_limitantes_de_aceleracion_cuadrado', '-depsc')
