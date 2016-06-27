@@ -1459,9 +1459,9 @@ De las gráficas que se presentan en la figura \ref{fig:velocidades_ruedas_trayec
 
 \begin{figure}
   \centering
-	\includegraphics[width=0.8\textwidth]{../pictures/evaluacion_de_la_restriccion_cuadrado.eps}	
+	\includegraphics[width=0.8\textwidth]{../pictures/evaluacion_de_la_restriccion_cuadrado_suavizado.eps}	
 	\caption{Evaluación de la restricción para la trayectoria cuadrada}
-	\label{fig:evaluacion_de_la_restriccion_cuadrado}
+	\label{fig:evaluacion_de_la_restriccion_cuadrado_suavizado}
 \end{figure}
 
 
@@ -1471,6 +1471,23 @@ De las gráficas que se presentan en la figura \ref{fig:velocidades_ruedas_trayec
 	\caption{Trayectoria cuadrada con desaceleración en una esquina}
 	\label{fig:zoom_trayectoria_cuadrada_suavizada}
 \end{figure}
+
+\subsection{Los errores de resticciones}
+
+El modelo dinámico tieneuna restricción en la deirección del movimento. La que se expresa en la ecuación (\ref{eq:restriccion_1}). Sin embargo esta restircción nos e define para el modelo cinemático. Esta es una limitación en el movimeinto del robot, por lo que es importante comprobar que la salida del modelo cineático sea consistente con als restricciones naturales del sistema. Para esto se ibtiene la magnitud e la velocidad del robot y se calcula la expresión en (\ref{eq:restriccion_1}), sin igualar a cero, sinoq que se calcula el valor. Este resltado se grafica para las 3 simulaciones, y se presenta en las figuras \ref{fig:evaluacion_de_la_restriccion_cuadrado_suavizado}, \ref{fig:evaluacion_de_la_restriccion_cuadrado} y \ref{fig:evaluacion_de_la_restriccion_circulo}.
+
+Primero se debe notar que el error es despreciable. Con un orden de magnitud máximo de $10^{-16}$. Por lo que se puede considerar que del modelo cinemático se obtienen respuestas que son consistentes con las restricciones de movimiento del robot. y por tanto son válidos para poder controlar al robot sin pedirle condiciones ue violen estas condiciones.  Note que en todos los casos se presentan más errores cuando el robot se encuetra girando. Esto porque una condición de deslizamiento lateral es más fácil de alcanzar si se está girando qeu si se avanza en línea recta. Por esot también el círculo permanece son un error alto durante toda la trayectria. 
+
+Por otra parte, el suavizamiento de la señal de los motores, a¡también agrega errores. Ya que al suavizar la funcioón para evitar aceleraciones inficnitas no se suaviza o amortigua a todas las rueda spor igual. Este amortiguamiento, ocurre sin tomar las restricciones en cuenta. Este amortiguameinto se hace más importante en los giros, porque es donde se dan las discotinuidades. y portanto en los giros se espera un mayor error. EStas dos razons son las qeu provocan los errores observados, pero como se mencionó anteriormente, el aporte es despreciable. 
+
+
+
+
+
+
+
+
+
 
 
 \subsection{Modelo dinámico}
