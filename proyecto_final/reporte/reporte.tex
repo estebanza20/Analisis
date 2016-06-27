@@ -116,12 +116,13 @@ realizaron las simulaciones correspondientes para cada modelo, y postgeriormente
         \item[$\vec{v}$] Velocidad del centro de masa de un cuerpo [$m/s$]
         \item[$\omega$] Velocidad angular [$rad/s$]
         \item[$k$] Constante de un resorte traslacional [$N/m$]
-        \item[$d$] Elongación de un resorte traslacional [$m$]
+        \item[$d_E$] Elongación de un resorte traslacional [$m$]
         \item[$h$] Altura del centro de masa de un cuerpo [$m$]
         \item[$g$] Constante de la gravedad terrestre [$m/s^2$]
         \item[$p_0$] Posición del centro geométrico (punto entre las ruedas) [$m$]
         \item[$p_d$] Posición del punto descentralizado [$m$]
         \item[$p_g$] Posición del centro de masa [$m$]
+        \item[$d$] Distancia entre el centro del robot y el punto descentralizado [$m$]
         \item[$2b$]  Ancho del robot [$m$]
         \item[$p_r$] Posición de la rueda derecha [$m$]
         \item[$p_l$] Posición de la rueda izquierda [$m$]
@@ -346,12 +347,12 @@ Traslacional & $\frac{1}{2} m {\left\lVert \vec{v} \right\rVert}^2  $   \\ \midr
 Rotacional & $\frac{1}{2} J {\omega}^2$ \\ \midrule
 \multicolumn{2}{l}{\textbf{Energía potencial (U)}} \\ \midrule
 Gravitacional & $mgh$ \\ \midrule
-Elástica (Resorte) & $\frac{1}{2}k{d}^2$ \\ \bottomrule
+Elástica (Resorte) & $\frac{1}{2}k{d_E}^2$ \\ \bottomrule
 \end{tabular}
 \end{table}
 
 
-El modelado de la tracción delantera de un robot movil es una condición no holonómica  que esta sujeto a una serie de restricciones p no integrables que involucran las derivadas con respecto al tiempo del vector de configuración q y estas toman la forma de la ecuación  \eqref{no_holonomico}
+El modelado de la tracción delantera de un robot movil es una condición no holonómica  que esta sujeto a una serie de restricciones p no integrables que involucran las derivadas con respecto al tiempo del vector de configuración q y estas toman la forma de la ecuación  \ref{eq:mul_lagrange}
 
 \begin{equation}
 \label{eq:mul_lagrange}
@@ -406,19 +407,19 @@ La posición de cada motor se decribe por los vectores $\mathbf{p_l}$ y $\mathbf{
 
 \begin{equation}
 \begin{cases}
-\mathbf{p_r}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c}\frac{b}{2}\cos(90^\circ-\theta(t))&  -\frac{b}{2}\sen(90^\circ-\theta(t))\end{array}\right]^t\\
-\mathbf{p_l}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c}-\frac{b}{2}\cos(90^\circ-\theta(t))&  \frac{b}{2}\sen(90^\circ-\theta(t))\end{array}\right]^t
+\mathbf{p_r}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c}b\cos(\frac{\pi}{2}-\theta(t))&  -b\sen(\frac{\pi}{2}-\theta(t))\end{array}\right]^t\\
+\mathbf{p_l}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c}-b\cos(\frac{\pi}{2}-\theta(t))&  b\sen(\frac{\pi}{2}-\theta(t))\end{array}\right]^t
 \end{cases}
 \label{eq:global_position_prev_simplification}
 \end{equation}
 
 
-Note que $\cos(90^\circ-\theta(t))=\sen(\theta(t))$ y que $\sen(90^\circ-\theta(t))=\cos(\theta(t))$. Entonces, sustituyendo en (\ref{eq:global_position_prev_simplification}), se obtiene (\ref{eq:global_position}). 
+Note que $\cos(\frac{\pi}{2}-\theta(t))=\sen(\theta(t))$ y que $\sen(\frac{\pi}{2}-\theta(t))=\cos(\theta(t))$. Entonces, sustituyendo en (\ref{eq:global_position_prev_simplification}), se obtiene (\ref{eq:global_position}). 
 
 \begin{equation}
 \begin{cases}
-\mathbf{p_r}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} \frac{b}{2}\sen(\theta(t))&  -\frac{b}{2}\cos(\theta(t))\end{array} \right]^t\\
-\mathbf{p_l}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} -\frac{b}{2}\sen(\theta(t))&  \frac{b}{2}\cos(\theta(t))\end{array}\right]^t
+\mathbf{p_r}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} b\sen(\theta(t))&  -b\cos(\theta(t))\end{array} \right]^t\\
+\mathbf{p_l}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} -b\sen(\theta(t))&  b\cos(\theta(t))\end{array}\right]^t
 \end{cases}
 \label{eq:global_position}
 \end{equation}
@@ -429,8 +430,8 @@ Derivando (\ref{eq:global_position})se obtiene:
 
 \begin{equation}
 \begin{cases}
-\dot{\mathbf{p_r}}(t)=\mathbf{v_r}(t)=\mathbf{v_0}(t)+\left[  \begin{array}{c c} \frac{b}{2}\cos(\theta(t)) \omega(t) &  \frac{b}{2}\sen(\theta(t)) \omega(t) \end{array}\right]^t \\
-\dot{\mathbf{p_l}}(t)=\mathbf{v_l}(t)=\mathbf{v_0}(t)+\left[  \begin{array}{c c}-\frac{b}{2}\cos(\theta(t)) \omega(t) & -\frac{b}{2}\sen(\theta(t)) \omega(t) \end{array}\right]^t
+\dot{\mathbf{p_r}}(t)=\mathbf{v_r}(t)=\mathbf{v_0}(t)+\left[  \begin{array}{c c} b\cos(\theta(t)) \omega(t) &  b\sen(\theta(t)) \omega(t) \end{array}\right]^t \\
+\dot{\mathbf{p_l}}(t)=\mathbf{v_l}(t)=\mathbf{v_0}(t)+\left[  \begin{array}{c c}-b\cos(\theta(t)) \omega(t) & -b\sen(\theta(t)) \omega(t) \end{array}\right]^t
 \end{cases}
 \label{eq:global_velocities}
 \end{equation}
@@ -440,10 +441,10 @@ Reescribiendo (\ref{eq:global_velocities}), pero sustituyendo que $\mathbf{v_n}=
 \begin{equation}
 \begin{cases}
 \begin{array}{c c c c c}
-v_r\cos(\theta(t)) &=&v_0\cos(\theta(t))&+&\frac{b}{2}\cos(\theta(t))\omega(t)\\
-v_r\sen(\theta(t)) &=&v_0\sen(\theta(t))&+&\frac{b}{2}\sen(\theta(t))\omega(t)\\
-v_l\cos(\theta(t)) &=&v_0\cos(\theta(t))&+&\frac{b}{2}\cos(\theta(t))\omega(t)\\
-v_l\sen(\theta(t)) &=&v_0\sen(\theta(t))&+&\frac{b}{2}\sen(\theta(t))\omega(t)
+v_r\cos(\theta(t)) &=&v_0\cos(\theta(t))&+&b\cos(\theta(t))\omega(t)\\
+v_r\sen(\theta(t)) &=&v_0\sen(\theta(t))&+&b\sen(\theta(t))\omega(t)\\
+v_l\cos(\theta(t)) &=&v_0\cos(\theta(t))&+&b\cos(\theta(t))\omega(t)\\
+v_l\sen(\theta(t)) &=&v_0\sen(\theta(t))&+&b\sen(\theta(t))\omega(t)
 \end{array}
 \end{cases}
 \label{eq:velocities_system}
@@ -453,13 +454,13 @@ De (\ref{eq:velocities_system}) suponga que $\cos(\theta(t))\neq 0$, entonces se
 
 \begin{equation}
 \begin{cases}
-v_r(t)=v_0(t)+\frac{b}{2}\omega(t)\\
-v_l(t)=v_0(t)-\frac{b}{2}\omega(t)
+v_r(t)=v_0(t)+b\omega(t)\\
+v_l(t)=v_0(t)-b\omega(t)
 \end{cases}
 \label{eq:local_vel_wheels}
 \end{equation}
 
-Note que como lo que se puede controlar es $\dot{\varphi}_r$ y $\dot{\varphi}_l$, las velociddes angulares de los motores derecho e izquierdo respectivamente. Entonces se despeja $v_0$ y $\omega(t)$ en términos de $v_r$ y $v_l$ y si se toma en consideración que el radio de las ruedas es $r$, se obtiene el resultado en (\ref{eq:local_vel}) y en (\ref{eq:local_dir}).
+Note que como lo que se puede controlar es $\dot{\varphi}_r$ y $\dot{\varphi}_l$, las velociddes angulares de los motores derecho e izquierdo respectivamente. Entonces se despeja $v_0$ y $\omega(t)$ en términos de $v_r$ y $v_l$ y si se toma en consideración que el radio de las ruedas es $r$, se obtiene el resultado en (\ref{eq:local_vel}) y en (\ref{eq:local_dir}). En adelante considere $b_2=2b$ para simplificar la notación.
 
 \begin{equation}
 v_0(t) =\frac{r}{2}(\dot{\varphi}_r(t)+\dot{\varphi}_l(t))
@@ -467,7 +468,7 @@ v_0(t) =\frac{r}{2}(\dot{\varphi}_r(t)+\dot{\varphi}_l(t))
 \end{equation} 
 
 \begin{equation}
-\dot{\theta}(t)=\frac{r}{b}(\dot{\varphi}_r(t)-\dot{\varphi}_l(t))
+\dot{\theta}(t)=\frac{r}{b_2}(\dot{\varphi}_r(t)-\dot{\varphi}_l(t))
 \label{eq:local_dir}
 \end{equation}
 
@@ -490,7 +491,7 @@ Entonces, sustituyendo (\ref{eq:local_vel}) en (\ref{eq:global_vel}), y tomando 
 \begin{array}{c c}
 \frac{r}{2}\cos(\theta(t))&\frac{r}{2}\cos(\theta(t))\\
 \frac{r}{2}\sen(\theta(t))&\frac{r}{2}\sen(\theta(t))\\
-\frac{r}{b}&\frac{-r}{b}
+\frac{r}{b_2}&\frac{-r}{b_2}
 \end{array}
 \right]
 \left[
@@ -508,7 +509,7 @@ Se definen los siguientes vectores, para simplificar la notación de esta sección
 \label{eq:kinematic_model}
 \end{equation}
 
-La ecuación (\ref{eq:kinematic_model}) representa el modelo cinemático directo del sistema. Ya que relaciona la entrada ($\mathbf{\dot{\varphi}}(t)$), con la salida ($\mathbf{\nu}(t)$). %mismo resultado que Trajectory Tracking Control for a Differential Drive Wheeled Mobile Robot Considering the Dynamics Related to the Actuators and Power Stage
+La ecuación (\ref{eq:kinematic_model}) representa el modelo cinemático directo del sistema. Ya que relaciona la entrada ($\mathbf{\dot{\varphi}}(t)$), con la salida ($\mathbf{\nu}(t)$). Resultado concordante con  uno de los presentados en \citep{Ortigoza}.
 
 %\subsubsection{Modelo inverso}
 
@@ -569,8 +570,8 @@ Para expresar la velocidad en el punto descentralizado descrita en (\ref{eq:vel_
 Ahora, se define $A(t)=\Psi(t)\Lambda(t)$, para obtener la relación entre $\dot{\mathbf{p_d}}(t)$, y $\mathbf{\dot{\varphi}}(t)$. Como se presenta en (\ref{eq:modelo_desplazado}).
 
 \begin{equation}
-\dot{\mathbf{p_d}}(t)= \left[ \begin{array}{c c} 0.5r\cos(\theta(t))-\frac{dr\sen(\theta(t))}{b}& 0.5\cos(\theta(t))+\frac{er\sen(\theta(t))}{b}  \\
-                                                 -0.5r\sen(\theta(t))-\frac{dr\cos(\theta(t))}{b}& 0.5\sen(\theta(t))-\frac{dr\cos(\theta(t))}{b}  \end{array}  \right] \mathbf{\dot{\varphi}}(t)=A(t)\mathbf{\dot{\varphi}}(t)
+\dot{\mathbf{p_d}}(t)= \left[ \begin{array}{c c} 0.5r\cos(\theta(t))-\frac{dr\sen(\theta(t))}{b_2}& 0.5\cos(\theta(t))+\frac{er\sen(\theta(t))}{b_2}  \\
+                                                 -0.5r\sen(\theta(t))-\frac{dr\cos(\theta(t))}{b_2}& 0.5\sen(\theta(t))-\frac{dr\cos(\theta(t))}{b_2}  \end{array}  \right] \mathbf{\dot{\varphi}}(t)=A(t)\mathbf{\dot{\varphi}}(t)
 \label{eq:modelo_desplazado}
 \end{equation}
 
@@ -578,16 +579,16 @@ Se define a $\theta$ como el estado del sistema. Entonces la relación entrada-es
 
 \subsubsection{Modelo inverso del punto descentralizado}
 
-Para poder controlar al robot, se necesita el modelo inverso. Primero se debe determinar si es posible encontrarlo. Se tiene que $det(A)=-\frac{dr^2}{b}$, de manera que el determinante es no nulo para todo valor de $t$. Entonces siempre es posible encontrar la matriz inversa de $A(t)$, esta se denota por $A^{-1}(t)$, su resultado se muestra en (\ref{eq:a_inverso}). Para el modelo inverso, se tiene a $\mathbf{\dot{\varphi}}(t)$ como la salida, y a $\dot{\mathbf{p_d}}(t)$ como la entrada, pero el estado no cambia; $\theta(t)$ es el estado de este modelo. Entonces en (\ref{eq:desplazado_inverso}) se muestra la relación entre la entrada y la salida del modelo inverso. De sustituir (\ref{eq:local_dir}) en  (\ref{eq:desplazado_inverso}), se obtiene (\ref{eq:estado_entrada_desplazado}). Finalmente, el modelo cinemático inverso para el punto desplazado viene dado por las ecuaciones (\ref{eq:a_inverso}),(\ref{eq:estado_entrada_desplazado}) y (\ref{eq:desplazado_inverso}).
+Para poder controlar al robot, se necesita el modelo inverso. Primero se debe determinar si es posible encontrarlo. Se tiene que $det(A)=-\frac{dr^2}{b_2}$, de manera que el determinante es no nulo para todo valor de $t$. Entonces siempre es posible encontrar la matriz inversa de $A(t)$, esta se denota por $A^{-1}(t)$, su resultado se muestra en (\ref{eq:a_inverso}). Para el modelo inverso, se tiene a $\mathbf{\dot{\varphi}}(t)$ como la salida, y a $\dot{\mathbf{p_d}}(t)$ como la entrada, pero el estado no cambia; $\theta(t)$ es el estado de este modelo. Entonces en (\ref{eq:desplazado_inverso}) se muestra la relación entre la entrada y la salida del modelo inverso. De sustituir (\ref{eq:local_dir}) en  (\ref{eq:desplazado_inverso}), se obtiene (\ref{eq:estado_entrada_desplazado}). Finalmente, el modelo cinemático inverso para el punto desplazado viene dado por las ecuaciones (\ref{eq:a_inverso}),(\ref{eq:estado_entrada_desplazado}) y (\ref{eq:desplazado_inverso}).
 
 \begin{equation}
 A^{-1}(t)=
 \left[
 \begin{array}{cc}
- \frac{ d \cos (\theta (t))-0.5 b \sen (\theta (t))}{d r} & \frac{0.5 b \cos
+ \frac{ d \cos (\theta (t))-0.5 b_2 \sen (\theta (t))}{d r} & \frac{0.5 b_2 \cos
    (\theta (t))+ d \sen (\theta (t))}{d r} \\
- \frac{ d \cos (\theta (t))+0.5 b \sen (\theta (t))}{d r} & \frac{ d \sen
-   (\theta (t))-0.5 b \cos (\theta (t))}{d r} \\
+ \frac{ d \cos (\theta (t))+0.5 b_2 \sen (\theta (t))}{d r} & \frac{ d \sen
+   (\theta (t))-0.5 b_2 \cos (\theta (t))}{d r} \\
 \end{array}
 \right]
 \label{eq:a_inverso}
@@ -601,12 +602,13 @@ A^{-1}(t)=
 \begin{equation}
 \dot{\theta}(t)=\left[
 \begin{array}{cc}
- \frac{b}{r} & \frac{-b}{r}
+ \frac{b_2}{r} & \frac{-b_2}{r}
 \end{array}
 \right] A^{-1} \dot{\mathbf{p_d}}(t)
 \label{eq:estado_entrada_desplazado}
 \end{equation}
 
+Este Modelo tambi\'en se obtiene en \citep{Marin}.
 
 %Esta parte puede que desaparezca! ya no es tan relevante!****************************************************
 %*************************************************************************************************************
