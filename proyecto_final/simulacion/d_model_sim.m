@@ -1,7 +1,7 @@
 %Simulación y graficación modelo dinámico
 
 mode = 1;
-print_figs = 1;
+print_figs = 0;
 
 %Parametros del modelo:
 
