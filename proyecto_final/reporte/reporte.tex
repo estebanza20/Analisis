@@ -514,6 +514,17 @@ Se definen los siguientes vectores, para simplificar la notación de esta sección
 
 La ecuación (\ref{eq:kinematic_model}) representa el modelo cinemático directo del sistema. Ya que relaciona la entrada ($\mathbf{\dot{\varphi}}(t)$), con la salida ($\mathbf{\nu}(t)$). Resultado concordante con  uno de los presentados en \citep{Ortigoza}.
 
+Podemos resumir el sistema en un modelo de caja negra como el de la figura (\ref{})
+
+\begin{figure}
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/caja_cinematico_directo.pdf}	
+	\caption{Caja negra modelo cinemático directo}
+	\label{fig:caja_cinematico_directo}
+\end{figure}
+
+
+
 %\subsubsection{Modelo inverso}
 
 %Para encontrar la cinemática inversa, es necesario encontrar las velocidades de las ruedas en términos de la velocidad del robot. Esto se logra computando la pseudoinversa de $\Lambda(t)$, que se denota por $\Lambda^{-1}(t)$. Se utiliza \textit{Wolfram Mathematica} para encontrar una expresión simbólica para $\Lambda^{-1}(t)$. El resultado se muestra en (\ref{eq:pseudoinverse}).
@@ -580,6 +591,16 @@ Ahora, se define $A(t)=\Psi(t)\Lambda(t)$, para obtener la relación entre $\dot{
 
 Se define a $\theta$ como el estado del sistema. Entonces la relación entrada-estado del modelo directo del punto descentralizado viene dada en (\ref{eq:local_dir}). Y la relación entrada-salida-estado viene dada en (\ref{eq:modelo_desplazado}). 
 
+Para esta sección se puede resumir de la siguiente forma en entradas y salidas según la figura (\ref{caja_cinematico_inverso})
+
+\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/caja_cinematico_descentralizado.pdf}	
+	\caption{Caja negra del modelo cinemático con punto descentralizado}
+	\label{caja_cinematico_inverso}
+\end{figure}
+
+
 \subsubsection{Modelo inverso del punto descentralizado}
 
 Para poder controlar al robot, se necesita el modelo inverso. Primero se debe determinar si es posible encontrarlo. Se tiene que $det(A)=-\frac{dr^2}{b_2}$, de manera que el determinante es no nulo para todo valor de $t$. Entonces siempre es posible encontrar la matriz inversa de $A(t)$, esta se denota por $A^{-1}(t)$, su resultado se muestra en (\ref{eq:a_inverso}). Para el modelo inverso, se tiene a $\mathbf{\dot{\varphi}}(t)$ como la salida, y a $\dot{\mathbf{p_d}}(t)$ como la entrada, pero el estado no cambia; $\theta(t)$ es el estado de este modelo. Entonces en (\ref{eq:desplazado_inverso}) se muestra la relación entre la entrada y la salida del modelo inverso. De sustituir (\ref{eq:local_dir}) en  (\ref{eq:desplazado_inverso}), se obtiene (\ref{eq:estado_entrada_desplazado}). Finalmente, el modelo cinemático inverso para el punto desplazado viene dado por las ecuaciones (\ref{eq:a_inverso}),(\ref{eq:estado_entrada_desplazado}) y (\ref{eq:desplazado_inverso}).
@@ -632,6 +653,12 @@ Para analizar el comportamiento del centro geométrico del robot, y el punto desp
 \label{eq:desplazado_contra_centro}
 \end{equation}
 
+\begin{figure}
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/caja_cinematico_inverso.pdf}	
+	\caption{Caja negra del modelo cinemático inverso del punto descentralizado }
+	\label{fig:evaluacion_de_la_restriccion_cuadrado}
+\end{figure}
 %Esta parte puede que desaparezca! ya no es tan relevante!****************************************************
 %*************************************************************************************************************
 
@@ -1566,7 +1593,7 @@ de la simulación.
   \label{fig:phi_rl_dot_torques_constantes_opuestos}
 \end{figure}
 
-\subsubsection{Torques constantes e iguales}
+\subsubsection{Torques Nulos}
 Para esta simulación se establecieron condiciones iniciales iguales a cero excepto por $\theta=\frac{(pi)}{4}$ con un tiempo de muestreo de 1500 s. A continuación se presentan las gráficas de dicha simulación.
 
 	\begin{figure}[H]
@@ -1650,7 +1677,7 @@ A continución se presentan las simulaciones para el modelo dinámico descrito a e
 	\label{fig:velocidad_general_entrada0}
 \end{figure}	
 
-Se puede observar que para la entra de la figura \ref{fig:entrada_entrada0} el robot sigue la trayectoria de \ref{fig:trayectoria_entrada0}, ya que la velocidad $v$ y $\omega$ iniciales son distintas de cero. Esto es lo esperado ya que de acuerdo con la ecuación 
+Se puede observar que para la entra de la figura (\ref{fig:entrada_entrada0}) el robot sigue la trayectoria de \ref{fig:trayectoria_entrada0}, ya que la velocidad $v$ y $\omega$ iniciales son distintas de cero. Esto es lo esperado ya que de acuerdo con la ecuación 
 
 
 \section{Conclusiones y Recomendaciones}
