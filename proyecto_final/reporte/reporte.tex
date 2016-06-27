@@ -10,6 +10,7 @@
 \usepackage{url}
 \usepackage{empheq}
 \usepackage{subcaption}
+\usepackage[justification=centering]{caption}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage[spanish]{babel}
@@ -123,7 +124,9 @@ realizaron las simulaciones correspondientes para cada modelo, y postgeriormente
         \item[$p_d$] Posición del punto descentralizado [$m$]
         \item[$p_g$] Posición del centro de masa [$m$]
         \item[$d$] Distancia entre el centro del robot y el punto descentralizado [$m$]
+        \item[$B$] Factor de amortiguamiento viscoso torsional [$Ns$]
         \item[$2b$]  Ancho del robot [$m$]
+        \item[$s$] Distancia entre el centro de masa y el geométrico en el robot [$m$]
         \item[$p_r$] Posición de la rueda derecha [$m$]
         \item[$p_l$] Posición de la rueda izquierda [$m$]
         \item[$\varphi_r$] Posición angular de la rueda derecha [$rad$]
@@ -1218,6 +1221,29 @@ presentan mediante el vector indicado en (\ref{eq:entradas_mve_dinamico}).
 
 \section{Análisis y simulaciones}
 
+En este apartado, se procede a realizar el análisis y las simulaciones respectivas al modelo
+cinemático y al modelo dinámico, obtenidas en la sección de modelado para el robot de dos
+ruedas. Para las simulaciones, se toman las características del robot real indicadas por Sarkar
+(***), las cuales se presentan en \ref{eq:datos_robot_sim}.
+
+\begin{equation}
+\begin{cases}
+\begin{array}{c c c}
+I_c &=& 15.625 \hspace{0.1cm} kg \cdot m^2\\
+I_{w} &=& 0.005 \hspace{0.1cm} kg \cdot m^2\\
+I_m &=& 0.0025 \hspace{0.1cm} kg \cdot m^2\\
+b &=& 0.75 \hspace{0.1cm} m\\
+s &=& 0.3 \hspace{0.1cm} m\\
+m_c &=& 30 \hspace{0.1cm} kg\\
+m_{w} &=& 1 \hspace{0.1cm} kg\\
+r &=& 0.10 \hspace{0.1cm} m
+\end{array}
+\end{cases}
+\label{eq:datos_robot_sim}
+\end{equation}
+
+
+
 \subsection{Modelo Cinemático}
 Se realizaron tres simulaciones. Las tres se diferencian porque se tiene el mismo proceso pero con entradas distintas. Primero se explica el proceso, y luego las entradas. 
 
@@ -1412,8 +1438,132 @@ De las gráficas que se presentan en la figura \ref{fig:velocidades_ruedas_trayec
 \end{figure}
 
 
-
 \subsection{Modelo dinámico}
+Para estudiar el comportamiento del modelo dinámico obtenido del sistema, descrito por las
+ecuaciones (\ref{eq:mve_dinamico}), (\ref{eq:entradas_mve_dinamico}) y (\ref{eq:salidas_mve_dinamico}), se
+procederá a llevar a cabo una serie de simulaciones en donde se analiza la respuesta del mismo al
+aplicar distintas funciones de entrada. 
+
+\subsubsection{Simulación torques constantes y opuestos}
+En esta simulación se aplica la entrada que se muestra en la figura
+(\ref{fig:entrada_torques_constantes_opuestos}), en donde se observa que los torques aplicados de
+las ruedas son de la misma magnitud constante igual a uno pero de signo contrario. De esta forma, se tiene que
+la fuerza equivalente $F_m(t)$ definida en (\ref{eq:FyT_friccion}) se vuelve nula, la cual afecta de
+manera directa a la derivada de la velocidad del punto central $v(t)$. Se establecen condiciones
+iniciales nulas para todos los estados del sistema. También, para esta simulación se establece 
+el factor de amortiguamiento como $B=0.001\hspace{0.1cm} N s$.
+
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\linewidth]{../pictures/sim_modelo_dinamico/torques_m_dinamico-Prueba_de_torques_opuestos.eps}
+  \caption{Entradas del modelo dinámico con respecto al tiempo. \\Simulación de torques constantes y opuestos}
+  \label{fig:entrada_torques_constantes_opuestos}
+\end{figure}
+
+En la figura \ref{fig:entrada_torques_constantes_opuestos}, se muestra la trayectoria que describe
+el robot en el plano XY, en donde se tiene que el mismo se desplaza desde el origen hacia afuera,
+siguiendo una trayectoria en espiral que se tiende a estabilizar a una curva de forma prácticamente
+circular a medida que trascurre el tiempo de simulación. Esto se reafirma a partir de la gráfica de
+la figura \ref{fig:posicion_vs_t_torques_constantes_opuestos}, en donde se observa que para tiempos
+grandes la forma de las gráficas de $x(t)$ y $y(t)$ es sinusoidal con un desfase cercano a 90
+grados entre estas.
+
+
+\begin{figure}
+ 	\centering
+ 	\begin{subfigure}[t]{0.48\textwidth}
+            \includegraphics[width=\textwidth]{../pictures/sim_modelo_dinamico/trayect_m_dinamico-Prueba_de_torques_opuestos.eps}
+            \caption{Trayectoria en el plano XY}
+            \label{fig:trayect_robot_torques_constantes_opuestos}
+ 	\end{subfigure}
+ 	\begin{subfigure}[t]{0.48\textwidth}
+            \includegraphics[width=\textwidth]{../pictures/sim_modelo_dinamico/posicion_vs_tiempo-Prueba_de_torques_opuestos.eps}
+            \caption{Posición en X y Y con respecto \\al tiempo}
+            \label{fig:posicion_vs_t_torques_constantes_opuestos}
+ 	\end{subfigure}
+        \caption{Posición del centro geométrico del robot.\\ Simulación de torques constantes y opuestos}
+        \label{fig:velocidades_ruedas_trayectoria_cuadrada_suavizado}
+ \end{figure}
+
+ Este comportamiento del sistema se puede explicar mediante la gráfica
+ \ref{fig:v_w_vs_t_torques_constantes_opuestos}, que corresponde a la velocidad traslacional del
+ robot $v(t)$ y a la velocidad angular $\omega(t)$ del mismo, en conjunto con las ecuaciones para
+ $\dot{x}(t)$ y $\dot{y}(t)$ mostradas en (\ref{eq:mve_dinamico}). En dicha gráfica, se observa que al
+ inicio de la simulación hay una importante aceleración angular y traslacional del robot, expresadas
+ mediante la pendiente de las curvas de $v(t)$ y $\omega(t)$, lo cual provoca en primer lugar que
+ cambie el factor $v$ que multipica a $\sen(\theta(t))$ y $\cos(\theta(t))$ en las ecuaciones de
+ $\dot{x}(t)$ y $\dot{y}(t)$. El cambio de dicho factor es el que genera la trayectoria en espiral
+ que se observa al inicio de la prueba, debido al cambio en el radio de curvatura de la trayectoria
+ provocado por el aumento de la velocidad.
+
+ Posteriormente, se observa que dichas velocidades $v(t)$ y $\omega(t)$ tienden a estabilizarse en
+ valores terminales $v_T$ y $\omega_T$, lo cual se debe a la fricción viscosa en las ruedas. Dado
+ que estos valores se mantienen constantes, se pueden obtener las expresiones para $x(t)$ y $y(t)$
+ que se muestran en (\ref{eq:x_y_v_omega_cte}), integrando las ecuaciones del modelo en variables de
+ estado ya mencionadas. Estas ecuaciones obtenidas corresponden a la parametrización de un círculo,
+ el cual está centrado en la posición inicial del robot y presenta un radio
+ $R=\frac{v_T}{\omega_T}$. De esta manera, se observa que la trayectoria de la simulación al
+ estabilizarse las velocidades es consecuente con (\ref{eq:x_y_v_omega_cte}), al ser dicha curva de forma
+ circular cuyo radio coincide con $\frac{v_T}{\omega_T} = 14.34 \hspace{0.1cm} m$.
+
+ \begin{equation}
+   \begin{cases}
+     \begin{array}{c c c}
+       x_T(t) = x0 + \frac{v_T}{\omega_T}\sen(\omega_T t) \\
+       y_T(t) = y0 - \frac{v_T}{\omega_T}\cos(\omega_T t)
+     \end{array}
+   \end{cases}
+   \label{eq:x_y_v_omega_cte}
+ \end{equation}
+
+ Un resultado importante, consiste en que a pesar de que los torques son iguales y opuestos y que
+ entonces la fuerza hacia adelante equivalente $F_m(t)$ aplicada por los motores es cero,
+ evidentemente se producen cambios en la velocidad traslacional del centro geométrico del
+ robot. Esto es así debido al término $\frac{m_cs}{D}\omega(t)^2$ presente en la ecuación de
+ $\dot{v}(t)$ en (\ref{eq:mve_dinamico}), el cual provoca que la velocidad traslacional cambie
+ debido a esta relación directa con la velocidad angular del robot. Este término
+ se genera debido a que el centro geométrico y el centro de masa del robot simulado no se encuentran
+ en el mismo lugar, de manera que hay una inercia asociada a la distancia entre los mismos ($s$), la
+ cual provoca que el vehículo acumule energía cinética traslacional. De esta forma, se evidencia que
+ bajo estas condiciones de torques de entrada, el robot se mantendría girando sobre sí mismo si la
+ distancia entre el centro de masa y el centro geométrico fuera nula.
+
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\linewidth]{../pictures/sim_modelo_dinamico/v_w_vs_tiempo-Prueba_de_torques_opuestos.eps}
+  \caption{Velocidad traslacional y angular del robot con respecto al tiempo.\\Simulación de torques constantes y opuestos}
+  \label{fig:v_w_vs_t_torques_constantes_opuestos}
+\end{figure}
+
+
+En la gráfica \ref{fig:phi_rl_dot_torques_constantes_opuestos}, se observan las velocidades
+angulares en las ruedas del robot en función del tiempo, en donde se evidencia tal como es esperado
+que la velocidad de la rueda izquierda es positiva desde el inicio del movimiento, lo cual corresponde
+al hecho de que el torque positivo aplicado es el del motor ubicado en esta rueda. 
+
+Por otro lado, al estudiar la curva de la velocidad en la rueda derecha, se puede ver que al inicio
+del movimiento la misma es negativa, y que luego de un tiempo esta pasa a tener signo positivo. Esto
+es así debido a que al inicio del movimiento el torque aplicado provoca que dicha rueda gire en
+sentido contrario al movimiento general del robot, pero luego la energía cinética traslacional
+acumulada provoca que esta rueda gire en el mismo sentido que la rueda izquierda.
+
+Se observa además que al transcurrir el tiempo de la simulación, ambas velocidades tienden a
+estabilizarse en valores terminales, lo cual ocurre porque $v(t)$ y $\omega(t)$ también llegan a
+valores prácticamente constantes, y estas velocidades angulares son combinaciones lineales de $v(t)$
+y $\omega(t)$, tal como se evidencia en (\ref{eq:mve_dinamico}). La diferencia entre los valores
+terminales de las velocidades angulares en las ruedas, resulta de que es necesario mantener
+velocidades distintas para lograr el movimiento circular a rapidez constante que se observa al final
+de la simulación.
+
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\linewidth]{../pictures/sim_modelo_dinamico/phi_dot_rl_vs_tiempo-Prueba_de_torques_opuestos.eps}
+  \caption{Velocidades angulares en las ruedas con respecto al tiempo.\\Simulación de torques constantes y opuestos}
+  \label{fig:phi_rl_dot_torques_constantes_opuestos}
+\end{figure}
 
 
 
@@ -1422,27 +1572,6 @@ De las gráficas que se presentan en la figura \ref{fig:velocidades_ruedas_trayec
 
 Se logró exitosamente simular el sistema descrito. En las simulaciones se obtienen los resultados observados en el sistema real.
 
-
-\section{Apéndice Ecuaciones}
-
-
-
-\begin{equation}
-\label{eq:mul_lagrange}
-\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{q_1(t)}}\right) - \left(\frac{\partial k}{\partial q_1(t)}\right)= \left(\frac{\partial U}{\partial q_1(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{q_1}(t)}
-\end{equation}
-
-
-\begin{eqnarray}
-I_c = 15.625 Kg.m^2\\
-I_{\omega}= 0.005 kg.m^2\\
-I_m = 0.0025 kg. m^2\\
-b = 0.75 \\
-d = s = 0.3 m\\
-m_c = 30 kg\\
-m_{\omega} = 1 kg\\
-r = 0.10m
-\end{eqnarray}
 
 
 \newpage
