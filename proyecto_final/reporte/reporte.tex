@@ -254,45 +254,45 @@ El modelo de robot que se estudia en el presente trabajo se supone con dos motor
 %\end{figure}
 
 
-\subsection{Método de linealización}
-Los sistemas en estudio son intrínsicamente no lineales \citep{Sayidmarie}. De esta manera, para
-facilitar el análisis se puede considerar el sistema alrededor de un punto de operación específico,
-en donde el mismo puede considerarse como lineal. En el caso específico del sistema a analizar,
-si se denomina $\phi$ cómo el ángulo de pitch, ya que el interés es mantener al robot en posición
-vertical, se puede tomar como punto de operación la condición de $\phi=0$.
+%\subsection{Método de linealización}
+%Los sistemas en estudio son intrínsicamente no lineales \citep{Sayidmarie}. De esta manera, para
+%facilitar el análisis se puede considerar el sistema alrededor de un punto de operación específico,
+%en donde el mismo puede considerarse como lineal. En el caso específico del sistema a analizar,
+%si se denomina $\phi$ cómo el ángulo de pitch, ya que el interés es mantener al robot en posición
+%vertical, se puede tomar como punto de operación la condición de $\phi=0$.
 
-En general, se tiene que el modelo en variables de estado de un sistema no lineal viene dado por la
-ecuación \ref{eq:estados_no_lineal}:
+%En general, se tiene que el modelo en variables de estado de un sistema no lineal viene dado por la
+%ecuación \ref{eq:estados_no_lineal}:
 
-\begin{equation}
-\frac{d\mathbf{x}(t)}{dt}=f(\mathbf{x}(t),\mathbf{u}(t))
-\label{eq:estados_no_lineal}
-\end{equation}
+%\begin{equation}
+%\frac{d\mathbf{x}(t)}{dt}=f(\mathbf{x}(t),\mathbf{u}(t))
+%\label{eq:estados_no_lineal}
+%\end{equation}
 
-Ahora, por el teorema del valor medio, se sabe que existe $t_0<\delta<t$ tal que (ecuación
-\ref{eq:mean_theorem}):
+%Ahora, por el teorema del valor medio, se sabe que existe $t_0<\delta<t$ tal que (ecuación
+%\ref{eq:mean_theorem}):
 
-\begin{equation}
-J_f(\mathbf{x},\mathbf{u})(\mathbf{x}(t_0+\delta)+\mathbf{u}(t_0+\delta))=\frac{f(\mathbf{x}(t),\mathbf{u}(t))-f(\mathbf{x}(t_0),\mathbf{u}(t_0))}{t-t_0}
-\label{eq:mean_theorem}
-\end{equation}
+%\begin{equation}
+%J_f(\mathbf{x},\mathbf{u})(\mathbf{x}(t_0+\delta)+\mathbf{u}(t_0+\delta))=\frac{f(\mathbf{x}(t),\mathbf{u}(t))-f(\mathbf{x}(t_0),\mathbf{u}(t_0))}{t-t_0}
+%\label{eq:mean_theorem}
+%\end{equation}
  
-En donde $J_f$ es el jacobiano de $f$. Para el caso particular del punto de operación, se tiene que
-$t_0=0$. Como se supone que $t$ es muy cercano a $0$, entonces se aproxima que $\delta=0$. Por otro
-lado, $J_{f_x}$ y $J_{f_u}$ son las porciones del jacobiano de $f$ que dependen únicamente de
-$\mathbf{x}$ y $\mathbf{u}$, respectivamente.
+%En donde $J_f$ es el jacobiano de $f$. Para el caso particular del punto de operación, se tiene que
+%$t_0=0$. Como se supone que $t$ es muy cercano a $0$, entonces se aproxima que $\delta=0$. Por otro
+%lado, $J_{f_x}$ y $J_{f_u}$ son las porciones del jacobiano de $f$ que dependen únicamente de
+%$\mathbf{x}$ y $\mathbf{u}$, respectivamente.
 
-Se define $\mathbf{x'}(t)=\mathbf{x}(t)-\mathbf{x}(0)$ y
-$\mathbf{u'}(t)=\mathbf{u}(t)-\mathbf{u}(0)$. Despejando $f$ de la ecuación \ref{eq:mean_theorem}, y
-sustituyendo \ref{eq:estados_no_lineal}, se obtiene la ecuación \ref{eq:meantheo}:
+%Se define $\mathbf{x'}(t)=\mathbf{x}(t)-\mathbf{x}(0)$ y
+%$\mathbf{u'}(t)=\mathbf{u}(t)-\mathbf{u}(0)$. Despejando $f$ de la ecuación \ref{eq:mean_theorem}, y
+%sustituyendo \ref{eq:estados_no_lineal}, se obtiene la ecuación \ref{eq:meantheo}:
 
-\begin{equation}
-\frac{dx'(t)}{dt}=J_{f_x}|_0\mathbf{x'}(t)+J_{f_u}|_0\mathbf{u'}(t)
-\label{eq:meantheo}
-\end{equation}
+%\begin{equation}
+%\frac{dx'(t)}{dt}=J_{f_x}|_0\mathbf{x'}(t)+J_{f_u}|_0\mathbf{u'}(t)
+%\label{eq:meantheo}
+%\end{equation}
 
-De esta manera, se obtiene un modelo en variables de estado lineal cuando el ángulo de pitch es
-cercano a cero \citep{Buck}.
+%De esta manera, se obtiene un modelo en variables de estado lineal cuando el ángulo de pitch es
+%cercano a cero \citep{Buck}.
 
 \subsection{Análisis de sistemas mecánicos: Enfoque de energías}
 Para modelar sistemas mecánicos como el que se estudiará en el presente trabajo, resulta conveniente
@@ -355,11 +355,11 @@ Elástica (Resorte) & $\frac{1}{2}k{d_E}^2$ \\ \bottomrule
 \end{table}
 
 
-El modelado de la tracción delantera de un robot movil es una condición no holonómica  que esta sujeto a una serie de restricciones p no integrables que involucran las derivadas con respecto al tiempo del vector de configuración q y estas toman la forma de la ecuación  \ref{eq:mul_lagrange}
+El modelado de la tracción delantera de un robot móvil es una condición no holonómica  que esta sujeto a una serie de restricciones p no integrables que involucran las derivadas con respecto al tiempo del vector de configuración q y estas toman la forma de la ecuación \ref{eq:mul_lagrange}.
 
 \begin{equation}
 \label{eq:mul_lagrange}
-\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{q_1(t)}}\right) - \left(\frac{\partial k}{\partial q_1(t)}\right)= \left(\frac{\partial U}{\partial q_1(t)}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{q_1}(t)}
+\frac{d}{dt}\left(\frac{\partial k}{\partial \dot{q_1}}\right) - \left(\frac{\partial k}{\partial q_1}\right)= \left(\frac{\partial U}{\partial q_1}\right) + \sum  \frac{\lambda \partial f_i}{\partial \dot{q_1}}
 \end{equation}
 
 
@@ -664,10 +664,9 @@ Para analizar el comportamiento del centro geométrico del robot, y el punto desp
 
 \subsection{Modelo dinámico}
 La obtención del modelo dinámico se fundamenta en la aplicación del método de Euler-Lagrange
-considerando las restricciones propias del sistema del robot diferencial de dos ruedas.
-
-%IMAGEN ROBOT
-
+considerando las restricciones propias del sistema del robot diferencial de dos ruedas. Este
+modelado es consecuente con los resultados obtenidos por \cite{zohar} y \cite{sarkar}, lo cual
+demuestra su validez.
 
 A partir de la condición de no deslizamiento hacia los lados, se obtiene que el componente de la
 velocidad traslacional del centro geométrico que es perpendicular a la recta descrita por el frente del
@@ -743,18 +742,15 @@ ya que establecen condiciones sobre las derivadas de las coordenadas generalizad
 el método de Euler-Lagrange, las cuales corresponden a $x(t)$, $y(t)$, $\theta(t)$, $\varphi_r(t)$ y
 $\varphi_l(t)$.
 
-Estas restricciones no holonómicas están asociadas a fuerzas generalizadas que mantienen el
-movimiento bajo dichas condiciones (***REF)%OJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOJOOOJOJOJOJOJOJOJOJOJOJOJOOJOJOJOJOJOJOJOJOJOJOJOJOJO
-, las cuales dependen de multiplicadores de Lagrange
-tal como se muestra en la ecuación (***), y que en este caso son $\lambda_1$, $\lambda_2$ y
-$\lambda_3$, correspondientes a $f_1$, $f_2$ y $f_3$ respectivamente. Dichas fuerzas generalizadas
-modifican la ecuación de Lagrange para cada coordenada, tal como se describe en la ecuación (***).
+Estas restricciones no holonómicas, las cuales dependen de multiplicadores de Lagrange tal como se
+muestra en la ecuación (\ref{eq:mul_lagrange}), y que en este caso son $\lambda_1$, $\lambda_2$ y
+$\lambda_3$, correspondientes a $f_1$, $f_2$ y $f_3$ respectivamente. .
 
 Para el método de Lagrange, se tiene en primer lugar que la energía potencial asociada al sistema es
 constante, ya que el centro de masa del robot se mueve en un plano horizontal y no se consideran las
 posibles deformaciones elásticas del vehículo, ni tampoco se presenta el comportamiento de péndulo
 invertido. De esta forma, el término que está asociado al cambio en la energía potencial en la
-ecuación de Lagrange (***Lagrange+Restricciones) para cada coordenada es cero
+ecuación de Lagrange (\ref{eq:mul_lagrange}) para cada coordenada es cero
 ($\frac{\partial U}{\partial q_i} = 0$), de lo que se obtiene la ecuación
 (\ref{eq:lagrange_restrict_final}), la cual se utilizará para la obtención de las ecuaciones del
 movimiento del sistema.
@@ -773,8 +769,8 @@ En primer lugar, si se estudia el movimiento del cuerpo del vehículo sin las rue
 se puede calcular la energía cinética correspondiente a esta porción del robot. Para el componente
 traslacional, se considera que dicho cuerpo sólido es equivalente a una partícula de masa $m_c$ que
 se encuentra ubicada en el centro de masa del cuerpo, localizado a una distancia $s$ en línea recta
-con el centro geométrico del robot, el cual se toma en medio de las dos ruedas. %Referenciar
-                                %imagen
+con el centro geométrico del robot, el cual se toma en medio de las dos ruedas. 
+
 Se tiene entonces que la posición que permite ubicar al centro de masa es la mostrada en
 (\ref{eq:posición_carrito}). De dicho punto se puede obtener la velocidad del centro de masa
 (\ref{eq:vel_centro_masa}), a partir de la cual se obtiene la energía cinética traslacional, que
@@ -1122,7 +1118,7 @@ modelará como un amortiguador viscoso torsional.
 De esta manera, el torque de la fricción aplicado sobre cada rueda es directamente proporcional a
 velocidad rotacional de la rueda, tal como se presenta en la ecuación (\ref{eq:torque_friccion}). El
 parámetro $B$ corresponde a una constante de proporcionalidad que determina la magnitud del torque
-de oposición generado dada cierta rapidez angular (***REF), conocido como factor de amortiguamiento.
+de oposición generado dada cierta rapidez angular \citep{stutts}, conocido como factor de amortiguamiento.
 
 \begin{equation}
   \label{eq:torque_friccion}
@@ -1258,8 +1254,8 @@ presentan mediante el vector indicado en (\ref{eq:entradas_mve_dinamico}).
 
 En este apartado, se procede a realizar el análisis y las simulaciones respectivas al modelo
 cinemático y al modelo dinámico, obtenidas en la sección de modelado para el robot de dos
-ruedas. Para las simulaciones, se toman las características del robot real indicadas por Sarkar
-(***), las cuales se presentan en \ref{eq:datos_robot_sim}.
+ruedas. Para las simulaciones, se toman las características del robot real indicadas por
+\cite{sarkar}, las cuales se presentan en (\ref{eq:datos_robot_sim}).
 
 \begin{equation}
 \begin{cases}
