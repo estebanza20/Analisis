@@ -59,23 +59,22 @@ if mode == 0
     plot(t,v,t,w);  
     
 else
-    t = (0:0.01:150)';
+    t = (0:0.01:70)';
     
     tau_r = zeros(length(t),1);
     tau_l = zeros(length(t),1); 
     
     for k=0:10
-        tau_r = -heaviside(t); %tau_r + 0.1*(t-5*(2*k)).*(heaviside(t-5*(2*k))-heaviside(t-5*(2*k+1)));
+        tau_r = tau_r + 0.1*(t-5*(4*k)).*(heaviside(t-5*(4*k))-heaviside(t-5*(4*k+1)));
     end
 
     for k=0:10
-        tau_l = heaviside(t);  
-         %0.1*heaviside(t); %20*cos(t); %tau_l - 0.01*(t-5*(2*k)).*(heaviside(t-5*(2*k))-heaviside(t-5*(2*k+1)));
+        tau_l = tau_l + 0.1*(t-5*(4*k+2)).*(heaviside(t-5*(4*k+2))-heaviside(t-5*(4*k+3)));
     end
 end
 
 %Simulación
-sim_time = 150;
+sim_time = 70;
 Simout= sim('dynamic_model_2015.slx');
 
 t = x_y.time;
@@ -95,43 +94,45 @@ phi_r_dot = phi_lr_dot.signals(2).values;
 
 
 %Graficación:
-test = 'Simulación torques opuestos';
+test = 'Prueba de torques tren de sierra';
 
 %Torques de entrada
 figure(1)
 plot(t,tau_r,t,tau_l);
-legend({'$\tau_r(t)$: Rueda derecha';'$\tau_l(t)$: Rueda izquierda'},'Interpreter','latex');
+%axis([0 inf -1.5 1.5])
+legend({'$\tau_r(t)$: Rueda derecha';'$\tau_l(t)$: Rueda izquierda'},'Interpreter','latex','Location','southoutside');
 title({'Torques de entrada al sistema:'; test});
 ylabel('Torque (Nm)');
 xlabel('Tiempo (s)');
 if print_figs == 1
-    print(['../pictures/sim_modelo_dinamico/torques_m_dinamico-' strrep(test,' ','_')],'-depsc', '-r200');
+    print(1,['../pictures/sim_modelo_dinamico/torques_m_dinamico-' strrep(test,' ','_')],'-depsc', '-r200');
 end
 
 
 %Trayectoria del robot
 figure(2)
 plot(x,y)
+axis square
 %axis([0 37.5 0 1400])
 title({'Trayectoria del robot:'; test});
 %title('Trayectoria del robot');
 ylabel('Posición en Y (m)');
 xlabel('Posición en X (m)');
 if print_figs == 1
-    print(['../pictures/sim_modelo_dinamico/trayect_m_dinamico-' strrep(test,' ','_')],'-depsc', '-r200');
+    print(2,['../pictures/sim_modelo_dinamico/trayect_m_dinamico-' strrep(test,' ','_')],'-depsc', '-r200');
 end
 
 %Posición con respecto al tiempo
 figure(3)
 plot(t,x,t,y)
-legend({'x(t): Coordenada en X';'y(t): Coordenada en Y'},'Interpreter','latex');
+legend({'x(t): Coordenada en X';'y(t): Coordenada en Y'},'Interpreter','latex','Location','southoutside');
 %axis([0 37.5 0 1400])
 title({'Posición del robot en función del tiempo:'; test});
 %title('Posición del robot en función del tiempo');
 ylabel('Posición (m)');
 xlabel('Tiempo (s)');
 if print_figs == 1
-    print(['../pictures/sim_modelo_dinamico/posicion_vs_tiempo-' strrep(test,' ','_')],'-depsc', '-r200');
+    print(3,['../pictures/sim_modelo_dinamico/posicion_vs_tiempo-' strrep(test,' ','_')],'-depsc', '-r200');
 end
 
 %Velocidades v y w con respecto al tiempo
@@ -149,28 +150,19 @@ title({'Velocidad \omega en función del tiempo:'; test});
 ylabel({'Velocidad';'angular (rad/s)'});
 xlabel('Tiempo (s)');
 if print_figs == 1
-    print(['../pictures/sim_modelo_dinamico/v_w_vs_tiempo-' strrep(test,' ','_')],'-depsc', '-r200');
+    print(4,['../pictures/sim_modelo_dinamico/v_w_vs_tiempo-' strrep(test,' ','_')],'-depsc', '-r200');
 end
 
 %Velocidades angulares ruedas con respecto al tiempo
 figure(5)
 plot(t,phi_r_dot,t,phi_l_dot);
-legend({'$\dot{\varphi_r}(t)$: Rueda derecha';'$\dot{\varphi_l}(t)$: Rueda izquierda'},'Interpreter','latex');
+legend({'$\dot{\varphi_r}(t)$: Rueda derecha';'$\dot{\varphi_l}(t)$: Rueda izquierda'},'Interpreter','latex','Location','southoutside');
 title({'Velocidad angular en las ruedas en función del tiempo:'; test});
 ylabel('Velocidad angular (rad/s)');
 xlabel('Tiempo (s)');
 if print_figs == 1
-    print(['../pictures/sim_modelo_dinamico/phi_dot_rl_vs_tiempo-' strrep(test,' ','_')],'-depsc', '-r200');
+    print(5,['../pictures/sim_modelo_dinamico/phi_dot_rl_vs_tiempo-' strrep(test,' ','_')],'-depsc', '-r200');
 end
-
-
-
-
-
-
-
-
-
 
 
 
