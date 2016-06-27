@@ -1,0 +1,55 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: reporte.aux
+The style file: EIEBib.bst
+Database file #1: informe_ref.bib
+Warning--to sort, need author or key in sis_locomocion
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Warning--empty year in sis_locomocion; set to ????
+Warning--empty year in Conejo; set to ????
+Warning--empty journal in Conejo
+Warning--empty journal in Collazo
+Warning--empty journal in Freire
+Warning--empty journal in Saifizi
+You've used 12 entries,
+            3010 wiz_defined-function locations,
+            685 strings with 7008 characters,
+and the built_in function-call counts, 5819 in all, are:
+= -- 554
+> -- 110
+< -- 11
++ -- 58
+- -- 34
+* -- 265
+:= -- 848
+add.period$ -- 37
+call.type$ -- 12
+change.case$ -- 76
+chr.to.int$ -- 13
+cite$ -- 21
+duplicate$ -- 550
+empty$ -- 464
+format.name$ -- 44
+if$ -- 1157
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 82
+newline$ -- 72
+num.names$ -- 44
+pop$ -- 247
+preamble$ -- 1
+purify$ -- 59
+quote$ -- 0
+skip$ -- 251
+stack$ -- 0
+substring$ -- 226
+swap$ -- 274
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 105
+warning$ -- 7
+while$ -- 37
+width$ -- 0
+write$ -- 158
+(There were 7 warnings)
