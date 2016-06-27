@@ -59,23 +59,22 @@ if mode == 0
     plot(t,v,t,w);  
     
 else
-    t = (0:0.01:150)';
+    t = (0:0.01:70)';
     
     tau_r = zeros(length(t),1);
     tau_l = zeros(length(t),1); 
     
     for k=0:10
-        tau_r = -heaviside(t); %tau_r + 0.1*(t-5*(2*k)).*(heaviside(t-5*(2*k))-heaviside(t-5*(2*k+1)));
+        tau_r = tau_r + 0.1*(t-5*(4*k)).*(heaviside(t-5*(4*k))-heaviside(t-5*(4*k+1)));
     end
 
     for k=0:10
-        tau_l = heaviside(t);  
-         %0.1*heaviside(t); %20*cos(t); %tau_l - 0.01*(t-5*(2*k)).*(heaviside(t-5*(2*k))-heaviside(t-5*(2*k+1)));
+        tau_l = tau_l + 0.1*(t-5*(4*k+2)).*(heaviside(t-5*(4*k+2))-heaviside(t-5*(4*k+3)));
     end
 end
 
 %Simulación
-sim_time = 150;
+sim_time = 70;
 Simout= sim('dynamic_model_2015.slx');
 
 t = x_y.time;
@@ -95,12 +94,12 @@ phi_r_dot = phi_lr_dot.signals(2).values;
 
 
 %Graficación:
-test = 'Prueba de torques opuestos';
+test = 'Prueba de torques tren de sierra';
 
 %Torques de entrada
 figure(1)
 plot(t,tau_r,t,tau_l);
-axis([0 inf -1.5 1.5])
+%axis([0 inf -1.5 1.5])
 legend({'$\tau_r(t)$: Rueda derecha';'$\tau_l(t)$: Rueda izquierda'},'Interpreter','latex','Location','southoutside');
 title({'Torques de entrada al sistema:'; test});
 ylabel('Torque (Nm)');
