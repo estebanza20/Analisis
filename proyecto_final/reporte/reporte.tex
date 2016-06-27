@@ -1483,7 +1483,7 @@ grados entre estas.
             \label{fig:posicion_vs_t_torques_constantes_opuestos}
  	\end{subfigure}
         \caption{Posición del centro geométrico del robot.\\ Simulación de torques constantes y opuestos}
-        \label{fig:velocidades_ruedas_trayectoria_cuadrada_suavizado}
+        \label{fig:pos_centro_geometrico_torques_constantes_opuestos}
  \end{figure}
 
  Este comportamiento del sistema se puede explicar mediante la gráfica
@@ -1651,10 +1651,128 @@ A continución se presentan las simulaciones para el modelo dinámico descrito a e
 Se puede observar que para la entra de la figura \ref{fig:entrada_entrada0} el robot sigue la trayectoria de \ref{fig:trayectoria_entrada0}, ya que la velocidad $v$ y $\omega$ iniciales son distintas de cero. Esto es lo esperado ya que de acuerdo con la ecuación 
 
 
+
+\subsubsection{Simulación de torques tren diente de sierra}
+
+En la figura \ref{fig:entrada_torques_tren_sierra}, se muestran los torques de entrada aplicados
+para esta simulación, en donde se puede observar que los mismos corresponden a trenes de diente de
+sierra que se encuentran alternados entre sí.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\linewidth]{../pictures/sim_modelo_dinamico/torques_m_dinamico-Prueba_de_torques_tren_de_sierra.eps}
+  \caption{Entradas del modelo dinámico con respecto al tiempo. \\Simulación de torques tren diente
+    de sierra}
+  \label{fig:entrada_torques_tren_sierra}
+\end{figure}
+
+En las figuras \ref{fig:trayect_robot_torques_tren_sierra} y
+\ref{fig:posicion_vs_t_torques_tren_sierra}, se muestra la trayectoria del robot y las coordenadas
+de la posición con respecto al tiempo para estas entradas, respectivamente. Se observa como estos
+pulsos de sierra alternados en la misma dirección provocan que cada cierta distancia recorrida el
+robot cambie su orientación, debido al efecto del torque aplicado en cada rueda individualmente, en
+donde nunca se tiene la condición de que los motores de ambas ruedas se encuentren encendidos al
+mismo tiempo.
+ 
+\begin{figure}
+ 	\centering
+ 	\begin{subfigure}[t]{0.48\textwidth}
+            \includegraphics[width=\textwidth]{../pictures/sim_modelo_dinamico/trayect_m_dinamico-Prueba_de_torques_tren_de_sierra.eps}
+            \caption{Trayectoria en el plano XY}
+            \label{fig:trayect_robot_torques_tren_sierra}
+ 	\end{subfigure}
+ 	\begin{subfigure}[t]{0.48\textwidth}
+            \includegraphics[width=\textwidth]{../pictures/sim_modelo_dinamico/posicion_vs_tiempo-Prueba_de_torques_tren_de_sierra.eps}
+            \caption{Posición en X y Y con respecto \\al tiempo}
+            \label{fig:posicion_vs_t_torques_tren_sierra}
+ 	\end{subfigure}
+        \caption{Posición del centro geométrico del robot.\\ Simulación de torques tren diente
+    de sierra}
+        \label{fig:pos_centro_geometrico_torques_tren_sierra}
+ \end{figure}
+
+ En la figura \ref{fig:v_w_vs_t_torques_tren_sierra}, se observa como la velocidad traslacional
+ $v(t)$ tiende a conservarse al dejar de aplicar alguno de los pulsos. Esto se explica porque la
+ inercia del sistema provoca que se tienda a mantener la velocidad, sin embargo, esta decae
+ levemente debido al efecto de la fricción.  También, tal como es esperado
+ debido a la inercia del robot, en cada pulso aplicado la velocidad traslacional tiende a aumentar
+ cada vez más.
+
+ Por otro lado, al estudiar la velocidad angular $\omega(t)$ de esta gráfica, se observa que los
+ principales cambios en la curva ocurren al aplicar cada pulso, tal como es esperado debido al giro
+ provocado por el torque de las ruedas. Este giro cambia de sentido entre pulsos debido a que se
+ alterna la rueda en donde se aplica el torque, lo cual se evidencia porque entre
+ pulsos sucesivos $\omega(t)$ cambia de signo.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\linewidth]{../pictures/sim_modelo_dinamico/v_w_vs_tiempo-Prueba_de_torques_tren_de_sierra.eps}
+  \caption{Velocidad traslacional y angular del robot con respecto al tiempo.\\Simulación de torques tren diente
+    de sierra}
+  \label{fig:v_w_vs_t_torques_tren_sierra}
+\end{figure}
+
+En la figura \ref{fig:phi_rl_dot_torques_tren_sierra}, se muestran las velocidades angulares en las
+ruedas para esta simulación. Se observa que las mismas cambian de manera esperada al alternarse los pulsos de
+los torques en los motores, ya que por ejemplo al aplicar el pulso de torque en la rueda derecha, la
+velocidad angular asociada a dicha rueda incrementa para luego decaer levemente debido a la
+fricción. Este mismo comportamiento se observa para la rueda izquierda. 
+
+Un resultado importante de esta simulación, consiste en que en medio de los pulsos se observa como
+la fricción tiende a equilibrar las velocidades de las dos ruedas, de manera que durante ciertos
+instantes ambas velocidades llegan a ser prácticamente iguales.
+
+Esto es así porque la fricción en cierta rueda es directamente proporcional a su respectiva
+velocidad, de manera que si una rueda incrementa considerablemente su velocidad, la fricción se va a
+oponer en mayor medida al movimiento de dicha rueda y esto provoca que se tiendan a igualar las
+velocidades angulares.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\linewidth]{../pictures/sim_modelo_dinamico/phi_dot_rl_vs_tiempo-Prueba_de_torques_tren_de_sierra.eps}
+  \caption{Velocidades angulares en las ruedas con respecto al tiempo.\\Simulación de torques tren diente
+    de sierra}
+  \label{fig:phi_rl_dot_torques_tren_sierra}
+\end{figure}
+
+
 \section{Conclusiones y Recomendaciones}
 
-Se logró exitosamente simular el sistema descrito. En las simulaciones se obtienen los resultados observados en el sistema real.
-
+\subsection{Modelo dinámico}
+\begin{itemize}
+\item La inercia del sistema asociada a la masa del cuerpo y las ruedas del robot, provoca que la
+  velocidad traslacional y angular del mismo tiendan a mantenerse. Sin embargo, la fricción modelada
+  provoca que estas velocidades tiendan a disminuir de manera natural.
+\item A pesar de que el modelo utilizado para la fricción es muy simplificado, el mismo permite
+  describir de manera cualitativa el comportamiento esperado para este tipo de fuerza no
+  conservativa, ya que en la simulaciones se evidencia como la misma se opone al movimiento
+  traslacional y rotacional del robot.
+\item La fricción modelada en las ruedas como amortiguadores viscosos torsionales, provoca que las
+  velocidades en el sistema no puedan aumentar de manera indefinida, llegándose entonces a valores
+  terminales para $v(t)$, $\omega(t)$, $\dot{\varphi_r}(t)$ y  $\dot{\varphi_l}(t)$.
+\item La fricción modelada del sistema provoca que la velocidad angular de las ruedas tienda a
+  equipararse. Esto debido a que la misma se opone en mayor medida al movimiento de la rueda que
+  gire más rápidamente.
+\item La distancia $s$ entre el centro geométrico y el centro de masa del robot está asociado a una
+  inercia que provoca un movimiento traslacional del mismo incluso al aplicar torques iguales pero
+  opuestos en los motores de las ruedas. 
+\item Al aplicarse torques opuestos en los motores de las ruedas y al transcurrir tiempo suficiente,
+  las velocidades terminales para $v(t)$ y $\omega(t)$ provocan que la trayectoria descrita por el
+  robot sea circular, cuyo radio depende de la razón entre estas velocidades.
+\item Al tener como entrada torques iguales en los motores y una condición inicial nula para
+  $\omega(t)$, el robot describe una trayectoria en línea recta, lo cual se debe a que la velocidad
+  angular resultante siempre se mantiene nula. Sin embargo, la velocidad traslacional del robot sí
+  puede aumentar bajo estas condiciones.
+\item Se puede afirmar a partir de las simulaciones realizadas que el sistema se
+  comporta acorde con las ecuaciones obtenidas para el modelo, el cual logra describir de manera
+  consecuente la física asociada a la energía cinética traslacional y rotacional de un robot
+  diferencial de dos ruedas, sujeto a las condiciones impuestas para el modelado.
+\item Como recomendación para trabajos futuros con respecto a este sistema, se propone modelar de
+  manera más específica el comportamiento de la fricción, comparando como el modelo de fricción
+  utilizado modifica la respuesta del robot, con respecto a un amortiguador viscoso
+  torsional.
+  
+\end{itemize}
 
 
 \newpage
