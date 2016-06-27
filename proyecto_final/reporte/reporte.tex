@@ -116,7 +116,7 @@ realizaron las simulaciones correspondientes para cada modelo, para luego analiz
         \item[$\omega$] Velocidad angular [$rad/s$]
         \item[$k$] Constante de un resorte traslacional [$N/m$]
         \item[$d$] Elongación de un resorte traslacional [$m$]
-        \item[$h$] Altura del centro de masa de un cuerpo [$m$]
+        \item[$h$] Altura del centro de masa de un cuerpo con respecto a la referencia [$m$]
         \item[$g$] Constante de la gravedad terrestre [$m/s^2$]
         \item[$p_0$] Posición del centro geométrico (punto entre las ruedas) [$m$]
         \item[$p_d$] Posición del punto descentralizado [$m$]
@@ -349,8 +349,7 @@ Elástica (Resorte) & $\frac{1}{2}k{d}^2$ \\ \bottomrule
 \end{tabular}
 \end{table}
 
-
-El modelado de la tracción delantera de un robot movil es una condición no holonómica  que esta sujeto a una serie de restricciones p no integrables que involucran las derivadas con respecto al tiempo del vector de configuración q y estas toman la forma de la ecuación  \eqref{no_holonomico}
+El modelado de la tracción delantera de un robot movil es una condición no holonómica  que esta sujeto a una serie de restricciones p no integrables que involucran las derivadas con respecto al tiempo del vector de configuración q y estas toman la forma de la ecuación  \eqref{eq:mul_lagrange}
 
 \begin{equation}
 \label{eq:mul_lagrange}
@@ -362,8 +361,7 @@ El modelado de la tracción delantera de un robot movil es una condición no holon
 Un sistema subactuado es aquel en el cual existen menos actuadores que grados de libertad \citep{Conejo}, es decir una sola entrada controla movimientos distintos e independientes del robot . Una ventaja de estos sistemas es que al utilizar menos actuadores consumen menos energía sin embargo el control se vuelve un poco más complejo. 
 
 
-\section{Modelado del sistema}
-
+\section{Modelado y simulación}
 Se procede a obtener el modelo cinemático (directo e inverso) y  el modelo dinámico de un robot de
 dos ruedas, para lo cual se toman las siguientes consideraciones generales:
 \begin{itemize}
@@ -634,6 +632,7 @@ La obtención del modelo dinámico se fundamenta en la aplicación del método de Eu
 considerando las restricciones propias del sistema del robot diferencial de dos ruedas.
 
 %IMAGEN ROBOT
+
 
 
 A partir de la condición de no deslizamiento hacia los lados, se obtiene que el componente de la
@@ -1154,10 +1153,10 @@ Se define entonces el vector de estados, el cual se muestra en la ecuación (\ref
   \mathbf{X}(t)= \left[ \begin{array}{c} x(t) \\ y(t) \\ \theta(t) \\ v(t) \\ \omega(t) \end{array} \right]
 \end{equation}
 
-De esta manera, en (\ref{eq:mve_dinamico}) se presentan las derivadas de los estados del
-modelo en variables de estado no lineal que describe al sistema, en donde las ecuaciones de
-$\dot{x}(t)$ y $\dot{y}(t)$ corresponden a los componentes de la velocidad del centro geométrico
-sobre los ejes cartesianos, la ecuación de $\dot{\theta}(t)$ resulta de la definición de la rapidez
+De esta manera, en (\ref{eq:mve_dinamico}) se presentan las derivadas de los estados del modelo en
+variables de estado no lineal que describe al sistema, en donde las ecuaciones de $\dot{x}(t)$ y
+$\dot{y}(t)$ corresponden a los componentes de la velocidad del centro geométrico sobre los
+ejes cartesianos, la ecuación de $\dot{\theta}(t)$ resulta de la definición de la rapidez
 angular de cambio en la orientación del robot $\omega(t)$ y las ecuaciones de $\dot{v}(t)$ y
 $\dot{\omega}(t)$ se obtienen del análisis dinámico del sistema descrito previamente.
 
@@ -1213,8 +1212,22 @@ presentan mediante el vector indicado en (\ref{eq:entradas_mve_dinamico}).
   \right]
 \end{equation}
 
-\section{Análisis y simulaciones}
 
+
+% \dot{\varphi_r}(t) =\frac{v(t)}{r} + \frac{b}{r} \omega(t) \label{eq:phi_r_dot_mve}\\
+%& \dot{\varphi_l}(t)= \frac{v(t)}{r} - \frac{b}{r} \omega(t) \label{eq:phi_l_dot_mve}
+%, y las ecuaciones
+%(\ref{eq:phi_r_dot_mve}) y (\ref{eq:phi_l_dot_mve}) se obtienen de las restricciones
+%correspondientes a (\ref{eq:restriccion_2}) y (\ref{eq:restriccion_3}), expresadas en términos de los
+%estados definidos.
+
+
+
+
+% Modelado de la fricción
+
+
+\section{Análisis}
 \subsection{Modelo Cinemático}
 Se realizaron tres simulaciones. Las tres se diferencian porque se tiene el mismo proceso pero con entradas distintas. Primero se explica el proceso, y luego las entradas. 
 
@@ -1360,9 +1373,87 @@ Para poder generar la primera trayectoria se utilizan escalones en la entrada. L
 \end{figure}
 
 
-
 \subsection{Modelo dinámico}
+	\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_torque_igual/entrada.eps}	
+	\caption{Torques iguales. Entrada}
+	\label{fig:entrada_torques_iguales}
+\end{figure}	
 
+
+	\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_torque_igual/Posicion.eps}	
+	\caption{Torques iguales.Posicion del carro}
+	\label{fig:posicion_torques_iguales}
+\end{figure}	
+
+		\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_torque_igual/trayectoria.eps}	
+	\caption{Torques iguales. Trayectoria}
+	\label{fig:trayectoria_torques_iguales}
+\end{figure}	
+
+		\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_torque_igual/velocidad_angular_ruedas.eps}	
+	\caption{Torques iguales. Velocidad angular de las ruedas}
+	\label{fig:velocidad_ruedas_torques_iguales}
+\end{figure}	
+
+		\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_torque_igual/velocidad_general.eps}	
+	\caption{Entrada. Velocidad del carrito}
+	\label{fig:velocidad_general_torques_iguales}
+\end{figure}	
+
+se observa en la figura \ref{fig:entrada_torques_iguales} el tipo de entrada que se le aplican a las ruedas, en este caso es un torque constante con un valor de 1 $Nm$. A partir de esto se obtiene la gráfica \ref{fig:velocidad_ruedas_torques_iguales} en la cual se puede observar que va aumentando, físicamente tiene sentido debido a la inercia rotacional que tienen las ruedas, esto haría que cada vez vaya aumentando un poco más su velocidad hasta que llegue un determinado punto donde ya no sea posible debido a las pérdidas en la fricción. Si se analiza según las ecuaciones descritas en la ecuación matricial \ref{eq:salidas_mve_dinamico} se puede percatar que es básicamente la misma velocidad traslacional del carrito por un factor, en este caso de 10 veces mayor debido al radio establecido de la rueda. \\
+Por otro lado si se analiza la gráfica \ref{fig:velocidad_general_torques_iguales} no existe velocidad rotacional del vehículo y toda la velocidad es traslacional, ya que $\omega$ depende directamente de $T$ mientras que $v$ depende de $F$ por las expresiones descritas en \ref{eq:FyT_friccion}. Expresiones las cuales sí dependen directamente de los torques según lo expresado en \ref{eq:FyT}, en cuyo caso $T$ se hace máximo si los torques van en direcciones contrarias y F se hace máximo si van en direcciones iguales.\\
+De lo acabado de mencionar se esperaría que la trayectoria descrita por el robot de dos ruedas fuera completamente una línea recta, ya que al no haber velocidad angular implicaría que no existe un cambio en la posición rotacional del vehículo $\theta$ por definición este se mantendría constante, en este caso como la condición inicial era $\theta = \frac{\pi}{4}$ se mantiene en esta dirección . Esto coincide muy bien con la figura \ref{fig:trayectoria_torques_iguales} en la cual se presenta el recorrido hecho por el robot. 
+Finalmente su posición vista en la figura \ref{fig:posicion_torques_iguales} está muy relacionada con el analisis anterior, en este caso la posición de $x$ y $y$ es la misma en todo momento por ser un ángulo de $\frac{\pi}{4}$. Se observa una leve curva al inicio de la gráfica lo cual debe corresponder con el tiempo en el hay aceleración angular ya que estas dependen de los torques netos de cada rueda(los cuales inicialmente son distintos de 0) según el modelo descrito en \ref{eq:salidas_mve_dinamico}, sin embargo, esto deja de ocurrir una vez la fricción iguala el torque de entrada pues el torque de fricción está descrito por la ecuación \ref{eq:torque_friccion}.De este modo existe un punto donde el robot continúa viajando a velocidad constante y por esto termina siendo una recta con una determinada pendiente la cual debería coincidir con la velocidad $v$ final del carrito. 
+
+\subsubsection{Entrada cero, con condiciones iniciales}
+
+A continución se presentan las simulaciones para el modelo dinámico descrito a entrada cero con condiciones iniciales distintas de cero, en este caso se estableció la velocidad inicial $v = 5$  y $\omega=50$ además de su posición inicial $x= 0$  y $y=0$ para facilitar su analisis posicional. 
+
+	\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_entrada0/entrada.eps}	
+	\caption{Torques iguales. Entrada}
+	\label{fig:entrada_entrada0}
+\end{figure}	
+
+
+	\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_entrada0/Posicion.eps}	
+	\caption{Torques iguales.Posicion del carro}
+	\label{fig:posicion_entrada0}
+\end{figure}	
+
+		\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_entrada0/trayectoria.eps}	
+	\caption{Torques iguales. Trayectoria}
+	\label{fig:trayectoria_entrada0}
+\end{figure}	
+
+		\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_entrada0/velocidad_angular_ruedas.eps}	
+	\caption{Torques iguales. Velocidad angular de las ruedas}
+	\label{fig:velocidad_ruedas_entrada0}
+\end{figure}	
+
+		\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_entrada0/velocidad_general.eps}	
+	\caption{Entrada. Velocidad del carrito}
+	\label{fig:velocidad_general_entrada0}
+\end{figure}	
 
 
 \section{Conclusiones y Recomendaciones}
@@ -1377,7 +1468,7 @@ Se logró exitosamente simular el sistema descrito. En las simulaciones se obtien
 I_c = 15.625 Kg.m^2\\
 I_{\omega}= 0.005 kg.m^2\\
 I_m = 0.0025 kg. m^2\\
-b = 0.75 \\
+b = 0.75
 d = s = 0.3 m\\
 m_c = 30 kg\\
 m_{\omega} = 1 kg\\
