@@ -117,12 +117,13 @@ realizaron las simulaciones correspondientes para cada modelo, y postgeriormente
         \item[$\vec{v}$] Velocidad del centro de masa de un cuerpo [$m/s$]
         \item[$\omega$] Velocidad angular [$rad/s$]
         \item[$k$] Constante de un resorte traslacional [$N/m$]
-        \item[$d$] Elongación de un resorte traslacional [$m$]
+        \item[$d_E$] Elongación de un resorte traslacional [$m$]
         \item[$h$] Altura del centro de masa de un cuerpo [$m$]
         \item[$g$] Constante de la gravedad terrestre [$m/s^2$]
         \item[$p_0$] Posición del centro geométrico (punto entre las ruedas) [$m$]
         \item[$p_d$] Posición del punto descentralizado [$m$]
         \item[$p_g$] Posición del centro de masa [$m$]
+        \item[$d$] Distancia entre el centro del robot y el punto descentralizado [$m$]
         \item[$B$] Factor de amortiguamiento viscoso torsional [$Ns$]
         \item[$2b$]  Ancho del robot [$m$]
         \item[$s$] Distancia entre el centro de masa y el geométrico en el robot [$m$]
@@ -349,12 +350,12 @@ Traslacional & $\frac{1}{2} m {\left\lVert \vec{v} \right\rVert}^2  $   \\ \midr
 Rotacional & $\frac{1}{2} J {\omega}^2$ \\ \midrule
 \multicolumn{2}{l}{\textbf{Energía potencial (U)}} \\ \midrule
 Gravitacional & $mgh$ \\ \midrule
-Elástica (Resorte) & $\frac{1}{2}k{d}^2$ \\ \bottomrule
+Elástica (Resorte) & $\frac{1}{2}k{d_E}^2$ \\ \bottomrule
 \end{tabular}
 \end{table}
 
 
-El modelado de la tracción delantera de un robot movil es una condición no holonómica  que esta sujeto a una serie de restricciones p no integrables que involucran las derivadas con respecto al tiempo del vector de configuración q y estas toman la forma de la ecuación  \eqref{no_holonomico}
+El modelado de la tracción delantera de un robot movil es una condición no holonómica  que esta sujeto a una serie de restricciones p no integrables que involucran las derivadas con respecto al tiempo del vector de configuración q y estas toman la forma de la ecuación  \ref{eq:mul_lagrange}
 
 \begin{equation}
 \label{eq:mul_lagrange}
@@ -409,19 +410,19 @@ La posición de cada motor se decribe por los vectores $\mathbf{p_l}$ y $\mathbf{
 
 \begin{equation}
 \begin{cases}
-\mathbf{p_r}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c}\frac{b}{2}\cos(90^\circ-\theta(t))&  -\frac{b}{2}\sen(90^\circ-\theta(t))\end{array}\right]^t\\
-\mathbf{p_l}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c}-\frac{b}{2}\cos(90^\circ-\theta(t))&  \frac{b}{2}\sen(90^\circ-\theta(t))\end{array}\right]^t
+\mathbf{p_r}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c}b\cos(\frac{\pi}{2}-\theta(t))&  -b\sen(\frac{\pi}{2}-\theta(t))\end{array}\right]^t\\
+\mathbf{p_l}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c}-b\cos(\frac{\pi}{2}-\theta(t))&  b\sen(\frac{\pi}{2}-\theta(t))\end{array}\right]^t
 \end{cases}
 \label{eq:global_position_prev_simplification}
 \end{equation}
 
 
-Note que $\cos(90^\circ-\theta(t))=\sen(\theta(t))$ y que $\sen(90^\circ-\theta(t))=\cos(\theta(t))$. Entonces, sustituyendo en (\ref{eq:global_position_prev_simplification}), se obtiene (\ref{eq:global_position}). 
+Note que $\cos(\frac{\pi}{2}-\theta(t))=\sen(\theta(t))$ y que $\sen(\frac{\pi}{2}-\theta(t))=\cos(\theta(t))$. Entonces, sustituyendo en (\ref{eq:global_position_prev_simplification}), se obtiene (\ref{eq:global_position}). 
 
 \begin{equation}
 \begin{cases}
-\mathbf{p_r}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} \frac{b}{2}\sen(\theta(t))&  -\frac{b}{2}\cos(\theta(t))\end{array} \right]^t\\
-\mathbf{p_l}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} -\frac{b}{2}\sen(\theta(t))&  \frac{b}{2}\cos(\theta(t))\end{array}\right]^t
+\mathbf{p_r}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} b\sen(\theta(t))&  -b\cos(\theta(t))\end{array} \right]^t\\
+\mathbf{p_l}(t)=\mathbf{p_0}(t)+\left[\begin{array}{c c} -b\sen(\theta(t))&  b\cos(\theta(t))\end{array}\right]^t
 \end{cases}
 \label{eq:global_position}
 \end{equation}
@@ -432,8 +433,8 @@ Derivando (\ref{eq:global_position})se obtiene:
 
 \begin{equation}
 \begin{cases}
-\dot{\mathbf{p_r}}(t)=\mathbf{v_r}(t)=\mathbf{v_0}(t)+\left[  \begin{array}{c c} \frac{b}{2}\cos(\theta(t)) \omega(t) &  \frac{b}{2}\sen(\theta(t)) \omega(t) \end{array}\right]^t \\
-\dot{\mathbf{p_l}}(t)=\mathbf{v_l}(t)=\mathbf{v_0}(t)+\left[  \begin{array}{c c}-\frac{b}{2}\cos(\theta(t)) \omega(t) & -\frac{b}{2}\sen(\theta(t)) \omega(t) \end{array}\right]^t
+\dot{\mathbf{p_r}}(t)=\mathbf{v_r}(t)=\mathbf{v_0}(t)+\left[  \begin{array}{c c} b\cos(\theta(t)) \omega(t) &  b\sen(\theta(t)) \omega(t) \end{array}\right]^t \\
+\dot{\mathbf{p_l}}(t)=\mathbf{v_l}(t)=\mathbf{v_0}(t)+\left[  \begin{array}{c c}-b\cos(\theta(t)) \omega(t) & -b\sen(\theta(t)) \omega(t) \end{array}\right]^t
 \end{cases}
 \label{eq:global_velocities}
 \end{equation}
@@ -443,10 +444,10 @@ Reescribiendo (\ref{eq:global_velocities}), pero sustituyendo que $\mathbf{v_n}=
 \begin{equation}
 \begin{cases}
 \begin{array}{c c c c c}
-v_r\cos(\theta(t)) &=&v_0\cos(\theta(t))&+&\frac{b}{2}\cos(\theta(t))\omega(t)\\
-v_r\sen(\theta(t)) &=&v_0\sen(\theta(t))&+&\frac{b}{2}\sen(\theta(t))\omega(t)\\
-v_l\cos(\theta(t)) &=&v_0\cos(\theta(t))&+&\frac{b}{2}\cos(\theta(t))\omega(t)\\
-v_l\sen(\theta(t)) &=&v_0\sen(\theta(t))&+&\frac{b}{2}\sen(\theta(t))\omega(t)
+v_r\cos(\theta(t)) &=&v_0\cos(\theta(t))&+&b\cos(\theta(t))\omega(t)\\
+v_r\sen(\theta(t)) &=&v_0\sen(\theta(t))&+&b\sen(\theta(t))\omega(t)\\
+v_l\cos(\theta(t)) &=&v_0\cos(\theta(t))&+&b\cos(\theta(t))\omega(t)\\
+v_l\sen(\theta(t)) &=&v_0\sen(\theta(t))&+&b\sen(\theta(t))\omega(t)
 \end{array}
 \end{cases}
 \label{eq:velocities_system}
@@ -456,13 +457,13 @@ De (\ref{eq:velocities_system}) suponga que $\cos(\theta(t))\neq 0$, entonces se
 
 \begin{equation}
 \begin{cases}
-v_r(t)=v_0(t)+\frac{b}{2}\omega(t)\\
-v_l(t)=v_0(t)-\frac{b}{2}\omega(t)
+v_r(t)=v_0(t)+b\omega(t)\\
+v_l(t)=v_0(t)-b\omega(t)
 \end{cases}
 \label{eq:local_vel_wheels}
 \end{equation}
 
-Note que como lo que se puede controlar es $\dot{\varphi}_r$ y $\dot{\varphi}_l$, las velociddes angulares de los motores derecho e izquierdo respectivamente. Entonces se despeja $v_0$ y $\omega(t)$ en términos de $v_r$ y $v_l$ y si se toma en consideración que el radio de las ruedas es $r$, se obtiene el resultado en (\ref{eq:local_vel}) y en (\ref{eq:local_dir}).
+Note que como lo que se puede controlar es $\dot{\varphi}_r$ y $\dot{\varphi}_l$, las velociddes angulares de los motores derecho e izquierdo respectivamente. Entonces se despeja $v_0$ y $\omega(t)$ en términos de $v_r$ y $v_l$ y si se toma en consideración que el radio de las ruedas es $r$, se obtiene el resultado en (\ref{eq:local_vel}) y en (\ref{eq:local_dir}). En adelante considere $b_2=2b$ para simplificar la notación.
 
 \begin{equation}
 v_0(t) =\frac{r}{2}(\dot{\varphi}_r(t)+\dot{\varphi}_l(t))
@@ -470,7 +471,7 @@ v_0(t) =\frac{r}{2}(\dot{\varphi}_r(t)+\dot{\varphi}_l(t))
 \end{equation} 
 
 \begin{equation}
-\dot{\theta}(t)=\frac{r}{b}(\dot{\varphi}_r(t)-\dot{\varphi}_l(t))
+\dot{\theta}(t)=\frac{r}{b_2}(\dot{\varphi}_r(t)-\dot{\varphi}_l(t))
 \label{eq:local_dir}
 \end{equation}
 
@@ -493,7 +494,7 @@ Entonces, sustituyendo (\ref{eq:local_vel}) en (\ref{eq:global_vel}), y tomando 
 \begin{array}{c c}
 \frac{r}{2}\cos(\theta(t))&\frac{r}{2}\cos(\theta(t))\\
 \frac{r}{2}\sen(\theta(t))&\frac{r}{2}\sen(\theta(t))\\
-\frac{r}{b}&\frac{-r}{b}
+\frac{r}{b_2}&\frac{-r}{b_2}
 \end{array}
 \right]
 \left[
@@ -511,7 +512,7 @@ Se definen los siguientes vectores, para simplificar la notación de esta sección
 \label{eq:kinematic_model}
 \end{equation}
 
-La ecuación (\ref{eq:kinematic_model}) representa el modelo cinemático directo del sistema. Ya que relaciona la entrada ($\mathbf{\dot{\varphi}}(t)$), con la salida ($\mathbf{\nu}(t)$). %mismo resultado que Trajectory Tracking Control for a Differential Drive Wheeled Mobile Robot Considering the Dynamics Related to the Actuators and Power Stage
+La ecuación (\ref{eq:kinematic_model}) representa el modelo cinemático directo del sistema. Ya que relaciona la entrada ($\mathbf{\dot{\varphi}}(t)$), con la salida ($\mathbf{\nu}(t)$). Resultado concordante con  uno de los presentados en \citep{Ortigoza}.
 
 %\subsubsection{Modelo inverso}
 
@@ -572,8 +573,8 @@ Para expresar la velocidad en el punto descentralizado descrita en (\ref{eq:vel_
 Ahora, se define $A(t)=\Psi(t)\Lambda(t)$, para obtener la relación entre $\dot{\mathbf{p_d}}(t)$, y $\mathbf{\dot{\varphi}}(t)$. Como se presenta en (\ref{eq:modelo_desplazado}).
 
 \begin{equation}
-\dot{\mathbf{p_d}}(t)= \left[ \begin{array}{c c} 0.5r\cos(\theta(t))-\frac{dr\sen(\theta(t))}{b}& 0.5\cos(\theta(t))+\frac{er\sen(\theta(t))}{b}  \\
-                                                 -0.5r\sen(\theta(t))-\frac{dr\cos(\theta(t))}{b}& 0.5\sen(\theta(t))-\frac{dr\cos(\theta(t))}{b}  \end{array}  \right] \mathbf{\dot{\varphi}}(t)=A(t)\mathbf{\dot{\varphi}}(t)
+\dot{\mathbf{p_d}}(t)= \left[ \begin{array}{c c} 0.5r\cos(\theta(t))-\frac{dr\sen(\theta(t))}{b_2}& 0.5\cos(\theta(t))+\frac{er\sen(\theta(t))}{b_2}  \\
+                                                 -0.5r\sen(\theta(t))-\frac{dr\cos(\theta(t))}{b_2}& 0.5\sen(\theta(t))-\frac{dr\cos(\theta(t))}{b_2}  \end{array}  \right] \mathbf{\dot{\varphi}}(t)=A(t)\mathbf{\dot{\varphi}}(t)
 \label{eq:modelo_desplazado}
 \end{equation}
 
@@ -581,16 +582,16 @@ Se define a $\theta$ como el estado del sistema. Entonces la relación entrada-es
 
 \subsubsection{Modelo inverso del punto descentralizado}
 
-Para poder controlar al robot, se necesita el modelo inverso. Primero se debe determinar si es posible encontrarlo. Se tiene que $det(A)=-\frac{dr^2}{b}$, de manera que el determinante es no nulo para todo valor de $t$. Entonces siempre es posible encontrar la matriz inversa de $A(t)$, esta se denota por $A^{-1}(t)$, su resultado se muestra en (\ref{eq:a_inverso}). Para el modelo inverso, se tiene a $\mathbf{\dot{\varphi}}(t)$ como la salida, y a $\dot{\mathbf{p_d}}(t)$ como la entrada, pero el estado no cambia; $\theta(t)$ es el estado de este modelo. Entonces en (\ref{eq:desplazado_inverso}) se muestra la relación entre la entrada y la salida del modelo inverso. De sustituir (\ref{eq:local_dir}) en  (\ref{eq:desplazado_inverso}), se obtiene (\ref{eq:estado_entrada_desplazado}). Finalmente, el modelo cinemático inverso para el punto desplazado viene dado por las ecuaciones (\ref{eq:a_inverso}),(\ref{eq:estado_entrada_desplazado}) y (\ref{eq:desplazado_inverso}).
+Para poder controlar al robot, se necesita el modelo inverso. Primero se debe determinar si es posible encontrarlo. Se tiene que $det(A)=-\frac{dr^2}{b_2}$, de manera que el determinante es no nulo para todo valor de $t$. Entonces siempre es posible encontrar la matriz inversa de $A(t)$, esta se denota por $A^{-1}(t)$, su resultado se muestra en (\ref{eq:a_inverso}). Para el modelo inverso, se tiene a $\mathbf{\dot{\varphi}}(t)$ como la salida, y a $\dot{\mathbf{p_d}}(t)$ como la entrada, pero el estado no cambia; $\theta(t)$ es el estado de este modelo. Entonces en (\ref{eq:desplazado_inverso}) se muestra la relación entre la entrada y la salida del modelo inverso. De sustituir (\ref{eq:local_dir}) en  (\ref{eq:desplazado_inverso}), se obtiene (\ref{eq:estado_entrada_desplazado}). Finalmente, el modelo cinemático inverso para el punto desplazado viene dado por las ecuaciones (\ref{eq:a_inverso}),(\ref{eq:estado_entrada_desplazado}) y (\ref{eq:desplazado_inverso}).
 
 \begin{equation}
 A^{-1}(t)=
 \left[
 \begin{array}{cc}
- \frac{ d \cos (\theta (t))-0.5 b \sen (\theta (t))}{d r} & \frac{0.5 b \cos
+ \frac{ d \cos (\theta (t))-0.5 b_2 \sen (\theta (t))}{d r} & \frac{0.5 b_2 \cos
    (\theta (t))+ d \sen (\theta (t))}{d r} \\
- \frac{ d \cos (\theta (t))+0.5 b \sen (\theta (t))}{d r} & \frac{ d \sen
-   (\theta (t))-0.5 b \cos (\theta (t))}{d r} \\
+ \frac{ d \cos (\theta (t))+0.5 b_2 \sen (\theta (t))}{d r} & \frac{ d \sen
+   (\theta (t))-0.5 b_2 \cos (\theta (t))}{d r} \\
 \end{array}
 \right]
 \label{eq:a_inverso}
@@ -604,12 +605,13 @@ A^{-1}(t)=
 \begin{equation}
 \dot{\theta}(t)=\left[
 \begin{array}{cc}
- \frac{b}{r} & \frac{-b}{r}
+ \frac{b_2}{r} & \frac{-b_2}{r}
 \end{array}
 \right] A^{-1} \dot{\mathbf{p_d}}(t)
 \label{eq:estado_entrada_desplazado}
 \end{equation}
 
+Este Modelo tambi\'en se obtiene en \citep{Marin}.
 
 %Esta parte puede que desaparezca! ya no es tan relevante!****************************************************
 %*************************************************************************************************************
@@ -1562,7 +1564,91 @@ de la simulación.
   \label{fig:phi_rl_dot_torques_constantes_opuestos}
 \end{figure}
 
+\subsubsection{Torques constantes e iguales}
+Para esta simulación se establecieron condiciones iniciales iguales a cero excepto por $\theta=\frac{(pi)}{4}$ con un tiempo de muestreo de 1500 s. A continuación se presentan las gráficas de dicha simulación.
 
+	\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_torque_igual/entrada.eps}	
+	\caption{Torques iguales. Entrada}
+	\label{fig:entrada_torques_iguales}
+\end{figure}	
+
+
+	\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_torque_igual/Posicion.eps}	
+	\caption{Torques iguales.Posicion del carro}
+	\label{fig:posicion_torques_iguales}
+\end{figure}	
+
+		\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_torque_igual/trayectoria.eps}	
+	\caption{Torques iguales. Trayectoria}
+	\label{fig:trayectoria_torques_iguales}
+\end{figure}	
+
+		\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_torque_igual/velocidad_angular_ruedas.eps}	
+	\caption{Torques iguales. Velocidad angular de las ruedas}
+	\label{fig:velocidad_ruedas_torques_iguales}
+\end{figure}	
+
+		\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_torque_igual/velocidad_general.eps}	
+	\caption{Entrada. Velocidad del carrito}
+	\label{fig:velocidad_general_torques_iguales}
+\end{figure}	
+
+se observa en la figura \ref{fig:entrada_torques_iguales} el tipo de entrada que se le aplican a las ruedas, en este caso es un torque constante con un valor de 1 $Nm$. A partir de esto se obtiene la gráfica \ref{fig:velocidad_ruedas_torques_iguales} en la cual se puede observar que va aumentando, físicamente tiene sentido debido a la inercia rotacional que tienen las ruedas, esto haría que cada vez vaya aumentando un poco más su velocidad hasta que llegue un determinado punto donde ya no sea posible debido a las pérdidas en la fricción. Si se analiza según las ecuaciones descritas en la ecuación matricial \ref{eq:salidas_mve_dinamico} se puede percatar que es básicamente la misma velocidad traslacional del carrito por un factor, en este caso de 10 veces mayor debido al radio establecido de la rueda. \\
+Por otro lado si se analiza la gráfica \ref{fig:velocidad_general_torques_iguales} no existe velocidad rotacional del vehículo y toda la velocidad es traslacional, ya que $\omega$ depende directamente de $T$ mientras que $v$ depende de $F$ por las expresiones descritas en \ref{eq:FyT_friccion}. Expresiones las cuales sí dependen directamente de los torques según lo expresado en \ref{eq:FyT}, en cuyo caso $T$ se hace máximo si los torques van en direcciones contrarias y F se hace máximo si van en direcciones iguales.\\
+De lo acabado de mencionar se esperaría que la trayectoria descrita por el robot de dos ruedas fuera completamente una línea recta, ya que al no haber velocidad angular implicaría que no existe un cambio en la posición rotacional del vehículo $\theta$ por definición este se mantendría constante, en este caso como la condición inicial era $\theta = \frac{\pi}{4}$ se mantiene en esta dirección . Esto coincide muy bien con la figura \ref{fig:trayectoria_torques_iguales} en la cual se presenta el recorrido hecho por el robot. 
+Finalmente su posición vista en la figura \ref{fig:posicion_torques_iguales} está muy relacionada con el analisis anterior, en este caso la posición de $x$ y $y$ es la misma en todo momento por ser un ángulo de $\frac{\pi}{4}$. Se observa una leve curva al inicio de la gráfica lo cual debe corresponder con el tiempo en el hay aceleración angular ya que estas dependen de los torques netos de cada rueda(los cuales inicialmente son distintos de 0) según el modelo descrito en \ref{eq:salidas_mve_dinamico}, sin embargo, esto deja de ocurrir una vez la fricción iguala el torque de entrada pues el torque de fricción está descrito por la ecuación \ref{eq:torque_friccion}.De este modo existe un punto donde el robot continúa viajando a velocidad constante y por esto termina siendo una recta con una determinada pendiente la cual debería coincidir con la velocidad $v$ final del carrito. 
+
+\subsubsection{Entrada cero, con condiciones iniciales}
+
+A continución se presentan las simulaciones para el modelo dinámico descrito a entrada cero con condiciones iniciales distintas de cero, en este caso se estableció la velocidad inicial $v = 5$  y $\omega=50$ además de su posición inicial $x= 0$  y $y=0$ para facilitar su analisis posicional. 
+
+	\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_entrada0/entrada.eps}	
+	\caption{Entrada 0. Entrada}
+	\label{fig:entrada_entrada0}
+\end{figure}	
+
+
+	\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_entrada0/Posicion.eps}	
+	\caption{Entrada 0.Posicion del carro}
+	\label{fig:posicion_entrada0}
+\end{figure}	
+
+	\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_entrada0/trayectoria.eps}	
+	\caption{Entrada 0. Trayectoria}
+	\label{fig:trayectoria_entrada0}
+\end{figure}	
+
+		\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_entrada0/velocidad_angular_ruedas.eps}	
+	\caption{Entrada 0. Velocidad angular de las ruedas}
+	\label{fig:velocidad_ruedas_entrada0}
+\end{figure}	
+
+		\begin{figure}[H]
+  \centering
+	\includegraphics[width=0.8\textwidth]{../pictures/dinamico_entrada0/velocidad_general.eps}	
+	\caption{Entrada 0. Velocidad del carrito}
+	\label{fig:velocidad_general_entrada0}
+\end{figure}	
+
+Se puede observar que para la entra de la figura \ref{fig:entrada_entrada0} el robot sigue la trayectoria de \ref{fig:trayectoria_entrada0}, ya que la velocidad $v$ y $\omega$ iniciales son distintas de cero. Esto es lo esperado ya que de acuerdo con la ecuación 
 
 
 \section{Conclusiones y Recomendaciones}
